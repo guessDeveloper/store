@@ -1,0 +1,23 @@
+.clear(){
+  &:after{
+      content:'';
+      display: block;
+      height:0;
+      clear: both;
+  }
+}
+.overTextOne(){
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+//文字超出多行...
+.overTextLine(@num){
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: normal;
+  display: -webkit-box;
+  word-break: break-word;
+  -webkit-line-clamp: @num;
+  -webkit-box-orient: vertical;
+}
