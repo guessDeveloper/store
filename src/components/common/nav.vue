@@ -8,6 +8,8 @@
           <a href="">免费注册</a>
           <a href="" class="help">帮助中心</a>
        </div>
+      <a href="" class="regester">注册</a>
+      <a class="login">登录</a>
     </div>
   </div>
 </template>
@@ -22,6 +24,7 @@ export default {
 </script>
 <style lang="less" scoped>
 @import '../../assets/less/common.less';
+
 .nav{
   width:100%;
   height:32px;
@@ -38,6 +41,12 @@ export default {
       color:#fff;
       line-height:32px;
     }
+    .login{
+      display: none;
+    }
+    .regester{
+      display: none;
+    }
     .nav-right{
       float: right;
       font-size:0;
@@ -53,6 +62,44 @@ export default {
         &.help{
           padding-right:0;
         }
+      }
+    }
+  }
+}
+@media screen and(max-width:@change_width){
+  .nav{
+    width:100%;
+    height:40/@p;
+    background:@body_color;
+    .nav-box{
+      box-sizing: border-box;
+      width:100%;
+      padding:0 15px;
+      background:@body_color;
+      .tip{
+        width:204/@p;
+        font-size:12px;
+        line-height: 40/@p;
+        color:@subtitle_color;
+        .overTextOne();
+      }
+      .nav-right{
+        display: none;
+      }
+      .login,.regester{
+        box-sizing: border-box;
+        display: block;
+        float: right;
+        width:44/@p;
+        height:24/@p;
+        margin-right:6/@p;
+        margin-top:8/@p;
+        text-align: center;
+        line-height: 22/@p;
+        color:@main;
+        font-size:12px;
+        border:1px solid @main;
+        border-radius: 4/@p;
       }
     }
   }

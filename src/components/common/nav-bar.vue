@@ -37,6 +37,7 @@ export default {
 </script>
 <style lang="less" scoped>
 @import '../../assets/less/common.less';
+
 .nav-bar-box{
     width:100%;
     height:100px;
@@ -108,5 +109,44 @@ export default {
             }
         }
     }
+}
+@media screen and(max-width:@change_width){
+  .nav-bar-box{
+    box-sizing: border-box;
+    width:100%;
+    padding:0 15/@p;
+        .box{
+            width:100%;
+            .logo{
+            width:auto;
+            width:94/@p;
+            height:25px;
+            margin-top:17/@p;
+            img{
+                height:100%;
+            }
+        }
+        .nav-box{
+        display: none;
+    }
+    .search-box{
+        width:100%;
+        margin-top:14px;
+        position: relative;
+        .input-box{
+            width:100%;
+            height:40px;
+            box-sizing: border-box;
+        }
+        .btn{
+            position: absolute;
+            top:0;
+            right:0;
+            width:50/@p;
+        }
+    }
+    }
+    
+  }
 }
 </style>
