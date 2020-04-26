@@ -1,7 +1,7 @@
 <template>
     <div class="box">
         <h3 class="title">
-             服装
+             {{title}}
         </h3>
         <div class="content">
             <div class="left"> 
@@ -59,6 +59,10 @@
                     <div class="name">女式超柔软拉毛运动开衫毛衣女式超柔软拉毛运动开衫毛衣…</div>
                     <div class="score">积分：20</div>
                     <div class="price">¥249</div>
+                    <div class="commend">
+                        <div class="commend-content">快递收到了，下单发货挺快的，快递也挺好的快递收到了，下单发货挺快的，快递也挺好的</div>
+                        <div class="commend-from">— 来自于 Windir 的评论</div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -68,6 +72,11 @@
 export default {
     data(){
         return{
+
+        }
+    },
+    props:{
+        title:{
 
         }
     }
@@ -150,6 +159,7 @@ export default {
         text-align: left;
         .clear();
         .item{
+            position: relative;
             float: left;
             width:239px;
             height:294px;
@@ -182,6 +192,26 @@ export default {
                 margin-top:14px;
                 font-weight: bold;
                 color:@percent_color;
+            }
+            .commend{
+                position:absolute;
+                left:0;
+                bottom:0;
+                width:100%;
+                height:100px;
+                background:#eee;
+                .commend-content{
+                    margin:17px 20px 0;
+                    font-size:12px;
+                    line-height: 20px;
+                    .overTextLine(2);
+                }
+                .commend-from{
+                    margin:10px 20px 0;
+                    line-height: 17px;
+                    font-size:12px;
+                    color:@subtitle_color;
+                }
             }
         }
     }

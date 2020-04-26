@@ -117,7 +117,8 @@
        </div>
     </div>
     <!-- 服装 -->
-    <classPart></classPart>
+    <classPart title="服装"></classPart>
+    <footerBar></footerBar>
   </div>
 </template>
 
@@ -127,6 +128,7 @@ import  navBottom from'@/components/common/nav-bar'
 import classify from '@/components/index/banner-left'
 import bannerBar from '@/components/index/banner'
 import classPart from '@/components/index/section-part'
+import footerBar from '@/components/common/footer'
 export default {
   name: 'Home',
   mounted(){
@@ -137,7 +139,8 @@ export default {
     navBottom:navBottom,
     classify:classify,
     bannerBar:bannerBar,
-    classPart:classPart
+    classPart:classPart,
+    footerBar:footerBar
   }
 }
 </script>
