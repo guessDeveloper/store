@@ -10,6 +10,8 @@
         <bannerBar></bannerBar>
       </div>
     </div>
+    <!-- 分类 -->
+    <div class="class-box"></div>
     <!-- 商家联盟 -->
     <div class="section-box">
        <div class="title-box">
@@ -161,7 +163,35 @@ export default {
     height:340px;
     background:#fff;
   }
+ 
 }
+.class-box{
+  display: none;
+  width:100%;
+  height:200px;
+  background:#fff;
+}
+ @media screen and(max-width:@change_width) {
+    .banner{
+      box-sizing: border-box;
+      width:100%;
+      background:#fff;
+      margin-top:0;
+      padding:16px 15px 20px;
+      .banner-left{
+        display: none;
+      }
+      .banner-right{
+        float:none;
+        width:auto;
+        height:auto;
+      }
+    } 
+    .class-box{
+      display: block;
+      margin-top:10px;
+    }
+ }
 .section-box{
     width:@max-width;
     margin:0 auto;
