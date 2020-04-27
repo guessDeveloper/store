@@ -1,5 +1,15 @@
 <template>
   <div class="about">
-    <h1>This is an about page</h1>
+    <input type="file">sfs 
   </div>
 </template>
+<script>
+export default {
+  data(){
+    return{}
+  }
+}
+</script>
+<style lang="less" scoped>
+
+</style>
