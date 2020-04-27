@@ -87,6 +87,9 @@ export default {
 .box{
     width:@max-width;
     margin:0 auto;
+     @media screen and(max-width:@change_width) {
+       width: 100%;  
+     }  
 }
 .title{
    font-size:28px;
@@ -104,17 +107,26 @@ export default {
       width:4px;
       height:24px;
       background:@main;
-    } 
+    }
+   @media screen and(max-width:@change_width) {
+     display: none;    
+   }  
 }
 .content{
     width:100%;
     height:590px;
+     @media screen and(max-width:@change_width) {
+        height:auto;    
+    } 
     .clear();
     .left{
         float:left;
         width: 240px;
         height:100%;
         background:@fuzhuang_color;
+        @media screen and(max-width:@change_width) {
+            display: none;    
+        } 
         img{
             display: block;
             height:214px;
@@ -157,6 +169,9 @@ export default {
         background:#fff;
         height:100%;
         text-align: left;
+         @media screen and(max-width:@change_width) {
+            width: 100%;   
+        } 
         .clear();
         .item{
             position: relative;
@@ -215,5 +230,7 @@ export default {
             }
         }
     }
+     
 }
+
 </style>

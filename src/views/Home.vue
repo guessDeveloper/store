@@ -91,7 +91,9 @@
           <h2 class="title">新鲜好物</h2>
           <span class="sub-title">为你寻觅世间好物</span>
        </div>
-       <div class="class-box">
+       <div class="class-box goods-class-box">
+         <div class="goods-big-box">
+         <div class="goods">
           <div class="goods-box">
               <img src="../assets/img/good.png" alt="">
               <h3 class="">芒果新鲜水果 热带水果</h3>
@@ -115,6 +117,8 @@
               <h3 class="">芒果新鲜水果 热带水果</h3>
               <p>匠心剪裁，垂感质地</p>
               <div class="price">¥249</div>
+          </div>
+          </div>
           </div>
        </div>
     </div>
@@ -257,6 +261,11 @@ export default {
     .class-box{
       width:100%;
       overflow: hidden;
+       @media screen and(max-width:@change_width) {
+          &.goods-class-box{
+            height:224/@p;
+          }
+        }
       .store-box{ 
         float: left;
         width:299px;
@@ -285,6 +294,7 @@ export default {
               box-sizing: border-box;
               width: 50%;
               height:187/@p;
+              border-bottom:1px solid @body_color ;
             }
         }
       }
@@ -316,10 +326,54 @@ export default {
           height:190px;
           margin:20px auto 0;
         }
+        @media screen and(max-width:@change_width) {
+            &{
+              box-sizing: border-box;
+              width: 50%;
+              height:187/@p;
+              border-bottom:1px solid @body_color ;
+              .recomend-title{
+                font-size:15/@p;
+                line-height: 10/@p;
+                margin-top:30/@p;
+              }
+              .tip{
+                font-size:12px;
+                line-height: 10/@p;
+              }
+              img{
+                width:100/@p;
+                height:90/@p;
+              }
+            }
+        }
       }
+       
+      .goods-big-box{
+        width:100%;
+        overflow:hidden ;
+        .goods{
+        width:100%;
+        overflow: hidden;
+       
+         }
+          @media screen and(max-width:@change_width) {
+            &{
+              overflow-x:scroll ;
+              height:250/@p;
+            }
+            .goods{
+              width:165*4/@p;
+              height:230/@p;
+            }
+          
+        }
+
+      }
+      
       //新鲜好物
       .goods-box{
-         float: left;
+        float: left;
         width:299px;
         height:324px;
         overflow: hidden;
@@ -350,6 +404,33 @@ export default {
           line-height: 16px;
           font-weight: bold;
           color:@percent_color;
+        }
+        @media screen and(max-width:@change_width) {
+            &{
+              box-sizing: border-box;
+              width:165/@p;
+              height:224/@p;
+              img{
+                width:130/@p;
+                height:130/@p;
+                margin-top:15px;
+                margin-bottom:7/@p;
+              }
+              h3{
+                font-size:12px;
+                line-height: 10px;
+              }
+              p{
+                margin-top:10px;
+                font-size:10px;
+                line-height: 10px;
+              }
+              .price{
+                margin-top:10px;
+                font-size:16px;
+                line-height: 10px;
+              }
+            }
         }
       }
     }

@@ -1,7 +1,8 @@
 <template>
   <div class="footer">
     <div class="footer-top">
-       <div class="link-box">  
+       <div class="link-box">
+         <div class="top"> 
          <a href="">关于我们</a>
          <span>|</span>
          <a href="">帮助中心</a>
@@ -9,7 +10,9 @@
          <a href="">售后服务</a>
          <span>|</span>
          <a href="">配送与验收</a>
-         <span>|</span>
+         <span class="last">|</span>
+         </div>
+         <div class="bottom">
          <a href="">商务合作</a>
          <span>|</span>
          <a href="">企业采购</a>
@@ -19,6 +22,7 @@
          <a href="">搜索推荐</a>
          <span>|</span>
          <a href="">友情链接</a>
+         </div>
        </div>
     </div>
     <div class="footer-bottom"><div class="box"><a >CopyRight © 消费乐2015</a></div></div>
@@ -53,6 +57,12 @@ export default {
         padding:0 8px;
         opacity: .35;
       }
+      .top{
+        display: inline-block;
+      }
+      .bottom{
+        display: inline-block;
+      }
     }
   }
   .footer-bottom{
@@ -72,9 +82,28 @@ export default {
     }
   }
   @media screen and(max-width:@change_width){
+    &{
+      overflow: hidden;
+    }
     .footer-top{
+      height:130px;
+      
+      line-height: 35px;
       .link-box{
         width:100%;
+        a{
+          word-break:keep-all;
+        }
+        .top{
+          margin-top:30px;
+          display: block;
+        }
+        .bottom{
+          display: block;
+        }
+        .last{
+          display: none;
+        }
       }
     }
     .footer-bottom{
