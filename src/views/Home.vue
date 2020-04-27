@@ -11,7 +11,7 @@
       </div>
     </div>
     <!-- 分类 -->
-    <div class="class-box"></div>
+    <div class="home-class-box"></div>
     <!-- 商家联盟 -->
     <div class="section-box">
        <div class="title-box">
@@ -165,7 +165,7 @@ export default {
   }
  
 }
-.class-box{
+.home-class-box{
   display: none;
   width:100%;
   height:200px;
@@ -187,7 +187,7 @@ export default {
         height:auto;
       }
     } 
-    .class-box{
+    .home-class-box{
       display: block;
       margin-top:10px;
     }
@@ -229,12 +229,35 @@ export default {
         line-height: 12px;
         color:@subtitle_color;
       }
+      
+    }
+    @media screen and(max-width:@change_width) {
+      &{
+        width:100%;
+        margin-top:10/@p;
+      }
+      &:before{
+        left:15/@p;
+        top:18/@p;
+        height:18/@p;
+      }
+     .title-box{
+       height:58/@p;
+       line-height: 58/@p;
+       .title{
+         font-size:20/@p;
+         margin-left:29/@p;
+       }
+       .sub-title{
+         display: none;
+       }
+     }
     }
     //商家推荐
     .class-box{
       width:100%;
       overflow: hidden;
-      .store-box{
+      .store-box{ 
         float: left;
         width:299px;
         height:324px;
@@ -256,6 +279,13 @@ export default {
           span{
             color:@percent_color;
           }
+        }
+        @media screen and(max-width:@change_width) {
+            &{
+              box-sizing: border-box;
+              width: 50%;
+              height:187/@p;
+            }
         }
       }
       //推荐

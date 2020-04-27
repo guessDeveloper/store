@@ -21,7 +21,7 @@
          <a href="">友情链接</a>
        </div>
     </div>
-    <div class="footer-bottom"><a >CopyRight © 消费乐2015</a></div>
+    <div class="footer-bottom"><div class="box"><a >CopyRight © 消费乐2015</a></div></div>
   </div>
 </template>
 <script>
@@ -41,6 +41,7 @@ export default {
     font-size:0;
     .link-box{
       display: inline-block;
+      width:@max-width;
       a{
         font-size:12px;
         color:#F8F8F8;
@@ -60,10 +61,26 @@ export default {
     text-align: center;
     line-height: 45px;
     background:@footer_bottom;
+    .box{
+      width:@max-width;
+      margin:0 auto;
+    }
     a{
       font-size:12px;
       color:#fff;
       opacity:.2;
+    }
+  }
+  @media screen and(max-width:@change_width){
+    .footer-top{
+      .link-box{
+        width:100%;
+      }
+    }
+    .footer-bottom{
+      .box{
+        width:100%;
+      }
     }
   }
 }
