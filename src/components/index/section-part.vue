@@ -1,10 +1,10 @@
 <template>
     <div class="box">
         <h3 class="title">
-             {{title}}
+             {{config.title}}
         </h3>
         <div class="content">
-            <div class="left"> 
+            <div class="left" :class="{canchu:config.type==2,peijian:config.type==3,jujia:config.type ==4}"> 
                 <img src="../../assets/img/fuzhuang.png" alt="">
                 <div class="name">一体织轻薄羽绒服</div>
                 <div class="des">爱人冬天的感觉</div>
@@ -66,6 +66,7 @@
                 </div>
             </div>
         </div>
+        <a class="more">查看更多</a>
     </div>
 </template>
 <script>
@@ -76,7 +77,7 @@ export default {
         }
     },
     props:{
-        title:{
+        config:{
 
         }
     }
@@ -90,6 +91,21 @@ export default {
      @media screen and(max-width:@change_width) {
        width: 100%;  
      }  
+}
+.more{
+    display: none;
+
+    @media screen and(max-width:@change_width) {
+        display:block;
+        margin:0 auto; 
+        width:180px;
+        height:40/@p;
+        font-size:14/@p;
+        color:@main;
+        line-height: 40/@p;
+        border:1px solid @main;
+        border-radius: 40/@p; 
+     }
 }
 .title{
    font-size:28px;
@@ -124,6 +140,15 @@ export default {
         width: 240px;
         height:100%;
         background:@fuzhuang_color;
+        &.canchu{
+            background:@canchu_color;
+        }
+        &.peijian{
+            background:@peijian_color;
+        }
+        &.jujia{
+            background:@jujia_color;
+        }
         @media screen and(max-width:@change_width) {
             display: none;    
         } 
@@ -228,6 +253,10 @@ export default {
                     color:@subtitle_color;
                 }
             }
+            @media screen and(max-width:@change_width) {
+                box-sizing: border-box;
+                width: 50%;   
+            } 
         }
     }
      

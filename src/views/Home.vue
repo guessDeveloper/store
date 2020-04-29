@@ -11,12 +11,21 @@
       </div>
     </div>
     <!-- 分类 -->
-    <div class="home-class-box"></div>
+    <div class="home-class-box">
+       <phoneClass></phoneClass>
+    </div>
     <!-- 商家联盟 -->
     <div class="section-box">
        <div class="title-box">
           <h2 class="title">商家联盟</h2>
           <span class="sub-title">积分直返消费者</span>
+          <a class="more"> 查看全部 <span class="iconfont iconjiantou"></span></a>
+          <div class="position-box">
+             <span class="iconfont "></span>
+             <span> 北京</span>
+             <span class="iconfont iconjiantou"></span>
+          </div>
+          
        </div>
        <div class="class-box">
           <div class="store-box">
@@ -122,8 +131,17 @@
           </div>
        </div>
     </div>
+    <div class="class-nav">
+      <div class="class-nav-scroll-box">
+        <div class="class-nav-scroll" :style="'width:'+classNav.length*80+'px;'">
+          <a v-for="(item,index) in classNav" :key="index" :class="{active:item.active == 1}">{{item.title}}</a>
+        </div>
+      </div>
+    </div>
     <!-- 服装 -->
-    <classPart title="服装"></classPart>
+    <div class="class-item" v-for="(item2,index2) in classNav" :key="index2" :class="{active:item2.active == 1}">
+       <classPart :config='item'></classPart>
+    </div>
     <footerBar></footerBar>
   </div>
 </template>
@@ -131,14 +149,37 @@
 <script>
 import  navBar from '@/components/common/nav'
 import  navBottom from'@/components/common/nav-bar'
+import phoneClass from '@/components/index/phone-class'
 import classify from '@/components/index/banner-left'
 import bannerBar from '@/components/index/banner'
 import classPart from '@/components/index/section-part'
 import footerBar from '@/components/common/footer'
 export default {
   name: 'Home',
+  data(){
+    return{
+      classActive:1,
+      classNav:[{
+        title:'服装',
+        active:1,
+        type:1
+      },{
+        title:'厨具',
+        active:0,
+        type:2
+      },{
+        title:'配件',
+        active:0,
+        type:3
+      },{
+        title:'家居',
+        active:0,
+        type:4
+      },]
+    }
+  },
   mounted(){
- 
+     
   },
   components: {
     navBar:navBar,
@@ -146,7 +187,8 @@ export default {
     classify:classify,
     bannerBar:bannerBar,
     classPart:classPart,
-    footerBar:footerBar
+    footerBar:footerBar,
+    phoneClass:phoneClass,
   }
 }
 </script>
@@ -233,7 +275,25 @@ export default {
         line-height: 12px;
         color:@subtitle_color;
       }
-      
+      .position-box{
+        float:right;
+        width:80px;
+        height:26px;
+        margin-top:20px;
+        margin-right:15px;
+        line-height: 26px;
+        border-radius: 26px;
+        background:@body_color;
+      }
+      .more{
+        float: right;
+        font-size:12px;
+        margin-right:20px;
+        .iconfont{
+          font-size:10px ;
+          color:@subtitle_color;
+        }
+      }
     }
     @media screen and(max-width:@change_width) {
       &{
@@ -255,6 +315,12 @@ export default {
        .sub-title{
          display: none;
        }
+       .position-box{
+         display: none;
+       }
+       .more{
+         display: none;
+       }
      }
     }
     //商家推荐
@@ -265,6 +331,7 @@ export default {
           &.goods-class-box{
             height:224/@p;
           }
+          
         }
       .store-box{ 
         float: left;
@@ -295,6 +362,9 @@ export default {
               width: 50%;
               height:187/@p;
               border-bottom:1px solid @body_color ;
+            }
+            &:nth-last-child(1){
+              border-color:@body_color;
             }
         }
       }
@@ -332,6 +402,9 @@ export default {
               width: 50%;
               height:187/@p;
               border-bottom:1px solid @body_color ;
+              &:nth-last-child(1){
+                border-color:@body_color;
+              }
               .recomend-title{
                 font-size:15/@p;
                 line-height: 10/@p;
@@ -431,6 +504,49 @@ export default {
                 line-height: 10px;
               }
             }
+        }
+      }
+    }
+  }
+  .class-nav{
+    display:none;
+    @media screen and(max-width:@change_width) {
+      display: block;
+      width:100%;
+      height:34/@p;
+      overflow:hidden;
+      margin:25px 0 20px 0;
+      .class-nav-scroll-box{
+        overflow: hidden;
+        overflow-x: scroll;
+        height:40/@p;
+      }
+      .class-nav-scroll{
+        padding:0 15px; 
+      }
+      a{
+        float: left;
+        height:34/@p;
+        line-height: 34/@p;
+        font-size:20/@p;
+        padding:0 20px;
+        color:@subtitle_color;
+        border-radius:34/@p;
+        &.active{
+          color:#fff;
+          background:@main;
+        }
+
+      }
+    }
+  }
+  .class-item{
+    display: block;
+    @media screen and(max-width:@change_width) {
+      &{
+        display: none;
+        &.active{
+          display: block;
         }
       }
     }

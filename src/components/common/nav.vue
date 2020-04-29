@@ -1,7 +1,7 @@
 <template>
   <div class="nav ">
     <div class="nav-box clear">
-       <div class="tip">优乐兑APP上线了，帮助商家解决客户流量问题</div>
+       <div class="tip"><span class="iconfont iconguangbo"></span>优乐兑APP上线了，帮助商家解决客户流量问题</div>
        <div class="nav-right">
           <a class=""></a>
           <a href="">请先登录</a>
@@ -40,6 +40,10 @@ export default {
       font-size:12px;
       color:#fff;
       line-height:32px;
+      .iconfont{
+        font-size:12px;
+        margin-right:5px;
+      }
     }
     .login{
       display: none;
