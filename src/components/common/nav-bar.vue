@@ -20,7 +20,7 @@
                 <input type="text" placeholder="输入商品关键词">
             </div>
             <a href="" class="btn">
-                搜索
+                <span class="iconfont iconsousuo"></span><span class="name">搜索</span>
             </a>
         </div>
     </div>
@@ -143,6 +143,9 @@ export default {
             top:0;
             right:0;
             width:50/@p;
+            .name{
+                display: none;
+            }
         }
     }
     }

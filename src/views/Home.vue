@@ -140,7 +140,7 @@
     </div>
     <!-- 服装 -->
     <div class="class-item" v-for="(item2,index2) in classNav" :key="index2" :class="{active:item2.active == 1}">
-       <classPart :config='item'></classPart>
+       <classPart :config='item2'></classPart>
     </div>
     <footerBar></footerBar>
   </div>

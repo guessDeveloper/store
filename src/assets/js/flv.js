@@ -516,7 +516,7 @@ function Enumerator(Constructor, input) {
 
 function validationError() {
   return new Error('Array Methods must be provided an Array');
-};
+}
 
 Enumerator.prototype._enumerate = function () {
   var length = this.length;

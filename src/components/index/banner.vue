@@ -1,6 +1,11 @@
 <template>
   <div class="banner-box">
-     <img src="../../assets/img/banner.png" alt="" draggable="false">
+     <el-carousel trigger="click" >
+      <el-carousel-item v-for="item in 4" :key="item">
+         <img src="../../assets/img/banner.png" alt="" draggable="false">
+      </el-carousel-item>
+    </el-carousel>
+    
   </div>
 </template>
 <script>
