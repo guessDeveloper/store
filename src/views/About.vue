@@ -22,7 +22,7 @@ export default {
       console.log(CompatibleURL)
     var video = document.getElementById("video");
     //将视频流设置为video元素的源
-    video.srcObject =  res;   // 此处的代码将会报错  解决的办法是将video的srcObject属性指向stream即可
+    video.srcObject = res;   // 此处的代码将会报错  解决的办法是将video的srcObject属性指向stream即可
     //播放视频
     video.play();
     },'');

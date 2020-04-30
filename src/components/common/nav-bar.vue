@@ -15,7 +15,7 @@
         <div class="search-box">
             <div class="input-box">
                 <div class="select" >
-                    拼多多
+                    拼多多<span class="iconfont iconxiajiantou"></span>
                 </div>
                 <input type="text" placeholder="输入商品关键词">
             </div>
@@ -87,6 +87,9 @@ export default {
                     float: left;
                     width:81px;
                     line-height: 36px;
+                    .iconfont{
+                        font-size:8px;
+                    }
                 }
                 input{
                     float: left;
@@ -137,6 +140,17 @@ export default {
             width:100%;
             height:40px;
             box-sizing: border-box;
+             .select{
+                float: left;
+                width:81px;
+                color:@main;
+                line-height: 36px;
+                .iconfont{
+                    line-height: 36px;
+                    color:@main;
+                    font-size:5px;
+                }
+            }
         }
         .btn{
             position: absolute;

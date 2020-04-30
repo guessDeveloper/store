@@ -5,7 +5,7 @@
         </h3>
         <div class="content">
             <div class="left" :class="{canchu:config.type==2,peijian:config.type==3,jujia:config.type ==4}"> 
-                <img src="../../assets/img/fuzhuang.png" alt="">
+                <img src="../../assets/img/chuju.png" alt="">
                 <div class="name">一体织轻薄羽绒服</div>
                 <div class="des">爱人冬天的感觉</div>
                 <div class="price">¥249</div>
