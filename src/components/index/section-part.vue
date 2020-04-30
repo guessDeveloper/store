@@ -87,7 +87,7 @@ export default {
 @import '../../assets/less/common.less';
 .box{
     width:@max-width;
-    margin:0 auto;
+    margin:0 auto 20px;
      @media screen and(max-width:@change_width) {
        width: 100%;  
      }  
@@ -97,7 +97,7 @@ export default {
 
     @media screen and(max-width:@change_width) {
         display:block;
-        margin:0 auto; 
+        margin:30px auto 5px; 
         width:180px;
         height:40/@p;
         font-size:14/@p;
@@ -211,7 +211,7 @@ export default {
             img{
                 display: block;
                 width:173px;
-                margin:0 auto;
+                margin:17px auto 19px;
             }
             .name{
                 margin:0 20px;

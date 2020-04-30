@@ -15,7 +15,7 @@
         <div class="search-box">
             <div class="input-box">
                 <div class="select" >
-                    拼多多<span class="iconfont iconxiajiantou"></span>
+                    拼多多<span class="iconfont iconxiasanjiao"></span>
                 </div>
                 <input type="text" placeholder="输入商品关键词">
             </div>
@@ -47,6 +47,7 @@ export default {
         width:@max-width;
         height: 100%;
         margin:0 auto;
+        background: #fff;
         overflow: hidden;
         .logo{
             float: left;
@@ -71,6 +72,18 @@ export default {
                 margin-right:40px;
                 &.active{
                     color:@main;
+                    position: relative;
+                    &::after{
+                        content:'';
+                        display: block;
+                        position: absolute;
+                        width:30px;
+                        height:3px;
+                        background:@main;
+                        left:50%;
+                        transform: translateX(-50%);
+                        bottom:0;
+                    }
                 }
             }
         }
@@ -86,9 +99,11 @@ export default {
                 .select{
                     float: left;
                     width:81px;
+                    color:@main;
                     line-height: 36px;
                     .iconfont{
-                        font-size:8px;
+                        margin-left:6px;
+                        font-size:5px;
                     }
                 }
                 input{
@@ -109,6 +124,9 @@ export default {
                 font-size:18px;
                 color:#fff;
                 background:@main;
+                .iconfont{
+                    margin-right:8px;
+                }
             }
         }
     }
@@ -159,6 +177,9 @@ export default {
             width:50/@p;
             .name{
                 display: none;
+            }
+            .iconfont{
+                margin-right:0px;
             }
         }
     }

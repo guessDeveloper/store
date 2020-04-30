@@ -21,9 +21,9 @@
           <span class="sub-title">积分直返消费者</span>
           <a class="more"> 查看全部 <span class="iconfont iconjiantou"></span></a>
           <div class="position-box">
-             <span class="iconfont "></span>
+             <span class="iconfont iconweizhixuanze"></span>
              <span> 北京</span>
-             <span class="iconfont iconjiantou"></span>
+             <span class="iconfont iconxiajiantou"></span>
           </div>
           
        </div>
@@ -35,7 +35,7 @@
               <div class="store-percent">
                 返比：<span>20%</span>
               </div>
-              <img src="" alt="">
+              <img src="../assets/img/brand.png" alt="">
           </div>
           <div class="store-box">
               <div class="store-name">
@@ -44,7 +44,7 @@
               <div class="store-percent">
                 返比：<span>20%</span>
               </div>
-              <img src="" alt="">
+               <img src="../assets/img/brand.png" alt="">
           </div>
           <div class="store-box">
               <div class="store-name">
@@ -53,7 +53,7 @@
               <div class="store-percent">
                 返比：<span>20%</span>
               </div>
-              <img src="" alt="">
+              <img src="../assets/img/brand.png" alt="">
           </div>
           <div class="store-box">
               <div class="store-name">
@@ -62,7 +62,7 @@
               <div class="store-percent">
                 返比：<span>20%</span>
               </div>
-              <img src="" alt="">
+               <img src="../assets/img/brand.png" alt="">
           </div>
        </div>
     </div>
@@ -142,6 +142,7 @@
     <div class="class-item" v-for="(item2,index2) in classNav" :key="index2" :class="{active:item2.active == 1}">
        <classPart :config='item2'></classPart>
     </div>
+    <div class="footer-margin"></div>
     <footerBar></footerBar>
   </div>
 </template>
@@ -279,11 +280,23 @@ export default {
         float:right;
         width:80px;
         height:26px;
+        font-size:12px;
         margin-top:20px;
         margin-right:15px;
         line-height: 26px;
         border-radius: 26px;
         background:@body_color;
+        .iconweizhixuanze{
+          // display: none;
+          font-size:14px;
+          color:#D51B32;
+          margin-left:15px;
+        }
+        .iconxiajiantou{
+          display: none;
+          font-size:5px;
+          color:#000;
+        }
       }
       .more{
         float: right;
@@ -327,9 +340,13 @@ export default {
     .class-box{
       width:100%;
       overflow: hidden;
+      &.goods-class-box{
+        margin-bottom: 25px;
+      }
        @media screen and(max-width:@change_width) {
           &.goods-class-box{
             height:224/@p;
+            margin-bottom:0;
           }
           
         }
@@ -341,6 +358,11 @@ export default {
         border-right: 1px solid @body_color;
         &:nth-last-child(1){
           border-color:#FFF;
+        }
+        img{
+          display: block;
+          width:250px;
+          margin:0 auto;
         }
         .store-name{
           font-size:20px;
@@ -366,6 +388,20 @@ export default {
             &:nth-last-child(1){
               border-color:@body_color;
             }
+             .store-name{
+               font-size:15px;
+               line-height: 10px;
+              margin-bottom:10px;
+              margin-top:30px;
+             }
+             .store-percent{
+               font-size:12px;
+               line-height: 10px;
+             }
+             img{
+               width:168px;
+               margin-top:-20px;
+             }
         }
       }
       //推荐
@@ -519,7 +555,7 @@ export default {
       .class-nav-scroll-box{
         overflow: hidden;
         overflow-x: scroll;
-        height:40/@p;
+        height:53/@p;
       }
       .class-nav-scroll{
         padding:0 15px; 
@@ -539,6 +575,10 @@ export default {
 
       }
     }
+  }
+  .footer-margin{
+    height:80px;
+
   }
   .class-item{
     display: block;
