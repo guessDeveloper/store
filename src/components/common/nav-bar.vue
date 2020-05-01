@@ -64,7 +64,7 @@ export default {
     },
     methods:{
         goRouter(to){
-            this.nowPath = to
+            this.nowPath = to 
         }
     }
 }
