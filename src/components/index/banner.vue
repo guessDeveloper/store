@@ -1,8 +1,8 @@
 <template>
   <div class="banner-box">
-     <el-carousel trigger="click" >
+     <el-carousel trigger="click" :height="bannerHeight">
       <el-carousel-item v-for="item in 4" :key="item">
-         <img src="../../assets/img/banner.png" alt="" draggable="false">
+         <img src="../../assets/img/banner.png" alt="" draggable="false" class="banner-img">
       </el-carousel-item>
     </el-carousel>
     
@@ -11,7 +11,22 @@
 <script>
 export default {
    data(){
-     return{}
+     return{
+       bannerHeight:'340px'
+     }
+   },
+   mounted(){
+     const _this =this;
+    const img = document.querySelector('.banner-img');
+     img.onload = function(){
+        _this.bannerHeight = `${img.height}px`
+     }
+     window.onresize = function(){
+         _this.bannerHeight = `${img.height}px`
+     }
+   },
+   destroyed(){
+     window.onresize = null
    }
 }
 </script>

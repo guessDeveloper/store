@@ -7,7 +7,25 @@ Vue.use(VueRouter)
 const routes = [{
         path: '/',
         name: 'Home',
-        component: Home
+        component: Home,
+        children:[
+            {
+                path: '/',
+                name: 'index',
+                component: () =>
+                import ( /* webpackChunkName: "index" */ '../views/home/index.vue')
+            },{
+                path: '/food',
+                name: 'food',
+                component: () =>
+                import ( /* webpackChunkName: "index" */ '../views/home/food.vue')  
+            }
+        ]
+    },
+    {
+        path: '*',
+        name: 'Home',
+        component: Home,
     },
     {
         path: '/sao',
@@ -17,11 +35,11 @@ const routes = [{
         // which is lazy-loaded when the route is visited.
         component: () =>
             import ( /* webpackChunkName: "about" */ '../views/About.vue')
-    }
+    },
 ]
 
 const router = new VueRouter({
-    mode: 'history',
+    mode: 'hash',
     base: process.env.BASE_URL,
     routes
 })
