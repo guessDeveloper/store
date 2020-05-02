@@ -4,13 +4,20 @@
         <a href="" class="logo">
             <img src="../../assets/img/logo.png" alt="">
         </a>
+        <a href="" class="sao">
+            <span class="iconfont iconyd_saoyisao"></span>
+        </a>
+        <a href="" class="menu">
+            <span class="iconfont iconyd_gengduo"></span>
+        </a>
         <div class="nav-box">
-            <a href="" class="active">首页</a>
+            <!-- <a href="" class="active">首页</a>
             <a href="">淘宝</a>
             <a href="">京东</a>
             <a href="">商城返利</a>
             <a href="">逛街购物</a>
-            <a href="">美食广场</a>
+            <a href="">美食广场</a> -->
+            <router-link :to="item.path" v-for="(item,index) in navList" :key="index" tag="a" :class="{active:nowPath == item.path}" @click.native="goRouter(item.path)">{{item.name}}</router-link>
         </div>
         <div class="search-box">
             <div class="input-box">
@@ -30,7 +37,34 @@
 export default {
     data(){
         return{
-
+           nowPath:'/',
+           navList:[{
+               name:'首页',
+               path:'/'
+           },{
+               name:'淘宝',
+               path:'/taobao'
+           },{
+               name:'京东',
+               path:'/jiongdong',
+           },{
+               name:'商城返利',
+               path:'/store'
+           },{
+               name:'逛街购物',
+               path:'/shop'
+           },{
+               name:'美食广场',
+               path:'/food'
+           }]
+        }
+    },
+    mounted(){
+        this.nowPath = this.$route.path
+    },
+    methods:{
+        goRouter(to){
+            this.nowPath = to 
         }
     }
 }
@@ -44,6 +78,7 @@ export default {
     line-height: 100px;
     background: #fff;
     .box{
+   
         width:@max-width;
         height: 100%;
         margin:0 auto;
@@ -59,6 +94,13 @@ export default {
                 width:100%;
             }
         }
+        .sao{
+            display: none;
+        }
+        .menu{
+            display: none;
+        }
+
         .nav-box{
             float: left;
             height:100%;
@@ -137,6 +179,7 @@ export default {
     width:100%;
     padding:0 15/@p;
         .box{
+             position: relative;
             width:100%;
             .logo{
             width:auto;
@@ -149,6 +192,35 @@ export default {
         }
         .nav-box{
         display: none;
+    }
+    .sao{
+        display: block;
+        position: absolute;
+        top:22px;
+        right:35px;
+        width:16px;
+        height:16px;
+        line-height: 16px;
+        font-size:16px;
+        color:@main;
+        .iconfont{
+            font-size:16px;
+        color:@main;
+        }
+    }
+    .menu{
+        display: block;
+         position: absolute;
+         top:22px;
+         right:0px;
+        width:16px;
+        height:16px;
+        line-height: 16px;
+        font-size:16px;
+        color:@main;
+    }
+    input{
+        width:60%;
     }
     .search-box{
         width:100%;

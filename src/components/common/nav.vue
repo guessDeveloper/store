@@ -3,8 +3,8 @@
     <div class="nav-box clear">
        <div class="tip"><span class="iconfont iconguangbo"></span>优乐兑APP上线了，帮助商家解决客户流量问题</div>
        <div class="nav-right">
-          <a class=""></a>
-          <a href="">请先登录</a>
+          <!-- <a class=""></a> -->
+          <a href="" class="login-btn">请先登录</a>
           <a href="">免费注册</a>
           <a href="" class="help">帮助中心</a>
        </div>
@@ -65,6 +65,9 @@ export default {
         border-left:1px solid @nav-border;
         &.help{
           padding-right:0;
+        }
+        &.login-btn{
+          border-left:0;
         }
       }
     }

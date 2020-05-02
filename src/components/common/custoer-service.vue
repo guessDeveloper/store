@@ -22,6 +22,7 @@ export default {
   right:10px;
   bottom:50px;
   background:#fff;
+  z-index: 10;
   .iconfont{
     display: block;
     font-size:28px;
