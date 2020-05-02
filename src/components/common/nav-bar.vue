@@ -11,13 +11,7 @@
             <span class="iconfont iconyd_gengduo"></span>
         </a>
         <div class="nav-box">
-            <!-- <a href="" class="active">首页</a>
-            <a href="">淘宝</a>
-            <a href="">京东</a>
-            <a href="">商城返利</a>
-            <a href="">逛街购物</a>
-            <a href="">美食广场</a> -->
-            <router-link :to="item.path" v-for="(item,index) in navList" :key="index" tag="a" :class="{active:nowPath == item.path}" @click.native="goRouter(item.path)">{{item.name}}</router-link>
+            <router-link :to="item.path" v-for="(item,index) in navList" :key="index" tag="a" :class="{active:nowPath == item.path}" @click.native="goRouter(item.path)" target="_blank">{{item.name}}</router-link>
         </div>
         <div class="search-box">
             <div class="input-box">
@@ -112,6 +106,10 @@ export default {
                 font-size:16px;
                 color:@font_color;
                 margin-right:40px;
+                transition: color ease .3s;
+                &:hover{
+                    color:@main;
+                }
                 &.active{
                     color:@main;
                     position: relative;

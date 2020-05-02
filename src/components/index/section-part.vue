@@ -163,6 +163,11 @@ export default {
             margin-bottom:14px;
             color:#fff;
             font-weight: bold;
+            transition: color .3s ease;
+            cursor: pointer;
+            &:hover{
+                color:@main;
+            }
         }
         .des{
             line-height: 14px;
@@ -186,6 +191,11 @@ export default {
             color:#fff;
             letter-spacing: 0.3px;
             background:none;
+            transition: all .3s ease;
+            &:hover{
+                background:#fff;
+                color:@main;
+            }
         }
     }
     .right{
@@ -203,15 +213,22 @@ export default {
             float: left;
             width:239px;
             height:294px;
+            overflow: hidden;
             border-right:1px solid @class_border;
             border-bottom:1px solid @class_border;
             &:nth-of-type(4n){
                 border-right:1px solid #fff;
             }
+            &:hover{
+                .commend{
+                    bottom:0;
+                }
+            }
             img{
                 display: block;
                 width:173px;
                 margin:17px auto 19px;
+                cursor: pointer;
             }
             .name{
                 margin:0 20px;
@@ -236,10 +253,11 @@ export default {
             .commend{
                 position:absolute;
                 left:0;
-                bottom:0;
+                bottom:-100%;
                 width:100%;
                 height:100px;
                 background:#eee;
+                transition: all .5s ease;
                 .commend-content{
                     margin:17px 20px 0;
                     font-size:12px;

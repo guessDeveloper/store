@@ -347,6 +347,7 @@ export default {
         width:299px;
         height:324px;
         overflow: hidden;
+        cursor: pointer;
         border-right: 1px solid @body_color;
         &:nth-last-child(1){
           border-color:#FFF;
@@ -401,6 +402,7 @@ export default {
        float: left;
         width:299px;
         height:324px;
+        cursor: pointer;
         overflow: hidden;
         border-right: 1px solid @body_color;
         &:nth-last-child(1){
@@ -478,6 +480,7 @@ export default {
         width:299px;
         height:324px;
         overflow: hidden;
+        cursor: pointer;
         border-right: 1px solid @body_color;
         &:nth-last-child(1){
           border-color:#FFF;
