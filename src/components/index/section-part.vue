@@ -163,11 +163,7 @@ export default {
             margin-bottom:14px;
             color:#fff;
             font-weight: bold;
-            transition: color .3s ease;
-            cursor: pointer;
-            &:hover{
-                color:@main;
-            }
+           
         }
         .des{
             line-height: 14px;
@@ -236,6 +232,11 @@ export default {
                 font-size:14px;
                 line-height: 14px;
                 margin-bottom:8px;
+                transition: color .3s ease;
+                cursor: pointer;
+                &:hover{
+                    color:@main;
+                }
             }
             .score{
                 margin:0 20px;

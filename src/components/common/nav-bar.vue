@@ -16,7 +16,7 @@
         <div class="search-box">
             <div class="input-box">
                 <div class="select" >
-                    拼多多<span class="iconfont iconxiasanjiao"></span>
+                    拼多多<span class="iconfont icon-arrow-downYellow"></span>
                 </div>
                 <input type="text" placeholder="输入商品关键词">
             </div>

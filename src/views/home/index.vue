@@ -19,11 +19,19 @@
           <span class="sub-title">积分直返消费者</span>
           <a class="more"> 查看全部 <span class="iconfont iconjiantou"></span></a>
           <div class="position-box">
-             <span class="iconfont iconweizhixuanze"></span>
-             <span> 北京</span>
-             <span class="iconfont iconxiajiantou"></span>
+          <el-dropdown trigger="click">
+            <span class="el-dropdown-link box">
+              <span class="iconfont iconweizhixuanze"></span> 北京 <span class="icon-arrow-down"></span>
+            </span>
+            <el-dropdown-menu slot="dropdown">
+              <el-dropdown-item >黄金糕</el-dropdown-item>
+              <el-dropdown-item >狮子头</el-dropdown-item>
+              <el-dropdown-item >螺蛳粉</el-dropdown-item>
+              <el-dropdown-item>双皮奶</el-dropdown-item>
+              <el-dropdown-item >蚵仔煎</el-dropdown-item>
+            </el-dropdown-menu>
+          </el-dropdown>
           </div>
-          
        </div>
        <div class="class-box">
           <div class="store-box">
@@ -279,15 +287,26 @@ export default {
         border-radius: 26px;
         background:@body_color;
         .iconweizhixuanze{
-          // display: none;
+          position:absolute;
+          left:12px;
           font-size:14px;
           color:#D51B32;
-          margin-left:15px;
         }
-        .iconxiajiantou{
-          display: none;
-          font-size:5px;
+        .box{
+          display: block;
+          position: relative;
+          width:80px;
+          text-align: center;
+          outline: none;
+          font-size:12px;
           color:#000;
+          line-height: 26px;
+          cursor: pointer;
+          .icon-arrow-down{
+            position:absolute;
+            top:11px;
+            right:10px;
+          }
         }
       }
       .more{
@@ -348,7 +367,7 @@ export default {
         height:324px;
         overflow: hidden;
         cursor: pointer;
-        border-right: 1px solid @body_color;
+        border-right: 1px solid @class_border;
         &:nth-last-child(1){
           border-color:#FFF;
         }
@@ -404,7 +423,7 @@ export default {
         height:324px;
         cursor: pointer;
         overflow: hidden;
-        border-right: 1px solid @body_color;
+        border-right: 1px solid @class_border;
         &:nth-last-child(1){
           border-color:#FFF;
         }
@@ -481,7 +500,7 @@ export default {
         height:324px;
         overflow: hidden;
         cursor: pointer;
-        border-right: 1px solid @body_color;
+        border-right: 1px solid @class_border;
         &:nth-last-child(1){
           border-color:#FFF;
         }
