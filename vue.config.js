@@ -5,7 +5,7 @@ const isProduction = process.env.NODE_ENV === 'production';
 const autoprefixer = require('autoprefixer')
 module.exports = {
     publicPath: process.env.NODE_ENV === 'production' ?
-        '/production-sub-path/' : '/',
+        './' : '/',
     productionSourceMap: false,
     devServer: {
         proxy: {
