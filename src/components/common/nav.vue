@@ -1,7 +1,10 @@
 <template>
   <div class="nav ">
     <div class="nav-box clear">
-       <div class="tip"><span class="iconfont iconguangbo"></span>优乐兑APP上线了，帮助商家解决客户流量问题</div>
+       <div class="tip">
+         <span class="iconfont iconguangbo"></span>
+         <span class="msg" v-for="(item,index) in tip" :key="index" :class="{active:tipActive == index}">{{item.msg}}</span>
+      </div>
        <div class="nav-right">
           <!-- <a class=""></a> -->
           <a href="" class="login-btn">请先登录</a>
@@ -17,8 +20,33 @@
 export default {
   data(){
     return{
-
+      tip:[{
+        msg:'优乐兑APP上线了，帮助商家解决客户流量问题'
+      },{
+        msg:'优乐兑APP上线了，帮助商家解决客户流量问'
+      }],
+      tipActive:0,
+      timer:''
     }
+  },
+  mounted(){
+    this.loop();
+  },
+  methods:{
+    loop(){
+      clearInterval(this.timer);
+      this.timer = setInterval(()=>{
+        console.log(this.tipActive)
+        this.tipActive++;
+        
+        if(this.tipActive>this.tip.length-1){
+          this.tipActive = 0;
+        }
+      },4000)
+    }
+  },
+  beforeDestroy(){
+    clearInterval(this.timer)
   }
 }
 </script>
@@ -37,13 +65,34 @@ export default {
     background:@nav_bg;
     .tip{
       float: left;
+      position: relative;
+      width:300px;
       font-size:12px;
       color:#fff;
       line-height:32px;
+      padding-left:19px;
       .iconfont{
+        position: absolute;
+        left:0;
         font-size:12px;
         margin-right:5px;
       }
+      .msg{
+        position: absolute;
+        top:0;
+        left:0;
+        text-align: left;
+        text-indent:19px ;
+        width:100%;
+        display:block;
+        opacity: 0;
+        transition:opacity .3s ease;
+        transition-delay:.9s;
+        &.active{
+          opacity: 1;
+        }
+      }
+
     }
     .login{
       display: none;
@@ -88,7 +137,10 @@ export default {
         font-size:12px;
         line-height: 40/@p;
         color:@subtitle_color;
-        .overTextOne();
+        .msg{
+          width:170/@p;
+          height:40/@p;
+        }
       }
       .nav-right{
         display: none;
