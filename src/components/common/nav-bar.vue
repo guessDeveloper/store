@@ -43,7 +43,7 @@ export default {
                path:'/jiongdong',
            },{
                name:'商城返利',
-               path:'/store'
+               path:'/storeList'
            },{
                name:'逛街购物',
                path:'/shop'

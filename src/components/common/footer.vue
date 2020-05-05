@@ -1,5 +1,5 @@
 <template>
-  <div class="footer">
+  <div class="footer" :class="{login:isLogin}">
     <div class="footer-top">
        <div class="link-box">
          <div class="top"> 
@@ -30,13 +30,38 @@
 </template>
 <script>
 export default {
-  
+  props:{
+    isLogin:{
+      type:Boolean,
+      default:false
+    }
+  }
 }
 </script>
 <style lang="less" scoped>
 @import '../../assets/less/common.less';
 .footer{
   width:100%;
+  &.login{
+    .footer-top{
+      background:none;
+      .link-box{
+        a{
+          color:@subtitle_color;
+          opacity: 1;
+        }
+      }
+    }
+    .footer-bottom{
+      background:none;
+      .box{
+        a{
+          color:@placeholder_color;
+          opacity: 1;
+        }
+      }
+    }
+  }
   .footer-top{
     width:100%;
     height:95px;

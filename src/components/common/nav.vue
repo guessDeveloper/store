@@ -86,10 +86,8 @@ export default {
         width:100%;
         display:block;
         opacity: 0;
-        transition:opacity .3s ease;
-        transition-delay:.9s;
         &.active{
-          opacity: 1;
+           animation: msgMove .5s ease forwards;
         }
       }
 
@@ -121,6 +119,16 @@ export default {
       }
     }
   }
+}
+@keyframes msgMove {
+   0%{
+     opacity: 0;
+     transform: translate3d(0,10px,0);
+   }
+   100%{
+     opacity: 1;
+      transform: translate3d(0,0,0);
+   }
 }
 @media screen and(max-width:@change_width){
   .nav{

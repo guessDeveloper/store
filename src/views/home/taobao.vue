@@ -1,6 +1,6 @@
 <template>
-    <div class="food-box">
-        <div class="brand-top-nav">
+   <div class="taobao">
+      <div class="brand-top-nav">
             <router-link tag="a" to="/">首页</router-link>
             <span class="iconfont iconjiantou"></span>
             <span class="now-nav">美食广场</span>
@@ -36,18 +36,16 @@
                 </ul>
             </div>
         </div>
-        <div class="food-list-box">
-            <ul class="food-list">
-                <li><foodCard></foodCard></li>
-                <li><foodCard></foodCard></li>
-                <li><foodCard></foodCard></li>
-                <li><foodCard></foodCard></li>
-                <li><foodCard></foodCard></li>
-                <li><foodCard></foodCard></li>
-                <li><foodCard></foodCard></li>
-                <li><foodCard></foodCard></li>
-            </ul>
-            <div class="page-box">
+        <div class="list-box">
+          <ul class="good-list">
+             <li><goodCard></goodCard></li>
+             <li><goodCard></goodCard></li>
+             <li><goodCard></goodCard></li>
+             <li><goodCard></goodCard></li>
+             <li><goodCard></goodCard></li>
+             <li><goodCard></goodCard></li>
+          </ul>
+          <div class="page-box">
                 <el-pagination
                     @size-change="handleSizeChange"
                     @current-change="handleCurrentChange"
@@ -58,41 +56,39 @@
                 </el-pagination>
             </div>
         </div>
-    </div>
+   </div>
 </template>
 <script>
-import foodCard from '@/components/food/foodCard'
+import goodCard from '@/components/taobao/goodCard'
 export default {
-    data(){
-        return{
+  data(){
+    return{
 
-        }
-    },
-    components:{
-        foodCard:foodCard,
     }
+  },
+  components:{
+    goodCard:goodCard
+  }
 }
 </script>
 <style lang="less" scoped>
 @import '../../assets/less/common.less';
-
-.food-list-box{
+.list-box{
   width:@max-width;
   margin:20px auto 100px;
   background:#fff;
   .page-box{
-      padding:30px 0 60px;
+      padding:36px 0 60px;
   }
 }
-.food-list{
-    display: block;
-    background:#fff;
-    padding:15px;
-    .clear();
-    li{
-        float: left;
-        width:360px;
-        margin:15px;
-    }
+.good-list{
+  display: block;
+  padding:17px;
+  .clear();
+  li{
+    float: left;
+    width:265px;
+    margin:13px;
+  }
 }
 </style>

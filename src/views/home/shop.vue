@@ -1,18 +1,18 @@
 <template>
-    <div class="food-box">
-        <div class="brand-top-nav">
-            <router-link tag="a" to="/">首页</router-link>
-            <span class="iconfont iconjiantou"></span>
-            <span class="now-nav">美食广场</span>
-        </div>
-        <div class="food-select-box">
+  <div class="shop">
+     <div class="brand-top-nav">
+        <router-link tag="a" to="/">首页</router-link>
+        <span class="iconfont iconjiantou"></span>
+        <span class="now-nav">逛街购物</span>
+    </div>
+    <div class="food-select-box">
             <div class="food-select-item">
                 <ul>
                     <li class="name">分类：</li>
                     <li class="active"><a href="">全部</a></li>
-                    <li><a href="">饺子混沌</a></li>
-                    <li><a href="">饺子混沌</a></li>
-                    <li><a href="">饺子混沌</a></li>
+                    <li><a href="">温暖家居</a></li>
+                    <li><a href="">健康美体</a></li>
+                    <li><a href="">宝贝成长</a></li>
                     <li><a href="">饺子混沌</a></li>
                 </ul>
             </div>
@@ -36,16 +36,15 @@
                 </ul>
             </div>
         </div>
-        <div class="food-list-box">
-            <ul class="food-list">
-                <li><foodCard></foodCard></li>
-                <li><foodCard></foodCard></li>
-                <li><foodCard></foodCard></li>
-                <li><foodCard></foodCard></li>
-                <li><foodCard></foodCard></li>
-                <li><foodCard></foodCard></li>
-                <li><foodCard></foodCard></li>
-                <li><foodCard></foodCard></li>
+        <div class="shop-list-box">
+            <ul class="shop-list">
+                <li><shopCard></shopCard></li>
+                <li><shopCard></shopCard></li>
+                <li><shopCard></shopCard></li>
+                <li><shopCard></shopCard></li>
+                <li><shopCard></shopCard></li>
+                <li><shopCard></shopCard></li>
+                <li><shopCard></shopCard></li>
             </ul>
             <div class="page-box">
                 <el-pagination
@@ -58,41 +57,39 @@
                 </el-pagination>
             </div>
         </div>
-    </div>
+  </div>
 </template>
 <script>
-import foodCard from '@/components/food/foodCard'
+import shopCard from '@/components/shop/shopCard'
 export default {
     data(){
         return{
-
+            
         }
     },
     components:{
-        foodCard:foodCard,
+        shopCard:shopCard
     }
 }
 </script>
 <style lang="less" scoped>
 @import '../../assets/less/common.less';
-
-.food-list-box{
-  width:@max-width;
-  margin:20px auto 100px;
-  background:#fff;
-  .page-box{
-      padding:30px 0 60px;
-  }
-}
-.food-list{
-    display: block;
+.shop-list-box{
+    width:@max-width;
+    margin:20px auto 100px;
     background:#fff;
-    padding:15px;
-    .clear();
-    li{
-        float: left;
-        width:360px;
-        margin:15px;
+    .shop-list{
+        padding:15px;
+        .clear();
+        li{
+            float:left;
+            width:555px;
+            margin:15px;
+        }
     }
+
+}
+.page-box{
+    padding:45px 0 60px;
 }
 </style>

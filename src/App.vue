@@ -29,13 +29,64 @@ export default {
   margin:0 auto;
   text-align: left;
   line-height: 14px;
+  padding:20px 0;
   a{
     font-size:12px;
     color:@font_color;
   }
- 
+  .iconfont{
+    font-size:10px;
+    color:@subtitle_color;
+  }
   .now-nav{
     color:@placeholder_color;
   }
+}
+//选择器
+.food-select-box{
+    width:@max-width;
+    margin:0 auto;
+    background:#fff;
+    .food-select-item{
+        margin:0 30px;
+        line-height:64px;
+        border-bottom:1px solid @class_border;
+        ul{
+            display:block;
+            width:100%;
+            .clear();
+            li{
+                float: left;
+                font-size:14px;
+                color:@subtitle_color;
+                &.active{
+                    a{
+                        color:@main;
+                    }
+                }
+                &.name{
+                    margin-right:6px;
+                }
+                a{
+                    color:@font_color;
+                    margin:0 15px;
+                    transition:color .3s ease;
+                    &:hover{
+                        color:@main;
+                    }
+                }
+            }
+        }
+    }
+}
+//修改element
+.el-pager li.active{
+  color:@main!important;
+}
+.el-pager li:hover{
+  color:@main!important;
+}
+.el-pagination button:hover{
+  color:@main!important;
 }
 </style>
