@@ -14,7 +14,6 @@ export default {
 }
 </script>
 <style lang="less" scoped>
-@import '../../assets/less/common.less';
 .cuser-box{
   position:fixed;
   width:60px;

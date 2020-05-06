@@ -31,7 +31,6 @@ export default {
 }
 </script>
 <style lang="less" scoped>
-@import '../../assets/less/common.less';
 .login-nav{
   height:100px;
   background:#fff;

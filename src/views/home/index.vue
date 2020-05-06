@@ -194,7 +194,7 @@ export default {
 }
 </script>
 <style lang="less" scoped>
-@import '../../assets/less/common.less';
+
 .banner{
   width:@max-width;
   margin:20px auto 0;
@@ -339,9 +339,9 @@ export default {
        .sub-title{
          display: none;
        }
-       .position-box{
-         display: none;
-       }
+      //  .position-box{
+      //    display: none;
+      //  }
        .more{
          display: none;
        }

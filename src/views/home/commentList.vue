@@ -57,7 +57,6 @@ export default {
 }
 </script>
 <style lang="less" scoped>
-@import '../../assets/less/common.less';
 .comment-list-box{
   width:@max-width;
   margin: 0 auto 100px;

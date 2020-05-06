@@ -33,7 +33,6 @@ export default {
 }
 </script>
 <style lang="less" scoped>
-@import '../../assets/less/common.less';
 .shop-card-box{
   box-sizing: border-box;
   position: relative;

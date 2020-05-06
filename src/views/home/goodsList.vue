@@ -46,7 +46,6 @@ export default {
 }
 </script>
 <style lang="less" scoped>
-@import '../../assets/less/common.less';
 .goods-box{
   width:@max-width;
   margin:0 auto;

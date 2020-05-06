@@ -72,7 +72,7 @@ export default {
 }
 </script>
 <style lang="less" scoped>
-@import '../../assets/less/common.less';
+
 .list-box{
   width:@max-width;
   margin:20px auto 100px;

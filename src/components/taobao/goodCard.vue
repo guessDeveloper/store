@@ -18,7 +18,6 @@ export default {
 }
 </script>
 <style lang="less" scoped>
-@import '../../assets/less/common.less';
 .card-box{
   width:100%;
   img{

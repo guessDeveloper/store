@@ -74,7 +74,6 @@ export default {
 }
 </script>
 <style lang="less" scoped>
-@import '../../assets/less/common.less';
 
 .food-list-box{
   width:@max-width;

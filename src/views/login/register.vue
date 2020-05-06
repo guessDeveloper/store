@@ -42,7 +42,6 @@ export default {
 }
 </script>
 <style lang="less" scoped>
-@import '../../assets/less/common.less';
 .register{
   width:@max-width;
   padding-top:70px;

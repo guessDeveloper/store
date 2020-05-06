@@ -15,9 +15,21 @@
         </div>
         <div class="search-box">
             <div class="input-box">
-                <div class="select" >
+             <el-dropdown trigger="click" class="select">
+                <span class="el-dropdown-link">
+                   拼多多<span class="iconfont icon-arrow-downYellow"></span>
+                </span>
+                <el-dropdown-menu slot="dropdown">
+                <el-dropdown-item >黄金糕</el-dropdown-item>
+                <el-dropdown-item >狮子头</el-dropdown-item>
+                <el-dropdown-item >螺蛳粉</el-dropdown-item>
+                <el-dropdown-item>双皮奶</el-dropdown-item>
+                <el-dropdown-item >蚵仔煎</el-dropdown-item>
+                </el-dropdown-menu>
+              </el-dropdown>
+                <!-- <div class="select" >
                     拼多多<span class="iconfont icon-arrow-downYellow"></span>
-                </div>
+                </div> -->
                 <input type="text" placeholder="输入商品关键词">
             </div>
             <a href="" class="btn">
@@ -64,7 +76,6 @@ export default {
 }
 </script>
 <style lang="less" scoped>
-@import '../../assets/less/common.less';
 
 .nav-bar-box{
     width:100%;
@@ -141,6 +152,8 @@ export default {
                     width:81px;
                     color:@main;
                     line-height: 36px;
+                    outline: none;
+                    cursor: pointer;
                     .iconfont{
                         margin-left:6px;
                         font-size:5px;
