@@ -57,10 +57,16 @@ const routes = [{
             import ( /* webpackChunkName: "login" */ '../views/login/login.vue')
     },
     {
-        path: '/register',
+        path: '/register', //注册
         name: 'register',
         component: () =>
             import ( /* webpackChunkName: "register" */ '../views/login/register.vue')
+    },
+    {
+        path: '/reset', //忘记密码
+        name: 'reset',
+        component: () =>
+            import ( /* webpackChunkName: "reset" */ '../views/login/reset.vue')
     },
     {
         path: '/sao',

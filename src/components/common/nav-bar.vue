@@ -151,12 +151,17 @@ export default {
                     float: left;
                     width:81px;
                     color:@main;
+                    font-size:14px;
                     line-height: 36px;
                     outline: none;
                     cursor: pointer;
                     .iconfont{
-                        margin-left:6px;
+                        // float:right;
+                        // margin-right:29px;
+                        // margin-top:18px;
+                        margin-left:5px;
                         font-size:5px;
+                        vertical-align: middle;
                     }
                 }
                 input{
