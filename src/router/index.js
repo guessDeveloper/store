@@ -8,7 +8,8 @@ const routes = [{
         path: '/',
         name: 'Home',
         component: Home,
-        children: [{
+        children: [
+            {
             path: '/', //首页
             name: 'index',
             component: () =>
@@ -49,6 +50,14 @@ const routes = [{
         path: '*',
         name: 'Home',
         component: Home,
+        // children:[
+        //     {
+        //         path: '*', //首页
+        //         name: 'index',
+        //         component: () =>
+        //             import ( /* webpackChunkName: "index" */ '../views/home/index.vue')
+        //     },
+        // ]
     },
     {
         path: '/login',
