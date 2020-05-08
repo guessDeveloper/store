@@ -44,7 +44,12 @@ const routes = [{
             name: 'shop',
             component: () =>
                 import ( /* webpackChunkName: "shop" */ '../views/home/shop.vue')
-        }, ]
+        },{
+            path: '/proplurRecommend', //逛街购物
+            name: 'proplurRecommend',
+            component: () =>
+                import ( /* webpackChunkName: "shop" */ '../views/home/proplurRecommend.vue')
+        } ]
     },
     {
         path: '*',

@@ -36,7 +36,6 @@ export default {
     loop(){
       clearInterval(this.timer);
       this.timer = setInterval(()=>{
-        console.log(this.tipActive)
         this.tipActive++;
         
         if(this.tipActive>this.tip.length-1){
