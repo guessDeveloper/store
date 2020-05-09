@@ -17,11 +17,11 @@
                 </div>
             </div>
         </div>
-        <div>
-            <div class="input-box">
+        <div class="tab-item">
+            <div class="input-line-box">
                 <label for="">用户名称：</label> <input type="text" placeholder="用户名称/手机号码">
             </div>
-            <div class="input-box">
+            <div class="input-line-box">
                 <label for="">图形验证码：</label><input type="text" placeholder="输入图形验证码">
             </div>
             <div>
@@ -29,7 +29,28 @@
             </div>
             <button class="btn submit">下一步</button>
         </div>
-         <footerBar :isLogin="true"></footerBar>
+        <div>
+            <div class="input-line-box">
+                <label for="">昵称：</label><input type="text" value="" readonly>
+            </div>
+            <div class="input-line-box">
+                <label for="">手机号：</label> <input type="text" value="" readonly>
+            </div>
+            <div class="input-line-box">
+                <label for="">短信验证码：</label><div class="input-box"><input type="text" placeholder=""><span>输入短信验证码</span></div> 
+            </div>
+            <div class="input-line-box">
+                <label for="">新的密码：</label><input type="password" placeholder="设置6至20位登录密码">
+            </div>
+            <div class="input-line-box">
+                <label for="">重复密码：</label><input type="password" placeholder="请再次输入登录密码">
+            </div>
+            <button class="btn submit">下一步</button>
+        </div>
+        <div>
+            
+        </div>
+        <footerBar :isLogin="true"></footerBar>
     </div>
 </template>
 <script>
