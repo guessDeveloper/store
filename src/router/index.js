@@ -8,8 +8,7 @@ const routes = [{
         path: '/',
         name: 'Home',
         component: Home,
-        children: [
-            {
+        children: [{
             path: '/', //首页
             name: 'index',
             component: () =>
@@ -44,12 +43,12 @@ const routes = [{
             name: 'shop',
             component: () =>
                 import ( /* webpackChunkName: "shop" */ '../views/home/shop.vue')
-        },{
-            path: '/proplurRecommend', //逛街购物
+        }, {
+            path: '/proplurRecommend', //人气推荐
             name: 'proplurRecommend',
             component: () =>
                 import ( /* webpackChunkName: "shop" */ '../views/home/proplurRecommend.vue')
-        } ]
+        }]
     },
     {
         path: '*',

@@ -59,7 +59,9 @@ export default {
     margin:0 auto;
     background:#fff;
     .title{
-        height:35px;
+        height:104px;
+        font-size: 28px;
+        line-height: 104px;
     }
     .content{
         ul{
