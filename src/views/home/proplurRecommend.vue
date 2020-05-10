@@ -10,7 +10,15 @@
           <p>人气好物推荐，它们最受欢迎</p>
       </div>
       <div class="content-box">
-          <recomendCard></recomendCard>
+          <div class="line">
+            <recomendCard ></recomendCard>
+          </div>
+         <div class="line">
+            <recomendCard ></recomendCard>
+          </div>
+          <div class="line">
+            <recomendCard ></recomendCard>
+          </div>
       </div> 
     </div>
 </template>
@@ -49,6 +57,9 @@ export default {
     }
 }
 .content-box{
-    margin:20px auto;
+    margin:20px auto 100px;
+    .line{
+        margin-bottom:20px;
+    }
 }
 </style>

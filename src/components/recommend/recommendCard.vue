@@ -11,6 +11,7 @@
 .item{
     width:100%;
     height: 325px;
+    overflow: hidden;
     img{
         display: block;
         width:180px;

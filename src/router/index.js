@@ -47,21 +47,42 @@ const routes = [{
             path: '/proplurRecommend', //人气推荐
             name: 'proplurRecommend',
             component: () =>
-                import ( /* webpackChunkName: "shop" */ '../views/home/proplurRecommend.vue')
+                import ( /* webpackChunkName: "proplurRecommend" */ '../views/home/proplurRecommend.vue')
+        }, {
+            path: '/preferedRecommend', //优选推荐
+            name: 'preferedRecommend',
+            component: () =>
+                import ( /* webpackChunkName: "preferred" */ '../views/home/preferred.vue')
+        }, {
+            path: '/recommendList', //推荐列表
+            name: 'recommendList',
+            component: () =>
+                import ( /* webpackChunkName: "recommendList" */ '../views/home/recommendList.vue')
+        }, {
+            path: '/foodList', //美食列表
+            name: 'foodList',
+            component: () =>
+                import ( /* webpackChunkName: "foodList" */ '../views/home/foodList.vue')
+        }, {
+            path: '/goodsDetail', //美食列表
+            name: 'goodsDetail',
+            component: () =>
+                import ( /* webpackChunkName: "goodsDetail" */ '../views/home/goodsDetail.vue')
         }]
     },
     {
         path: '*',
         name: 'Home',
         component: Home,
-        // children:[
-        //     {
-        //         path: '*', //首页
-        //         name: 'index',
-        //         component: () =>
-        //             import ( /* webpackChunkName: "index" */ '../views/home/index.vue')
-        //     },
-        // ]
+        redirect: "/"
+            // children:[
+            //     {
+            //         path: '*', //首页
+            //         name: 'index',
+            //         component: () =>
+            //             import ( /* webpackChunkName: "index" */ '../views/home/index.vue')
+            //     },
+            // ]
     },
     {
         path: '/login',
