@@ -1,8 +1,8 @@
 <template>
   <div class="content">
      <ul>
-       <li v-for="(item,index) in navList" :key="index"> 
-        <router-link tag="a" to="/">{{item.title}}</router-link>
+       <li v-for="(item,index) in navList" :key="index" :class="{active:item.to == nowPath}"> 
+        <router-link tag="a" :to="item.to">{{item.title}}</router-link>
        </li>
      </ul>
   </div>
@@ -37,9 +37,10 @@
 export default {
   data(){
     return{
+      nowPath:'/',
       navList:[{
         title:"我的账号",
-        to:'/'
+        to:'/persion'
       },
       {
         title:"扫码获积分",
@@ -71,6 +72,10 @@ export default {
       },
       ]
     }
+  },
+  mounted(){
+    this.nowPath = this.$route.path;
+    console.log(this.nowPath)
   }
 }
 </script>
