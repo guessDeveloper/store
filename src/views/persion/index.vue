@@ -9,9 +9,7 @@
       </div>
     <div class="box">
       <div class="box-left">
-          <ul>
-            <li> 我的账号</li>
-          </ul>
+          <left></left>
       </div>
       <div class="box-right">
         <router-view></router-view>
@@ -26,6 +24,7 @@
 import  navBar from '@/components/common/nav'
 import  navBottom from'@/components/common/nav-bar'
 import footerBar from '@/components/common/footer'
+import left from '@/components/persion/commonLeft'
 export default {
   name: 'Home',
   data(){
@@ -40,13 +39,14 @@ export default {
     navBar:navBar,
     navBottom:navBottom,
     footerBar:footerBar,
+    left:left
   }
 }
 </script>
 <style lang="less" scoped>
 .box{
   width:@max-width;
-  margin:0 auto;
+  margin:0 auto 100px;
   .clear();
   .box-left{
     float: left;

@@ -81,7 +81,14 @@ const routes = [{
         path: '/persion',
         name: 'persion',
         component: () =>
-            import ( /* webpackChunkName: "persion" */ '../views/persion/index.vue')
+            import ( /* webpackChunkName: "persion" */ '../views/persion/index.vue'),
+        children: [{
+
+            path: '/', //商品列表
+            name: 'persionPage',
+            component: () =>
+                import ( /* webpackChunkName: "persionPage" */ '../views/persion/persionPage.vue')
+        }]
     },
     {
         path: '*',
