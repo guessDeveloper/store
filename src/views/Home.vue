@@ -15,24 +15,7 @@ export default {
   name: 'Home',
   data(){
     return{
-      classActive:1,
-      classNav:[{
-        title:'服装',
-        active:1,
-        type:1
-      },{
-        title:'厨具',
-        active:0,
-        type:2
-      },{
-        title:'配件',
-        active:0,
-        type:3
-      },{
-        title:'家居',
-        active:0,
-        type:4
-      },]
+ 
     }
   },
   mounted(){
@@ -46,6 +29,6 @@ export default {
 }
 </script>
 <style lang="less" scoped>
-@import '../assets/less/common.less';
+
 
 </style>

@@ -73,7 +73,7 @@
   </div>
 </template>
 <script>
-import goodCard from '@/components/taobao/goodCard'
+import goodCard from '@/components/food/foodListCard'
 import commentCard from '@/components/common/commentCard'
 export default {
   data(){

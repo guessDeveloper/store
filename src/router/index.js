@@ -9,80 +9,85 @@ const routes = [{
         name: 'Home',
         component: Home,
         children: [{
-            path: '/', //首页
-            name: 'index',
-            component: () =>
-                import ( /* webpackChunkName: "index" */ '../views/home/index.vue')
-        }, {
-            path: '/food', //美食广场
-            name: 'food',
-            component: () =>
-                import ( /* webpackChunkName: "food" */ '../views/home/food.vue')
-        }, {
-            path: '/taobao', //淘宝
-            name: 'taobao',
-            component: () =>
-                import ( /* webpackChunkName: "taobao" */ '../views/home/taobao.vue')
-        }, {
-            path: '/goodsList', //商品列表
-            name: 'goodsList',
-            component: () =>
-                import ( /* webpackChunkName: "goodsList" */ '../views/home/goodsList.vue')
-        }, {
-            path: '/commentList', //评论列表
-            name: 'commentList',
-            component: () =>
-                import ( /* webpackChunkName: "commentList" */ '../views/home/commentList.vue')
-        }, {
-            path: '/storeList', //商城返利
-            name: 'storeList',
-            component: () =>
-                import ( /* webpackChunkName: "storeList" */ '../views/home/storeList.vue')
-        }, {
-            path: '/shop', //逛街购物
-            name: 'shop',
-            component: () =>
-                import ( /* webpackChunkName: "shop" */ '../views/home/shop.vue')
-        }, {
-            path: '/proplurRecommend', //人气推荐
-            name: 'proplurRecommend',
-            component: () =>
-                import ( /* webpackChunkName: "proplurRecommend" */ '../views/home/proplurRecommend.vue')
-        }, {
-            path: '/preferedRecommend', //优选推荐
-            name: 'preferedRecommend',
-            component: () =>
-                import ( /* webpackChunkName: "preferred" */ '../views/home/preferred.vue')
-        }, {
-            path: '/recommendList', //推荐列表
-            name: 'recommendList',
-            component: () =>
-                import ( /* webpackChunkName: "recommendList" */ '../views/home/recommendList.vue')
-        }, {
-            path: '/foodList', //美食列表
-            name: 'foodList',
-            component: () =>
-                import ( /* webpackChunkName: "foodList" */ '../views/home/foodList.vue')
-        }, {
-            path: '/goodsDetail', //美食列表
-            name: 'goodsDetail',
-            component: () =>
-                import ( /* webpackChunkName: "goodsDetail" */ '../views/home/goodsDetail.vue')
-        }]
+                path: '/', //首页
+                name: 'index',
+                component: () =>
+                    import ( /* webpackChunkName: "index" */ '../views/home/index.vue')
+            }, {
+                path: '/food', //美食广场
+                name: 'food',
+                component: () =>
+                    import ( /* webpackChunkName: "food" */ '../views/home/food.vue')
+            }, {
+                path: '/taobao', //淘宝
+                name: 'taobao',
+                component: () =>
+                    import ( /* webpackChunkName: "taobao" */ '../views/home/taobao.vue')
+            }, {
+                path: '/goodsList', //商品列表
+                name: 'goodsList',
+                component: () =>
+                    import ( /* webpackChunkName: "goodsList" */ '../views/home/goodsList.vue')
+            }, {
+                path: '/commentList', //评论列表
+                name: 'commentList',
+                component: () =>
+                    import ( /* webpackChunkName: "commentList" */ '../views/home/commentList.vue')
+            }, {
+                path: '/storeList', //商城返利
+                name: 'storeList',
+                component: () =>
+                    import ( /* webpackChunkName: "storeList" */ '../views/home/storeList.vue')
+            }, {
+                path: '/shop', //逛街购物
+                name: 'shop',
+                component: () =>
+                    import ( /* webpackChunkName: "shop" */ '../views/home/shop.vue')
+            }, {
+                path: '/proplurRecommend', //人气推荐
+                name: 'proplurRecommend',
+                component: () =>
+                    import ( /* webpackChunkName: "proplurRecommend" */ '../views/home/proplurRecommend.vue')
+            }, {
+                path: '/preferedRecommend', //优选推荐
+                name: 'preferedRecommend',
+                component: () =>
+                    import ( /* webpackChunkName: "preferred" */ '../views/home/preferred.vue')
+            }, {
+                path: '/recommendList', //推荐列表
+                name: 'recommendList',
+                component: () =>
+                    import ( /* webpackChunkName: "recommendList" */ '../views/home/recommendList.vue')
+            }, {
+                path: '/foodList', //美食列表
+                name: 'foodList',
+                component: () =>
+                    import ( /* webpackChunkName: "foodList" */ '../views/home/foodList.vue')
+            }, {
+                path: '/foodDetail', //美食详情
+                name: 'foodDetail',
+                component: () =>
+                    import ( /* webpackChunkName: "foodDetail" */ '../views/home/foodDetail.vue')
+            },
+            {
+                path: '/goodsDetail', //商品列表
+                name: 'goodsDetail',
+                component: () =>
+                    import ( /* webpackChunkName: "goodsDetail" */ '../views/home/goodsDetail.vue')
+            },
+        ]
+    },
+    {
+        path: '/persion',
+        name: 'persion',
+        component: () =>
+            import ( /* webpackChunkName: "persion" */ '../views/persion/index.vue')
     },
     {
         path: '*',
         name: 'Home',
         component: Home,
         redirect: "/"
-            // children:[
-            //     {
-            //         path: '*', //首页
-            //         name: 'index',
-            //         component: () =>
-            //             import ( /* webpackChunkName: "index" */ '../views/home/index.vue')
-            //     },
-            // ]
     },
     {
         path: '/login',
