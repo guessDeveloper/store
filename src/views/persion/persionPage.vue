@@ -27,7 +27,7 @@
           
         </div>
          <div class="set">
-             请完善您的信息：您的手机号尚未绑定！<a href="">立即设置</a>
+            <span class="iconfont iconzhushi"></span> 请完善您的信息：您的手机号尚未绑定！<a href="">立即设置</a>
            </div>
      </div>
   </div>
@@ -67,6 +67,9 @@ export default {
   padding-left:10px;
   border-radius: 4px;
   line-height: 30px;
+  .iconfont{
+    color:@main;
+  }
   a{
     color:@main;
   }
