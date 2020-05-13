@@ -84,37 +84,63 @@ const routes = [{
             import ( /* webpackChunkName: "persion" */ '../views/persion/index.vue'),
         children: [{
 
-            path: '/', //商品列表
-            name: 'persionPage',
-            component: () =>
-                import ( /* webpackChunkName: "persionPage" */ '../views/persion/persionPage.vue')
-        }]
+                path: '/', //个人信息
+                name: 'persionPage',
+                component: () =>
+                    import ( /* webpackChunkName: "persionPage" */ '../views/persion/persionPage.vue')
+            },
+            {
+                path: '/erweima', //扫二维码
+                name: 'erweima',
+                component: () =>
+                    import ( /* webpackChunkName: "erweima" */ '../views/persion/erweima.vue')
+            },
+            {
+                path: '/safe', //安全设置
+                name: 'safe',
+                component: () =>
+                    import ( /* webpackChunkName: "safe" */ '../views/persion/safe.vue')
+            },
+            {
+                path: '/message', //消息通知
+                name: 'message',
+                component: () =>
+                    import ( /* webpackChunkName: "message" */ '../views/persion/message.vue')
+            },
+            {
+                path: '/invite', //邀请有礼
+                name: 'invite',
+                component: () =>
+                    import ( /* webpackChunkName: "invite" */ '../views/persion/invite.vue')
+            }, {
+                path: '/myPorints', //我的积分
+                name: 'myPorints',
+                component: () =>
+                    import ( /* webpackChunkName: "myPorints" */ '../views/persion/myPorints.vue')
+            }
+        ]
     },
     {
         path: '*',
         name: 'Home',
         component: Home,
         redirect: "/"
-    },
-    {
+    }, {
         path: '/login',
         name: 'login',
         component: () =>
             import ( /* webpackChunkName: "login" */ '../views/login/login.vue')
-    },
-    {
+    }, {
         path: '/register', //注册
         name: 'register',
         component: () =>
             import ( /* webpackChunkName: "register" */ '../views/login/register.vue')
-    },
-    {
+    }, {
         path: '/reset', //忘记密码
         name: 'reset',
         component: () =>
             import ( /* webpackChunkName: "reset" */ '../views/login/reset.vue')
-    },
-    {
+    }, {
         path: '/sao',
         name: 'About',
         // route level code-splitting

@@ -1,6 +1,6 @@
 <template>
   <div class="pesionbox">
-     <div class="title">我的账户</div>
+     <div class="persion-title">我的账户</div>
      <div class="content">
         <div class="persion-box">
            <div class="head-img">
@@ -46,13 +46,7 @@ export default {
   width:100%;
   min-height: 660px;
 }
-.title{
-  text-align: left;
-  font-size:20px;
-  line-height: 60px;
-  padding-left:30px;
-  border-bottom:1px solid @class_border;
-}
+
 .content{
   padding:0 30px;
 }
@@ -69,6 +63,9 @@ export default {
   line-height: 30px;
   .iconfont{
     color:@main;
+    font-size: 14px;
+    margin-right:5px;
+    margin-top:1px;
   }
   a{
     color:@main;

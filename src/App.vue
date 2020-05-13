@@ -22,7 +22,7 @@ export default {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  text-align: center;
+  // text-align: center;
 }
 .brand-top-nav{
   width:@max-width;
@@ -104,5 +104,27 @@ export default {
 }
 .el-pagination button:hover{
   color:@main!important;
+}
+.el-dialog__body{
+  padding-top:0!important;
+}
+// .el-table th>.cell{
+//   font-size:12px;
+//   color:@subtitle_color;
+// }
+.el-dialog__title{
+  font-weight: bold;
+}
+.table-line{
+  font-size:12px;
+  color:@font_color;
+}
+//个人中心
+.persion-title{
+   text-align: left;
+  font-size:20px;
+  line-height: 60px;
+  padding-left:30px;
+  border-bottom:1px solid @class_border;
 }
 </style>

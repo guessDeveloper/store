@@ -2,7 +2,7 @@
   <div class="content">
      <ul>
        <li v-for="(item,index) in navList" :key="index" :class="{active:item.to == nowPath}"> 
-        <router-link tag="a" :to="item.to">{{item.title}}</router-link>
+        <router-link tag="a" :to="item.to" @click.native="routerChange"><span class="iconfont" :class="item.icon" :style="'font-size:'+item.iconSize+';'"></span>{{item.title}}</router-link>
        </li>
      </ul>
   </div>
@@ -20,12 +20,19 @@
       line-height: 44px;
       font-size:14px;
       text-align: left;
+      .iconfont{
+        margin-right:10px;
+        color:@placeholder_color;
+      }
       a{
         color:@persion_left;
       }
       &.active{
         background:@persion_active;
         a{
+          color:@main;
+        }
+        .iconfont{
           color:@main;
         }
       }
@@ -40,42 +47,62 @@ export default {
       nowPath:'/',
       navList:[{
         title:"我的账号",
-        to:'/persion'
+        to:'/persion',
+        icon:'icongrzx',
+        iconSize:'14px'
       },
       {
         title:"扫码获积分",
-        to:'/'
+        to:'/erweima',
+        icon:"iconsmfjl",
+        iconSize:'15px'
       },
       {
         title:"消息通知",
-        to:'/'
+        to:'/message',
+        icon:'iconxxzx',
+        iconSize:'12px'
       },
       {
         title:"安全设置",
-        to:'/'
+        to:'/safe',
+        icon:'iconaqsz',
+        iconSize:'17px'
       },
       {
         title:"我的积分",
-        to:'/'
+        to:'/myPorints',
+        icon:'icondqjf',
+        iconSize:'16px'
       },
       {
         title:"邀请有礼",
-        to:'/'
+        to:'/invite',
+        icon:'iconjfjl',
+        iconSize:'15px'
       },
       {
         title:"我的订单",
-        to:'/'
+        to:'/',
+        icon:'iconddgl',
+        iconSize:'15px'
       },
        {
         title:"帮助中心",
-        to:'/'
+        to:'/',
+        icon:'iconbangzhu',
+        iconSize:'15px'
       },
       ]
     }
   },
   mounted(){
     this.nowPath = this.$route.path;
-    console.log(this.nowPath)
+  },
+  methods:{
+    routerChange(){
+      this.nowPath = this.$route.path;
+    }
   }
 }
 </script>

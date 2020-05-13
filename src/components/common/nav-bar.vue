@@ -82,6 +82,7 @@ export default {
     height:100px;
     line-height: 100px;
     background: #fff;
+    text-align: center;
     .box{
    
         width:@max-width;
