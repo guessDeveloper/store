@@ -1,17 +1,21 @@
 <template>
   <div class="about">
     <!-- <input type="file">sfs  -->
-    <video src="" id="video"></video>
+    <canvas class="can"></canvas>
+    <video src="" id="video" :height="height"></video>
   </div>
 </template>
 <script>
 
 export default {
   data(){
-    return{}
+    return{
+      height:400
+    }
   },
   mounted(){
     // const _this = this;
+    this.height = window.innerHeight;
     console.log(window.navigator.getUserMedia)
     if ( window.navigator.getUserMedia || window.navigator.webkitGetUserMedia || window.navigator.mozGetUserMedia){
     //调用用户媒体设备，访问摄像头
@@ -67,6 +71,6 @@ export default {
 }
   video{
     width:100%;
-    height:100%;
+    
   }
 </style>
