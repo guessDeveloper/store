@@ -15,6 +15,7 @@ export default {
 </script>
 <style lang="less" scoped>
 .cuser-box{
+  text-align: center;
   position:fixed;
   width:60px;
   height:60px;

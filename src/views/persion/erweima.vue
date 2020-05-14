@@ -20,6 +20,7 @@ export default {
 </script>
 <style lang="less" scoped>
 .erweima-box{
+  text-align: center;
   height:660px;
 }
 .erweima-content{

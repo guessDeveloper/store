@@ -83,7 +83,7 @@ export default {
       },
       {
         title:"我的订单",
-        to:'/',
+        to:'/myOrder',
         icon:'iconddgl',
         iconSize:'15px'
       },

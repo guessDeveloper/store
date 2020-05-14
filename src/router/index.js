@@ -117,6 +117,12 @@ const routes = [{
                 name: 'myPorints',
                 component: () =>
                     import ( /* webpackChunkName: "myPorints" */ '../views/persion/myPorints.vue')
+            },
+            {
+                path: '/myOrder', //我的订单
+                name: 'myOrder',
+                component: () =>
+                    import ( /* webpackChunkName: "myOrder" */ '../views/persion/myOrder.vue')
             }
         ]
     },

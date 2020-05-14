@@ -107,6 +107,7 @@ export default {
 }
 .el-dialog__body{
   padding-top:0!important;
+  padding-bottom:20px!important;
 }
 // .el-table th>.cell{
 //   font-size:12px;

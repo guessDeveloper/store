@@ -151,6 +151,7 @@ export default {
       border:1px solid @main;
       border-radius: 34px;
       vertical-align: middle;
+      background:#fff;
     }
   }
   .second-item{
