@@ -24,6 +24,9 @@ export default {
   -moz-osx-font-smoothing: grayscale;
   // text-align: center;
 }
+.tc{
+  text-align: center;
+}
 .brand-top-nav{
   width:@max-width;
   margin:0 auto;
@@ -41,6 +44,10 @@ export default {
   .now-nav{
     color:@placeholder_color;
   }
+}
+.menager-box{
+  min-height:@persion_height;
+  background:#fff;
 }
 //选择器
 .food-select-box{
@@ -109,12 +116,40 @@ export default {
   padding-top:0!important;
   padding-bottom:20px!important;
 }
-// .el-table th>.cell{
-//   font-size:12px;
-//   color:@subtitle_color;
-// }
+.el-table th>.cell{
+  padding:0 !important;
+}
+.el-table .cell{
+  padding:0!important;
+}
 .el-dialog__title{
   font-weight: bold;
+}
+.el-range-editor .el-range-input{
+  line-height: 14px!important;
+  font-size: 13px!important;
+}
+.el-date-editor .el-range__icon{
+  line-height: 14px!important;
+}
+.el-date-editor.el-input, .el-date-editor.el-input__inner{
+  width:218px!important;
+  height:34px;
+  border-radius: 0;
+  border-color:@class_border;
+}
+.el-date-editor .el-range-separator{
+  line-height: 14px!important;
+}
+.el-date-editor .el-range__close-icon{
+  display: none!important;
+  line-height: 14px!important;
+}
+.el-range-editor.el-input__inner{
+  padding:10px 15px!important;
+}
+.el-table td{
+  padding:10px 0!important;
 }
 .table-line{
   font-size:12px;

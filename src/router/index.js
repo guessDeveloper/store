@@ -123,8 +123,50 @@ const routes = [{
                 name: 'myOrder',
                 component: () =>
                     import ( /* webpackChunkName: "myOrder" */ '../views/persion/myOrder.vue')
-            }
+            },
+            {
+                path: '/orderDetail', //订单详情
+                name: 'orderDetail',
+                component: () =>
+                    import ( /* webpackChunkName: "orderDetail" */ '../views/persion/orderDetail.vue')
+            },
+            {
+                path: '/orderGrievance', //订单申诉
+                name: 'orderGrievance',
+                component: () =>
+                    import ( /* webpackChunkName: "orderGrievance" */ '../views/persion/orderGrievance.vue')
+            },
         ]
+    }, {
+        path: '/store',
+        name: 'store',
+        component: () =>
+            import ( /* webpackChunkName: "persion" */ '../views/store/index.vue'),
+        children: [{
+
+            path: '/', //商家账号
+            name: 'storePage',
+            component: () =>
+                import ( /* webpackChunkName: "storePage" */ '../views/store/storePage.vue')
+        }, {
+
+            path: '/storeErweima', //二维码管理
+            name: 'storeErweima',
+            component: () =>
+                import ( /* webpackChunkName: "storeErweima" */ '../views/store/storeErweima.vue')
+        }, {
+
+            path: '/storeProduct', //产品管理
+            name: 'storeProduct',
+            component: () =>
+                import ( /* webpackChunkName: "storeProduct" */ '../views/store/storeProduct.vue')
+        }, {
+
+            path: '/storeScore', //积分管理
+            name: 'storeScore',
+            component: () =>
+                import ( /* webpackChunkName: "storeScore" */ '../views/store/storeScore.vue')
+        }, ]
     },
     {
         path: '*',

@@ -1,5 +1,5 @@
 <template>
-  <div class="home">
+  <div class="home tc">
     <div class="banner">
       <div class="banner-left">
          <classify></classify>

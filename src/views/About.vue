@@ -2,7 +2,7 @@
   <div class="about">
     <!-- <input type="file">sfs  -->
     <canvas class="can"></canvas>
-    <video src="" id="video" :height="height"></video>
+    <video src="" id="video" ></video>
   </div>
 </template>
 <script>
@@ -68,9 +68,13 @@ export default {
 .about{
   width:100%;
   height:100%;
+  background:#000;
 }
   video{
     width:100%;
-    
+    height:100vh;
   }
+ .can{
+   display: none;
+ }
 </style>

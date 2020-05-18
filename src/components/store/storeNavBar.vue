@@ -4,18 +4,18 @@
         <a href="" class="logo">
             <img src="../../assets/img/logo.png" alt="">
         </a>
-        <a href="" class="sao">
+        <!-- <a href="" class="sao">
             <span class="iconfont iconyd_saoyisao"></span>
         </a>
         <a href="" class="menu">
             <span class="iconfont iconyd_gengduo"></span>
-        </a>
-        <div class="nav-box">
+        </a> -->
+        <!-- <div class="nav-box">
             <router-link :to="item.path" v-for="(item,index) in navList" :key="index" tag="a" :class="{active:nowPath == item.path}" @click.native="goRouter(item.path)" target="_blank">{{item.name}}</router-link>
-        </div>
-        <div class="search-box">
-            <div class="input-box">
-             <el-dropdown trigger="click" class="select">
+        </div> -->
+        <!-- <div class="search-box"> -->
+            <!-- <div class="input-box"> -->
+             <!-- <el-dropdown trigger="click" class="select">
                 <span class="el-dropdown-link">
                    拼多多<span class="iconfont icon-arrow-downYellow"></span>
                 </span>
@@ -26,16 +26,17 @@
                 <el-dropdown-item>双皮奶</el-dropdown-item>
                 <el-dropdown-item >蚵仔煎</el-dropdown-item>
                 </el-dropdown-menu>
-              </el-dropdown>
+              </el-dropdown> -->
                 <!-- <div class="select" >
                     拼多多<span class="iconfont icon-arrow-downYellow"></span>
                 </div> -->
-                <input type="text" placeholder="输入商品关键词">
-            </div>
-            <a href="" class="btn">
+                <!-- <input type="text" placeholder="输入商品关键词">
+            </div> -->
+            <!-- <a href="" class="btn">
                 <span class="iconfont iconsousuo"></span><span class="name">搜索</span>
-            </a>
-        </div>
+            </a> -->
+        <!-- </div> -->
+        <button class="loginOut">退出登录</button>
     </div>
  </div>
 </template>
@@ -189,6 +190,15 @@ export default {
             }
         }
     }
+}
+.loginOut{
+  float: right;
+  width:160px;
+  height:50px;
+  color:@main;
+  font-size: 16px;
+  margin-top:25px;
+  border:1px solid @main;
 }
 @media screen and(max-width:@change_width){
   .nav-bar-box{
