@@ -172,7 +172,7 @@ export default {
         }
     },
     mounted(){
-       this.tab = this.$route.query.tab
+       this.tab = this.$route.query.tab?this.$route.query.tab:'1'
     },
     methods:{
         toTab(num){

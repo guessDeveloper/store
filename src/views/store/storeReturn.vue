@@ -2,6 +2,7 @@
   <div></div>
 </template>
 <script>
+import '../../plugins/element-table.js'
 export default {
   data(){
     return{

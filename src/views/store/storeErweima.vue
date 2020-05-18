@@ -72,6 +72,7 @@ export default {
       height:40px;
       font-size:14px;
       color:@main;
+      border-radius:0;
       border:1px solid @main;
     }
   }
