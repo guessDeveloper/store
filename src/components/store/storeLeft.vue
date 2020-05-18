@@ -53,7 +53,7 @@ export default {
       },
       {
         title:"安全设置",
-        to:'/erweima',
+        to:'/storeSafe',
         icon:"iconaqsz",
         iconSize:'15px'
       },
@@ -65,7 +65,7 @@ export default {
       },
       {
         title:"分类管理",
-        to:'/safe',
+        to:'/storeClassify',
         icon:'iconflgl',
         iconSize:'17px'
       },
@@ -77,7 +77,7 @@ export default {
       },
       {
         title:"订单管理",
-        to:'/invite',
+        to:'/storeOrder',
         icon:'iconddgl',
         iconSize:'15px'
       },
@@ -89,7 +89,7 @@ export default {
       },
        {
         title:"扫码返奖励积分",
-        to:'/',
+        to:'/storeReturn',
         icon:'iconsmfjl',
         iconSize:'15px'
       },

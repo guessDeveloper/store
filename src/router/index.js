@@ -166,6 +166,30 @@ const routes = [{
             name: 'storeScore',
             component: () =>
                 import ( /* webpackChunkName: "storeScore" */ '../views/store/storeScore.vue')
+        }, {
+
+            path: '/storeOrder', //订单管理
+            name: 'storeOrder',
+            component: () =>
+                import ( /* webpackChunkName: "storeOrder" */ '../views/store/storeOrder.vue')
+        }, {
+
+            path: '/storeClassify', //分类管理
+            name: 'storeClassify',
+            component: () =>
+                import ( /* webpackChunkName: "storeClassify" */ '../views/store/storeClassify.vue')
+        }, {
+
+            path: '/storeSafe', //安全设置
+            name: 'storeSafe',
+            component: () =>
+                import ( /* webpackChunkName: "storeSafe" */ '../views/store/storeSafe.vue')
+        }, {
+
+            path: '/storeReturn', //返积分
+            name: 'storeReturn',
+            component: () =>
+                import ( /* webpackChunkName: "storeReturn" */ '../views/store/storeReturn.vue')
         }, ]
     },
     {
