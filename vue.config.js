@@ -9,14 +9,11 @@ module.exports = {
     productionSourceMap: false,
     devServer: {
         proxy: {
-            '/api': {
-                target: '<url>',
+            '/Sev': {
+                target: 'http://api.youledui.com',
                 ws: true,
                 changeOrigin: true
             },
-            '/foo': {
-                target: '<other_url>'
-            }
         }
     },
     configureWebpack: config => {

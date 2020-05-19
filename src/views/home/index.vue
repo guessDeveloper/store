@@ -185,6 +185,13 @@ export default {
   mounted(){
      
   },
+  methods:{
+    getBanner(){
+        this.$http.get(this.$api.GetBannerGoods).then(res=>{
+          
+        })
+     }
+  },
   components: {
     classify:classify,
     bannerBar:bannerBar,
