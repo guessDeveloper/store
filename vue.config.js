@@ -12,7 +12,10 @@ module.exports = {
             '/Sev': {
                 target: 'http://api.youledui.com',
                 ws: true,
-                changeOrigin: true
+                changeOrigin: true,
+                pathRewrite: {
+                    '^/Sev': '/'
+                }
             },
         }
     },

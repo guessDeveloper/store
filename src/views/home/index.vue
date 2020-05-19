@@ -183,13 +183,11 @@ export default {
     }
   },
   mounted(){
-     
+     this.getBanner();
   },
   methods:{
     getBanner(){
-        this.$http.get(this.$api.GetBannerGoods).then(res=>{
-          
-        })
+        this.$http.get(this.$api.GetBannerGoods).then()
      }
   },
   components: {
