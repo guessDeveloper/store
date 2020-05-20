@@ -7,7 +7,7 @@
       </div>
        <div class="nav-right">
           <!-- <a class=""></a> -->
-          <a href="" class="login-btn">请先登录</a>
+          <router-link to="/login" tag='a' class="login-btn">请先登录</router-link>
           <a href="">免费注册</a>
           <a href="" class="help">帮助中心</a>
        </div>

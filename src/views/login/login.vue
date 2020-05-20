@@ -8,10 +8,10 @@
                  <span class="active">用户登录</span><span>商家登录</span>
               </div>
               <div class="input-box">
-                 <span class="iconfont "></span><input type="text" placeholder="用户名称/手机号码">
+                 <span class="iconfont iconzh"></span><input type="text" placeholder="用户名称/手机号码">
               </div>
               <div class="input-box">
-                <span class="iconfont "></span><input type="password" placeholder="密码">
+                <span class="iconfont iconmima"></span><input type="password" placeholder="密码">
               </div>
               <button class="btn login-btn">登录</button>
               <div class="other">
@@ -45,6 +45,7 @@ export default {
   width:100%;
   min-width: @max-width;
   height:680px;
+  text-align: center;
   background:url(../../assets/img/logon-bc.png) no-repeat center center;
   background-size:auto 100%;
   .middle{
@@ -90,8 +91,16 @@ export default {
   }
 }
 .input-box{
+  position: relative;
   height:50px;
   margin-bottom:20px;
+  .iconfont{
+    position: absolute;
+    left:22px;
+    top:10px;
+    font-size:20px;
+    color:@placeholder_color;
+  }
   input{
     display: block;
     box-sizing: border-box;

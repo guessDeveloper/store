@@ -155,6 +155,20 @@ export default {
   font-size:12px;
   color:@font_color;
 }
+.el-select{
+  width:100%;
+  height:100%;
+}
+.el-input__inner{
+  height:100%!important;
+}
+.el-select>.el-input{
+   height:100%!important;
+}
+.el-select .el-input__inner{
+  border-radius: 0;
+  font-size:12px;
+}
 //个人中心
 .persion-title{
    text-align: left;

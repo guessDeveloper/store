@@ -200,4 +200,12 @@ export default {
 .order-content{
   padding:0 30px;
 }
+ .action-btn{
+    border:0;
+    font-size:12px;
+    color:@persion_left;
+  }
+  .comment-btn{
+      margin-left:8px;
+  }
 </style>

@@ -229,7 +229,7 @@ export default {
                 margin:0 20px;
                 .overTextOne();
                 font-size:14px;
-                line-height: 14px;
+                line-height: 15px;
                 margin-bottom:8px;
                 transition: color .3s ease;
                 cursor: pointer;
