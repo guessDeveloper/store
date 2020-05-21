@@ -1,8 +1,8 @@
 <template>
   <div class="banner-box">
      <el-carousel trigger="click" :height="bannerHeight">
-      <el-carousel-item v-for="item in 4" :key="item">
-         <img src="../../assets/img/banner.png" alt="" draggable="false" class="banner-img">
+      <el-carousel-item v-for="(item,index) in bannerList" :key="index">
+         <img :src="item.picurl" alt="" draggable="false" class="banner-img">
       </el-carousel-item>
     </el-carousel>
     
@@ -12,17 +12,33 @@
 export default {
    data(){
      return{
-       bannerHeight:'340px'
+       bannerHeight:'340px',
+       bannerList:[],
      }
    },
    mounted(){
-     const _this =this;
-    const img = document.querySelector('.banner-img');
-     img.onload = function(){
-        _this.bannerHeight = `${img.height}px`
-     }
-     window.onresize = function(){
-         _this.bannerHeight = `${img.height}px`
+     
+   
+     this.getBanner();
+   },
+   methods:{
+     getBanner(){
+       const _this =this;
+        this.$http.get(this.$api.GetBannerGoods).then(res=>{
+           if(res.data.Code == 1){
+             this.bannerList = res.data.Data
+             console.log(this.bannerList)
+              this.$nextTick(()=>{
+                   const img = document.querySelector('.banner-img');
+                img.onload = function(){
+                    _this.bannerHeight = `${img.height}px`
+                }
+                window.onresize = function(){
+                    _this.bannerHeight = `${img.height}px`
+                }
+              })
+           }        
+        })
      }
    },
    destroyed(){

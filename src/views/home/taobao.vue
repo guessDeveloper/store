@@ -76,6 +76,7 @@ export default {
 .list-box{
   width:@max-width;
   margin:20px auto 100px;
+  text-align: center;
   background:#fff;
   .page-box{
       padding:36px 0 60px;

@@ -32,7 +32,7 @@ export default {
   h4{
     font-size:14px;
     font-weight: normal;
-    line-height: 14px;
+    line-height: 15px;
     margin-top:20px;
     margin-bottom:12px;
     .overTextOne()
