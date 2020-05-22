@@ -15,7 +15,7 @@
               </div>
               <button class="btn login-btn">登录</button>
               <div class="other">
-                <router-link tag="a" class="forget-btn" to="/">忘记密码？</router-link>
+                <router-link tag="a" class="forget-btn" to="/reset">忘记密码？</router-link>
                 <router-link tag="a" class="regeter-btn" to="/">新用户注册</router-link>
               </div>
            </div>

@@ -41,7 +41,7 @@ export default {
 }
 .message-list{
   padding:0 30px;
-  
+  text-align: center;
   .item{
     text-align: left;
     padding-top:20px;

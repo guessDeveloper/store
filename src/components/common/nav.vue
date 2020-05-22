@@ -8,7 +8,7 @@
        <div class="nav-right">
           <!-- <a class=""></a> -->
           <router-link to="/login" tag='a' class="login-btn">请先登录</router-link>
-          <a href="">免费注册</a>
+           <router-link to="/register" tag='a' class="login-btn">免费注册</router-link>
           <a href="" class="help">帮助中心</a>
        </div>
       <a href="" class="regester">注册</a>
