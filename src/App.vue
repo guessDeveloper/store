@@ -159,6 +159,21 @@ export default {
   width:100%;
   height:100%;
 }
+.table-header-color{
+  background:#FAFAFA;
+  th{
+    background:#FAFAFA!important;
+    &:nth-of-type(1){
+      padding-left:20px;
+    }
+  }
+}
+.el-input-number{
+  height:100%;
+}
+.el-input-number .el-input{
+  height:100%;
+}
 .el-input__inner{
   height:100%!important;
 }

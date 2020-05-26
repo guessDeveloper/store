@@ -18,21 +18,22 @@
         </el-table>
         </div>
       </div>
-      <el-dialog title="添加分类奖励比例" :visible.sync="toNew" width="520px">
+      <el-dialog title="添加新产品分类" :visible.sync="toNew" width="520px">
        <div class="input-line">
-          <label for="">请添加奖励比例：</label><input type="text" placeholder="请输入分类名称">
+          <label for="">产品分类名称：</label><input type="text" placeholder="请输入分类名称">
        </div>
        <div class="input-line">
-          <label for="">请选择奖励比例：</label>
+          <label for="">奖励比例：</label>
           <div class="input-box">
-            <el-select v-model="value" placeholder="请选择比例">
+            <!-- <el-select v-model="value" placeholder="请选择比例">
               <el-option
                 v-for="item in options"
                 :key="item.value"
                 :label="item.label"
                 :value="item.value">
               </el-option>
-            </el-select>
+            </el-select> -->
+            <input type="text" placeholder="请输入1至60的整数" class="percent"><span class="per">%</span>
           </div>
        </div>
         <div class="btn-box">
@@ -104,24 +105,32 @@ export default {
   margin-top:30px;
   label{
     display: inline-block;
-    width:96px;
+    width:84px;
     font-size:12px;
     line-height: 34px;
     margin-right:9px;
+    text-align: right;
   }
   input{
     display: inline-block;
     box-sizing: border-box;
-    width:375px;
+    width:387px;
     height:34px;
     padding:0 12px;
     font-size:12px;
     border:1px solid @class_border;
+    &.percent{
+      width:357px;
+    }
   }
   .input-box{
     display: inline-block;
-    width:375px;
+    width:387px;
     height:34px;
+    .per{
+      float: right;
+      line-height: 34px;
+    }
   }
 }
   .btn-box{

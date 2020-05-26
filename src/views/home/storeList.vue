@@ -5,7 +5,7 @@
         <span class="iconfont iconjiantou"></span>
         <span class="now-nav">商城返利</span>
     </div>
-    <div class="food-select-box">
+    <!-- <div class="food-select-box">
             <div class="food-select-item store">
                 <ul>
                     <li class="active"><a href="">全部</a></li>
@@ -30,7 +30,7 @@
 
                 </ul>
             </div>
-        </div>
+        </div> -->
         <div class="content-list">
           <div class="list-title">食品材料（54）</div>
            <ul>
@@ -84,7 +84,7 @@ export default {
 .content-list{
   width:@max-width;
   background:#fff;
-  margin:20px auto 100px;
+  margin:0px auto 100px;
   .list-title{
     text-align: center;
     font-size:28px;

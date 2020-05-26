@@ -3,7 +3,7 @@
     <div class="title">
        <h3>搞定熊孩子</h3>
        <p>宝贝闹翻天 玩具来救急</p>
-       <router-link tag="a" class="more" to="/">查看全部<span class="iconfont iconjiantou"></span></router-link>
+       <router-link tag="a" class="more" to="/recommendList">查看全部<span class="iconfont iconjiantou"></span></router-link>
     </div>
     <ul class="list">
       <li>

@@ -2,7 +2,7 @@
   <div class="content">
      <ul>
        <li v-for="(item,index) in navList" :key="index" :class="{active:item.to == nowPath}"> 
-        <router-link tag="a" :to="item.to" @click.native="routerChange"><span class="iconfont" :class="item.icon" :style="'font-size:'+item.iconSize+';'"></span>{{item.title}}</router-link>
+        <router-link tag="a" :to="item.to" @click.native="routerChange(item.to)"><span class="iconfont" :class="item.icon" :style="'font-size:'+item.iconSize+';'"></span>{{item.title}}</router-link>
        </li>
      </ul>
   </div>
@@ -100,8 +100,8 @@ export default {
     this.nowPath = this.$route.path;
   },
   methods:{
-    routerChange(){
-      this.nowPath = this.$route.path;
+    routerChange(to){
+      this.nowPath = to;
     }
   }
 }

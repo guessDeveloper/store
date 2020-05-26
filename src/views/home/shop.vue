@@ -38,7 +38,7 @@
         </div>
         <div class="shop-list-box">
             <ul class="shop-list">
-                <li><shopCard></shopCard></li>
+                <li @clcik="goDetail"><shopCard></shopCard></li>
                 <li><shopCard></shopCard></li>
                 <li><shopCard></shopCard></li>
                 <li><shopCard></shopCard></li>
@@ -67,6 +67,11 @@ export default {
             
         }
     },
+    methods:{
+        goDetail(){
+            this.$router.push('/earthDetail');
+        }
+    },
     components:{
         shopCard:shopCard
     }
@@ -77,6 +82,7 @@ export default {
     width:@max-width;
     margin:20px auto 100px;
     background:#fff;
+    text-align: center;
     .shop-list{
         padding:15px;
         .clear();

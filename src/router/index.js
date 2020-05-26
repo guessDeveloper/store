@@ -44,6 +44,11 @@ const routes = [{
                 component: () =>
                     import ( /* webpackChunkName: "shop" */ '../views/home/shop.vue')
             }, {
+                path: '/special', //特惠推荐
+                name: 'special',
+                component: () =>
+                    import ( /* webpackChunkName: "special" */ '../views/home/special.vue')
+            }, {
                 path: '/proplurRecommend', //人气推荐
                 name: 'proplurRecommend',
                 component: () =>
@@ -74,6 +79,24 @@ const routes = [{
                 name: 'goodsDetail',
                 component: () =>
                     import ( /* webpackChunkName: "goodsDetail" */ '../views/home/goodsDetail.vue')
+            },
+            {
+                path: '/earthDetail', //商品详情
+                name: 'earthDetail',
+                component: () =>
+                    import ( /* webpackChunkName: "earthDetail" */ '../views/home/earthDetail.vue')
+            },
+            {
+                path: '/helpCenter', //帮助中心
+                name: 'helpCenter',
+                component: () =>
+                    import ( /* webpackChunkName: "helpCenter" */ '../views/home/helpCenter.vue')
+            },
+            {
+                path: '/shopCar', //购物车
+                name: 'shopCar',
+                component: () =>
+                    import ( /* webpackChunkName: "shopCar" */ '../views/home/shopCar.vue')
             },
         ]
     },
@@ -190,6 +213,12 @@ const routes = [{
             name: 'storeReturn',
             component: () =>
                 import ( /* webpackChunkName: "storeReturn" */ '../views/store/storeReturn.vue')
+        }, {
+
+            path: '/storeOrderDetail', //订单详情
+            name: 'storeOrderDetail',
+            component: () =>
+                import ( /* webpackChunkName: "storeOrderDetail" */ '../views/store/storeOrderDetail.vue')
         }, ]
     },
     {

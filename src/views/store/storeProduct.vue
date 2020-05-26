@@ -49,7 +49,6 @@
                     <input type="text" placeholder="输入订单号">
                     <span class="iconfont iconsousuo"></span>
                 </div>
-                <button class="btn">订单申诉</button>
             </div>
             <div class="table-box">
                     <el-table :data="listData"  header-row-style="font-size:12px;color:#999;" row-class-name="table-line" width="930">

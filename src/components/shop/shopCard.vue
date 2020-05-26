@@ -1,6 +1,6 @@
 <template>
-  <div class="shop-card-box">
-     <div class="img-box">
+  <div class="shop-card-box" >
+     <div class="img-box" @click="goDetail">
         <img src="../../assets/img/banner.png" alt="">
      </div>
      <div class="des-box">
@@ -29,6 +29,11 @@ export default {
     return{
 
     }
+  },
+  methods:{
+     goDetail(){
+            this.$router.push('/earthDetail');
+        }
   }
 }
 </script>
@@ -38,6 +43,7 @@ export default {
   position: relative;
   width:100%;
   height:155px;
+  text-align: center;
   border:1px solid @class_border;
   .img-box{
     float: left;

@@ -19,6 +19,7 @@ export default {
 <style lang="less" scoped>
 .item{
   width:100%;
+  text-align: center;
   padding-bottom:50px;
   img{
     display:block;

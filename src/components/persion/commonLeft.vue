@@ -89,7 +89,7 @@ export default {
       },
        {
         title:"帮助中心",
-        to:'/',
+        to:'/helpCenter',
         icon:'iconbangzhu',
         iconSize:'15px'
       },

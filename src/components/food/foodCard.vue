@@ -27,6 +27,7 @@ export default {
 .card-box{
  width: 100%;
  box-sizing: border-box;
+ text-align: center;
  border:1px solid @class_border;
  img{
    display: block;

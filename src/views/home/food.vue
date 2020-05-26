@@ -38,10 +38,10 @@
         </div>
         <div class="food-list-box">
             <ul class="food-list">
-                <li><foodCard></foodCard></li>
-                <li><foodCard></foodCard></li>
-                <li><foodCard></foodCard></li>
-                <li><foodCard></foodCard></li>
+                <li @click="goDetial"><foodCard></foodCard></li>
+                <li @click="goDetial"><foodCard></foodCard></li>
+                <li @click="goDetial"><foodCard></foodCard></li>
+                <li @click="goDetial"><foodCard></foodCard></li>
                 <li><foodCard></foodCard></li>
                 <li><foodCard></foodCard></li>
                 <li><foodCard></foodCard></li>
@@ -68,6 +68,11 @@ export default {
 
         }
     },
+    methods:{
+        goDetail(){
+            this.$router.push('/foodDetail')
+        }
+    },
     components:{
         foodCard:foodCard,
     }
@@ -79,6 +84,7 @@ export default {
   width:@max-width;
   margin:20px auto 100px;
   background:#fff;
+  text-align: center;
   .page-box{
       padding:30px 0 60px;
   }
@@ -92,6 +98,7 @@ export default {
         float: left;
         width:360px;
         margin:15px;
+        cursor: pointer;
     }
 }
 </style>

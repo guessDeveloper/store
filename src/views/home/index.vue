@@ -17,7 +17,7 @@
        <div class="title-box">
           <h2 class="title">商家联盟</h2>
           <span class="sub-title">积分直返消费者</span>
-          <a class="more"> 查看全部 <span class="iconfont iconjiantou"></span></a>
+          <router-link class="more" tag="a" to="/storeList"> 查看全部 <span class="iconfont iconjiantou"></span></router-link>
           <div class="position-box">
           <el-dropdown trigger="click">
             <span class="el-dropdown-link box">
@@ -34,7 +34,7 @@
           </div>
        </div>
        <div class="class-box">
-          <div class="store-box">
+          <router-link class="store-box" tag="div" to="/foodDetail">
               <div class="store-name">
                 天津包子铺
               </div>
@@ -42,34 +42,34 @@
                 返比：<span>20%</span>
               </div>
               <img src="../../assets/img/brand.png" alt="">
-          </div>
-          <div class="store-box">
+          </router-link>
+          <router-link class="store-box" tag="div" to="/foodDetail">
               <div class="store-name">
-                天津包子铺
+                Belule
               </div>
               <div class="store-percent">
                 返比：<span>20%</span>
               </div>
                <img src="../../assets/img/brand.png" alt="">
-          </div>
-          <div class="store-box">
+          </router-link>
+         <router-link class="store-box" tag="div" to="/foodDetail">
               <div class="store-name">
-                天津包子铺
+                品牌名称
               </div>
               <div class="store-percent">
                 返比：<span>20%</span>
               </div>
               <img src="../../assets/img/brand.png" alt="">
-          </div>
-          <div class="store-box">
+          </router-link>
+         <router-link class="store-box" tag="div" to="/foodDetail">
               <div class="store-name">
-                天津包子铺
+                ROYAL CANIN
               </div>
               <div class="store-percent">
                 返比：<span>20%</span>
               </div>
                <img src="../../assets/img/brand.png" alt="">
-          </div>
+          </router-link>
        </div>
     </div>
     <!-- 推荐专区 -->
@@ -78,25 +78,25 @@
           <h2 class="title">推荐专区</h2>
        </div>
        <div class="class-box">
-          <div class="recomend-box">
+          <router-link class="recomend-box" tag="div" to="/special">
               <div class="recomend-title">特惠推荐</div>
               <div class="tip">我猜得到 你的需要</div>
               <img src="../../assets/img/rec.png" alt="">
-          </div>
+          </router-link>
+           <router-link class="recomend-box" tag="div" to="/proplurRecommend">
+              <div class="recomend-title">人气推荐</div>
+              <div class="tip">人气好物推荐</div>
+              <img src="../../assets/img/rec_2.png" alt="">
+           </router-link>
+           <router-link class="recomend-box" tag="div" to="/preferedRecommend">
+              <div class="recomend-title">优选推荐</div>
+              <div class="tip">编辑精心整理推荐</div>
+              <img src="../../assets/img/rec_3.png" alt="">
+           </router-link>
            <div class="recomend-box">
-              <div class="recomend-title">特惠推荐</div>
-              <div class="tip">我猜得到 你的需要</div>
-              <img src="../../assets/img/rec.png" alt="">
-          </div>
-           <div class="recomend-box">
-              <div class="recomend-title">特惠推荐</div>
-              <div class="tip">我猜得到 你的需要</div>
-              <img src="../../assets/img/rec.png" alt="">
-          </div>
-           <div class="recomend-box">
-              <div class="recomend-title">特惠推荐</div>
-              <div class="tip">我猜得到 你的需要</div>
-              <img src="../../assets/img/rec.png" alt="">
+              <div class="recomend-title">领劵中心</div>
+              <div class="tip">发现更多超值优惠卷</div>
+              <img src="../../assets/img/rec_4.png" alt="">
           </div>
        </div>
     </div>
@@ -183,12 +183,10 @@ export default {
     }
   },
   mounted(){
-     this.getBanner();
+     
   },
   methods:{
-    getBanner(){
-        this.$http.get(this.$api.GetBannerGoods).then()
-     }
+    
   },
   components: {
     classify:classify,
@@ -318,6 +316,7 @@ export default {
         float: right;
         font-size:12px;
         margin-right:20px;
+        color:@font_color;
         .iconfont{
           font-size:10px ;
           color:@subtitle_color;

@@ -5,7 +5,7 @@
         <div class="middle">
            <div class="login-box">
               <div class="tab-box">
-                 <span class="active">用户登录</span><span>商家登录</span>
+                 <span  :class="{active:type==1}" @click="type=1">用户登录</span><span :class="{active:type==2}" @click="type=2">商家登录</span>
               </div>
               <div class="input-box">
                  <span class="iconfont iconzh"></span><input type="text" placeholder="用户名称/手机号码">
@@ -13,7 +13,7 @@
               <div class="input-box">
                 <span class="iconfont iconmima"></span><input type="password" placeholder="密码">
               </div>
-              <button class="btn login-btn">登录</button>
+              <button class="btn login-btn" @click="login">登录</button>
               <div class="other">
                 <router-link tag="a" class="forget-btn" to="/reset">忘记密码？</router-link>
                 <router-link tag="a" class="regeter-btn" to="/">新用户注册</router-link>
@@ -30,12 +30,22 @@ import footerBar from '@/components/common/footer'
 export default {
   data(){
     return{
-
+      type:'1'
     }
   },
   components:{
     footerBar:footerBar,
     navBar:navBar
+  },
+  methods:{
+    login(){
+      if(this.type==1){
+        this.$router.push('/persion')
+      }else{
+         this.$router.push('/store')
+      }
+      
+    }
   }
 }
 </script>

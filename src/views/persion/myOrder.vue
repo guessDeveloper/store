@@ -52,7 +52,7 @@
                     <input type="text" placeholder="输入订单号">
                     <span class="iconfont iconsousuo"></span>
                 </div>
-                <button class="btn">订单申诉</button>
+                <router-link class="btn" tag="button" to="/orderGrievance">订单申诉</router-link>
             </div>
             <div class="table-box">
                   <el-table :data="listData"  header-row-style="font-size:12px;color:#999;" row-class-name="table-line" width="930">
@@ -70,7 +70,7 @@
                      <el-table-column property="score" label="状态" width="88" align="center"></el-table-column>
                     <el-table-column  label="操作" width="102" align="center">
                          <template slot-scope="scope">
-                            <button :data="scope" class="action-btn">查看详情</button>
+                            <button :data="scope" class="action-btn" @click="goDetail">查看详情</button>
                         </template>
                     </el-table-column>
                 </el-table>
@@ -125,7 +125,7 @@
                      <el-table-column property="score" label="状态" width="88" align="center"></el-table-column>
                     <el-table-column  label="操作" width="102" align="center">
                          <template slot-scope="scope">
-                            <button :data="scope" class="action-btn">查看详情</button><button class="action-btn comment-btn" @click="toRate = true">评价</button>
+                            <button :data="scope" class="action-btn" @click="goDetail">查看详情</button><button class="action-btn comment-btn" @click="toRate = true">评价</button>
                         </template>
                     </el-table-column>
                 </el-table>
@@ -178,6 +178,9 @@ export default {
         toTab(num){
           this.tab = num
           this.$router.push('/myOrder?tab='+num)
+        },
+        goDetail(){
+            this.$router.push('/orderDetail')
         }
     }
 }

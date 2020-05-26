@@ -33,7 +33,7 @@
        </div>
     </div>
     <div class="btn-box">
-        <button class="btn">返回我的订单</button>
+        <button class="btn" @click="back">返回我的订单</button>
     </div>
   </div>
 </template>
@@ -42,6 +42,11 @@ export default {
   data(){
     return{
 
+    }
+  },
+  methods:{
+    back(){
+      this.$router.push('/myOrder')
     }
   }
 }

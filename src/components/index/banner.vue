@@ -2,7 +2,9 @@
   <div class="banner-box">
      <el-carousel trigger="click" :height="bannerHeight">
       <el-carousel-item v-for="(item,index) in bannerList" :key="index">
+        <a :href="item.clickurl" target="_black">
          <img :src="item.picurl" alt="" draggable="false" class="banner-img">
+        </a>
       </el-carousel-item>
     </el-carousel>
     

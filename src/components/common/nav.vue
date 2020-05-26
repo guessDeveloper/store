@@ -3,13 +3,13 @@
     <div class="nav-box clear">
        <div class="tip">
          <span class="iconfont iconguangbo"></span>
-         <span class="msg" v-for="(item,index) in tip" :key="index" :class="{active:tipActive == index}">{{item.msg}}</span>
+         <span class="msg" v-for="(item,index) in tip" :key="index" :class="{active:tipActive == index}">{{item.Message}}</span>
       </div>
        <div class="nav-right">
-          <!-- <a class=""></a> -->
-          <router-link to="/login" tag='a' class="login-btn">请先登录</router-link>
-           <router-link to="/register" tag='a' class="login-btn">免费注册</router-link>
-          <a href="" class="help">帮助中心</a>
+          <a class="iconfont iconyd_saoyisao login-btn"></a>
+          <router-link to="/login" tag='a' >请先登录</router-link>
+           <router-link to="/register" tag='a' >免费注册</router-link>
+          <router-link to="/helpCenter" class="help" tag="a">帮助中心</router-link>
        </div>
       <a href="" class="regester">注册</a>
       <a class="login">登录</a>
@@ -20,17 +20,14 @@
 export default {
   data(){
     return{
-      tip:[{
-        msg:'优乐兑APP上线了，帮助商家解决客户流量问题'
-      },{
-        msg:'优乐兑APP上线了，帮助商家解决客户流量问'
-      }],
+      tip:[],
       tipActive:0,
       timer:''
     }
   },
   mounted(){
-    this.loop();
+    this.getMessage()
+    
   },
   methods:{
     loop(){
@@ -42,7 +39,16 @@ export default {
           this.tipActive = 0;
         }
       },4000)
-    }
+    },
+    //获取公告
+     getMessage(){
+      this.$http.get(this.$api.GetWebMessage).then(res=>{
+          if(res.data.Code == 1){
+            this.tip = res.data.Data;
+            this.loop();
+          }
+      })
+     }
   },
   beforeDestroy(){
     clearInterval(this.timer)

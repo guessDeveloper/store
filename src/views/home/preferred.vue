@@ -42,6 +42,7 @@ export default {
     margin:0 auto;
     background:#fff;
     overflow: hidden;
+    text-align: center;
     h2{
         margin-top:35px;
         font-size:28px;
@@ -58,6 +59,7 @@ export default {
 }
 .content-box{
   margin:20px auto 100px;
+  text-align: center;
   .line{
     margin-bottom:20px;
   }

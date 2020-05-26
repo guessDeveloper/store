@@ -17,14 +17,10 @@
             <div class="input-box">
              <el-dropdown trigger="click" class="select">
                 <span class="el-dropdown-link">
-                   拼多多<span class="iconfont icon-arrow-downYellow"></span>
+                   {{nowName}}<span class="iconfont icon-arrow-downYellow"></span>
                 </span>
                 <el-dropdown-menu slot="dropdown">
-                <el-dropdown-item >黄金糕</el-dropdown-item>
-                <el-dropdown-item >狮子头</el-dropdown-item>
-                <el-dropdown-item >螺蛳粉</el-dropdown-item>
-                <el-dropdown-item>双皮奶</el-dropdown-item>
-                <el-dropdown-item >蚵仔煎</el-dropdown-item>
+                <el-dropdown-item v-for="(item,index) in navList" :key="index">{{item.name}}</el-dropdown-item>
                 </el-dropdown-menu>
               </el-dropdown>
                 <!-- <div class="select" >
@@ -43,7 +39,7 @@
 export default {
     data(){
         return{
-           nowPath:'',
+           nowPath:'/',
            navList:[{
                name:'首页',
                path:'/'
@@ -51,7 +47,7 @@ export default {
                name:'淘宝',
                path:'/taobao'
            },{
-               name:'京东',
+               name:'拼多多',
                path:'/jiongdong',
            },{
                name:'商城返利',
@@ -62,17 +58,26 @@ export default {
            },{
                name:'美食广场',
                path:'/food'
-           }]
+           }],
+           nowName:'首页'
         }
+    },
+    computed:{
+       
     },
     mounted(){
         this.nowPath = this.$route.path
+        this.navList.forEach((item)=>{
+            if(item.path == this.nowPath){
+                this.nowName = item.name
+            }
+        })
     },
     methods:{
-        goRouter(to){
-            this.nowPath = to 
-        }
-    }
+        goRouter(){
+            this.nowPath = this.$route.path
+        },
+    },
 }
 </script>
 <style lang="less" scoped>
