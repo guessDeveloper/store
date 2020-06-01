@@ -3,63 +3,59 @@
         <div class="brand-top-nav">
             <router-link tag="a" to="/">首页</router-link>
             <span class="iconfont iconjiantou"></span>
-            <span class="now-nav">淘宝</span>
+            <span class="now-nav">拼多多</span>
         </div>
         <div class="item-box">
             <ul>
                 <li v-for="(item,index) in classList" :key="index">
-                   <router-link :to="'/taobaoList?classId='+item.ID+'&className='+item.titleA" tag="div">
+                   <router-link :to="'/pddList?classId='+item.ID+'&className='+item.titleA" tag="a">
                     <div class="img-box">
-                        <img :src="item.CatPhoto" alt="">
+                          <img :src="item.CatPhoto" alt="">
                     </div>
                     <div class="name">{{item.titleA}}</div>
                    </router-link>
                 </li>
-                
             </ul>
         </div>
-        <div class="list-box">
+       <div class="list-box">
             <CardList v-for="(item,index) in goodsList" :key="index" :data="item"></CardList>
         </div>
-        <!-- <div class="subject-box">
+        <div class="subject-box" v-if="subjectList.length>0">
             <div class="title">相关专题</div>
             <ul>
-                <li><subjectCard></subjectCard></li>
-                 <li><subjectCard></subjectCard></li>
-                  <li><subjectCard></subjectCard></li>
-                   <li><subjectCard></subjectCard></li>
-                    <li><subjectCard></subjectCard></li>
-                     <li><subjectCard></subjectCard></li>
+                <li v-for="(item,index) in subjectList" :key="index"><subjectCard :data="item"></subjectCard></li>
             </ul>
             <button class="more">查看更多</button>
-        </div> -->
+        </div>
     </div>
 </template>
 <script>
 import CardList from '@/components/taobao/cardListType'
-// import subjectCard from '@/components/taobao/subjectCard'
+import subjectCard from '@/components/taobao/subjectCard'
 export default {
     data(){
         return{
-            classList:[],
-            goodsList:[],
+           classList:[],
+           goodsList:[],
+           subjectList:[],
         }
     },
     mounted(){
         this.getClass();
         this.getGoods();
+        this.getSubject();
     },
     components:{
        CardList:CardList,
-    //    subjectCard:subjectCard 
+       subjectCard:subjectCard 
     },
     methods:{
-        //获取顶部分类
+         //获取顶部分类
         getClass(){
             
-            this.$http.get(this.$api.GetClassNoPic).then(res=>{
+            this.$http.get(this.$api.classPdd).then(res=>{
                if(res.data.Code == 1){
-                  this.classList = res.data.Data
+                  this.classList = res.data.Data.list
                }
               
             })
@@ -72,9 +68,9 @@ export default {
                 spinner: 'el-icon-loading',
                 background: 'rgba(255, 255, 255, 0.5)'
             });
-            this.$http.get(this.$api.GetClassMaterial).then(res=>{
+            this.$http.get(this.$api.GetrecommendCatGoods).then(res=>{
               if(res.data.Code == 1){
-                  this.goodsList = res.data.Data
+                  this.goodsList = res.data.Data.list
                  
               }
                setTimeout(()=>{
@@ -84,6 +80,14 @@ export default {
                 setTimeout(()=>{
                  loading.close()
                },1000)
+            })
+        },
+        //获取专题
+        getSubject(){
+            this.$http.get(this.$api.GetThemeList).then(res=>{
+                if(res.data.Code == 1){
+                    this.subjectList = res.data.Data.list
+                }
             })
         }
     }
@@ -105,6 +109,9 @@ export default {
             width:185px;
             margin:0 0px 32px;
             cursor: pointer;
+            a{
+              color:@font_color;
+            }
             .img-box{
                 width:68px;
                 height:68px;
@@ -154,7 +161,6 @@ export default {
 }
 .list-box{
     margin-top:20px;
-    margin-bottom:100px;
 }
 .subject-box{
     width:@max-width;
@@ -191,6 +197,27 @@ export default {
             color:#fff;
         }
     }
+    @media screen and(max-width:@change_width){
+       &{
+           width:100%;
+           .title{
+               font-size:20/@p;
+               line-height: 20/@p;
+               padding:30/@p 0 25/@p;
+           }
+           ul{
+               .clear();
+               li{
+                   float: none;
+                   width:auto;
+                   margin:0 15px 15px;
+               }
+           }
+           .more{
+               width:180px;
+               font-size:12px;
+           }
+       }
+    }
 }
-
 </style>

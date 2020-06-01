@@ -1,18 +1,11 @@
 <template>
   <div class="card-list-box">
      <div class="title">
-        <h4>毛衫</h4>
-        <p>温暖柔软，品质之选</p>
+        <h4>{{data.titleA}}</h4>
+        <p>{{data.titleB}}</p>
      </div>
      <ul class="card-list">
-       <li><Card></Card></li>
-       <li><Card></Card></li>
-       <li><Card></Card></li>
-       <li><Card></Card></li>
-       <li><Card></Card></li>
-       <li><Card></Card></li>
-       <li><Card></Card></li>
-       <li><Card></Card></li>
+       <li v-for="(item) in data.proList" :key="item.ID"><Card :data="item"></Card></li>
      </ul>
   </div>
 </template>
@@ -24,6 +17,11 @@ export default {
 
      }
    },
+   props:{
+     data:{
+       type:Object
+     }
+   },
    components:{
      Card:Card
    }
@@ -33,7 +31,7 @@ export default {
 <style lang="less" scoped>
 .card-list-box{
   width:@max-width;
-  margin:0 auto;
+  margin:0 auto 20px;
   background:#fff;
   text-align: center;
   .title{
@@ -59,4 +57,32 @@ export default {
     margin:13px;
   }
 }
+ @media screen and(max-width:@change_width){
+   .card-list-box{
+     width:100%;
+     margin:0 auto 10/@p;
+     .title{
+       h4{
+         font-size:20/@p;
+         line-height: 20/@p;
+         padding:20/@p 0 10/@p 0;
+       }
+       p{
+         font-size:;
+       }
+     }
+   }
+   .card-list{
+     display: flex;
+     flex-wrap: wrap;
+     justify-content:space-between;
+     padding:15/@p;
+     li{
+       width:calc(50% - 7px);
+       height:auto;
+       margin:0;
+       
+     }
+   }
+ }
 </style>

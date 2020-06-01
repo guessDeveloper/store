@@ -12,7 +12,7 @@
               全部商品 <span>100</span>
           </h2>
           <ul class="list">
-            <li @click="goDetail">
+            <li>
               <foodCard></foodCard>
             </li>
              <li>
@@ -54,9 +54,7 @@ export default {
     }
   },
   methods:{
-    goDetail(){
-      this.$router.push('/foodDetail')
-    }
+    
   },
   components:{
     foodCard:foodCard

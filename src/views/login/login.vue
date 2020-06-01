@@ -147,4 +147,7 @@ export default {
     color:@main;
   }
 }
+@media screen and(max-width:@change_width){
+  
+}
 </style>

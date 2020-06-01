@@ -58,6 +58,9 @@ export default {
         margin:0 30px;
         line-height:64px;
         border-bottom:1px solid @class_border;
+        &:nth-last-child(1){
+          border:0;
+        }
         ul{
             display:block;
             width:100%;
@@ -86,6 +89,7 @@ export default {
         }
     }
 }
+
 //图标
 .icon-arrow-down{
   display: inline-block;
@@ -101,6 +105,9 @@ export default {
   height:5px;
   background:url(./assets/img/icon-arrow-downY.png) no-repeat center center;
   background-size:100%;
+}
+.icon-sort{
+  
 }
 //修改element
 .el-pager li.active{
@@ -191,5 +198,10 @@ export default {
   line-height: 60px;
   padding-left:30px;
   border-bottom:1px solid @class_border;
+}
+@media screen and(max-width:@change_width){
+  .brand-top-nav{
+    display: none;
+  }
 }
 </style>

@@ -32,7 +32,7 @@
             </div>
         </div> -->
         <div class="content-list">
-          <div class="list-title">食品材料（54）</div>
+          <!-- <div class="list-title">食品材料（54）</div> -->
            <ul>
              <li>
                <Card></Card>
@@ -67,8 +67,18 @@ export default {
       
     }
   },
+  mounted(){
+    this.getList();
+  },
   components:{
     Card:Card
+  },
+  methods:{
+    getList(){
+      this.$http.get(this.$api.GetMerchaterClass).then(res=>{
+        console.log(res)
+      })
+    }
   }
 }
 </script>

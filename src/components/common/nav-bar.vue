@@ -7,13 +7,16 @@
         <a href="" class="sao">
             <span class="iconfont iconyd_saoyisao"></span>
         </a>
-        <a href="" class="menu">
+        <a class="menu" @click="openNav" v-show="!navIsOpen">
             <span class="iconfont iconyd_gengduo"></span>
         </a>
-        <div class="nav-box">
-            <router-link :to="item.path" v-for="(item,index) in navList" :key="index" tag="a" :class="{active:nowPath == item.path}" @click.native="goRouter(item.path)" target="_blank">{{item.name}}</router-link>
+        <a class="menu" v-show="navIsOpen" @click="closeNav">
+            <span class="el-icon-close"></span>
+        </a>
+        <div class="nav-box" >
+            <router-link :to="item.path" v-for="(item,index) in navList" :key="index" tag="a" :class="{active:nowPath == item.path||nowName == item.name}" @click.native="goRouter(item.path)" target="_blank">{{item.name}}</router-link>
         </div>
-        <div class="search-box">
+        <div class="search-box" v-show="!navIsOpen">
             <div class="input-box">
              <el-dropdown trigger="click" class="select">
                 <span class="el-dropdown-link">
@@ -33,6 +36,9 @@
             </a>
         </div>
     </div>
+     <div class="nav-list" :class='{open:navIsOpen}'>
+            <router-link :to="item.path" v-for="(item,index) in navList" :key="index" tag="a" :class="{active:nowPath == item.path||nowName == item.name}" @click.native="goRouter(item.path)" target="_blank">{{item.name}}</router-link>
+     </div>
  </div>
 </template>
 <script>
@@ -45,10 +51,16 @@ export default {
                path:'/'
            },{
                name:'淘宝',
-               path:'/taobao'
+               path:'/taobao',
+               child:[
+                   {
+                       path:'/taobaoList',
+                       name:'淘宝列表'
+                   }
+               ]
            },{
                name:'拼多多',
-               path:'/jiongdong',
+               path:'/Pdd',
            },{
                name:'商城返利',
                path:'/storeList'
@@ -59,7 +71,8 @@ export default {
                name:'美食广场',
                path:'/food'
            }],
-           nowName:'首页'
+           nowName:'首页',
+           navIsOpen:false
         }
     },
     computed:{
@@ -71,12 +84,29 @@ export default {
             if(item.path == this.nowPath){
                 this.nowName = item.name
             }
+           item.child&&item.child.forEach(item2=>{
+               if(item2.path == this.nowPath){
+                   this.nowName = item.name
+               }
+           })
         })
     },
     methods:{
         goRouter(){
-            this.nowPath = this.$route.path
+            this.nowPath = this.$route.path;
+           
         },
+        openNav(){
+            this.navIsOpen = true
+            document.querySelector('body').style.height = '100%';
+            document.querySelector('body').style.overflow = 'hidden';
+        },
+        closeNav(){
+            this.navIsOpen = false
+            document.querySelector('body').style.height = 'auto';
+            document.querySelector('body').style.overflow = 'auto';
+        }
+        
     },
 }
 </script>
@@ -88,6 +118,9 @@ export default {
     line-height: 100px;
     background: #fff;
     text-align: center;
+    .nav-list{
+        display: none;
+    }
     .box{
    
         width:@max-width;
@@ -197,12 +230,16 @@ export default {
 }
 @media screen and(max-width:@change_width){
   .nav-bar-box{
+    position: relative;
     box-sizing: border-box;
     width:100%;
-    padding:0 15/@p;
+    height:115/@p;
+    padding:0 15/@p 15/@p;
+    background:#fff;
         .box{
              position: relative;
             width:100%;
+            overflow:inherit;
             .logo{
             width:auto;
             width:94/@p;
@@ -212,8 +249,12 @@ export default {
                 height:100%;
             }
         }
-        .nav-box{
+    .nav-box{
         display: none;
+        position: absolute;
+        top:60/@p;
+        background: #fff;
+        z-index: 300;
     }
     .sao{
         display: block;
@@ -278,7 +319,33 @@ export default {
         }
     }
     }
-    
+    .nav-list{
+        display: none;
+        position: absolute;
+        width:100%;
+        left:0;
+        top:60/@p;
+        background: #fff;
+        z-index: 300;
+        box-sizing: border-box;
+        padding:0 30/@p 15/@p;
+        &.open{
+            display: block;
+            height:auto;
+            a{
+               display:block;
+               margin:0;
+               line-height: 54px;
+               text-align: left;
+               font-size:16px;
+               border-bottom: 1px solid @class_border;
+               color:#0B0B17;
+               &:nth-last-child(1){
+                   border:0;
+               }
+            }
+        }
+    }
   }
 }
 </style>

@@ -75,4 +75,36 @@ export default {
      }
    }
 }
+@media screen and(max-width:@change_width){
+  .login-nav{
+    height:58/@p;
+    .box{
+      width:100%;
+      box-sizing: border-box;
+      padding:0 15px;
+      .logo{
+        height:25/@p;
+        margin-top:17px;
+        img{
+          width:94/@p;
+          height:100%;
+        }
+      }
+      .type{
+        height: 24/@p;
+        line-height: 24/@p;
+        font-size:18/@p ;
+        margin-top:17/@p;
+        padding-left:15/@p;
+        margin-left: 14/@p;
+      }
+      .home{
+        font-size:12/@p;
+        line-height: 17/@p;
+        margin-top:21/@p;
+      }
+    }
+    
+  }
+}
 </style>

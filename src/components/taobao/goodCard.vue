@@ -1,10 +1,10 @@
 <template>
   <div class="card-box">
-    <img src="../../assets/img/brand.png" alt="">
+    <img :src="data.picurl" alt="">
     <div class="des">
-      <h4>经典黑白撞色，女式小香风纯羊毛开衫 积分</h4>
-      <p>积分约：50</p>
-      <div class="price">¥249</div>
+      <h4>{{data.titleA}}</h4>
+      <p>{{data.tieleB}}</p>
+      <div class="price">¥{{data.price}}</div>
     </div>
   </div>
 </template>
@@ -13,6 +13,11 @@ export default {
   data(){
     return{
 
+    }
+  },
+  props:{
+    data:{
+      type:Object
     }
   }
 }
@@ -48,6 +53,28 @@ export default {
     margin-top:12px;
     font-weight: bold;
     color:@percent_color;
+  }
+}
+@media screen and(max-width:@change_width){
+  .card-box{
+    img{
+      height:auto;
+    }
+  }
+  h4{
+    font-size:12/@p;
+    line-height: 12/@p;
+    margin-bottom:7px;
+  }
+  p{
+    font-size:10/@p;
+    line-height: 10/@p;
+  }
+  .price{
+    margin-top:7/@p;
+  }
+  .des{
+    padding:0 7/@p;
   }
 }
 </style>

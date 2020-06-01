@@ -14,63 +14,16 @@
       <div class="qustion-list">
         <div class="title">问题分类</div>
         <ul>
-          <li>
-             <div class="icon">新</div>
+          <li v-for="(item,index) in list" :key="index" @click="goDetal(item)">
+             <div class="icon">
+               <img :src="item.HtIpIco" alt="">
+             </div>
              <div class="content">
-                <h3>新手教程</h3>
-                <p>新手常见问题。视频讲解</p>
+                <h3>{{item.Name}}</h3>
+                <p>{{item.title}}</p>
              </div>
           </li>
-          <li>
-             <div class="icon">新</div>
-             <div class="content">
-                <h3>新手教程</h3>
-                <p>新手常见问题。视频讲解</p>
-             </div>
-          </li>
-          <li>
-             <div class="icon">新</div>
-             <div class="content">
-                <h3>新手教程</h3>
-                <p>新手常见问题。视频讲解</p>
-             </div>
-          </li>
-          <li>
-             <div class="icon">新</div>
-             <div class="content">
-                <h3>新手教程</h3>
-                <p>新手常见问题。视频讲解</p>
-             </div>
-          </li>
-          <li>
-             <div class="icon">新</div>
-             <div class="content">
-                <h3>新手教程</h3>
-                <p>新手常见问题。视频讲解</p>
-             </div>
-          </li>
-          <li>
-             <div class="icon">新</div>
-             <div class="content">
-                <h3>新手教程</h3>
-                <p>新手常见问题。视频讲解</p>
-             </div>
-          </li>
-          <li>
-             <div class="icon">新</div>
-             <div class="content">
-                <h3>新手教程</h3>
-                <p>新手常见问题。视频讲解</p>
-             </div>
-          </li>
-
-          <li>
-             <div class="icon">新</div>
-             <div class="content">
-                <h3>新手教程</h3>
-                <p>新手常见问题。视频讲解</p>
-             </div>
-          </li>
+         
         </ul>
       </div>
   </div>
@@ -79,7 +32,22 @@
 export default {
   data(){
     return{
-
+      list:[]
+    }
+  },
+  mounted(){
+    this.getClass();
+  },
+  methods:{
+    getClass(){
+      this.$http.get(this.$api.Q_A_Class).then(res=>{
+        if(res.data.Code == 1){
+          this.list = res.data.Data.Class
+        }
+      })
+    },
+    goDetal(item){
+      this.$router.push(`/helpCenterDetail?id=${item.ID}`)
     }
   }
 }
@@ -154,6 +122,12 @@ export default {
         border:1px solid #FFD1C8;
         text-align: center;
         vertical-align: middle;
+        overflow: hidden;
+        img{
+          display: block;
+          width:100%;
+          height:100%;
+        }
       }
       .content{
         display: inline-block;

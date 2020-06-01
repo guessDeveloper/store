@@ -227,7 +227,7 @@ export default {
       width:100%;
       background:#fff;
       margin-top:0;
-      padding:16px 15px 20px;
+      padding:0px 15px 20px;
       .banner-left{
         display: none;
       }

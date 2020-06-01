@@ -3,7 +3,7 @@
       <div class="brand-top-nav">
             <router-link tag="a" to="/">首页</router-link>
             <span class="iconfont iconjiantou"></span>
-            <router-link  tag="a" to="/taobao">淘宝</router-link>
+            <router-link  tag="a" to="/Pdd">拼多多</router-link>
             <span class="iconfont iconjiantou"></span>
             <span class="now-nav">{{className}}</span>
         </div>
@@ -68,9 +68,9 @@ export default {
   },
   methods:{
     getClass(){
-      this.$http.get(this.$api.ListGetClassNoPic).then(res =>{
+      this.$http.get(this.$api.pddGetClassNoPic).then(res =>{
          if(res.data.Code == 1){
-           this.classList = res.data.Data
+           this.classList = res.data.Data.list
          }
       })
     },
@@ -92,12 +92,12 @@ export default {
     //获取商品列表
     getList(){
        let sendData = {
-         category_id:this.classId,
+         Catid:this.classId,
          sort:this.sort,
          pageIndex:this.pageIndex,
          pageSize:this.pageSize
        }
-       this.$http.post(this.$api.optimusByPager,sendData).then(res=>{
+       this.$http.post(this.$api.pddGerPageList,sendData).then(res=>{
           if(res.data.Code == 1){
              this.list = res.data.Data.List,
              this.total = res.data.Data.count

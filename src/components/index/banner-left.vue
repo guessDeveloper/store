@@ -1,90 +1,26 @@
 <template>
     <section class="classFy">
         <ul>
-            <li @mouseover="showHover = true" @mouseleave="showHover= fasle">
-                <a>服装</a><span>/</span><a href="">毛衫</a><span>/</span><a>外衣</a> <span class="iconfont iconjinruyindao"></span>
-                <div class="banner-class" :class="{show:showHover == true}">
+            <li v-for="(item,index) in list" :key="index">
+                <a>{{item.ClassName}} <span class="iconfont iconjinruyindao"></span>
+                <div class="banner-class" >
                         <div class="title clear">
                             <h3>分类推荐</h3><span>根据您的购买或浏览记录推荐</span>
                         </div>
                         <ul class="class-box clear">
-                            <li class="clear">
-                                <img src="../../assets/img/brand.png" alt="">
+                            <li class="clear" v-for="(item2) in item.products" :key="item2.id">
+                                <img :src="item2.picurl" alt="">
                                 <div  class="des">
-                                    <div class="name">芒果新鲜水果 热带水果</div>
-                                    <div class="subtitle"> 匠心剪裁，垂感质</div>
-                                    <div class="price">¥249</div>
+                                    <div class="name">{{item2.title1}}</div>
+                                    <div class="subtitle">{{item2.title2}}</div>
+                                    <div class="price">¥{{item2.price}}</div>
                                 </div>
                             </li>
-                            <li class="clear">
-                                <img src="../../assets/img/brand.png" alt="">
-                                <div  class="des">
-                                    <div class="name">芒果新鲜水果 热带水果</div>
-                                    <div class="subtitle"> 匠心剪裁，垂感质</div>
-                                    <div class="price">¥249</div>
-                                </div>
-                            </li>
-                            <li class="clear">
-                                <img src="../../assets/img/brand.png" alt="">
-                                <div  class="des">
-                                    <div class="name">芒果新鲜水果 热带水果</div>
-                                    <div class="subtitle"> 匠心剪裁，垂感质</div>
-                                    <div class="price">¥249</div>
-                                </div>
-                            </li>
-                            <li class="clear">
-                                <img src="../../assets/img/brand.png" alt="">
-                                <div  class="des">
-                                    <div class="name">芒果新鲜水果 热带水果</div>
-                                    <div class="subtitle"> 匠心剪裁，垂感质</div>
-                                    <div class="price">¥249</div>
-                                </div>
-                            </li>
-                            <li class="clear">
-                                <img src="../../assets/img/brand.png" alt="">
-                                <div  class="des">
-                                    <div class="name">芒果新鲜水果 热带水果</div>
-                                    <div class="subtitle"> 匠心剪裁，垂感质</div>
-                                    <div class="price">¥249</div>
-                                </div>
-                            </li>
-                            <li class="clear">
-                                <img src="../../assets/img/brand.png" alt="">
-                                <div  class="des">
-                                    <div class="name">芒果新鲜水果 热带水果</div>
-                                    <div class="subtitle"> 匠心剪裁，垂感质</div>
-                                    <div class="price">¥249</div>
-                                </div>
-                            </li>
-                            <li class="clear">
-                                <img src="../../assets/img/brand.png" alt="">
-                                <div  class="des">
-                                    <div class="name">芒果新鲜水果 热带水果</div>
-                                    <div class="subtitle"> 匠心剪裁，垂感质</div>
-                                    <div class="price">¥249</div>
-                                </div>
-                            </li>
-                            <li class="clear">
-                                <img src="../../assets/img/brand.png" alt="">
-                                <div  class="des">
-                                    <div class="name">芒果新鲜水果 热带水果</div>
-                                    <div class="subtitle"> 匠心剪裁，垂感质</div>
-                                    <div class="price">¥249</div>
-                                </div>
-                            </li>
-                            <li class="clear">
-                                <img src="../../assets/img/brand.png" alt="">
-                                <div  class="des">
-                                    <div class="name">芒果新鲜水果 热带水果</div>
-                                    <div class="subtitle"> 匠心剪裁，垂感质</div>
-                                    <div class="price">¥249</div>
-                                </div>
-                            </li>
-
                         </ul>
                 </div>
+                </a>
             </li>
-            <li>
+            <!-- <li>
                 <a>餐厨</a><span>/</span><a href="">餐具</a><span>/</span><a>茶具</a><span class="iconfont iconjinruyindao"></span>
             </li>
             <li>
@@ -107,7 +43,7 @@
             </li>
             <li>
                 <a>饮食</a><span>/</span><a href="">坚果炒货</a><span>/</span><a>肉制品</a><span class="iconfont iconjinruyindao"></span>
-            </li>
+            </li> -->
         </ul>
         
     </section>
@@ -117,7 +53,20 @@
 export default {
     data(){
         return{
-            showHover:false
+            showHover:false,
+            list:[]
+        }
+    },
+    mounted(){
+        this.getData();
+    },
+    methods:{
+        getData(){
+            this.$http.get(this.$api.GetHomePageCats).then(res=>{
+                if(res.data.Code == 1){
+                    this.list = res.data.Data
+                }
+            })
         }
     }
 }
@@ -140,6 +89,9 @@ export default {
             transition:all .3s ease;
             &:hover{
                 background:@hover_color;
+                .banner-class{
+                    display: block;
+                }
             }
             a{
                 color:@font_color;
@@ -221,6 +173,7 @@ export default {
                         margin:13px 0 10px 0;
                         cursor: pointer;
                         transition: color .3 ease;
+                        .overTextOne();
                         &:hover{
                             color:@main;
                         }
@@ -230,6 +183,7 @@ export default {
                         color:@subtitle_color;
                         line-height: 12px;
                         margin-bottom:10px;
+                        .overTextOne();
                     }
                     .price{
                         font-size:14px;

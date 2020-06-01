@@ -9,11 +9,8 @@
             <div class="food-select-item">
                 <ul>
                     <li class="name">分类：</li>
-                    <li class="active"><a href="">全部</a></li>
-                    <li><a href="">温暖家居</a></li>
-                    <li><a href="">健康美体</a></li>
-                    <li><a href="">宝贝成长</a></li>
-                    <li><a href="">饺子混沌</a></li>
+                    <li :class="{active:nowClassId == 0}"><a href="">全部</a></li>
+                    <li v-for="(item,index) in classList" :key="index" :class="{active:nowClassId == item.ClasssId}"><a @click="changeClass(item.ClasssId)">{{item.Classname}}</a></li>
                 </ul>
             </div>
              <div class="food-select-item">
@@ -64,12 +61,37 @@ import shopCard from '@/components/shop/shopCard'
 export default {
     data(){
         return{
-            
+            citys:[],
+            classList:[],
+            nowClassId:0,
         }
+    },
+    mounted(){
+        this.getClass()
+        this.getCity()
     },
     methods:{
         goDetail(){
             this.$router.push('/earthDetail');
+        },
+        //获取商家类型
+        getClass(){
+            this.$http.get(this.$api.shopCategorys).then(res=>{
+                if(res.data.Code == 1){
+                    this.classList = res.data.Data
+                }
+            })
+        },
+        //修改分类
+        changeClass(id){
+          this.nowClassId = id
+        },
+        getCity(){
+            this.$http.get(this.$api.shopCitys).then(res=>{
+                if(res.data.Code == 1){
+                    this.citys = res.data.Data
+                }
+            })
         }
     },
     components:{

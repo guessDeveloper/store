@@ -1,6 +1,6 @@
 <template>
-  <div class="shop-card-box" >
-     <div class="img-box" @click="goDetail">
+  <div class="shop-card-box" @click="goDetail">
+     <div class="img-box" >
         <img src="../../assets/img/banner.png" alt="">
      </div>
      <div class="des-box">

@@ -1,6 +1,6 @@
 import Axios from 'axios'
 import qs from 'qs'
-const baseUrl = process.env.NODE_ENV === 'production' ? 'http://api.youledui.com/' : '/Sev'
+const baseUrl = process.env.NODE_ENV === 'production' ? 'https://api.youledui.com/' : '/Sev'
 const baseData = {
         // timestamp: parseInt((+new Date()) / 1000),
         // platform: '3',

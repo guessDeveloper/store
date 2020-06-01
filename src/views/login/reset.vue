@@ -53,7 +53,7 @@
              <span class="iconfont iconqrwc icon-complate"></span>
              <div class="step-name">密码重置成功</div>
              <div class="step-tip">下次请使用新密码进行登录</div>
-             <button class="btn submit" style="margin-top:50px;">登录</button>
+             <router-link class="btn submit" style="margin-top:50px;" tag="button" to="/login">登录</router-link>
         </div>
         <div>
             

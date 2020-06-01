@@ -10,9 +10,22 @@
           <h2>特惠推荐</h2>
           <p>给你贴心的日用好物</p>
       </div>
-      <div class="solt-box">
-
-      </div>
+      <!-- <div class="solt-box">
+         <span></span>
+      </div> -->
+          <div class="food-select-box solt-box">
+            <div class="food-select-item">
+                <ul>
+                    <li class="name">排序：</li>
+                    <li><a href="">价格排序 
+                      <span>
+                        
+                      </span>
+                    </a></li>
+                    <li><a href="">积分排序</a></li>
+                </ul>
+            </div>
+        </div>
       <div class="list-box">
         <ul>
           <li><Card></Card></li>
@@ -71,7 +84,7 @@ export default {
 }
 .solt-box{
   width:@max-width;
-  height: 74px;
+  // height: 74px;
   background:#fff;
   margin:20px auto;
 }

@@ -1,6 +1,6 @@
 <template>
-  <div class="card-box">
-     <img src="../../assets/img/good.png" alt="">
+  <div class="card-box" >
+     <img src="../../assets/img/good.png" alt="" @click="goDetail">
      <div class="card-des">
         <h4>
           炙子革命老北京烤肉  <div class="work">任务奖励：<span>5%-20%</span></div>
@@ -19,6 +19,11 @@ export default {
    data(){
      return{
        
+     }
+   },
+   methods:{
+     goDetail(){
+       this.$router.push('/fooddetail');
      }
    }
 }

@@ -3,16 +3,16 @@
      <navBar type="register"></navBar>
      <div class="register">
        <div class="input-box">
-         <input type="text" placeholder="请输入手机号码">
+         <input type="text" placeholder="请输入手机号码" v-model.trim="phone">
        </div>
        <div class="input-box code">
-         <input type="text" placeholder="请输入短信验证码"><span class="getCode">获取验证码</span>
+         <input type="text" placeholder="请输入短信验证码" v-model.trim="Code"><span class="getCode" @click="getCode">{{codeBtn}}</span>
        </div>
         <div class="input-box">
-         <input type="password" placeholder="请输入6至20位登录密码">
+         <input type="password" placeholder="请输入6至20位登录密码" v-model.trim="password">
        </div>
         <div class="input-box">
-         <input type="password" placeholder="请再次输入登录密码">
+         <input type="password" placeholder="请再次输入登录密码" v-model.trim="repetPass">
        </div>
         <div class="input-box">
          <input type="text" placeholder="请输入邀请人">
@@ -29,7 +29,14 @@ import footerBar from '@/components/common/footer'
 export default {
   data(){
     return{
-        count:60
+        count:60,
+        phone:'',
+        Code:'',
+        password:'',
+        repetPass:'',
+        lock:false,
+        codeBtn:'获取验证码',
+        timer:''
     }
   },
   components:{
@@ -37,7 +44,38 @@ export default {
     navBar:navBar
   },
   methods:{
-    
+    //获取验证码
+    getCode(){
+      if(this.lock)return false;
+      if(this.$util.testPhone.test(this.phone)){
+        this.$http.post(this.$api.SendRegistCode,{UserPhoneNO:this.phone}).then(res=>{
+          if(res.data.Code == 1){
+            console.log('发送成功')
+            this.lock = true;
+            this.setCode();
+          }
+        })
+      }else{
+        this.$message.error('请输入正确的手机号');
+      }
+    },
+    //验证码倒计时
+    setCode(){
+       this.count--
+       this.codeBtn = `${this.count}s`
+       clearInterval(this.timer)
+       this.timer = setInterval(()=>{
+         if(this.count == 1){
+           clearInterval(this.timer);
+           this.lock = false;
+           this.codeBtn = '获取验证码';
+           this.count = 60;
+         }else{
+           this.count -- ;
+           this.codeBtn = `${this.count}s`
+         }
+       },1000) 
+    }
   }
 }
 </script>
@@ -64,6 +102,7 @@ export default {
       right:20px;
       width:80px;
       font-size:14px;
+      text-align: right;
       line-height: 22px;
       color:@main;
       cursor: pointer;

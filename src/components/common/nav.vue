@@ -11,8 +11,8 @@
            <router-link to="/register" tag='a' >免费注册</router-link>
           <router-link to="/helpCenter" class="help" tag="a">帮助中心</router-link>
        </div>
-      <a href="" class="regester">注册</a>
-      <a class="login">登录</a>
+      <router-link href="" class="regester" to="/register" tag="a"> 注册</router-link>
+      <router-link class="login" tag="a" to="/login">登录</router-link>
     </div>
   </div>
 </template>
@@ -163,7 +163,7 @@ export default {
         float: right;
         width:44/@p;
         height:24/@p;
-        margin-right:6/@p;
+        margin-left:6/@p;
         margin-top:8/@p;
         text-align: center;
         line-height: 22/@p;

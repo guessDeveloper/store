@@ -4,17 +4,55 @@
          <div class="head-img">
              <img src="../../assets/img/fuzhuang.png" alt="">
          </div>
-         <div class="name">Anna Ivanenko</div>
+         <div class="name">
+           <div class="name-des"> Anna Ivanenko</div>
+           <el-rate
+            v-model="value"
+            disabled
+            >
+          </el-rate>
+          </div>
          <div class="time">2020-05-01</div>
       </div>
-      <div class="content">非常好的品牌，一直都在使用。没有什么品牌能比的上这家。非常好…</div>
+      <div class="content" @click="dialogVisible = true">非常好的品牌，一直都在使用。没有什么品牌能fasdfadsfasdfasdfadsfasdfa比的上这家。非常fasdfasdfsf好…</div>
+      <el-dialog
+      title="评价详情"
+      :visible.sync="dialogVisible"
+      width="520px"
+      >
+      <div class="user alert">
+        <div class="head-img">
+             <img src="../../assets/img/fuzhuang.png" alt="">
+         </div>
+         <div class="name">
+           <div class="name-des"> Anna Ivanenko</div>
+           <el-rate
+            v-model="value"
+            disabled
+            >
+          </el-rate>
+          </div>
+         <div class="time">2020-05-01</div>
+        
+      </div>
+       <div class="detail-content">
+             非常好的品牌，一直都在使用。没有什么品牌能fasdfadsfasdfasdfadsfasdfa比的上这家。非常fasdfasdfsf好…
+       </div>
+        <div class="btn-box">
+            <button class="ok" @click="dialogVisible=false">确认</button>
+        </div>
+     </el-dialog>
+
+
   </div>
 </template>
 <script>
+import '../../plugins/element-rate'
 export default {
   data(){
     return{
-
+        dialogVisible:false,
+        value:3
     }
   }
 }
@@ -30,6 +68,9 @@ export default {
     position: relative;
     margin-top:40px;
     line-height: 30px;
+    &.alert{
+      margin-top:20px;
+    }
     .head-img{
       position: absolute;
       left:0;
@@ -49,7 +90,10 @@ export default {
       font-size:14px;
       padding-left:42px;
       padding-right:90px;
-      .overTextOne();
+      .name-des{
+          .overTextOne();
+          line-height: 14px;
+      }
     }
     .time{
       position:absolute;
@@ -65,6 +109,33 @@ export default {
     line-height: 14px;
     margin-top:18px;
     color:@subtitle_color;
+    .overTextOne()
   }
+  
 }
+.detail-content{
+    margin-top:13px;
+    font-size:14px;
+    line-height: 28px;
+    color:@font_color;
+  }
+  .btn-box{
+      .clear();
+      margin-top:40px;
+      button{
+        float: right;
+        width:65px;
+        height:30px;
+        font-size:14px;
+        margin-left:15px;
+        background:#fff;
+        border:1px solid @class_border;
+        border-radius: 4px;
+      }
+      .ok{
+        color:#fff;
+        background:@main;
+        border-color:@main;
+      }
+    }
 </style>

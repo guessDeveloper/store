@@ -24,6 +24,11 @@ const routes = [{
                 component: () =>
                     import ( /* webpackChunkName: "taobao" */ '../views/home/taobao.vue')
             }, {
+                path: '/taobaoList', //淘宝分类列表
+                name: 'taobaoList',
+                component: () =>
+                    import ( /* webpackChunkName: "taobaoList" */ '../views/home/taobaoList.vue')
+            }, {
                 path: '/goodsList', //商品列表
                 name: 'goodsList',
                 component: () =>
@@ -69,10 +74,10 @@ const routes = [{
                 component: () =>
                     import ( /* webpackChunkName: "foodList" */ '../views/home/foodList.vue')
             }, {
-                path: '/foodDetail', //美食详情
-                name: 'foodDetail',
+                path: '/fooddetail', //美食详情
+                name: 'fooddetail',
                 component: () =>
-                    import ( /* webpackChunkName: "foodDetail" */ '../views/home/foodDetail.vue')
+                    import ( /* webpackChunkName: "fooddetail" */ '../views/home/fooddetail.vue')
             },
             {
                 path: '/goodsDetail', //商品列表
@@ -93,10 +98,28 @@ const routes = [{
                     import ( /* webpackChunkName: "helpCenter" */ '../views/home/helpCenter.vue')
             },
             {
+                path: '/helpCenterDetail', //帮助中心
+                name: 'helpCenterDetail',
+                component: () =>
+                    import ( /* webpackChunkName: "helpCenterDetail" */ '../views/help/helpCenterDetaill.vue')
+            },
+            {
                 path: '/shopCar', //购物车
                 name: 'shopCar',
                 component: () =>
                     import ( /* webpackChunkName: "shopCar" */ '../views/home/shopCar.vue')
+            },
+            {
+                path: '/Pdd', //拼多多
+                name: 'Pdd',
+                component: () =>
+                    import ( /* webpackChunkName: "Pdd" */ '../views/home/Pdd.vue')
+            },
+            {
+                path: '/pddList', //拼多多列表
+                name: 'pddList',
+                component: () =>
+                    import ( /* webpackChunkName: "pddList" */ '../views/home/pddList.vue')
             },
         ]
     },
