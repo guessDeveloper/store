@@ -8,15 +8,15 @@
                  <span  :class="{active:type==1}" @click="type=1">用户登录</span><span :class="{active:type==2}" @click="type=2">商家登录</span>
               </div>
               <div class="input-box">
-                 <span class="iconfont iconzh"></span><input type="text" placeholder="用户名称/手机号码">
+                 <span class="iconfont iconzh"></span><input type="text" placeholder="用户名称/手机号码" v-model.trim="userName">
               </div>
               <div class="input-box">
-                <span class="iconfont iconmima"></span><input type="password" placeholder="密码">
+                <span class="iconfont iconmima"></span><input type="password" placeholder="密码" v-model.trim="password">
               </div>
               <button class="btn login-btn" @click="login">登录</button>
               <div class="other">
                 <router-link tag="a" class="forget-btn" to="/reset">忘记密码？</router-link>
-                <router-link tag="a" class="regeter-btn" to="/">新用户注册</router-link>
+                <a class="regeter-btn" @click="register">新用户注册</a>
               </div>
            </div>
         </div>
@@ -30,7 +30,9 @@ import footerBar from '@/components/common/footer'
 export default {
   data(){
     return{
-      type:'1'
+      type:'1',
+      userName:'',
+      password:''
     }
   },
   components:{
@@ -39,12 +41,55 @@ export default {
   },
   methods:{
     login(){
-      if(this.type==1){
-        this.$router.push('/persion')
-      }else{
-         this.$router.push('/store')
+      if(this.checkLogin()){
+        if(this.type==1){
+           this.userLogin()
+        }else{
+           this.storeLogin() 
+        }
       }
-      
+    },
+    checkLogin(){
+      if(this.userName == ''){
+        this.$message.error('请输入用户名称/手机号码')
+        return false
+      }else if(this.password == ''){
+        this.$message.error('请输入密码')
+      }else{
+        return true
+      }
+    },
+    //用户登录
+    userLogin(){
+      this.$http.post(this.$api.Login,{
+        UserName:this.userName,
+        UserPassword:this.password,
+        VerifyCode:''
+
+      }).then(res=>{
+        if(res.data.Code == 1){
+          this.$router.push('/')
+        }else{
+          this.$message.error(res.data.Msg)
+        }
+      })
+    },
+    storeLogin(){
+      this.$http.post(this.$api.Login,{
+        Account:this.userName,
+        passwd:this.password,
+        VerifyCode:''
+
+      }).then(res=>{
+        if(res.data.Code == 1){
+          this.$router.push('/')
+        }else{
+          this.$message.error(res.data.Msg)
+        }
+      })
+    },
+    register(){
+      this.type == 1?this.$router.push('/register'):this.$router.push('/register?isStore=1')
     }
   }
 }
@@ -99,6 +144,36 @@ export default {
 
     }
   }
+  @media screen and(max-width:@change_width){
+    background: none;
+    min-width: 100%;
+    height: auto;
+    .middle{
+      width:100%;
+      .login-box{
+        width:auto;
+        float: none;
+        margin:15px;
+        padding:0 15px;
+        .tab-box{
+          height:28px;
+          line-height: 28px;
+          font-size:18px;
+          padding:30px 0 48px;
+          &::before{
+          content:'';
+          position: absolute;
+          top:26px;
+          left:50%;
+          display: block;
+          width:1px;
+          height:30px;
+          background:#F1F2FB;
+        }
+        }
+      }
+    }
+  }
 }
 .input-box{
   position: relative;
@@ -147,7 +222,5 @@ export default {
     color:@main;
   }
 }
-@media screen and(max-width:@change_width){
-  
-}
+
 </style>

@@ -3,7 +3,7 @@
         <ul>
             <li v-for="(item,index) in list" :key="index">
                 <a>{{item.ClassName}} <span class="iconfont iconjinruyindao"></span>
-                <div class="banner-class" >
+                <div class="banner-class" :style="'top:-'+top(index)+'px;'">
                         <div class="title clear">
                             <h3>分类推荐</h3><span>根据您的购买或浏览记录推荐</span>
                         </div>
@@ -67,6 +67,9 @@ export default {
                     this.list = res.data.Data
                 }
             })
+        },
+        top(num){
+           return Number(num*34)+15
         }
     }
 }

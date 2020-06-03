@@ -265,6 +265,11 @@ const routes = [{
         component: () =>
             import ( /* webpackChunkName: "reset" */ '../views/login/reset.vue')
     }, {
+        path: '/agreement', //注册协议
+        name: 'agreement',
+        component: () =>
+            import ( /* webpackChunkName: "agreement" */ '../views/login/agreement.vue')
+    }, {
         path: '/sao',
         name: 'About',
         // route level code-splitting

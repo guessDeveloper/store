@@ -24,8 +24,11 @@ export default {
     Q_A_Class: '/api/QuestionAnswer/Q_A_Class', //帮助中心
     Q_A_ByClass: '/api/QuestionAnswer/Q_A_ByClass', //通过id 获取分类列表
     //登录
-    Login: '/api/LoginRegister/Login', //登录
+    Login: '/api/LoginRegister/Login', //用户登录
+    storeLogin: '/api/LoginRegister/MerchanterLogin', //商家登录
     //注册
-    SendRegistCode: '/api/LoginRegister/SendRegistCode' //注册发送验证码
-
+    SendRegistCode: '/api/LoginRegister/SendRegistCode', //注册发送验证码
+    AddUser: '/api/LoginRegister/AddUser', //用户注册
+    GetUserAgreement: '/api/LoginRegister/GetUserAgreement', //获取用户注册协议
+    GetMerchantAgreement: '/api/LoginRegister/GetMerchantAgreement', //获取商家协议
 }

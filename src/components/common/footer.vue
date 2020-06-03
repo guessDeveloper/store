@@ -110,6 +110,28 @@ export default {
     &{
       overflow: hidden;
     }
+    &.login{
+      .footer-top{
+        background:@footer_top; 
+        .link-box{
+          a{
+            font-size:12px;
+            color:#F8F8F8;
+            opacity: .35;
+          }
+        }  
+      }
+       .footer-bottom{
+          background:@footer_bottom;
+          .box{
+            a{
+              font-size:12px;
+              color:#fff;
+              opacity:.2;
+            }
+          }
+        }
+    }
     .footer-top{
       height:130px;
       

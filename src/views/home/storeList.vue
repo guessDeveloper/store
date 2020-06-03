@@ -5,57 +5,36 @@
         <span class="iconfont iconjiantou"></span>
         <span class="now-nav">商城返利</span>
     </div>
-    <!-- <div class="food-select-box">
-            <div class="food-select-item store">
-                <ul>
-                    <li class="active"><a href="">全部</a></li>
-                    <li><a href="">饺子混沌(65)</a></li>
-                    <li><a href="">饺子混沌</a></li>
-                    <li><a href="">饺子混沌</a></li>
-                    <li><a href="">饺子混沌</a></li>
-                    <li><a href="">饺子混沌</a></li>
-                    <li><a href="">饺子混沌</a></li>
-                    <li><a href="">饺子混沌</a></li>
-                    <li><a href="">饺子混沌</a></li>
-                    <li><a href="">饺子混沌</a></li>
-                    <li><a href="">饺子混沌</a></li>
-                    <li><a href="">饺子混沌</a></li>
-                    <li><a href="">饺子混沌</a></li>
-                    <li><a href="">饺子混沌</a></li>
-                    <li><a href="">饺子混沌</a></li>
-                    <li><a href="">饺子混沌</a></li>
-                    <li><a href="">饺子混沌</a></li>
-                    <li><a href="">饺子混沌</a></li>
-                    <li><a href="">饺子混沌</a></li>
-
-                </ul>
-            </div>
-        </div> -->
+ 
         <div class="content-list">
           <!-- <div class="list-title">食品材料（54）</div> -->
            <ul>
-             <li>
-               <Card></Card>
+             <li v-for="(item,index) in list" :key="index" @click="jump(item.URL)">
+               <Card :data="item"></Card>
              </li>
-              <li>
-               <Card></Card>
-             </li>
-              <li>
-               <Card></Card>
-             </li>
-              <li>
-               <Card></Card>
-             </li>
-              <li>
-               <Card></Card>
-             </li>
-              <li>
-               <Card></Card>
-             </li>
-              <li>
-               <Card></Card>
-             </li>
+              
            </ul>
+            <div class="page-box">
+                <el-pagination
+                    @size-change="handleSizeChange"
+                    @current-change="handleCurrentChange"
+                    :current-page.sync="pageIndex"
+                    :page-size="pageSize"
+                    layout="prev, pager, next, jumper"
+                    :total="total">
+                </el-pagination>
+            </div>
+            <div class="page-box small">
+                <el-pagination
+                    small
+                    @size-change="handleSizeChange"
+                    @current-change="handleCurrentChange"
+                    :current-page.sync="pageIndex"
+                    :page-size="pageSize"
+                    layout="prev, pager, next"
+                    :total="total">
+                </el-pagination>
+            </div>
         </div>
  </div>
 </template>
@@ -64,10 +43,15 @@ import Card from "@/components/common/storeListCard"
 export default {
   data(){
     return{
-      
+       pageIndex:1,
+       pageSize:50,
+       list:[],
+       total:0
     }
   },
   mounted(){
+    this.$route.query.pageIndex?this.pageIndex = this.$route.query.pageIndex:''
+    //  this.$route.query.pageIndex?this.pageSize = this.$route.query.pageSize:''
     this.getList();
   },
   components:{
@@ -75,9 +59,28 @@ export default {
   },
   methods:{
     getList(){
-      this.$http.get(this.$api.GetMerchaterClass).then(res=>{
-        console.log(res)
+      
+      this.$http.post(this.$api.GetMerchaterClass,{
+        pageIndex:this.pageIndex,
+        pageSize:this.pageSize
+      }).then(res=>{
+        if(res.data.Code == 1){
+          this.list = res.data.Data.List
+          this.total = res.data.Data.count
+        }
       })
+    },
+    handleCurrentChange(){
+       this.getList();
+       this.$router.push(`/storeList?pageIndex=${this.pageIndex}`)
+       document.body.scrollTop = 0;
+       document.documentElement.scrollTop = 0;
+    },
+    handleSizeChange(){
+
+    },
+    jump(url){
+      this.$router.push(`/outLine?url=${url}`)
     }
   }
 }
@@ -89,6 +92,7 @@ export default {
       width:11.11%;
       border-bottom:1px solid @class_border;
     }
+   
   }
 }
 .content-list{
@@ -110,6 +114,30 @@ export default {
       width:20%;
       border-bottom:1px solid @class_border;
       border-right:1px solid @class_border;
+    }
+  }
+  .page-box{
+    text-align: center;
+    padding:36px 0 60px;
+    &.small{
+      display: none;
+    }
+  }
+  @media screen and(max-width:@change_width){
+    &{
+      width:100%;
+      margin-top:10/@p;
+      ul{
+        li{
+          width:33.33%;
+        }
+      }
+      .page-box{
+        display: none;
+        &.small{
+          display: block;
+        }
+      }
     }
   }
 }

@@ -191,6 +191,17 @@ export default {
   border-radius: 0;
   font-size:12px;
 }
+.el-checkbox__inner:hover{
+  border-color:@main!important;
+}
+.el-checkbox__inner:active{
+  border-color:@main!important;
+}
+.el-checkbox__input.is-checked .el-checkbox__inner, .el-checkbox__input.is-indeterminate .el-checkbox__inner{
+  border-color:@main!important;
+  background:@main!important;
+}
+
 //个人中心
 .persion-title{
    text-align: left;

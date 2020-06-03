@@ -51,7 +51,7 @@ export default {
         classList:[],
         sort:0,
         pageIndex:1,
-        pageSize:5,
+        pageSize:20,
         total:100,
         list:[]
     }
@@ -106,7 +106,9 @@ export default {
     },
     //分页数据
     handleCurrentChange(){
-       this.getList()
+       this.getList();
+       document.body.scrollTop = 0;
+       document.documentElement.scrollTop = 0;
     },
     handleSizeChange(res){
       console.log(res,'sss')

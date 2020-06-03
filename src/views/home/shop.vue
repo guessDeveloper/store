@@ -16,11 +16,8 @@
              <div class="food-select-item">
                 <ul>
                     <li class="name">地址：</li>
-                    <li><a href="">全部</a></li>
-                    <li><a href="">北京</a></li>
-                    <li><a href="">上海</a></li>
-                    <li><a href="">武汉</a></li>
-                    <li><a href="">河北</a></li>
+                    <li ><a href="">全部</a></li>
+                    <li v-for="(item) in citys" :key="item.CityId"><a href="">{{item.CityName}}</a></li>
                 </ul>
             </div>
             <div class="food-select-item">

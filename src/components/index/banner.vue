@@ -51,8 +51,18 @@ export default {
 <style lang="less" scoped>
 .banner-box{
   width: 100%;
+  height:100%;
   img{
     width:100%;
+    height:100%;
+  }
+  @media screen and(max-width:@change_width){
+    &{
+      height:auto;
+      img{
+        height:auto;
+      }
+    }
   }
 }
 </style>

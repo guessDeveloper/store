@@ -15,15 +15,16 @@
          <input type="password" placeholder="请再次输入登录密码" v-model.trim="repetPass">
        </div>
         <div class="input-box">
-         <input type="text" placeholder="请输入邀请人">
+         <input type="text" placeholder="请输入邀请人" v-model.trim="promote">
        </div>
-       <div class="agreement">已阅读并同意<router-link tag="a" to="/agreement">《用户服务协议》</router-link></div>
-       <button class="btn">立即注册</button>
+       <div class="agreement"><el-checkbox v-model="checked" class="check-box"></el-checkbox>已阅读并同意<a  @click="agreement">《用户服务协议》</a></div>
+       <button class="btn" @click="register">立即注册</button>
      </div>
      <footerBar :isLogin="true"></footerBar>
   </div>
 </template>
 <script>
+import '../../plugins/element-checkbox.js'
 import navBar from '@/components/login/login-nav'
 import footerBar from '@/components/common/footer'
 export default {
@@ -36,12 +37,15 @@ export default {
         repetPass:'',
         lock:false,
         codeBtn:'获取验证码',
-        timer:''
+        timer:'',
+        promote:'',
+        checked:false
     }
   },
   components:{
     footerBar:footerBar,
-    navBar:navBar
+    navBar:navBar,
+    
   },
   methods:{
     //获取验证码
@@ -75,6 +79,46 @@ export default {
            this.codeBtn = `${this.count}s`
          }
        },1000) 
+    },
+    //注册
+    register(){
+      console.log(this.checked)
+      if(!this.$util.testPhone.test(this.phone)){
+         this.$message.error('请输入正确的手机号');
+         return false
+      }else if(this.Code == ''){
+        this.$message.error('请输入验证码');
+        return false
+      }else if(this.password.length<6||this.password>20){
+        this.$message.error('请输入6至20位登录密码');
+        return false
+      }else if(this.password!=this.repetPass){
+         this.$message.error('两次输入密码不一致');
+        return false
+      }else if(this.promote == ''){
+        this.$message.error('请填写邀请人');
+        return false
+      }else if(this.checked == false){
+        this.$message.error('请勾选同意用户协议');
+        return false
+      }else{
+        this.$http.post(this.$api.AddUser,{UserPhoneNO:this.phone,ValidCode:this.Code,User_PWD:this.password,UserInviter:this.promote}).then(res=>{
+          if(res.data.Code == 1){
+             console.log(1)
+          }else{
+            this.$message.error(res.data.Msg);
+          }
+        })
+      }
+    },
+    agreement(){
+      let routeData;
+      if(this.$route.query.isStore == 1){
+        routeData = this.$router.resolve({ path:'/agreement',query:{isStore:1} });
+      }else{
+        routeData = this.$router.resolve({ path:'/agreement'});
+      }
+      window.open(routeData.href, '_blank');
     }
   }
 }
@@ -86,6 +130,13 @@ export default {
   height:560px;
   margin:30px auto;
   background:#fff;
+  @media screen and(max-width:@change_width){
+    width:auto;
+    margin:15px 15px 30px;
+    padding-top:20px;
+    height: auto;
+    padding-bottom:50px;
+  }
 }
 .input-box{
   width:380px;
@@ -117,6 +168,10 @@ export default {
     font-size:14px;
     border:1px solid @class_border;
   }
+  @media screen and(max-width:@change_width){
+    width:auto;
+    margin:0 15px 20px;
+  }
 }
 .agreement{
   width:380px;
@@ -124,8 +179,14 @@ export default {
   text-align: left;
   font-size:14px;
   color:#666666;
+  .check-box{
+    margin-right:6px;
+  }
   a{
     color:@main;
+  }
+  @media screen and(max-width:@change_width){
+    margin:30px 15px 0;
   }
 }
 .btn{
@@ -137,5 +198,9 @@ export default {
   background: @main;
   color:#fff;
   font-size:16px;
+  @media screen and(max-width:@change_width){
+    width:calc(100% - 30px);
+    margin:30px 15px 0;
+  }
 }
 </style>

@@ -20,10 +20,10 @@
         <div class="tab-item" :class="{active:step == 1}">
             <div class="first-margin"></div>
             <div class="input-line-box">
-                <label for="">用户名称：</label> <input type="text" placeholder="用户名称/手机号码">
+                <label for="">用户名称：</label> <input type="text" placeholder="用户名称/手机号码" v-model.trim="userNmae">
             </div>
             <div class="input-line-box">
-                <label for="">图形验证码：</label><input type="text" placeholder="输入图形验证码">
+                <label for="">图形验证码：</label><input type="text" placeholder="输入图形验证码" v-model.trim="imgCode">
             </div>
             <div class="input-line-box">
                 <img src="" alt="" class="code">  <button class="img-reset">看不清？<span>换一张</span></button>
@@ -68,13 +68,26 @@ import footerBar from '@/components/common/footer'
 export default {
     data(){
         return{
-           step:'1'
+           step:'1',
+           userNmae:'',
+           imgCode:''
         }
     },
     components:{
         footerBar:footerBar,
         navBar:navBar
     },
+    methods:{
+        stepOne(){
+            if(this.userNmae == ''){
+                this.$message.error('请输入用户名/手机号')
+            }else if(this.imgCode == ''){
+                this.$message.error('请输入图形验证码')
+            }else{
+                console.log('1')
+            }
+        }
+    }
 }
 </script>
 <style lang="less" scoped>
@@ -151,6 +164,38 @@ export default {
             margin:0 256px;
         }
     }
+    @media screen and(max-width:@change_width){
+        width:auto;
+        margin:15px;
+        height:auto;
+        padding-bottom:50px;
+        overflow:hidden;
+        .step{
+           
+           &:before{
+              
+               width:calc(50% - 60px);
+               left:50px;
+           }
+           &:after{
+              width:calc(50% - 60px);
+              right:50px;
+           }
+            .step-item{
+              float:left;
+              width:60px;
+              .step-name{
+                  font-size:12px;
+                  line-height: 12px;
+                  margin-top:18px;
+              }
+            }
+            .middle{
+                margin:0 70px;
+            }
+        }
+        
+    }
 }
 .tab-item{
     display: none;
@@ -174,7 +219,7 @@ export default {
             width:100px;
             line-height: 50px;
             color:#464855;
-            font-size:14p;
+            font-size:12px;
             padding-right:15px;
 
         }
@@ -189,6 +234,27 @@ export default {
             &.readonly{
                 background:@readOnly;
                 
+            }
+        }
+    }
+    @media screen and(max-width:@change_width){
+        width:auto;
+        margin:0 15px;
+        .first-margin{
+            display: none;
+        }
+        .input-line-box{
+            width:auto;
+            margin-top:46px;
+            label{
+                left:0;
+                right:auto;
+                text-align: left;
+                line-height: 38px;
+                top:-38px;
+            }
+            input{
+                box-sizing: border-box;
             }
         }
     }
