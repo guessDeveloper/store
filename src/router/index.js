@@ -260,6 +260,11 @@ const routes = [{
         component: () =>
             import ( /* webpackChunkName: "register" */ '../views/login/register.vue')
     }, {
+        path: '/registerSucess', //注册
+        name: 'registerSucess',
+        component: () =>
+            import ( /* webpackChunkName: "registerSucess" */ '../views/login/registerSucess.vue')
+    }, {
         path: '/reset', //忘记密码
         name: 'reset',
         component: () =>

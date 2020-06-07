@@ -61,6 +61,17 @@ export default {
     background:#fff;
     
   }
+  @media screen and(max-width:@change_width){
+     width:100%;
+    .box-left{
+      display: none;
+    }
+    .box-right{
+      width:100%;
+      margin-top:10px;
+    }
+    
+  }
 }
 
 </style>

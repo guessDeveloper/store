@@ -6,10 +6,13 @@
         <span class="now-nav">帮助中心</span>
       </div>
       <div class="banner">
-          <div class="txt">
-             <div class="top">帮助中心</div>
+         <img src="">
+          <!-- <div class="txt"> -->
+             <!-- <div class="top">{{banner.titleA}}</div>
+             <div class="bottom">{{banner.titleB}}</div> -->
+              <!-- <div class="top">帮助中心</div>
              <div class="bottom">Help center</div>
-          </div>
+          </div> -->
       </div>
       <div class="qustion-list">
         <div class="title">问题分类</div>
@@ -32,6 +35,7 @@
 export default {
   data(){
     return{
+      banner:{},
       list:[]
     }
   },
@@ -42,6 +46,7 @@ export default {
     getClass(){
       this.$http.get(this.$api.Q_A_Class).then(res=>{
         if(res.data.Code == 1){
+          // this.banner = res.data.Data.Banner[0]
           this.list = res.data.Data.Class
         }
       })
@@ -61,6 +66,8 @@ export default {
   color:#fff;
   text-align: center;
   line-height: 240px;
+  background:url(../../assets/img/helpCenterBanner.png) no-repeat center center;
+  background-size:auto 100%;
   .txt{
     display: inline-block;
     vertical-align: middle;
@@ -74,7 +81,18 @@ export default {
       line-height: 20px;
     }
   }
-
+  @media screen and(max-width:@change_width){
+    width:100%;
+    margin-top:10/@p;
+    .txt{
+      .top{
+        font-size:30px;
+      }
+      .bottom{
+        font-size:14px;
+      }
+    }
+  }
 }
 .qustion-list{
   width:@max-width;
@@ -141,6 +159,33 @@ export default {
           font-size :12px;
           color:@subtitle_color;
           line-height: 12px;
+        }
+      }
+    }
+  }
+  @media screen and(max-width:@change_width){
+    width:100%;
+    .title{
+      margin-top:10/@p;
+      margin-bottom:15/@p;
+      background:#fff;
+      line-height: 58/@p;
+      font-size:20/@p;
+      padding-left:29/@p;
+      &::before{
+        left:15px;
+        top:19px;
+        height:18px;
+      }
+    }
+    ul{
+      li{
+        display: block;
+        float: none;
+        width:auto;
+        margin:0px 15px 10/@p;
+        &:nth-of-type(4n){
+          margin-right:15/@p;
         }
       }
     }

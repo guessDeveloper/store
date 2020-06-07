@@ -14,6 +14,9 @@
         <div class="item">
            <div class="user"><span class="header"><img src="" alt=""></span>母婴类购物达人</div><div class="phone">180****1849</div><div class="time">180****1849</div>
         </div>
+        <div class="small-item">
+
+        </div>
         
       </div>
       <div class="empty">
@@ -29,6 +32,16 @@ export default {
     return{
 
     }
+  },
+  mounted(){
+    this.getUrl();
+  },
+  methods:{
+    getUrl(){
+      this.$http.get(this.$api.UserInviterUrl).then(res=>{
+        console.log(res)
+      })
+    }
   }
 }
 </script>
@@ -36,6 +49,9 @@ export default {
 .invite-box{
   width:100%;
   min-height:660px;
+  @media screen and(max-width:@change_width){
+    min-height: auto;
+  }
 }
 .invite{
   padding:0px 30px;
@@ -118,6 +134,44 @@ export default {
         color:@subtitle_color;
       }
     }
+    .small-item{
+      display: none;
+    }
+  }
+   @media screen and(max-width:@change_width){
+    padding:0 15px;
+   
+    .user-link{
+      padding:0;
+      .name{
+      float:left;
+      height:12px;
+      line-height: 12px;
+      margin-top:22px;
+      margin-left:18px;
+
+      }
+      .link{
+        float:left;
+        box-sizing: border-box;
+        width:200px;
+        height:34px;
+        margin-top:12px;
+        margin-left:18px;
+      }
+      .copy{
+        float: right;
+        margin-left:0;
+      }
+    }
+    .invite-list{
+      .item{
+        display: none;
+      }
+      .small-item{
+        display: block;
+      }
+    }
   }
 }
 .empty{
@@ -133,5 +187,8 @@ export default {
     line-height: 14px;
     color:@subtitle_color;
   }
+   @media screen and(max-width:@change_width){
+     padding-bottom:119px;
+   }
 }
 </style>

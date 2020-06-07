@@ -1,6 +1,6 @@
 <template>
   <div class="pesionbox">
-     <div class="persion-title">我的账户</div>
+     <div class="persion-title title">我的账户</div>
      <div class="content">
         <div class="persion-box">
            <div class="head-img">
@@ -29,6 +29,14 @@
          <div class="set">
             <span class="iconfont iconzhushi"></span> 请完善您的信息：您的手机号尚未绑定！<a href="">立即设置</a>
            </div>
+          <div class="small-nav-list">
+             <div class="margin"></div>
+             <ul>
+               <li class="" v-for="(item,index) in smallNav" :key="index"> 
+                   <router-link tag="a" :to="item.to" @click.native="routerChange(item.to)"><span class="iconfont" :class="item.icon" :style="'font-size:'+item.iconSize+';'"></span>{{item.title}}<span class="iconfont iconjiantou"></span></router-link>
+               </li>
+             </ul>
+          </div>
      </div>
   </div>
 </template>
@@ -36,7 +44,49 @@
 export default {
   data(){
     return{
-
+       smallNav:[
+      {
+        title:"扫码获积分",
+        to:'/erweima',
+        icon:"iconsmfjl",
+        iconSize:'15px'
+      },
+      {
+        title:"消息通知",
+        to:'/message',
+        icon:'iconxxzx',
+        iconSize:'12px'
+      },
+      {
+        title:"安全设置",
+        to:'/safe',
+        icon:'iconaqsz',
+        iconSize:'17px'
+      },
+      {
+        title:"我的积分",
+        to:'/myPorints',
+        icon:'icondqjf',
+        iconSize:'16px'
+      },
+      {
+        title:"邀请有礼",
+        to:'/invite',
+        icon:'iconjfjl',
+        iconSize:'15px'
+      },
+      {
+        title:"我的订单",
+        to:'/myOrder',
+        icon:'iconddgl',
+        iconSize:'15px'
+      },
+       {
+        title:"帮助中心",
+        to:'/helpCenter',
+        icon:'iconbangzhu',
+        iconSize:'15px'
+      },]
     }
   }
 }
@@ -69,6 +119,9 @@ export default {
   }
   a{
     color:@main;
+  }
+  @media screen and(max-width:@change_width){
+    margin-top:55px;
   }
 }
 .persion-box{
@@ -137,5 +190,71 @@ export default {
       font-weight: bold;
     }
   }
+  @media screen and(max-width:@change_width){
+    margin-top:15px;
+    border:0;
+    .head-img{
+      width:60px;
+      height:60px;
+      margin-bottom:15px;
+    }
+    .user-msg{
+      .line{
+        &.top{
+          margin-top:12px;
+        }
+      }
+    }
+    .score-box{
+      float: none;
+      margin-top:15px;
+      display: flex;
+      border-top:1px solid @class_border;
+      width:100%;
+      overflow: hidden;
+      padding-bottom:15px;
+      .clear();
+    }
+  }
 }
+.small-nav-list{
+  display: none;
+}
+@media screen and(max-width:@change_width){
+     .title{
+       display: none;
+     }
+     .content{
+       padding:0 15px;
+     }
+     .small-nav-list{
+       display: block;
+       .margin{
+         width:100%;
+         height:10px;
+         background:@body_color;
+       }
+       ul{
+         li{
+           height:50/@p;
+           line-height: 50/@p;
+            a{
+              display: block;
+              font-size:14px;
+              color:@persion_left;
+              border-bottom:1px solid @class_border;
+              .iconfont{
+                margin-right:10px;
+                color:@placeholder_color;
+              }
+              .iconjiantou{
+                float:right;
+                font-size:10px;
+              }
+            }
+         }
+       }
+     }
+}
+
 </style>

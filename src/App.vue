@@ -1,17 +1,17 @@
 <template>
   <div id="app">
     <router-view></router-view>
-    <fixRight></fixRight>
+    <!-- <fixRight></fixRight> -->
   </div>
 </template>
 
 <script>
-import fixRight from '@/components/common/custoer-service'
+// import fixRight from '@/components/common/custoer-service'
 export default {
   name: 'app',
-  components: {
-    fixRight:fixRight,
-  }
+  // components: {
+  //   fixRight:fixRight,
+  // }
 }
 </script>
 
@@ -88,6 +88,9 @@ export default {
             }
         }
     }
+    @media screen and(max-width:@change_width){
+      display: none;
+    }
 }
 
 //图标
@@ -122,6 +125,10 @@ export default {
 .el-dialog__body{
   padding-top:0!important;
   padding-bottom:20px!important;
+  @media screen and(max-width:@change_width){
+    padding-left:20px!important;
+    padding-right:20px!important;
+  }
 }
 .el-table th>.cell{
   padding:0 !important;
@@ -201,7 +208,19 @@ export default {
   border-color:@main!important;
   background:@main!important;
 }
-
+//page-box
+ .page-box{
+    text-align: center;
+    &.small{
+      display: none;
+    }
+    @media screen and(max-width:@change_width){
+      display: none;
+      &.small{
+        display: block;
+      }
+    }
+  }
 //个人中心
 .persion-title{
    text-align: left;
@@ -213,6 +232,37 @@ export default {
 @media screen and(max-width:@change_width){
   .brand-top-nav{
     display: none;
-  }
+   }
+   .persion-title{
+     position: relative;
+     height:58px;
+     line-height: 58px;
+     font-size:20px;
+     border:0;
+     padding-bottom:10px;
+    &::before{
+      content:'';
+      position:absolute;
+      left:15px;
+      top:19px;
+      width:4px;
+      height:18px;
+      background:@main;
+    }
+     &::after{
+       position: absolute;
+       bottom: 0;
+       left:0;
+       content:'';
+       width:100%;
+       height:10px;
+       background:@body_color;
+     }
+   }
+   .small{
+     .el-dialog{
+       width:325px!important;
+     }
+   }
 }
 </style>

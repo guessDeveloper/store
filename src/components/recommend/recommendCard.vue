@@ -35,6 +35,15 @@
         color:@percent_color;
         font-weight: bold;
     }
+    @media screen and(max-width:@change_width){
+        width:100%;
+        height:auto;
+        img{
+            display: block;
+            width:100%;
+            height:auto;
+        }
+    }
 }
 </style>
 <script>

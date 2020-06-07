@@ -27,7 +27,7 @@
          </ul>
        </div>
     </div>
-    <el-dialog title="修改密码" :visible.sync="changePas" width="520px">
+    <el-dialog title="修改密码" :visible.sync="changePas" width="520px" class="small">
       <div class="change-box">
        <div class="phone">已绑定的手机：180****1849</div>
        <div class="tip">若该手机号已无法使用请联系客服</div>
@@ -69,6 +69,7 @@ export default {
 }
 .safe-content{
   padding:0 30px;
+  
   .user{
     box-sizing: border-box;
     height:64px;
@@ -118,6 +119,33 @@ export default {
       background:none;
     }
   }
+  @media screen and(max-width:@change_width){
+    padding:0 15px;
+    .user{
+      padding-top:20px;
+      border:0;
+    }
+    .item{
+      height:auto;
+      line-height:1;
+      padding-bottom:30px;
+      margin-bottom:30px;
+      .iconfont{
+        margin-left:0;
+        height:48px;
+        line-height: 48px;
+      }
+      .des{
+        width:calc(100% - 60px);
+        margin-left:8px;
+      }
+      .btn{
+        float: none;
+        width:100%;
+        margin-top:20px;
+      }
+    }
+  }
 }
 .safe-tip{
   box-sizing: border-box;
@@ -138,6 +166,15 @@ export default {
       color:@subtitle_color;
       line-height: 12px;
       margin-bottom: 10px;
+    }
+  }
+  @media screen and(max-width:@change_width){
+    height:auto;
+    padding:20px 15px;
+    ul{
+      li{
+        line-height: 24px;
+      }
     }
   }
 }
@@ -220,5 +257,22 @@ export default {
       border-color:@main;
     }
   }
+  @media screen and(max-width:@change_width){
+     .input-line{
+       label{
+         width:28.5%;
+       }
+       .input-box{
+         width:71.5%;
+       }
+     }
+  }
 }
+ @media screen and(max-width:@change_width){
+   .small{
+     .el-dialog{
+       width:325px!important;
+     }
+   }
+ }
 </style>

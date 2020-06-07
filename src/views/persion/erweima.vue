@@ -15,6 +15,16 @@ export default {
     return{
 
     }
+  },
+  mounted(){
+    this.getErweima();
+  },
+  methods:{
+    getErweima(){
+      this.$http.get(this.$api.GetVerificationNum).then(res=>{
+        console.log(res)
+      })
+    }
   }
 }
 </script>
@@ -33,6 +43,22 @@ export default {
   p{
     font-size:12px;
     line-height: 12px;
+  }
+}
+@media screen and(max-width:@change_width){
+  .erweima-box{
+    height:auto;
+  }
+  .erweima-content{
+    padding-bottom:60px;
+    img{
+      margin:60px auto 40px;
+    }
+    p{
+      width:228px;
+      line-height: 24px;
+      margin:0 auto;
+    }
   }
 }
 </style>

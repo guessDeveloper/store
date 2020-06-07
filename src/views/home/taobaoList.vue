@@ -20,7 +20,7 @@
                     <li class="name">排序：</li>
                     <li :class="{active:sort == 0}"><a @click="changeSort(0)">最新商品</a></li>
                     <li :class="{active:sort == 1}"><a @click="changeSort(1)">最高人气</a></li>
-                    <li :class="{active:sort == 2||sort == 3,up:sort==2,down:sort==3}"><a @click="changeSort(sort==2?3:2)">价格</a></li>
+                    <li :class="{active:sort == 2||sort == 3,up:sort==2,down:sort==3}"><a @click="changeSort(sort==2?3:2)" class="sort" :class="{up:sort==2,down:sort==3}">价格</a></li>
                 </ul>
             </div>
         </div>
@@ -35,6 +35,17 @@
                     :current-page.sync="pageIndex"
                     :page-size="pageSize"
                     layout="prev, pager, next, jumper"
+                    :total="total">
+                </el-pagination>
+          </div>
+           <div class="page-box small">
+                <el-pagination
+                    small
+                    @size-change="handleSizeChange"
+                    @current-change="handleCurrentChange"
+                    :current-page.sync="pageIndex"
+                    :page-size="pageSize"
+                    layout="prev, pager, next"
                     :total="total">
                 </el-pagination>
             </div>
@@ -126,6 +137,11 @@ export default {
   .page-box{
       padding:36px 0 60px;
   }
+  @media screen and(max-width:@change_width){
+    width:100%;
+    margin:10/@p auto 0;
+    padding-top:15/@p;
+  }
 }
 .good-list{
   display: block;
@@ -135,6 +151,42 @@ export default {
     float: left;
     width:265px;
     margin:13px;
+  }
+   @media screen and(max-width:@change_width){
+    padding:0;
+    margin:0px 0 0 15px;
+    li{
+      width:calc(50% - 15px);
+      margin:0;
+      margin-right:15px;
+    }
+  }
+}
+.sort{
+  position: relative;
+  padding-right:12px;
+  &.up{
+    &::after{
+        background:url(../../assets/img/icon-sort-up.png) no-repeat center center;
+        background-size:100%;
+    }
+  }
+  &.down{
+    &::after{
+        background:url(../../assets/img/icon-sort-down.png) no-repeat center center;
+        background-size:100%;
+    }
+  }
+  &:after{
+    content:'';
+    position: absolute;
+    right:0;
+    top:50%;
+    margin-top:-6px;
+    width:8px;
+    height:12px;
+    background:url(../../assets/img/icon-sort.png) no-repeat center center;
+    background-size:100%;
   }
 }
 </style>

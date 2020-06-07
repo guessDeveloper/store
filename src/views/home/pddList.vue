@@ -20,9 +20,22 @@
                     <li class="name">排序：</li>
                     <li :class="{active:sort == 0}"><a @click="changeSort(0)">最新商品</a></li>
                     <li :class="{active:sort == 1}"><a @click="changeSort(1)">最高人气</a></li>
-                    <li :class="{active:sort == 2||sort == 3,up:sort==2,down:sort==3}"><a @click="changeSort(sort==2?3:2)">价格</a></li>
+                    <li :class="{active:sort == 2||sort == 3,up:sort==2,down:sort==3}"><a @click="changeSort(sort==2?3:2)" class="sort" :class="{up:sort==2,down:sort==3}">价格</a></li>
                 </ul>
             </div>
+        </div>
+        <div class="small-select-box">
+          <div class="small-list-box">
+             <ul class="small-list">
+                <li :class="{active:classId == 0}"><a @click="changeClass('0','全部')">全部</a></li>
+                <li v-for="(item,index) in classList" :key="index" :class="{active:classId == item.catid}" ><a  @click="changeClass(item.catid,item.titleA)">{{item.titleA}}</a></li>
+             </ul>
+          </div>
+          <ul class="small-bottom">
+              <li :class="{active:sort == 0}"><a @click="changeSort(0)">最新商品</a></li>
+              <li :class="{active:sort == 1}"><a @click="changeSort(1)">最高人气</a></li>
+              <li :class="{active:sort == 2||sort == 3,up:sort==2,down:sort==3}"><a @click="changeSort(sort==2?3:2)" class="sort" :class="{up:sort==2,down:sort==3}">价格</a></li>
+          </ul>
         </div>
         <div class="list-box">
           <ul class="good-list">
@@ -51,8 +64,8 @@ export default {
         classList:[],
         sort:0,
         pageIndex:1,
-        pageSize:5,
-        total:100,
+        pageSize:20,
+        total:0,
         list:[]
     }
   },
@@ -79,13 +92,13 @@ export default {
        this.classId = id;
        this.pageIndex = 1;
        this.className= name;
-       this.$router.push(`/taobaoList?className=${name}&classId=${id}&sort=${this.sort}`)
+       this.$router.push(`/pddList?className=${name}&classId=${id}&sort=${this.sort}`)
        this.getList();
     },
     //修改排序
     changeSort(sort){
       this.sort = sort;
-      this.$router.push(`/taobaoList?className=${this.className}&classId=${this.classId}&sort=${this.sort}`)
+      this.$router.push(`/pddList?className=${this.className}&classId=${this.classId}&sort=${this.sort}`)
       this.pageIndex = 1;
       this.getList();
     },
@@ -99,8 +112,10 @@ export default {
        }
        this.$http.post(this.$api.pddGerPageList,sendData).then(res=>{
           if(res.data.Code == 1){
-             this.list = res.data.Data.List,
+             this.list = res.data.Data.list
              this.total = res.data.Data.count
+             document.body.scrollTop = 0;
+             document.documentElement.scrollTop = 0;
           }
        })
     },
@@ -124,6 +139,11 @@ export default {
   .page-box{
       padding:36px 0 60px;
   }
+  @media screen and(max-width:@change_width){
+    width:100%;
+    margin:10/@p auto 0;
+    padding-top:15/@p;
+  }
 }
 .good-list{
   display: block;
@@ -133,6 +153,105 @@ export default {
     float: left;
     width:265px;
     margin:13px;
+  }
+   @media screen and(max-width:@change_width){
+    padding:0;
+    margin:0px 0 0 15px;
+    li{
+      width:calc(50% - 15px);
+      margin:0;
+      margin-right:15px;
+    }
+  }
+}
+.sort{
+  position: relative;
+  padding-right:12px;
+  &.up{
+    &::after{
+        background:url(../../assets/img/icon-sort-up.png) no-repeat center center;
+        background-size:100%;
+    }
+  }
+  &.down{
+    &::after{
+        background:url(../../assets/img/icon-sort-down.png) no-repeat center center;
+        background-size:100%;
+    }
+  }
+  &:after{
+    content:'';
+    position: absolute;
+    right:0;
+    top:50%;
+    margin-top:-6px;
+    width:8px;
+    height:12px;
+    background:url(../../assets/img/icon-sort.png) no-repeat center center;
+    background-size:100%;
+  }
+}
+.small-select-box{
+  display:none;
+  margin-top: 10px;
+  .small-list-box{
+    width:100%;
+    overflow-x:scroll ;
+    overflow-y: hidden;
+    height:47/@p;
+    border-bottom:1px solid @class_border;
+    .small-list{
+      display: flex;
+      padding:0 5px 5px;
+      li{
+        padding:0 10/@p;
+        line-height:47/@p;
+        flex-shrink: 0;
+        a{
+          font-size:12px;
+          color:@subtitle_color;
+        }
+        &.active{
+          position: relative;
+          a{
+            color:@main;
+          }
+          &::after{
+            content:'';
+            display: block;
+            position: absolute;
+            bottom:0;
+            left:50%;
+            margin-left:-6/@p;
+            width:12/@p;
+            height: 2/@p;
+            background:@main;
+          }
+        }
+      }
+    }
+  }
+  .small-bottom{
+    display: flex;
+    height:47px;
+    justify-content: space-around;
+    li{
+      font-size:12px;
+      line-height: 47px;
+      a{
+        font-size:12px;
+      }
+      &.active{
+        a{
+          color:@main;
+        }
+      }
+    }
+  }
+  @media screen and(max-width:@change_width){
+    display: block;
+    width:100%;
+    background:#fff;
   }
 }
 </style>

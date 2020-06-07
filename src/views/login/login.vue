@@ -5,17 +5,20 @@
         <div class="middle">
            <div class="login-box">
               <div class="tab-box">
-                 <span  :class="{active:type==1}" @click="type=1">用户登录</span><span :class="{active:type==2}" @click="type=2">商家登录</span>
+                 <span  :class="{active:type==1}" @click="tabchange(1)">用户登录</span><span :class="{active:type==2}" @click="tabchange(2)">商家登录</span>
               </div>
               <div class="input-box">
-                 <span class="iconfont iconzh"></span><input type="text" placeholder="用户名称/手机号码" v-model.trim="userName">
+                 <span class="iconfont iconzh"></span><input type="text" placeholder="用户名称/手机号码" v-model.trim="userName" @blur="isLoginCode">
               </div>
               <div class="input-box">
                 <span class="iconfont iconmima"></span><input type="password" placeholder="密码" v-model.trim="password">
               </div>
+              <div class="input-box" v-show="needCode == 'true'">
+                 <span class="iconfont icondxyzm" ></span><input type="text" placeholder="输入短信验证码" v-model.trim="msgCode" maxlength="6"><button class="msg-btn" @click="getMsgCode">{{codeBtn}}</button>
+              </div>
               <button class="btn login-btn" @click="login">登录</button>
               <div class="other">
-                <router-link tag="a" class="forget-btn" to="/reset">忘记密码？</router-link>
+                <a  class="forget-btn" @click="reset">忘记密码？</a>
                 <a class="regeter-btn" @click="register">新用户注册</a>
               </div>
            </div>
@@ -32,7 +35,13 @@ export default {
     return{
       type:'1',
       userName:'',
-      password:''
+      password:'',
+      needCode:false,
+      msgCode:'',
+      lock:false,
+      count:60,
+      timer:'',
+      codeBtn:'获取验证码'
     }
   },
   components:{
@@ -40,6 +49,12 @@ export default {
     navBar:navBar
   },
   methods:{
+    tabchange(type){
+        this.type = type
+        this.userName = ''
+        this.password = ''
+        this.needCode = false
+    },
     login(){
       if(this.checkLogin()){
         if(this.type==1){
@@ -49,36 +64,113 @@ export default {
         }
       }
     },
+    //查询是否需要验证码
+    isLoginCode(){
+      if(this.userName !== ''){
+        if(this.type == '1'){
+          this.$http.post(this.$api.UserLoginIsNeedVerify,{UserName:this.userName}).then(res=>{
+            if(res.data.Code == 1){
+               this.needCode = res.data.Data
+            }
+          })
+        }else{
+          this.$http.post(this.$api.MerchantLoginIsNeedVerify,{Account:this.userName}).then(res=>{
+            if(res.data.Code == 1){
+               this.needCode = res.data.Data
+            }
+          })
+        } 
+      }
+    },
+    //忘记密码
+    reset(){
+      if(this.type == 1){
+        this.$router.push('/reset')
+      }else{
+        this.$router.push('/reset?isStore=1')
+      }
+    },
     checkLogin(){
       if(this.userName == ''){
         this.$message.error('请输入用户名称/手机号码')
         return false
       }else if(this.password == ''){
         this.$message.error('请输入密码')
+      }else if(this.needCode == 'true'&&this.msgCode == ''){
+        this.$message.error('请输入短信验证码')
+        return false
       }else{
         return true
       }
+    },
+    //获取短信验证码
+    getMsgCode(){
+      if(this.lock == true)return false
+      this.lock = true
+      if(this.type == 1){
+        this.$http.post(this.$api.UserLoginSendVerifyCode,{UserName:this.userName}).then(res=>{
+          if(res.data.Code == 1){
+            this.setCode()
+          }else{
+            this.lock = false;
+            this.$message.error(res.data.Msg)
+          }
+        }).catch(res=>{
+          this.lock = false
+          this.$message.error(res.data.Msg)
+        })
+      }else{
+        this.$http.post(this.$api.M_SendRegistCode,{phone:this.userName}).then(res=>{
+          if(res.data.Code == 1){
+            this.setCode()
+          }else{
+            this.lock = false;
+            this.$message.error(res.data.Msg)
+          }
+        }).catch(res=>{
+          this.lock = false;
+          this.$message.error(res.data.Msg)
+        })
+      }
+    },
+     //验证码倒计时
+    setCode(){
+       this.count--
+       this.codeBtn = `${this.count}s`
+       clearInterval(this.timer)
+       this.timer = setInterval(()=>{
+         if(this.count == 1){
+           clearInterval(this.timer);
+           this.lock = false;
+           this.codeBtn = '获取验证码';
+           this.count = 60;
+         }else{
+           this.count -- ;
+           this.codeBtn = `${this.count}s`
+         }
+       },1000) 
     },
     //用户登录
     userLogin(){
       this.$http.post(this.$api.Login,{
         UserName:this.userName,
         UserPassword:this.password,
-        VerifyCode:''
+        VerifyCode:this.msgCode
 
       }).then(res=>{
         if(res.data.Code == 1){
-          this.$router.push('/')
+          this.$router.push('/persion')
         }else{
           this.$message.error(res.data.Msg)
         }
       })
     },
+    //商家注册
     storeLogin(){
-      this.$http.post(this.$api.Login,{
+      this.$http.post(this.$api.storeLogin,{
         Account:this.userName,
         passwd:this.password,
-        VerifyCode:''
+        VerifyCode:this.msgCode
 
       }).then(res=>{
         if(res.data.Code == 1){
@@ -185,6 +277,20 @@ export default {
     top:10px;
     font-size:20px;
     color:@placeholder_color;
+  }
+  .icondxyzm{
+    font-size:14px;
+    top:16px;
+  }
+  .msg-btn{
+    position:absolute;
+    top:14px;
+    right:20px;
+    font-size:14px;
+    color:@main;
+    height:22px;
+    text-align:right;
+    
   }
   input{
     display: block;

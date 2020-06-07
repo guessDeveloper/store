@@ -25,10 +25,20 @@ export default {
     Q_A_ByClass: '/api/QuestionAnswer/Q_A_ByClass', //通过id 获取分类列表
     //登录
     Login: '/api/LoginRegister/Login', //用户登录
+    UserLoginIsNeedVerify: '/api/LoginRegister/UserLoginIsNeedVerify', //用户登录是否需要验证
     storeLogin: '/api/LoginRegister/MerchanterLogin', //商家登录
+    MerchantLoginIsNeedVerify: '/api/LoginRegister/MerchantLoginIsNeedVerify', //商家登录是否需要验证
+    UserLoginSendVerifyCode: '/api/LoginRegister/UserLoginSendVerifyCode', //用户登录获取验证码
     //注册
     SendRegistCode: '/api/LoginRegister/SendRegistCode', //注册发送验证码
     AddUser: '/api/LoginRegister/AddUser', //用户注册
+    ADDMerchanter: '/api/LoginRegister/ADDMerchanter', //商家注册
     GetUserAgreement: '/api/LoginRegister/GetUserAgreement', //获取用户注册协议
+    M_SendRegistCode: '/api/LoginRegister/M_SendRegistCode', // 商家注册获取验证码
     GetMerchantAgreement: '/api/LoginRegister/GetMerchantAgreement', //获取商家协议
+    //个人中心
+    GetUserInfo: '/api/User/GetUserInfo', //获取用户登录状态
+    GetVerificationNum: '/api/User/GetVerificationNum', //获取用户二维码
+    UserIntegralRecordInfo: '/api/User/UserIntegralRecordInfo', //获取用户的积分
+    UserInviterUrl: '/api/User/UserInviterUrl' // 获取邀请链接
 }

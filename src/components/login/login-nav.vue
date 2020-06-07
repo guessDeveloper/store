@@ -13,7 +13,7 @@
       <span class="type" v-if="type == 'reset'">
          重置密码
       </span>
-      <router-link class="home" tag="a" to="/" v-if="type!=='register' || type!=='reset'">进入网站首页</router-link>
+      <router-link class="home" tag="a" to="/" v-if="type!=='register'&&type!=='reset'">进入网站首页</router-link>
       <router-link class="home" tag="a" to="/login" v-if="type=='register'">已有账号，<span>立即登录</span></router-link>
        <router-link class="home" tag="a" to="/login" v-if="type=='reset'">登录</router-link>
     </div>

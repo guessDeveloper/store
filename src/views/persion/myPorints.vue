@@ -25,7 +25,7 @@
         </div>
       </div>
     </div>
-    <el-dialog title="获取记录" :visible.sync="dialogFormVisible" width="520px">
+    <el-dialog title="获取记录" :visible.sync="dialogFormVisible" width="520px" class="small">
     <el-table :data="gridData" style="width:480px;" header-row-style="font-size:12px;color:#999;" row-class-name="table-line">
     <el-table-column property="date" label="订单号" width="134" align="center" fontSize="12px" cell-style="font-size:12px;"></el-table-column>
     <el-table-column property="time" label="时间" width="154" align="center"></el-table-column>
@@ -41,7 +41,7 @@
 </el-pagination>
    </div>
     </el-dialog>
-      <el-dialog title="兑换记录" :visible.sync="duihuan" width="520px">
+      <el-dialog title="兑换记录" :visible.sync="duihuan" width="520px" class="small">
     <el-table :data="changeData" style="width:480px;" header-row-style="font-size:12px;color:#999;" row-class-name="table-line">
     <el-table-column property="time" label="时间" width="154" align="center"></el-table-column>
     <el-table-column property="status" label="状态" width="258" align="center"></el-table-column>
@@ -77,6 +77,16 @@ export default {
           num:'+200'
         }]
     }
+  },
+  mounted(){
+    this.getCode();
+  },
+  methods:{
+    getCode(){
+      this.$http.get(this.$api.UserIntegralRecordInfo).then(res=>{
+        console.log(res)
+      })
+    }
   }
 }
 </script>
@@ -84,9 +94,15 @@ export default {
 .myPorint-box{
   width:100%;
   min-height:@persion_height ;
+  @media screen and(max-width:@change_width){
+     min-height: auto;
+   }
 }
 .myPorint-content{
   padding:0 30px;
+   @media screen and(max-width:@change_width){
+     padding:0 15px;
+   }
 }
 .content{
   .clear();
@@ -165,6 +181,32 @@ export default {
     height:80px;
     padding-left:100px;
     text-align: left;
+  }
+  @media screen and(max-width:@change_width){
+    padding-top:0;
+    border:0;
+    .first-item{
+      width:100%;
+      height:110px;
+      line-height: 110px;
+      padding-left:0;
+      border-right:0;
+      border-bottom:1px solid @class_border;
+      .btn{
+        float:right;
+        margin-top:38px;
+      }
+      margin-bottom:40px;
+    }
+    .second-item{
+      box-sizing: border-box;
+      width:50%;
+    }
+    .thrid-item{
+      width:50%;
+      padding:0;
+      text-align: center;
+    }
   }
 }
 .page-box{

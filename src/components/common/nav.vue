@@ -27,7 +27,7 @@ export default {
   },
   mounted(){
     this.getMessage()
-    
+    this.getUserInfo();
   },
   methods:{
     loop(){
@@ -48,6 +48,12 @@ export default {
             this.loop();
           }
       })
+     },
+     //获取用户登录信息
+     getUserInfo(){
+       this.$http.get(this.$api.GetUserInfo).then(res=>{
+         console.log(res)
+       })
      }
   },
   beforeDestroy(){

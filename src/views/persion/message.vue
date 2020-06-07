@@ -42,6 +42,9 @@ export default {
 .message-list{
   padding:0 30px;
   text-align: center;
+  @media screen and(max-width:@change_width){
+    padding:0 15px;
+  }
   .item{
     text-align: left;
     padding-top:20px;

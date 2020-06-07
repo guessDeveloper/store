@@ -1,7 +1,7 @@
 <template>
     <div class="box">
-        <div class="title">
-             24小时热销
+        <div class="title" :style="'color:'+title.titleColor">
+             <span class="iconfont" :class="title.titleIcon" ></span>{{title.title}}
         </div>
         <div class="content">
             <ul>
@@ -48,6 +48,12 @@ export default {
 
         }
     },
+    props:{
+        title:{
+          type:Object
+        },
+        
+    },
     components:{
         card:card
     }
@@ -62,6 +68,10 @@ export default {
         height:104px;
         font-size: 28px;
         line-height: 104px;
+        .iconfont{
+          font-size:26px;
+          margin-right:7px;
+        }
     }
     .content{
         ul{
@@ -74,6 +84,29 @@ export default {
                 border-right:1px solid @class_border;
                 &:nth-of-type(5n){
                     border-right: 0;
+                }
+            }
+        }
+    }
+    @media screen and(max-width:@change_width){
+        width:100%;
+        .title{
+            text-align: left;
+            padding:0 15px;
+            font-size:20px;
+            height:70px;
+            line-height: 70px;
+            .iconfont{
+                font-size:20px;
+            }
+        }
+        .content{
+            ul{
+                margin:0 0 0 15px;
+                li{
+                    width:calc(50% - 15px);
+                    margin-right:15px;
+                    border:0;
                 }
             }
         }
