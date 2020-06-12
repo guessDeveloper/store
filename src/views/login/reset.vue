@@ -25,29 +25,29 @@
             <div class="input-line-box">
                 <label for="">图形验证码：</label><input type="text" placeholder="输入图形验证码" v-model.trim="imgCode">
             </div>
-            <div class="input-line-box">
-                <img src="" alt="" class="code">  <button class="img-reset">看不清？<span>换一张</span></button>
+            <div class="input-line-box" style="overflow:hidden">
+                <img :src="imgUrl" alt="" class="code">  <button class="img-reset" @click="getImageUrl">看不清？<span>换一张</span></button>
             </div>
             <button class="btn submit" @click="step=2">下一步</button>
         </div>
         <div class="tab-item" :class="{active:step == 2}">
             <div style="height:40px;"></div>
             <div class="input-line-box">
-                <label for="">昵称：</label><input type="text" value="dsdfsf" readonly class="readonly">
+                <label for="">昵称：</label><input type="text" :value="lockUserName" readonly class="readonly">
             </div>
             <div class="input-line-box">
-                <label for="">手机号：</label> <input type="text" value="fsdfs" readonly class="readonly">
+                <label for="">手机号：</label> <input type="text" :value="lockUserTel" readonly class="readonly">
             </div>
             <div class="input-line-box">
-                <label for="">短信验证码：</label><div class="input-box"><input type="text" placeholder="输入短信验证码"><span class="getCode">获取验证码</span></div> 
+                <label for="">短信验证码：</label><div class="input-box"><input type="text" placeholder="输入短信验证码" v-model.trim="msgCode"><span class="getCode" @click="getCode">{{codeBtn}}</span></div> 
             </div>
             <div class="input-line-box">
-                <label for="">新的密码：</label><input type="password" placeholder="设置6至20位登录密码">
+                <label for="">新的密码：</label><input type="password" placeholder="设置6至20位登录密码" v-model.trim="newPwd" minlength="6" maxlength="20"> 
             </div>
             <div class="input-line-box">
-                <label for="">重复密码：</label><input type="password" placeholder="请再次输入登录密码">
+                <label for="">重复密码：</label><input type="password" placeholder="请再次输入登录密码" v-model.trim="rePwd" maxlength="20">
             </div>
-            <button class="btn submit" @click="step=3">下一步</button>
+            <button class="btn submit" @click="restPas">下一步</button>
         </div>
         <div class="tab-item" :class="{active:step == 3}">
              <span class="iconfont iconqrwc icon-complate"></span>
@@ -70,12 +70,24 @@ export default {
         return{
            step:'1',
            userNmae:'',
-           imgCode:''
+           imgCode:'',
+           imgUrl:'',
+           lockUserName:'',
+           lockUserTel:'',
+           codeBtn:'获取验证码',
+           count:60,
+           lock:false,
+           msgCode:'',
+           newPwd:'',
+           rePwd:''
         }
     },
     components:{
         footerBar:footerBar,
         navBar:navBar
+    },
+    mounted(){
+        this.getImageUrl();
     },
     methods:{
         stepOne(){
@@ -84,10 +96,77 @@ export default {
             }else if(this.imgCode == ''){
                 this.$message.error('请输入图形验证码')
             }else{
-                console.log('1')
+                console.log();
             }
+        },
+        //图像验证码
+        getImageUrl(){
+            let date = new Date();
+            const Url = process.env.NODE_ENV === 'production' ? `https://api.youledui.com/${this.$api.GetVerificationCode}?time=${date.getTime()}` : `/Sev${this.$api.GetVerificationCode}?time=${date.getTime()}`
+            console.log('111')
+            this.imgUrl = Url
+        },
+        //获取短信验证码
+        getCode(){
+            if(this.lock)return false
+            this.lock = true;
+            this.$http.post(this.$api.UserForgetPWDSendVerifyCode,{UserName:this.lockUserName,UserTel:this.lockUserTel}).then(res=>{
+                if(res.data.Code == 1){
+                    this.setCode();
+                }else{
+                    this.$message.error(res.data.Msg)
+                }
+                this.lock = false
+            }).catch(()=>{
+                this.lock = false
+            })
+        },
+        //验证码倒计时
+        setCode(){
+            this.count--
+            this.codeBtn = `${this.count}s`
+            clearInterval(this.timer)
+            this.timer = setInterval(()=>{
+                if(this.count == 1){
+                clearInterval(this.timer);
+                this.lock = false;
+                this.codeBtn = '获取验证码';
+                this.count = 60;
+                }else{
+                this.count -- ;
+                this.codeBtn = `${this.count}s`
+                }
+            },1000) 
+        },
+        //校验
+        resetcheck(){
+           if(this.msgCode == ''){
+             this.$message.error('请输入短信验证码')
+           }else if(this.newPwd.length<6){
+             this.$message.error('请输入6至20位登录密码')
+           }else if(this.newPwd !== this.rePwd){
+             this.$message.error('两次输入密码不一致')
+           }else{
+               this.restPas()
+           }
+        },
+        //重置密码
+        restPas(){
+          this.$http.post(this.$api.UserForgetPWD,{
+              UserName:this.lockUserName,
+              UserTel:this.lockUserName,
+              VerifyCode:this.msgCode,
+              UserPWD:this.newPwd
+          }).then(res=>{
+              if(res.data.Code == 1){
+                  this.step = '3'
+              }else{
+                  this.$message.error(res.data.Msg)
+              }
+          })
         }
-    }
+    },
+
 }
 </script>
 <style lang="less" scoped>
@@ -260,12 +339,16 @@ export default {
     }
 }
 .code{
+    float: left;
     width:150px;
     height:50px;
     margin-right:20px;
 }
 .img-reset{
+    float: left;
+    vertical-align: middle;
     border:0;
+    margin-top:11px;
     font-size: 14px;
     span{
         color:@main;

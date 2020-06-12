@@ -13,7 +13,7 @@
               <div class="input-box">
                 <span class="iconfont iconmima"></span><input type="password" placeholder="密码" v-model.trim="password">
               </div>
-              <div class="input-box" v-show="needCode == 'true'">
+              <div class="input-box" v-if="needCode">
                  <span class="iconfont icondxyzm" ></span><input type="text" placeholder="输入短信验证码" v-model.trim="msgCode" maxlength="6"><button class="msg-btn" @click="getMsgCode">{{codeBtn}}</button>
               </div>
               <button class="btn login-btn" @click="login">登录</button>
@@ -159,6 +159,7 @@ export default {
 
       }).then(res=>{
         if(res.data.Code == 1){
+          localStorage.setItem('token',res.data.Data)
           this.$router.push('/persion')
         }else{
           this.$message.error(res.data.Msg)

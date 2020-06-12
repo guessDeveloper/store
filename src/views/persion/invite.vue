@@ -5,21 +5,31 @@
     </div>
     <div class="invite">
       <div class="user-link">
-         <span class="iconfont iconyqyl"></span><span class="name">我的邀请链接：</span><span class="link">https://youledui.com/shop/view_shop.htm?spm=a21bo.2017.201863</span><button class="copy">复制</button>
+         <span class="iconfont iconyqyl"></span><span class="name">我的邀请链接：</span><span class="link" id="foo">{{url}}</span><button class="copy" :data-clipboard-text="url">复制</button>
       </div>
       <div class="invite-list-title">
         邀请记录
       </div>
-      <div class="invite-list">
-        <div class="item">
-           <div class="user"><span class="header"><img src="" alt=""></span>母婴类购物达人</div><div class="phone">180****1849</div><div class="time">180****1849</div>
+      <div class="invite-list"> 
+        <div class="item" v-for="(item,index) in list" :key="index">
+           <div class="user"><span class="header"><img src="" alt=""></span>{{item.NickNamep}}</div><div class="phone">{{item.Tel}}</div><div class="time">{{item.CreateTime}}</div>
         </div>
-        <div class="small-item">
-
+        <div class="small-item" v-for="(item,index) in list" :key="index">
+          <div class="user-box">
+             <span class="header">
+               <img src="" alt="">
+             </span>
+             <span class="name-box">
+               <div class="name">{{item.NickNamep}}</div>
+               <div class="phone">{{item.Tel}}</div>
+             </span>
+          </div>
+             <div class="time">{{item.CreateTime}}</div>
+          
         </div>
         
       </div>
-      <div class="empty">
+      <div class="empty" v-show="total == 0">
           <span class="iconfont iconzwyqzwt"></span>
           <div class="name"> 暂无邀请记录</div>
       </div>
@@ -27,19 +37,54 @@
   </div>
 </template>
 <script>
+import '@/plugins/clipboard.js'
 export default {
   data(){
     return{
-
+       url:'',
+       pageIndex:'',
+       pageSize:'',
+       list:[],
+       Clipboard:'',
+       total:0
     }
   },
   mounted(){
     this.getUrl();
+    const _this = this;
+    this.Clipboard = new this.clipboard('.copy');
+    this.Clipboard.on('success', function(e) {
+    
+      _this.$message.success('复制成功')
+    e.clearSelection();
+    });
+
+    this.Clipboard.on('error', function() {
+        _this.$message.error('复制失败')
+    });
+    this.getList();
+  },
+  beforeDestroy(){
+    this.Clipboard.destroy();
   },
   methods:{
     getUrl(){
-      this.$http.get(this.$api.UserInviterUrl).then(res=>{
-        console.log(res)
+      this.$http.limitGet(this.$api.UserInviterUrl).then(res=>{
+         if(res.data.Code == 1){
+           this.url = res.data.Data.Url
+         }
+      })
+    },
+    //获取邀请链接
+    getList(){
+      this.$http.limitPost(this.$api.UserInviterList,{
+        pageIndex:this.pageIndex,
+        pageSize:this.pageSize
+      }).then(res=>{
+        if(res.data.Code == 1){
+          this.list = res.data.Data.list
+          this.total = res.data.Data.count
+        }
       })
     }
   }
@@ -80,6 +125,7 @@ export default {
       overflow: hidden;
       line-height: 34px;
       font-size:12px;
+      word-break: break-all;
       background:@class_border;
       border-radius: 4px;
       vertical-align:middle;
@@ -113,6 +159,8 @@ export default {
       .user{
         font-size:12px;
         text-align: left;
+        line-height: 18px;
+        
         .header{
           text-align: left;
           display: inline-block;
@@ -124,6 +172,7 @@ export default {
           border-radius: 30px;
           vertical-align: middle;
         }
+        
       }
       .phone{
         text-align: center;
@@ -169,13 +218,41 @@ export default {
         display: none;
       }
       .small-item{
-        display: block;
+        display: flex;
+        width:100%;
+        height:70px;
+        border-bottom:1px solid @class_border;
+        justify-content: space-between;
+        .user-box{
+          display: flex;
+          align-items:center;
+          .header{
+            width:30px;
+            height:30px;
+            border-radius: 30px;
+            background:#ccc;
+            vertical-align: middle;
+            img{
+              height:100%;
+            }
+          }
+          .name-box{
+          margin-left:8px;
+        } 
+        }
+        .time{
+            align-self:flex-end;
+            line-height: 70px;
+            font-size:12px;
+            color:@subtitle_color;
+          }
       }
     }
   }
 }
 .empty{
   text-align: center;
+  padding-top:120px;
   .iconfont{
     display: block;
     margin:0 auto;

@@ -10,10 +10,7 @@
                 <ul>
                     <li class="name">分类：</li>
                     <li class="active"><a href="">全部</a></li>
-                    <li><a href="">饺子混沌</a></li>
-                    <li><a href="">饺子混沌</a></li>
-                    <li><a href="">饺子混沌</a></li>
-                    <li><a href="">饺子混沌</a></li>
+                    <li v-for="(item,index) in classType" :key="index" :class="{active:classId == item.ClasssId}" ><a  @click="changeClass(item.ClasssId,item.Classname)">{{item.Classname}}</a></li>
                 </ul>
             </div>
              <div class="food-select-item">
@@ -38,10 +35,10 @@
         </div>
         <div class="food-list-box">
             <ul class="food-list">
-                <li @click="goDetial"><foodCard></foodCard></li>
-                <li @click="goDetial"><foodCard></foodCard></li>
-                <li @click="goDetial"><foodCard></foodCard></li>
-                <li @click="goDetial"><foodCard></foodCard></li>
+                <li ><foodCard></foodCard></li>
+                <li ><foodCard></foodCard></li>
+                <li><foodCard></foodCard></li>
+                <li ><foodCard></foodCard></li>
                 <li><foodCard></foodCard></li>
                 <li><foodCard></foodCard></li>
                 <li><foodCard></foodCard></li>
@@ -65,13 +62,24 @@ import foodCard from '@/components/food/foodCard'
 export default {
     data(){
         return{
-
+            classType:'',
+            ClasssId:'',
         }
+    },
+    mounted(){
+        this.getCalss();
     },
     methods:{
         goDetail(){
             this.$router.push('/foodDetail')
-        }
+        },
+       getCalss(){
+        this.$http.get(this.$api.foodCategorys).then(res=>{
+            if(res.data.Code == 1){
+            this.classType = res.data.Data
+            }
+      })
+    }
     },
     components:{
         foodCard:foodCard,

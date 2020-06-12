@@ -4,7 +4,7 @@
          基本信息
       </div>
       <div class="erweima-content">
-         <img src="" alt="">
+         <img :src="imgUrl" alt="">
          <p>尊敬的用户，去地面商家消费完成之后，请出示您的二维码，获得宝贵的积分。</p>
       </div>
   </div>
@@ -13,7 +13,7 @@
 export default {
   data(){
     return{
-
+      imgUrl:''
     }
   },
   mounted(){
@@ -21,8 +21,11 @@ export default {
   },
   methods:{
     getErweima(){
-      this.$http.get(this.$api.GetVerificationNum).then(res=>{
-        console.log(res)
+      const baseUrl = process.env.NODE_ENV === 'production' ? 'https://api.youledui.com/' : '/Sev'
+      this.$http.limitGet(this.$api.GetVerificationNum).then(res=>{
+        if(res.data.Code == 1){
+          this.imgUrl = baseUrl+res.data.Data.QRcodeImagePath
+        }
       })
     }
   }

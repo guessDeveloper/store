@@ -2,12 +2,66 @@
     <div class="myOrder-box">
         <div class="tab-box">
             <div class="tab-item" @click="toTab(1)" :class="{active:tab ==1}">线上购物订单</div>
-             <div class="tab-item" @click="toTab(2)" :class="{active:tab ==2}">地面消费订单</div>
+             <div class="tab-item second" @click="toTab(2)" :class="{active:tab ==2}">地面消费订单</div>
              <div class="input-box" v-show="tab == 1">
-                订单号 <input type="text" placeholder="输入订单号"><button>提交订单</button>
+                <label>订单号</label> <input type="text" placeholder="输入订单号"><button>提交订单</button>
              </div>
         </div>    
         <div class="order-content" v-show="tab == '1'">
+            <div class="choose-small-box">
+               <router-link class="btn small-btn" tag="button" to="/orderGrievance">订单申诉</router-link>
+               <div class="margin"></div>
+               <div class="date-box">
+                   <el-date-picker
+                    v-model="value1"
+                    type="date"
+                    placeholder="开始日期">
+                    </el-date-picker>
+                    <el-date-picker
+                    v-model="value1"
+                    type="date"
+                    placeholder="结束日期">
+                    </el-date-picker>
+               </div>
+               <div class="select-box">
+                   <div class="">
+                       <label for="">状态</label>
+                       <el-dropdown>
+                        <span class="select">
+                            全部<i class="iconfont iconxiasanjiao"></i>
+                        </span>
+                        <el-dropdown-menu slot="dropdown">
+                            <el-dropdown-item>黄金糕</el-dropdown-item>
+                            <el-dropdown-item>狮子头</el-dropdown-item>
+                            <el-dropdown-item>螺蛳粉</el-dropdown-item>
+                            <el-dropdown-item disabled>双皮奶</el-dropdown-item>
+                        
+                        </el-dropdown-menu>
+                    </el-dropdown>
+                   </div>
+                   <div class="last">
+                       订单类型 
+                        <el-dropdown>
+                            <span class="select">
+                                全部<i class="iconfont iconxiasanjiao"></i>
+                            </span>
+                            <el-dropdown-menu slot="dropdown">
+                                <el-dropdown-item>黄金糕</el-dropdown-item>
+                                <el-dropdown-item>狮子头</el-dropdown-item>
+                                <el-dropdown-item>螺蛳粉</el-dropdown-item>
+                                <el-dropdown-item disabled>双皮奶</el-dropdown-item>
+                            
+                            </el-dropdown-menu>
+                        </el-dropdown>
+                   </div>
+               </div>
+               <div class="search-box">
+                   <div class="input-box">
+                    <input type="text" placeholder="输入订单号">
+                    <span class="iconfont iconsousuo"></span>
+                  </div>   
+               </div>
+            </div>
             <div class="choose-box">
                 <div class="date-box">
                     <el-date-picker
@@ -55,7 +109,7 @@
                 <router-link class="btn" tag="button" to="/orderGrievance">订单申诉</router-link>
             </div>
             <div class="table-box">
-                  <el-table :data="listData"  header-row-style="font-size:12px;color:#999;" row-class-name="table-line" width="930">
+                  <el-table :data="listData"  header-row-style="font-size:12px;color:#999;" row-class-name="table-line" width="930" class="table-big">
                     <el-table-column property="img" label="产品图片" width="50" align="left">
                          <template slot-scope="scope">
                             <img :src="scope.row.img" alt="" class="product-img">
@@ -74,7 +128,37 @@
                         </template>
                     </el-table-column>
                 </el-table>
-            </div>
+           
+                <div class="table-small-box">
+                    <div class="item">
+                    <div class="des">
+                        <div class="">
+                            <img src="" alt="">
+                        </div>
+                        <div>
+                            <div class="name">儿童网鞋男童透气网鞋男童透气…</div>
+                            <div>
+                                订单号：<span>20191212083520</span>
+                            </div>
+                            <div>
+                                消费时间<span>2020-05-05 06:30:30</span>
+                            </div>
+                            <div>
+                                订单类型：<span>淘宝订单</span>
+                            </div>
+                            <div>消费金额(元)：<span>8000</span>
+
+                            </div>
+                            <div>奖励积分：<span>60</span></div>
+                        </div>
+                        <div>
+                            <div>状态：<span>已付款</span></div>
+                        </div>
+                    </div>
+                    <div class="btn">查看详情</div>
+                    </div>
+                </div>
+             </div>
         </div>
        <div class="order-content" v-show="tab=='2'">
             <div class="choose-box">
@@ -221,6 +305,7 @@ export default {
        float: right;
        font-size:12px;
        line-height: 60px;
+       
        input{
            display: inline-block;
            width:200px;
@@ -234,6 +319,39 @@ export default {
            border:1px solid @class_border;
            border-left:0;
            background:#fff;
+       }
+   }
+   @media screen and(max-width:@change_width){
+       padding:0px;
+       margin-bottom:10px;
+       
+       .tab-item{
+           margin:0;
+           margin-left:34px;
+          &.second{
+              float:right;
+              margin-right:34px;
+          }
+       }
+       .input-box{
+           width:100%;
+           box-sizing: border-box;
+           justify-content: space-between;
+           label{
+                display: inline-block;
+                width:50px;
+                margin-left:15px;
+            }
+           input{
+               width:calc(100% - 186px);
+           }
+           &::after{
+               content:'';
+               display: block;
+               width:100%;
+               height:10px;
+               background:@body_color;
+           }
        }
    }
 }
@@ -251,6 +369,50 @@ export default {
         color:@main;
         border-radius: 34px;
     }
+     @media screen and(max-width:@change_width){
+         display:none;
+     }
+}
+.choose-small-box{
+    display: none;
+    // padding:0 15px;
+    padding-top:65px;
+    .small-btn{
+      display: block;
+      width:calc(100% - 30px);
+      height:34px;
+      text-align: center;
+      color:@main;
+      margin:10px 15px;
+      border:1px solid @main;
+      border-radius: 34px;
+    }
+    .margin{
+        height: 10px;
+        background:@body_color;
+    }
+    .date-box{
+        display: flex;
+    }
+    .select-box{
+        display: flex;
+        padding:0 15px;
+        margin-top:10px;
+        justify-content: space-between;
+        .last{
+            align-items: flex-end;
+        }
+    }
+    .search-box{
+        margin-top:10px;
+        .input-box{
+            margin:0 15px;
+            width:calc(100% - 30px);
+        }
+    }
+     @media screen and(max-width:@change_width){
+         display:block;
+     }
 }
 .order-content{
     padding:0 30px;
@@ -306,6 +468,10 @@ export default {
             color:@subtitle_color;
         }
     }
+     @media screen and(max-width:@change_width){
+         padding:0 0px;
+        
+     }
 }
 //表格
 .table-head{
@@ -422,6 +588,27 @@ export default {
         border-color:@main;
       }
     }
+}
+.table-box{
+    .table-big{
+        display: block;
+    }
+    .table-small-box{
+        display: none;
+        .item{
+            .des{
+                display: flex;
+            }
+        }
+    }
+     @media screen and(max-width:@change_width){
+         .table-big{
+            display: none;
+        }
+        .table-small-box{
+            display: block;
+        }
+     }
 }
 
 </style>

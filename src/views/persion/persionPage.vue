@@ -7,21 +7,21 @@
 
            </div>
            <div class="user-msg">
-              <div class="line top"><span class="name">昵称：</span>直播购物达人<span class="change">修改昵称</span></div>
-              <div class="line bottom"><span class="name">手机号：</span>15255555555</div>
+              <div class="line top"><span class="name">昵称：</span>{{userName}}<span class="change">修改昵称</span></div>
+              <div class="line bottom"><span class="name">手机号：</span>{{userTel}}</div>
            </div>
            <div class="score-box">
               <div class="first item">
                 <div class="name">累计获得积分</div>
-                <div class="num">1000</div>
+                <div class="num">{{UserIntegralTotal?UserIntegralTotal:'0'}}</div>
               </div>
                 <div class="second item">
                 <div class="name">我的积分</div>
-                <div class="num">1000</div>
+                <div class="num">{{UserIntegral?UserIntegral:'0'}}</div>
               </div>
                 <div class="three item">
                 <div class="name">累计使用积分</div>
-                <div class="num">1000</div>
+                <div class="num">{{UserIntegralUsed?UserIntegralUsed:'0'}}</div>
               </div>
            </div>
           
@@ -44,6 +44,11 @@
 export default {
   data(){
     return{
+       userName:'',
+       userTel:'',
+       UserIntegralTotal:'',//用户获得积分总计
+       UserIntegralUsed:'',//用户已使用积分
+       UserIntegral:'',
        smallNav:[
       {
         title:"扫码获积分",
@@ -88,6 +93,24 @@ export default {
         iconSize:'15px'
       },]
     }
+  },
+  mounted(){
+    this.getUserInfo();
+  },
+  methods:{
+     //获取用户登录信息
+     getUserInfo(){
+       this.$http.limitGet(this.$api.GetUserInfo).then(res=>{
+         if(res.data.Code == 1){
+           let data = res.data.Data
+           this.userName = data.nickName
+           this.userTel = data.UserTel
+           this.UserIntegralTotal = data.UserJifen[0].UserIntegralTotal
+           this.UserIntegral = data.UserJifen[0].UserIntegral
+           this.UserIntegralUsed = data.UserJifen[0].UserIntegralUsed
+         }
+       })
+     }
   }
 }
 </script>

@@ -50,8 +50,11 @@ import foodCard from '@/components/food/foodListCard'
 export default {
   data(){
     return{
-
+      classType:[],
     }
+  },
+  mounted(){
+    this.getCalss();
   },
   methods:{
     

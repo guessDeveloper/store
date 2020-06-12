@@ -20,6 +20,8 @@ export default {
     //逛街购物
     shopCitys: '/api/shopping/Citys', //获取城市分类
     shopCategorys: '/api/shopping/Categorys', //商家类型
+    //美食广场
+    foodCategorys: '/api/Food/Categorys', //商家类型
     //帮助中心
     Q_A_Class: '/api/QuestionAnswer/Q_A_Class', //帮助中心
     Q_A_ByClass: '/api/QuestionAnswer/Q_A_ByClass', //通过id 获取分类列表
@@ -36,9 +38,25 @@ export default {
     GetUserAgreement: '/api/LoginRegister/GetUserAgreement', //获取用户注册协议
     M_SendRegistCode: '/api/LoginRegister/M_SendRegistCode', // 商家注册获取验证码
     GetMerchantAgreement: '/api/LoginRegister/GetMerchantAgreement', //获取商家协议
+    //忘记密码
+    GetVerificationCode: '/api/LoginRegister/GetVerificationCode', // 图像验证码
+    UserForgetPWDSendVerifyCode: '/api/LoginRegister/UserForgetPWDSendVerifyCode', //获取验证码
+    UserForgetPWD: '/api/LoginRegister/UserForgetPWD', //找回密码
+
     //个人中心
     GetUserInfo: '/api/User/GetUserInfo', //获取用户登录状态
     GetVerificationNum: '/api/User/GetVerificationNum', //获取用户二维码
     UserIntegralRecordInfo: '/api/User/UserIntegralRecordInfo', //获取用户的积分
-    UserInviterUrl: '/api/User/UserInviterUrl' // 获取邀请链接
+    UserInviterUrl: '/api/User/UserInviterUrl', // 获取邀请链接
+    UserMessageList: '/api/User/UserMessageList', //获取消息列表
+    UserInviterList: '/api/User/UserInviterList', //邀请列表
+    IntegralExchange: '/api/User/IntegralExchange', //积分兑换
+    UserIntegralRecords: '/api/User/UserIntegralRecords', //获取用户积分记录
+    UserUsedIntegralRecords: '/api/User/UserUsedIntegralRecords', //获取用户消费积分记录
+    UserEditPWDSendVerifyCode: '/api/User/UserEditPWDSendVerifyCode', //修改密码获取验证码
+    EditUserInfo_PWD: '/api/User/EditUserInfo_PWD', //修改密码
+    UserEditPhoneNOVerify: '/api/User/UserEditPhoneNOVerify', //验证旧手机号获取验证码
+    UserEditPhoneNOSendVerifyCode: '/api/User/UserEditPhoneNOSendVerifyCode', // 获取旧手机验证码
+    UserEditPhoneNOSendVerifyCodeAgain: '/api/User/UserEditPhoneNOSendVerifyCodeAgain', //获取新手机验证码
+    UserEditPhoneNOVerifyAgain: '/api/User/UserEditPhoneNOVerifyAgain', //验证新手机号
 }

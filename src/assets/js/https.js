@@ -1,5 +1,6 @@
 import Axios from 'axios'
 import qs from 'qs'
+import router from '../../router'
 const baseUrl = process.env.NODE_ENV === 'production' ? 'https://api.youledui.com/' : '/Sev'
 const baseData = {
         // timestamp: parseInt((+new Date()) / 1000),
@@ -8,10 +9,35 @@ const baseData = {
     }
     // 设置拦截
 const instance = Axios.create({
-        headers: {
-            'content-type': 'application/x-www-form-urlencoded'
-        }
-    })
+    headers: {
+        'content-type': 'application/x-www-form-urlencoded',
+        'token': localStorage.getItem('token') ? localStorage.getItem('token') : ''
+    }
+})
+const newInstance = Axios.create({
+    headers: {
+        'content-type': 'application/x-www-form-urlencoded',
+        'token': localStorage.getItem('token') ? localStorage.getItem('token') : ''
+    }
+})
+newInstance.interceptors.response.use(
+        response => {
+            return response
+        },
+        error => {
+            if (error.response) {
+                switch (error.response.status) {
+                    case 401:
+                        // 返回 401 清除token信息并跳转到登录页面
+
+                        router.replace({
+                                path: '/login'
+                            })
+                            // location.reload()
+                }
+            }
+            return Promise.reject(error.response.data) // 返回接口返回的错误信息
+        })
     // 请求拦截
     // instance.interceptors.request.use(
     //     config => {
@@ -45,6 +71,7 @@ const instance = Axios.create({
 //     error => {
 //         PinganHealth.toast('网络错误') // 返回接口返回的错误信息
 //     })
+
 export default {
     get(url, parame) {
         const data = JSON.parse(JSON.stringify(baseData))
@@ -60,20 +87,33 @@ export default {
             method: 'post',
             data: qs.stringify(data),
             headers: {
-                'Content-Type': 'application/x-www-form-urlencoded'
+                'content-type': 'application/x-www-form-urlencoded',
+                'token': localStorage.getItem('token') ? localStorage.getItem('token') : ''
             }
         })
     },
-    outPost(url, parame) {
-        return Axios({
-            url: url,
+    limitPost(url, parame) {
+        return newInstance({
+            url: baseUrl + url,
             method: 'post',
             data: qs.stringify(parame),
             headers: {
-                'Content-Type': 'application/x-www-form-urlencoded'
+                'content-type': 'application/x-www-form-urlencoded',
+                'token': localStorage.getItem('token') ? localStorage.getItem('token') : ''
             }
         })
     },
+    limitGet(url, parame) {
+        return newInstance({
+            url: baseUrl + url,
+            method: 'get',
+            data: qs.stringify(parame),
+            headers: {
+                'content-type': 'application/x-www-form-urlencoded',
+                'token': localStorage.getItem('token') ? localStorage.getItem('token') : ''
+            }
+        })
+    }
 
     // postJsons(url, parame) {
     //     let data = JSON.parse(JSON.stringify(baseData))

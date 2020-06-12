@@ -16,7 +16,7 @@
                     </div>    
                 <div class="status-select">
                     状态 
-                    <el-dropdown>
+                    <el-dropdown trigger="click">
                         <span class="select">
                             全部<i class="iconfont iconxiasanjiao"></i>
                         </span>

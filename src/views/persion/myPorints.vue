@@ -9,53 +9,86 @@
            <span class="iconfont iconjfgl"></span>
             <div class="mycsore">
               当前积分
-              <div class="score">1000</div>
+              <div class="score">{{UserIntegral?UserIntegral:'0'}}</div>
             </div>
-            <button class="btn">一键兑换</button>
+            <button class="btn" @click="duhuan">一键兑换</button>
         </div>
         <div class="item second-item">
            <div class="name">累计获得</div>
-           <div class="score">1800</div>
+           <div class="score">{{UserIntegralTotal?UserIntegralTotal:'0'}}</div>
            <a  class="check-btn" @click="dialogFormVisible = true">查看记录</a>
         </div>
         <div class="item thrid-item">
            <div class="name">累计兑换</div>
-           <div class="score">1800</div>
+           <div class="score">{{UserIntegralUsed?UserIntegralUsed:'0'}}</div>
            <a  class="check-btn" @click="duihuan = true">查看记录</a>
         </div>
       </div>
     </div>
     <el-dialog title="获取记录" :visible.sync="dialogFormVisible" width="520px" class="small">
-    <el-table :data="gridData" style="width:480px;" header-row-style="font-size:12px;color:#999;" row-class-name="table-line">
-    <el-table-column property="date" label="订单号" width="134" align="center" fontSize="12px" cell-style="font-size:12px;"></el-table-column>
-    <el-table-column property="time" label="时间" width="154" align="center"></el-table-column>
-    <el-table-column property="stage" label="消费平台" width="124" align="center"></el-table-column>
-    <el-table-column property="num" label="积分数量" width="68" align="center"></el-table-column>
+    <el-table :data="gridData" style="width:480px;" header-row-style="'font-size:12px;color:#999;'" row-class-name="table-line" class="small-table">
+    <el-table-column property="OrderNumber" label="订单号" width="134" align="center" fontSize="12px" cell-style="font-size:12px;"></el-table-column>
+    <el-table-column property="ConsumptionTime" label="时间" width="154" align="center"></el-table-column>
+    <el-table-column property="PlatformType" label="消费平台" width="124" align="center"></el-table-column>
+    <el-table-column property="ConsumptionNumber" label="积分数量" width="68" align="center"></el-table-column>
   </el-table>
+   <div class="small-box-list">
+    <div class="small-box" v-for="(item,index) in gridData" :key="index">
+      <div>
+        <div><span class="name">订单号：</span>{{item.OrderNumber}}</div>
+        <div><span class="name">消费来源：</span>{{item.PlatformType}}</div>
+      </div>
+      <div class="right">
+        <div>{{item.ConsumptionTime}}</div>
+        <div><span class="name">积分数量：</span>{{item.ConsumptionNumber}}</div>
+      </div>
+    </div>
+    </div>
    <div class="page-box">
      <el-pagination
-  :page-size="20"
-  :pager-count="6"
+ :page-size="onePageSize"
+  :current-page.sync="onePageIndex"
   layout="prev, pager, next"
-  :total="1000">
+   @size-change="getSorceList"
+  :total="gridDatatotal">
 </el-pagination>
    </div>
     </el-dialog>
       <el-dialog title="兑换记录" :visible.sync="duihuan" width="520px" class="small">
-    <el-table :data="changeData" style="width:480px;" header-row-style="font-size:12px;color:#999;" row-class-name="table-line">
+    <el-table :data="changeData" style="width:480px;" header-row-style="font-size:12px;color:#999;" row-class-name="table-line" class="small-table">
     <el-table-column property="time" label="时间" width="154" align="center"></el-table-column>
-    <el-table-column property="status" label="状态" width="258" align="center"></el-table-column>
-    <el-table-column property="num" label="积分数量" width="68" align="center"></el-table-column>
+    <el-table-column property="state" label="状态" width="258" align="center"></el-table-column>
+    <el-table-column property="number" label="积分数量" width="68" align="center"></el-table-column>
   </el-table>
+   <div class="small-box-list">
+      <div class="small-box" v-for="(item,index) in changeData" :key="index">
+        <div>
+           <div class="middle-time">{{item.time}}</div>
+        </div>
+        <div class="right">
+          <div><span class="name">积分数量：</span>{{item.number}}</div>
+          <div>{{item.state}}</div>
+        </div>
+      </div>
+   </div>
    <div class="page-box">
      <el-pagination
-  :page-size="20"
-  :pager-count="6"
+     @size-change="getXiaofei"
+  :page-size="twoPageSize"
+  :current-page.sync="twoPageIndex"
   layout="prev, pager, next"
-  :total="1000">
+  :total="changeDataTotal">
 </el-pagination>
    </div>
     </el-dialog>
+     <el-dialog title="" :visible.sync="duihuanSuccess" width="320px" class="small" :show-close="false">
+       
+       <div class="duihuan-success">
+          <span class="iconfont iconqrwc"></span>
+          <h3>积分兑换申请成功</h3>
+          <p>请耐心等待处理</p>
+       </div>
+     </el-dialog> 
   </div>
 </template>
 <script>
@@ -65,26 +98,63 @@ export default {
     return{
         dialogFormVisible:false,
         duihuan:false,
-        gridData: [{
-          date: '201205421545',
-          time: '2019-12-04 12:10:00',
-          stage: '京东',
-          num:'+200'
-        }, ],
-        changeData:[{
-          time:'2019-12-04 12:10:00',
-          status:'兑换成功',
-          num:'+200'
-        }]
+        duihuanSuccess:false,
+        gridData: [ ],
+        changeData:[],
+        UserIntegral:'',
+        UserIntegralTotal:'',
+        UserIntegralUsed:'',
+        onePageIndex:1,
+        onePageSize:10,
+        twoPageIndex:1,
+        twoPageSize:10,
+        gridDatatotal:0,
+        changeDataTotal:0
     }
   },
   mounted(){
     this.getCode();
+    this.getSorceList();
+    this.getXiaofei();
   },
   methods:{
     getCode(){
-      this.$http.get(this.$api.UserIntegralRecordInfo).then(res=>{
-        console.log(res)
+      this.$http.limitGet(this.$api.UserIntegralRecordInfo).then(res=>{
+         if(res.data.Code == 1){
+           const data = res.data.Data;
+           this.UserIntegral = data.UserIntegral;
+           this.UserIntegralTotal = data.UserIntegralTotal
+           this.UserIntegralUsed = data.UserIntegralUsed
+         }
+      })
+    },
+    duhuan(){
+      this.$http.limitPost(this.$api.IntegralExchange,{
+        IntegralExchangeDTO:this.UserIntegral
+      }).then(res=>{
+        this.duihuanSuccess = true
+        if(res.data.Code == 1){
+          this.gridData = res.data.Data.list
+          this.gridDatatotal = res.data.Data.count
+        }
+      })
+    },
+    //获取用户积分记录
+    getSorceList(){
+      this.$http.limitPost(this.$api.UserIntegralRecords,{pageIndex:this.onePageIndex,pageSize:this.onePageSize}).then(res=>{
+         if(res.data.Code == 1){
+          this.gridData = res.data.Data.list
+          this.gridDatatotal = res.data.Data.count
+        }
+      })
+    },
+    //获取用户消费记录
+    getXiaofei(){
+      this.$http.limitPost(this.$api.UserUsedIntegralRecords,{pageIndex:this.twoPageIndex,pageSize:this.twoPageSize}).then(res=>{
+        if(res.data.Code == 1){
+          this.changeData = res.data.Data.list
+          this.changeDataTotal = res.data.Data.count
+        }
       })
     }
   }
@@ -213,4 +283,56 @@ export default {
   padding:35px 0;
   text-align: center;
 }
+.duihuan-success{
+  width:100%;
+  height:200px;
+  text-align: center;
+  .iconfont{
+    font-size:60px;
+    color:#52C41A;
+  }
+  h3{
+    font-size:18px;
+    line-height: 18px;
+    margin-top:25px;
+  }
+  p{
+    font-size:12px;
+    color:@persion_left;
+    margin-top:15px;
+  }
+
+}
+.small-box{
+  display: none;
+  @media screen and(max-width:@change_width){
+    display: flex;
+    font-size:12px;
+    line-height: 16px;
+    justify-content: space-between;
+    padding:4px 0;
+    border-bottom:1px solid @class_border;
+    .name{
+      color:@subtitle_color;
+    }
+    .right{
+      text-align: right;
+    }
+    .middle-time{
+      line-height: 32px;
+    }
+  }
+}
+.small-box-list{
+  display: none;
+}
+ @media screen and(max-width:@change_width){
+   .small-box-list{
+     display: block;
+     border-top:1px solid @class_border;
+   }
+   .small-table{
+     display: none;
+   }
+ }
 </style>

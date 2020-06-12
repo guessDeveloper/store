@@ -4,7 +4,7 @@
       消息通知
     </div>
     <div class="message-list">
-      <div class="item">
+      <div class="item" v-for="(item,index) in list" :key="index">
          <div class="message-title">
              您的奖励积分已经到账
              <span class="time">2020-12-26 21:10:30</span>
@@ -13,14 +13,18 @@
            尊敬的用户，您的订单20151515已完成奖励，获得积分
          </div>
       </div>
+      <div class="no-message" v-show="total == 0">
+         <span class="iconfont iconxxzwt"></span>
+         <div class="tip">未收到任何系统消息</div>
+      </div>
       <div class="page-box">
         <el-pagination
                     @size-change="handleSizeChange"
-                    @current-change="handleCurrentChange"
-                    :current-page.sync="currentPage3"
-                    :page-size="100"
+                    :current-page.sync="pageIndex"
+                    :page-size="pageSize"
+                    :hide-on-single-page="total == 0"
                     layout="prev, pager, next, jumper"
-                    :total="1000">
+                    :total="total">
           </el-pagination>
       </div>
     </div>
@@ -30,7 +34,32 @@
 export default {
   data(){
     return{
-
+      list:[],
+      pageIndex:1,
+      pageSize:10,
+      total:0,
+    }
+  },
+  mounted(){
+    this.getMessage();
+  },
+  methods:{
+    getMessage(){
+      this.$http.limitPost(this.$api.UserMessageList,{
+        IsLook:'[0,1]',
+        pageIndex:this.pageIndex,
+        pageSize:this.pageSize
+      }).then(res=>{
+        if(res.data.Code == 1){
+          this.list = res.data.Data.list
+          this.total = res.data.Data.count
+        }
+      })
+    },
+    handleSizeChange(){
+      this.getMessage();
+      document.body.scrollTop = 0;
+      document.documentElement.scrollTop = 0;
     }
   }
 }
@@ -65,6 +94,18 @@ export default {
       margin-top:15px;
     }
     border-bottom:1px solid @class_border;
+  }
+  .no-message{
+    text-align: center;
+    padding-top:190px;
+    .iconfont{
+      font-size: 106px;
+      color:@subtitle_color;
+    }
+    .tip{
+      font-size:14px;
+      color:@subtitle_color;
+    }
   }
 }
 .page-box{

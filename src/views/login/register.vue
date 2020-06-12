@@ -129,6 +129,10 @@ export default {
       }else if(this.isStore == 1&& this.storeName == ''){
         this.$message.error('请输入商家名称');
         return false
+
+      }else if(this.promote == ''){
+        this.$message.error('请输入邀请人');
+        return false
       }else if(this.checked == false){
         this.$message.error('请勾选同意用户协议');
         return false

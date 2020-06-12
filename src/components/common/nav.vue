@@ -7,12 +7,18 @@
       </div>
        <div class="nav-right">
           <a class="iconfont iconyd_saoyisao login-btn"></a>
-          <router-link to="/login" tag='a' >请先登录</router-link>
-           <router-link to="/register" tag='a' >免费注册</router-link>
+          <span v-show="!isLogin">
+            <router-link to="/login" tag='a' >请先登录</router-link>
+            <router-link to="/register" tag='a' >免费注册</router-link>
+           </span>
+           <span v-show="isLogin">
+             <router-link to="/persion" class="userName">{{userName}}</router-link>
+             <router-link to='/message' tag='a'>我的订单</router-link>
+           </span>
           <router-link to="/helpCenter" class="help" tag="a">帮助中心</router-link>
        </div>
-      <router-link href="" class="regester" to="/register" tag="a"> 注册</router-link>
-      <router-link class="login" tag="a" to="/login">登录</router-link>
+      <router-link href="" class="regester" to="/register" tag="a" v-show="!isLogin"> 注册</router-link>
+      <router-link class="login" tag="a" to="/login" v-show="!isLogin">登录</router-link>
     </div>
   </div>
 </template>
@@ -22,12 +28,18 @@ export default {
     return{
       tip:[],
       tipActive:0,
-      timer:''
+      timer:'',
+      isLogin:false,
+      userName:''
     }
   },
   mounted(){
+    let _this = this;
     this.getMessage()
-    this.getUserInfo();
+    setTimeout(()=>{
+      _this.getUserInfo();
+    })
+    
   },
   methods:{
     loop(){
@@ -52,7 +64,12 @@ export default {
      //获取用户登录信息
      getUserInfo(){
        this.$http.get(this.$api.GetUserInfo).then(res=>{
-         console.log(res)
+         if(res.data.Code == 1){
+           this.isLogin = true
+           this.userName = res.data.Data.nickName
+           let userInfo = JSON.stringify(res.data.Data);
+           sessionStorage.setItem('userInfo',userInfo)
+         }
        })
      }
   },
