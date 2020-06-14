@@ -69,68 +69,30 @@
        </div>
     </div>
     <!-- 推荐专区 -->
-    <div class="section-box"> 
+    <div class="section-box" v-for="(item,index) in promotlist" > 
        <div class="title-box">
-          <h2 class="title">推荐专区</h2>
+          <h2 class="title">{{item.titleA}}</h2>
+           <span class="sub-title">{{item.titleB}}</span>
        </div>
-       <div class="class-box">
-          <router-link class="recomend-box" tag="div" to="/special">
-              <div class="recomend-title">特惠推荐</div>
-              <div class="tip">我猜得到 你的需要</div>
-              <img src="../../assets/img/rec.png" alt="">
-          </router-link>
-           <router-link class="recomend-box" tag="div" to="/proplurRecommend">
-              <div class="recomend-title">人气推荐</div>
-              <div class="tip">人气好物推荐</div>
-              <img src="../../assets/img/rec_2.png" alt="">
-           </router-link>
-           <router-link class="recomend-box" tag="div" to="/preferedRecommend">
-              <div class="recomend-title">优选推荐</div>
-              <div class="tip">编辑精心整理推荐</div>
-              <img src="../../assets/img/rec_3.png" alt="">
-           </router-link>
-           <div class="recomend-box">
-              <div class="recomend-title">领劵中心</div>
-              <div class="tip">发现更多超值优惠卷</div>
-              <img src="../../assets/img/rec_4.png" alt="">
+       <div class="class-box" v-if="item.CatType == 4">
+          <div class="recomend-box" tag="div" to="/special" v-for="(item2,index2) in item.CategorysItems" >
+              <div class="recomend-title">{{item2.titleA}}</div>
+              <div class="tip">{{item2.titleB}}</div>
+              <img :src="item2.picurl" alt="">
           </div>
        </div>
-    </div>
-    <!-- 新鲜好物 -->
-    <div class="section-box">
-      <div class="title-box">
-          <h2 class="title">新鲜好物</h2>
-          <span class="sub-title">为你寻觅世间好物</span>
-       </div>
-       <div class="class-box goods-class-box">
+       <div class="class-box goods-class-box" v-if="item.CatType == 5">
          <div class="goods-big-box">
-         <div class="goods">
-          <div class="goods-box">
-              <img src="../../assets/img/good.png" alt="">
-              <h3 class="">芒果新鲜水果 热带水果</h3>
-              <p>匠心剪裁，垂感质地</p>
-              <div class="price">¥249</div>
-          </div>
-          <div class="goods-box">
-              <img src="../../assets/img/good.png" alt="">
-              <h3 class="">芒果新鲜水果 热带水果</h3>
-              <p>匠心剪裁，垂感质地</p>
-              <div class="price">¥249</div>
-          </div>
-          <div class="goods-box">
-              <img src="../../assets/img/good.png" alt="">
-              <h3 class="">芒果新鲜水果 热带水果</h3>
-              <p>匠心剪裁，垂感质地</p>
-              <div class="price">¥249</div>
-          </div>
-          <div class="goods-box">
-              <img src="../../assets/img/good.png" alt="">
-              <h3 class="">芒果新鲜水果 热带水果</h3>
-              <p>匠心剪裁，垂感质地</p>
-              <div class="price">¥249</div>
-          </div>
-          </div>
-          </div>
+            <div class="goods">
+              <div class="goods-box" v-for="(item2,index2) in item.CategorysItems">
+                  <img :src="item2.picurl" alt="">
+                  <h3 class="">{{item2.titleA}}</h3>
+                  <p>{{item2.titleB}}</p>
+                  <div class="price">¥{{item2.price}}</div>
+              </div>
+          
+           </div>
+        </div>
        </div>
     </div>
     <div class="class-nav">
@@ -179,6 +141,7 @@ export default {
       storeActiveIndex:0,
       cityList:[],
       storeList:[],
+      promotlist:[],
       
     }
   },
@@ -194,10 +157,7 @@ export default {
           //  let _this = this;
            let alldata = res.data.Data;
            this.storeList = alldata;
-          //  console.log(this.storeList)
-          //  alldata.forEach(element => {
-          //     _this.cityList.push(element.city)
-          //  });
+         
          }
        })
      },
@@ -210,7 +170,9 @@ export default {
                 element.active = 0;
                 element.type = (index+1)%4
              });
-             this.classNav = res.data.Data.SysCategorysVoB
+             
+             this.classNav = SysCategorysVoB
+             this.promotlist = res.data.Data.SysCategorysVoA
          }
        })
      }
@@ -465,10 +427,13 @@ export default {
           margin-top:39px;
         }
         .tip{
+          width:80%;
+          margin:0 auto;
           font-size:14px;
           color:@placeholder_color;
           margin-top:15px;
           line-height: 14px;
+          .overTextOne();
         }
         img{
           display: block;
@@ -527,7 +492,7 @@ export default {
       //新鲜好物
       .goods-box{
         float: left;
-        width:299px;
+        width:239px;
         height:324px;
         overflow: hidden;
         cursor: pointer;
@@ -542,11 +507,17 @@ export default {
           margin:49px auto 44px;
         }
         h3{
+          width:80%;
+          .overTextOne();
+          margin:0 auto;
           font-weight: normal;
           font-size:14px;
           line-height: 14px;
         }
         p{
+          width:75%;
+          .overTextOne();
+          margin:0 auto;
           font-size:12px;
           line-height: 12px;
           color:@placeholder_color;
