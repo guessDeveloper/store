@@ -1,21 +1,21 @@
 <template>
-  <div class="shop-card-box" @click="goDetail">
+  <div class="shop-card-box" >
      <div class="img-box" >
-        <img src="../../assets/img/banner.png" alt="">
+        <img :src="item.MertchatLogo" alt="">
      </div>
      <div class="des-box">
        <div class="title">
           <img src="../../assets/img/brand.png" alt="" class="icon">
-          <h3>全聚德烤鸭店（昌平店）</h3>
+          <h3>{{item.titleName}}</h3>
        </div>
        <div class="score-box">
          <span>商家诚信积分：<strong class="blue">100</strong></span><span style="margin-left:20px;">剩余积分：<strong class="red">100</strong></span>
        </div>
        <div class="score-box" style="margin-top:18px;">
-         任务奖励：<strong class="red">5%-20%</strong>
+         任务奖励：<strong class="red">{{item.Fanli}}%</strong>
        </div>
        <div class="score-box" style="margin-top:18px;">
-         距离：<strong class="bad">&lt; 500m</strong>
+         距离：<strong class="bad">{{item.distance}}</strong>
          <div class="position">
             <span class="iconfont iconweizhixuanze"></span><a href="">北京</a>
          </div>
@@ -28,6 +28,12 @@ export default {
   data(){
     return{
 
+    }
+  },
+  props:{
+    item:{
+      type:Object,
+      default:null
     }
   },
   methods:{

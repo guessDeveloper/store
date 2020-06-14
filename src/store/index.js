@@ -4,13 +4,27 @@ import Vuex from 'vuex'
 Vue.use(Vuex)
 
 export default new Vuex.Store({
-  state: {
-    
-  },
-  mutations: {
-  },
-  actions: {
-  },
-  modules: {
-  }
+    state: {
+        positionX: '', // 经度
+        positionY: '', //纬度
+        storeInfo: '', //商家信息
+    },
+    getters: {
+
+    },
+    mutations: {
+        setPositionX(state, num) {
+            state.positionX = num
+        },
+        setPositionY(state, num) {
+            state.positionY = num
+        },
+        setStoreInfo(state, object) {
+            state.storeInfo = object
+        }
+    },
+    actions: {
+
+    },
+    modules: {}
 })

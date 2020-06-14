@@ -21,14 +21,10 @@
           <div class="position-box">
           <el-dropdown trigger="click">
             <span class="el-dropdown-link box">
-              <span class="iconfont iconweizhixuanze"></span> 北京 <span class="icon-arrow-down"></span>
+              <span class="iconfont iconweizhixuanze"></span>  <span class="icon-arrow-down"></span>
             </span>
             <el-dropdown-menu slot="dropdown">
-              <el-dropdown-item >黄金糕</el-dropdown-item>
-              <el-dropdown-item >狮子头</el-dropdown-item>
-              <el-dropdown-item >螺蛳粉</el-dropdown-item>
-              <el-dropdown-item>双皮奶</el-dropdown-item>
-              <el-dropdown-item >蚵仔煎</el-dropdown-item>
+              <!-- <el-dropdown-item  v-for="(item, index) in cityList" :key="index"></el-dropdown-item> -->
             </el-dropdown-menu>
           </el-dropdown>
           </div>
@@ -140,7 +136,7 @@
     <div class="class-nav">
       <div class="class-nav-scroll-box">
         <div class="class-nav-scroll" :style="'width:'+classNav.length*80+'px;'">
-          <a v-for="(item,index) in classNav" :key="index" :class="{active:item.active == 1}">{{item.title}}</a>
+          <a v-for="(item,index) in classNav" :key="index" :class="{active:item.active == 1}">{{item.titleA}}</a>
         </div>
       </div>
     </div>
@@ -179,14 +175,45 @@ export default {
         title:'家居',
         active:0,
         type:4
-      },]
+      },],
+      storeActiveIndex:0,
+      cityList:[],
+      storeList:[],
+      
     }
   },
   mounted(){
-     
+     this.getCityAndStore();
+     this.getClass();
   },
   methods:{
-    
+     //获取城市商家联盟
+     getCityAndStore(){
+       this.$http.post(this.$api.GetMerchanters,{syscityDTO:''}).then(res=>{
+         if(res.data.Code == 1){
+          //  let _this = this;
+           let alldata = res.data.Data;
+           this.storeList = alldata;
+          //  console.log(this.storeList)
+          //  alldata.forEach(element => {
+          //     _this.cityList.push(element.city)
+          //  });
+         }
+       })
+     },
+     //获取分类
+     getClass(){
+       this.$http.get(this.$api.GetCat).then(res=>{
+         if(res.data.Code == 1){
+             let SysCategorysVoB = res.data.Data.SysCategorysVoB;
+             SysCategorysVoB.forEach((element,index) => {
+                element.active = 0;
+                element.type = (index+1)%4
+             });
+             this.classNav = res.data.Data.SysCategorysVoB
+         }
+       })
+     }
   },
   components: {
     classify:classify,

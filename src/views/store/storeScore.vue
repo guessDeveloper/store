@@ -10,7 +10,7 @@
            <button class="chong-btn">立即充值</button>
         </div>
         <div class="table-box">
-          <el-table :data="listData"  header-row-style="font-size:12px;color:#999;" row-class-name="table-line" width="930">
+          <el-table :data="chongList"  header-row-style="font-size:12px;color:#999;" row-class-name="table-line" width="930">
             <el-table-column property="time" label="时间" width="219" align="center">
             </el-table-column>
             <el-table-column property="status" label="状态" width="563" align="center"></el-table-column>
@@ -20,7 +20,7 @@
      </div>
      <div class="tab-content"  v-show="tab==2">
         <div class="table-box jiangli">
-          <el-table :data="listData"  header-row-style="font-size:12px;color:#999;" row-class-name="table-line" width="930">
+          <el-table :data="jiangList"  header-row-style="font-size:12px;color:#999;" row-class-name="table-line" width="930">
             <el-table-column property="time" label="时间" width="219" align="center">
             </el-table-column>
             <el-table-column property="status" label="状态" width="563" align="center"></el-table-column>
@@ -36,16 +36,47 @@ export default {
   data(){
     return{
       tab:1,
-      listData:[{
-        time:'2020-05-29 5:30:30',
-        status:'成功',
-        num:'+600'
-      }]
+      chongIndex:1,
+      chongPage:20,
+      chongTotal:0,
+      chongList:[],
+      jinagIndex:1,
+      jiangPagesize:20,
+      jiangTotal:0,
+      jiangList:[]
     }
+  },
+  mounted(){
+    this.getChongList();
+    this.getJiangList();
   },
   methods:{
     toTab(num){
       this.tab = num
+    },
+    //获取充值记录
+    getChongList(){
+      this.$http.storePost(this.$api.RechangeList,{pageIndex:this.chongIndex,pageSize:this.chongPage}).then(res=>{
+        if(res.data.Code ==1){
+          this.chongList= res.data.Data.list
+          
+        }else{
+          this.$message.error(res.data.Msg)
+        }
+
+      })
+    },
+    //获取积分奖励jil
+    getJiangList(){
+      this.$http.storePost(this.$api.MerchantUseIntegralRecords,{pageIndex:this.chongIndex,pageSize:this.chongPage}).then(res=>{
+        if(res.data.Code ==1){
+          this.jiangList= res.data.Data.list
+          
+        }else{
+          this.$message.error(res.data.Msg)
+        }
+
+      })
     }
   }
 }

@@ -7,6 +7,7 @@ module.exports = {
     publicPath: process.env.NODE_ENV === 'production' ?
         './' : '/',
     productionSourceMap: false,
+    lintOnSave: false,
     devServer: {
         proxy: {
             '/Sev': {
@@ -15,6 +16,14 @@ module.exports = {
                 changeOrigin: true,
                 pathRewrite: {
                     '^/Sev': '/'
+                }
+            },
+            '/up': {
+                target: 'http://files.youledui.com',
+                ws: true,
+                changeOrigin: true,
+                pathRewrite: {
+                    '^/up': '/'
                 }
             },
         }
@@ -27,6 +36,9 @@ module.exports = {
                 threshold: 10240,
                 minRatio: 0.8
             }))
+        }
+        config.externals = {
+            "BMap": "BMap"
         }
     },
     css: {

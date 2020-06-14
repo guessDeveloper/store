@@ -7,8 +7,11 @@
       </div>
        <div class="nav-right">
           <!-- <a class=""></a> -->
-          <a href="" class="login-btn">请先登录</a>
-          <a href="">免费注册</a>
+         
+           <span v-show="isLogin" class="">
+             <router-link to="/store" class="userName login-btn">{{userName}}</router-link>
+            
+           </span>
           <a href="" class="help">帮助中心</a>
        </div>
       <a href="" class="regester">注册</a>
@@ -17,6 +20,7 @@
   </div>
 </template>
 <script>
+import {mapMutations} from 'vuex' //注册 action 和 state
 export default {
   data(){
     return{
@@ -26,13 +30,22 @@ export default {
         msg:'优乐兑APP上线了，帮助商家解决客户流量问'
       }],
       tipActive:0,
-      timer:''
+      timer:'',
+      isLogin:true,
+      userName:''
     }
   },
   mounted(){
     this.loop();
+    setTimeout(()=>{
+      this.getStoreInfo();
+    },500)
+    
   },
   methods:{
+    ...mapMutations([
+      'setStoreInfo'
+    ]),
     loop(){
       clearInterval(this.timer);
       this.timer = setInterval(()=>{
@@ -42,6 +55,16 @@ export default {
           this.tipActive = 0;
         }
       },4000)
+    },
+    getStoreInfo(){
+      this.$http.storePost(this.$api.MerchanterMerchanter).then(res=>{
+        if(res.data.Code == 1){
+           this.isLogin = true
+           this.userName = res.data.Data.Name
+           let userInfo = JSON.stringify(res.data.Data);
+           sessionStorage.setItem('storeUserInfo',userInfo)
+        }
+      })
     }
   },
   beforeDestroy(){

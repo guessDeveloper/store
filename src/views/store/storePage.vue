@@ -5,22 +5,27 @@
     </div>
     <div class="content">
        <div class="input-line">
-          <label for="">邀请链接：</label><div class="input-box"><input type="text" value="https://miaosha.youledui.com/#5398175" readonly class="readonly"></div>
+          <label for="">邀请链接：</label><div class="input-box"><input type="text" :value="infos.Invitelink" readonly class="readonly"></div>
        </div>
        <div class="input-line">
-         <label for="">商家名称：</label><div class="input-box"><input type="text" placeholder="请输入商家名称"></div>
+         <label for="">商家名称：</label><div class="input-box"><input type="text" placeholder="请输入商家名称" v-model.trim="infos.Name"></div>
        </div>
        <div class="input-line">
-         <label for="">请输入商家名称：</label><div class="input-box"><input type="text" placeholder="请输入商家描述"></div>
+         <label for="">商家描述：</label><div class="input-box"><input type="text" placeholder="请输入商家描述" v-model.trim="infos.describe"></div>
        </div>
        <div class="input-line">
          <label for="">商家LOGO：</label><div class="input-box">
             <el-upload
               class="upload-demo"
-              action="https://jsonplaceholder.typicode.com/posts/"
+              action="/up/create"
               :on-preview="handlePreview"
-              :on-remove="handleRemove"
+              :on-remove="logoRemove"
+              :on-success="logoSuccess"
+              accept=".jpg,.png"
               :file-list="fileList"
+              :beforeUpload="beforeLogoUpload"
+              name="FileContent"
+              :limit="1" 
               list-type="picture">
               <button size="small" type="primary" class="upload-btn">选择上传文件</button>
               <span slot="tip" class="tip">只能上传jpg/png文件，且不超过1M</span>
@@ -31,10 +36,19 @@
          <label for="">商家介绍：</label><div class="input-box">
             <el-upload
               class="upload-demo"
-              action="https://jsonplaceholder.typicode.com/posts/"
-              :on-preview="handlePreview"
+              :action="changeUrl"
+              :on-success="mp4Success"
               :on-remove="handleRemove"
-              list-type="picture">
+              :on-change="uploadChane"
+              :data="sendData"
+              name="FileContent"
+              accept=".jpg,.png,.mp4"
+              :beforeUpload="beforeBannerUpload"
+              multiple
+              :file-list="mp4List"
+              ref="mp4Uploader"
+            :auto-upload="false"
+             >
               <button size="small" type="primary" class="upload-btn">选择上传文件</button>
               <span slot="tip" class="tip">可以上传多个图片和短视频</span>
             </el-upload>
@@ -42,72 +56,265 @@
        </div>
         <div class="input-line">
          <label for="">商家地址：</label><div class="input-box">
-            <input type="text" >
+            <input type="text"  @click="showMap = true" v-model="address">
           </div>
        </div>
         <div class="input-line">
          <label for="">请选择商家分类：</label><div class="input-box" style="height:50px;">
-              <el-select v-model="value" placeholder="请选择">
-              <el-option
-                v-for="item in options"
-                :key="item.value"
-                :label="item.label"
-                :value="item.value">
-              </el-option>
+              <el-select v-model="value" placeholder="请选择"  @change="getStoreClass">
+                <el-option
+                  v-for="item in options"
+                  :key="item.value"
+                  :label="item.label"
+                  :value="item.value">
+                </el-option>
             </el-select>
+          
+          </div>
+          <div class="input-box" style="height:50px;margin-top:20px;" v-show="value!==''">
+              <el-select v-model="secondOptionValue" placeholder="请选择">
+                <el-option
+                  v-for="item in secondOption"
+                  :key="item.Id"
+                  :label="item.CategoryName"
+                  :value="item.Id">
+                </el-option>
+            </el-select>
+          
           </div>
        </div>
         <div class="input-line">
-         <label for="">联系方式：</label><div class="input-box"><input type="text" placeholder="请输入联系方式"></div>
+         <label for="">联系方式：</label><div class="input-box"><input type="text" placeholder="请输入联系方式" v-model.trim="infos.TelPhone"></div>
        </div>
         <div class="input-line">
-         <label for="">营业时间：</label><div class="input-box"><input type="text" placeholder="请输入营业时间"></div>
+         <label for="">营业时间：</label><div class="input-box"><input type="text" placeholder="请输入营业时间" ></div>
        </div>
         <div class="input-line">
-         <label for="">商家网址：</label><div class="input-box"><input type="text" placeholder="请输入商家网址"></div>
+         <label for="">商家网址：</label><div class="input-box"><input type="text" placeholder="请输入商家网址" v-model.trim="netWork"></div>
        </div>
         <div class="input-line">
-         <label for="">商家奖励比例：</label><div class="input-box"><input type="text" placeholder="商家默认奖励比例"></div>
+         <label for="">商家奖励比例：</label><div class="input-box"><input type="text" placeholder="商家默认奖励比例" v-model.trim="infos.ReturnPercent"></div>
        </div>
        <div class="input-line">
          <button class="submit">提交</button>
        </div>
+       <el-dialog title="选择地址" :visible.sync="showMap" width="520px" class="small">
+         <Map @getLocation="addressClick"></Map>
+       </el-dialog>
     </div>
   </div>
 </template>
 <script>
 import '@/plugins/element-upload.js'
+import Map from '@/components/store/map'
 export default {
   data(){
    return {
-        fileList: [{name: 'food.jpeg', url: 'https://fuss10.elemecdn.com/3/63/4e7f3a15429bfda99bce42a18cdd1jpeg.jpeg?imageMogr2/thumbnail/360x360/format/webp/quality/100'}, {name: 'food2.jpeg', url: 'https://fuss10.elemecdn.com/3/63/4e7f3a15429bfda99bce42a18cdd1jpeg.jpeg?imageMogr2/thumbnail/360x360/format/webp/quality/100'}],
+        showMap:false,
+        fileList: [],
         options: [{
-          value: '选项1',
-          label: '黄金糕'
+          value: '0',
+          label: '逛街购物'
         }, {
-          value: '选项2',
-          label: '双皮奶'
-        }, {
-          value: '选项3',
-          label: '蚵仔煎'
-        }, {
-          value: '选项4',
-          label: '龙须面'
-        }, {
-          value: '选项5',
-          label: '北京烤鸭'
+          value: '1',
+          label: '美食广场'
         }],
-        value: ''
+        secondOption:[],
+        value: '',
+        secondOptionValue:'',
+        invetUrl:'',
+        logoUrl:'',
+        desMp4:[],
+        mp4List:[],
+        changeUrl:'',
+        netWork:'',
+        sendData:{
+          dir:'media'
+        },
+        lat:'',
+        lng:'',
+        address:'', 
+        infos:{
+          BeginWorkTime:"",
+          Category: "",
+          EndWorkTime:"", 
+          Invitelink: "",
+          Logo: "",
+          Name: "",
+          PointX: null,
+          PointY: null,
+          ReturnPercent: "",
+          TelPhone: "",
+          URl: null,
+          describe: null,
+          introduce: null,
+          phone: "",
+        }
       }
+  },
+  computed:{
+    uploadMp4Url(){
+      return this.changeUrl
+    }
+  },
+  components:{
+    Map:Map
+  },
+  mounted(){
+      this.getStoreInfo();
   },
    methods: {
       handleRemove(file, fileList) {
-        console.log(file, fileList);
+        console.log(file, fileList,'ss');
       },
       handlePreview(file) {
         console.log(file);
+      },
+      uploadImgUrl(){
+
+      },
+      getStoreInfo(){
+        this.$http.storePost(this.$api.MerchanterMerchanter).then(res=>{
+          if(res.data.Code == 1){
+            this.infos = res.data.Data
+          }
+        })
+      },
+      getStoreClass(){
+        this.$http.storePost(this.$api.GetMerchantCategory,{
+          BigCatgroup:this.value
+        }).then(res=>{
+          if(res.data.Code == 1){
+            this.secondOption = res.data.Data
+          }
+        })
+      },
+      beforeLogoUpload(file){
+         var testmsg=file.name.substring(file.name.lastIndexOf('.')+1)                
+        const extension = testmsg === 'jpg'
+        const extension2 = testmsg === 'png'
+        const isLt2M = file.size / 1024 / 1024 <= 1
+        if(!extension && !extension2) {
+            this.$message({
+                message: '上传文件只能是 jpn、png格式!',
+                type: 'error'
+            });
+        }
+        if(!isLt2M) {
+            this.$message({
+                message: '上传文件大小不能超过 1MB!',
+                type: 'error'
+            });
+        }
+        return extension || extension2 && isLt2M
+      },
+      //logo 上传成功
+      logoSuccess(file){
+        if(file.Code == 1){
+          this.logoUrl = file.Data
+        }
+      },
+      mp4Success(file){
+         if(file.Code == 1){
+           this.desMp4.push(file.Data)
+         }
+         console.log(this.mp4List,this.desMp4,'ttt')
+      },
+      //logo 删除
+      logoRemove(){
+        this.logoUrl = ''
+      },
+      uploadChane(file){
+        console.log('change')
+        var testmsg=file.name.substring(file.name.lastIndexOf('.')+1)                
+        const extension = testmsg === 'jpg'
+        const extension2 = testmsg === 'png'
+        const extension3 = testmsg === 'mp4'
+        if(extension || extension2){
+          this.changeUrl= '/up/create?dir=image' 
+        }
+        if(extension3){
+          this.changeUrl= '/up/create?dir=media' 
+        }
+        setTimeout(()=>{
+          this.$refs.mp4Uploader.submit()
+        })
+      },
+      
+      beforeBannerUpload(file){
+        var testmsg=file.name.substring(file.name.lastIndexOf('.')+1)                
+        const extension = testmsg === 'jpg'
+        const extension2 = testmsg === 'png'
+        const extension3 = testmsg === 'mp4'
+        const isLt2M = file.size / 1024 / 1024 <= 1
+        // if(extension || extension2){
+        //   this.uploadMp4Url= '/up/create?dir=image' 
+        // }
+        // if(extension3){
+        //   this.uploadMp4Url= '/up/create?dir=media' 
+        // }
+        if(!extension && !extension2 && !extension3) {
+            this.$message({
+                message: '上传文件只能是 jpn、png、mp4格式!',
+                type: 'error'
+            });
+        }
+        if(!isLt2M) {
+            this.$message({
+                message: '上传文件大小不能超过 10MB!',
+                type: 'error'
+            });
+        }
+        return extension || extension2 || extension3&& isLt2M
+      },
+      addressClick(res){
+      this.address = res.address.surroundingPois[0].address
+      this.lat = res.address.point.lat
+      this.lng = res.address.point.lng
+      this.showMap = false
+    },
+    // 提交
+    submit(){
+      if(this.infos.Name == ''){
+        this.$message.error('请输入商家名称')
+      }else if(this.infos.describe == ''){
+        this.$message.error('请输入商家描述')
+      }else if(this.logoUrl == ''){
+        this.$message('请上传logo')
+      }else if(this.mp4List.length == 0){
+        this.$message.error('请上传商家简介')
+      }else if(this.address==''){
+        this.$message.error('请选择商家地址')
+      }else if(this.infos.TelPhone){
+        this.$message.error('请输入联系方式')
+      }else if(this.infos.ReturnPercent == ''){
+        this.$message.error('商家奖励比例：')
+      }else{
+        this.$http.storePost(this.$api.ChangeMyInfo,{
+          MerchantName:this.infos.Name,
+          TelPhone:this.infos.TelPhone,
+          Address:this.address,
+          PointX:this.lat,
+          PointY:this.lng,
+          Remark:this.infos.describe,
+          MerchantLogo:this.logoUrl,
+          ShowImgs:this.mp4List,
+          Category:'',
+          Email:'',
+          BigworkTime:'',
+          EndworkTime:'',
+          BdCityCode:''
+        }).then(res=>{
+          if(res.data.Code == 1){
+            this.$message.success('修改成功')
+          }else{
+            this.$message.error(res.data.Msg)
+          }
+        })
       }
     }
+    },
+    
 }
 </script>
 <style lang="less" scoped>

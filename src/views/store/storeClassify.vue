@@ -7,12 +7,12 @@
         </div>
         <div class="table-box">
           <el-table :data="listData"  header-row-style="font-size:12px;color:#999;" row-class-name="table-line" width="930">
-            <el-table-column property="name" label="分类名称" width="268" align="left"></el-table-column>
-            <el-table-column property="level" label="奖励比例" width="160" align="center"></el-table-column>
-            <el-table-column property="time" label="添加时间" width="400" align="center"></el-table-column>
+            <el-table-column property="RateName" label="分类名称" width="268" align="left"></el-table-column>
+            <el-table-column property="Rate" label="奖励比例" width="160" align="center"></el-table-column>
+            <el-table-column property="CreateTime" label="添加时间" width="400" align="center"></el-table-column>
             <el-table-column  label="操作" width="102" align="center">
                 <template slot-scope="scope">
-                  <button :data="scope" class="action-btn">修改</button><button class="action-btn delate-btn" @click="toRate = true">删除</button>
+                  <button :data="scope" class="action-btn" @click="editClass(scope.row)">修改</button><button class="action-btn delate-btn" @click="deleteClass(scope.row.Id)">删除</button>
                 </template>
             </el-table-column>
         </el-table>
@@ -20,7 +20,7 @@
       </div>
       <el-dialog title="添加新产品分类" :visible.sync="toNew" width="520px">
        <div class="input-line">
-          <label for="">产品分类名称：</label><input type="text" placeholder="请输入分类名称">
+          <label for="">产品分类名称：</label><input type="text" placeholder="请输入分类名称" v-model.trim="NewClassName">
        </div>
        <div class="input-line">
           <label for="">奖励比例：</label>
@@ -33,12 +33,35 @@
                 :value="item.value">
               </el-option>
             </el-select> -->
-            <input type="text" placeholder="请输入1至60的整数" class="percent"><span class="per">%</span>
+            <input type="text" placeholder="请输入1至60的整数" class="percent" v-model.trim="NewClassRate"><span class="per">%</span>
           </div>
        </div>
         <div class="btn-box">
-                  <button class="ok">提交</button>
-                  <button class="no">取消</button>   
+                  <button class="ok" @click="addClass">提交</button>
+                  <button class="no" @click="toNew = false">取消</button>   
+        </div>
+         </el-dialog>
+        <el-dialog title="编辑分类" :visible.sync="toEdit" width="520px">
+       <div class="input-line">
+          <label for="">产品分类名称：</label><input type="text" placeholder="请输入分类名称" v-model.trim="editName">
+       </div>
+       <div class="input-line">
+          <label for="">奖励比例：</label>
+          <div class="input-box">
+            <!-- <el-select v-model="value" placeholder="请选择比例">
+              <el-option
+                v-for="item in options"
+                :key="item.value"
+                :label="item.label"
+                :value="item.value">
+              </el-option>
+            </el-select> -->
+            <input type="text" placeholder="请输入1至60的整数" class="percent" v-model.trim="editRate"><span class="per">%</span>
+          </div>
+       </div>
+        <div class="btn-box">
+                  <button class="ok" @click="sendEdit">提交</button>
+                  <button class="no" @click="toEdit = false">取消</button>   
         </div>
      </el-dialog>
   </div>
@@ -48,12 +71,9 @@ import '../../plugins/element-table.js'
 export default {
   data(){
     return{
-      listData:[{
-          name:'服装',
-          level:'10&',
-          time:'2020-05-29  21:10:30',
-      }],
+      listData:[],
       toNew:false,
+      toEdit:false,
       options: [{
           value: '选项1',
           label: '黄金糕'
@@ -70,8 +90,95 @@ export default {
           value: '选项5',
           label: '北京烤鸭'
         }],
-        value: ''
+        value: '',
+        pageSize:20,
+        pageIndex:1,
+        total:0,
+        NewClassName:'',
+        NewClassRate:'',
+        editName:'',
+        editRate:'',
+        editId:''
     }
+  },
+  mounted(){
+    this.getList();
+  },
+  methods:{
+   getList(){
+     this.$http.storePost(this.$api.GetProcoteClassList,{pageIndex:this.pageIndex,pageSize:this.pageSize}).then(res=>{
+       if(res.data.Code == 1){ 
+          this.listData = res.data.Data.list
+          this.total = res.data.Data.count
+       }else{
+         this.$message.error(res.data.Msg)
+       }
+     })
+   },
+   //添加分类
+   addClass(){
+     if(this.NewClassName == ''){
+       this.$message.error('请输入分类名称')
+     }else if(!this.$util.testNum.test(this.NewClassRate)){
+       this.$message.error('请输入正确的比例')
+     }else if(this.NewClassRate>60||this.NewClassRate<1){
+       this.$message.error('请输入1-60的正整数')
+     }else{
+       this.$http.storePost(this.$api.AddProcoteClass,{Rate:parseInt(this.NewClassRate/100),RateName:this.NewClassName}).then(res=>{
+         if(res.data.Code == 1){
+           this.$message.success('添加成功')
+           this.toNew = false;
+           this.NewClassName = '';
+           this.NewClassRate = '';
+           this.pageIndex = 1;
+           this.getList()
+         }else{
+           this.$message.error(res.data.Msg)
+         }
+       })
+     }
+   },
+   editClass(item){
+     this.toEdit = true;
+     this.editName = item.RateName
+     this.editRate = parseInt(item.Rate*100)
+     this.editId = item.Id
+   },
+   sendEdit(){
+      if(this.editName == ''){
+       this.$message.error('请输入分类名称')
+     }else if(!this.$util.testNum.test(this.editRate)){
+       this.$message.error('请输入正确的比例')
+     }else if(this.editRate>60||this.editRate<1){
+       this.$message.error('请输入1-60的正整数')
+     }else{
+        this.$http.storePost(this.$api.UpProcoteClass,{
+          ClassID:this.editId,
+          Rate:this.editRate/100,
+          ClassName:this.editName
+        }).then(res=>{
+          if(res.data.Code == 1){
+            this.toEdit = false;
+            this.$message.success('编辑成功')
+            this.getList()
+          }else{
+            this.$message.error(res.data.Msg)
+          }
+        })
+     }
+   },
+   //删除分类
+   deleteClass(id){
+     console.log(id)
+     this.$http.storePost(this.$api.DeleteProcoteClass,{RateId:id}).then(res=>{
+       if(res.data.Code == 1){
+         this.$message.success('删除成功')
+         this.getList();
+       }else{
+         this.$message.error(res.data.Msg)
+       }
+     })
+   }
   }
 }
 </script>

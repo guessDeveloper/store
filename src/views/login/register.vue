@@ -6,13 +6,13 @@
          <input type="text" placeholder="请输入手机号码" v-model.trim="phone">
        </div>
        <div class="input-box code">
-         <input type="text" placeholder="请输入短信验证码" v-model.trim="Code"><span class="getCode" @click="getCode">{{codeBtn}}</span>
+         <input type="text" placeholder="请输入短信验证码" v-model.trim="Code" maxlength="6"><span class="getCode" @click="getCode">{{codeBtn}}</span>
        </div>
         <div class="input-box">
-         <input type="password" placeholder="请输入6至20位登录密码" v-model.trim="password">
+         <input type="password" placeholder="请输入6至20位登录密码" v-model.trim="password" maxlength="20">
        </div>
         <div class="input-box">
-         <input type="password" placeholder="请再次输入登录密码" v-model.trim="repetPass">
+         <input type="password" placeholder="请再次输入登录密码" v-model.trim="repetPass" maxlength="20">
        </div>
        <div class="input-box" v-if="isStore == 1">
          <input type="text" placeholder="请输入商家名称" v-model.trim="storeName">

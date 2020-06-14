@@ -73,10 +73,14 @@
                     </el-table-column>
                     </el-table>
             </div>  
-      </div>   
+      </div> 
+      <div class="" v-if="tab== 2">
+        <addProduct></addProduct>
+      </div>  
   </div>
 </template>
 <script>
+import addProduct from '@/components/store/addProduct'
 import '../../plugins/element-dataPicker.js'
 export default {
   data(){
@@ -94,6 +98,14 @@ export default {
                }
            ],
     }
+  },
+  components:{
+      addProduct:addProduct
+  },
+  methods:{
+      toTab(num){
+          this.tab = num
+      }
   }
 }
 </script>

@@ -1,16 +1,16 @@
 <template>
   <div class="card-box" >
-     <img src="../../assets/img/good.png" alt="" @click="goDetail">
+     <img :src="item.MertchatImage" alt="" @click="goDetail">
      <div class="card-des">
         <h4>
-          炙子革命老北京烤肉  <div class="work">任务奖励：<span>5%-20%</span></div>
+          {{item.MertchatName}}  <div class="work">任务奖励：<span>5%-{{item.MertchntMaxFanli}}%</span></div>
         </h4>
-        <p>烤肉鲜香味美，湘味土豆色香味俱全，让人看了就有食欲sdfadsfasdfff</p>
+        <p>{{item.MertchatTitel}}</p>
         <div class="score">
-          <div class="first">商家诚信积分：<span class="blue">100</span></div>
-          <div>商家剩余积分：<span class="red">100</span></div>
+          <div class="first">商家诚信积分：<span class="blue">{{item.MertchntReputationIntegral}}</span></div>
+          <div>商家剩余积分：<span class="red">{{item.MertchntResidueIntegral}}</span></div>
         </div>
-        <div class="position">距离：<strong>&lt;500m</strong></div>
+        <div class="position">距离：<strong>{{item.distance}}</strong></div>
      </div>
   </div>
 </template>
@@ -19,6 +19,11 @@ export default {
    data(){
      return{
        
+     }
+   },
+   props:{
+     item:{
+       type:Object
      }
    },
    methods:{

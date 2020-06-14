@@ -20,7 +20,31 @@ const newInstance = Axios.create({
         'token': localStorage.getItem('token') ? localStorage.getItem('token') : ''
     }
 })
+const storeInstance = Axios.create({
+    headers: {
+        'content-type': 'application/x-www-form-urlencoded',
+        'token': localStorage.getItem('storeToken') ? localStorage.getItem('storeToken') : ''
+    }
+})
 newInstance.interceptors.response.use(
+    response => {
+        return response
+    },
+    error => {
+        if (error.response) {
+            switch (error.response.status) {
+                case 401:
+                    // 返回 401 清除token信息并跳转到登录页面
+
+                    router.replace({
+                            path: '/login'
+                        })
+                        // location.reload()
+            }
+        }
+        return Promise.reject(error.response.data) // 返回接口返回的错误信息
+    })
+storeInstance.interceptors.response.use(
         response => {
             return response
         },
@@ -113,7 +137,29 @@ export default {
                 'token': localStorage.getItem('token') ? localStorage.getItem('token') : ''
             }
         })
-    }
+    },
+    storeGet(url, parame) {
+        return storeInstance({
+            url: baseUrl + url,
+            method: 'get',
+            data: qs.stringify(parame),
+            headers: {
+                'content-type': 'application/x-www-form-urlencoded',
+                'token': localStorage.getItem('storeToken') ? localStorage.getItem('storeToken') : ''
+            }
+        })
+    },
+    storePost(url, parame) {
+        return storeInstance({
+            url: baseUrl + url,
+            method: 'post',
+            data: qs.stringify(parame),
+            headers: {
+                'content-type': 'application/x-www-form-urlencoded',
+                'token': localStorage.getItem('storeToken') ? localStorage.getItem('storeToken') : ''
+            }
+        })
+    },
 
     // postJsons(url, parame) {
     //     let data = JSON.parse(JSON.stringify(baseData))

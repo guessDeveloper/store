@@ -7,40 +7,21 @@
       </div>
 
       <ul>
-        <li>
-           <img src="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1589718303262&di=b832f5d361dfd07b9dc22ca49f50d55e&imgtype=0&src=http%3A%2F%2Ft8.baidu.com%2Fit%2Fu%3D3571592872%2C3353494284%26fm%3D79%26app%3D86%26f%3DJPEG%3Fw%3D1200%26h%3D1290" alt="">
-           <div class="name">001号桌</div>
-           <div class="iconfont el-icon-close"></div>
+        <li v-for="(item,index) in list" :key="index">
+           <img :src="item.QRcodeImage" alt="">
+           <div class="name">{{item.QRcodeName}}</div>
+           <div class="iconfont el-icon-close" @click="deleteImg(item.QRcodeName)"></div>
         </li>
-        <li>
-           <img src="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1589718303262&di=b832f5d361dfd07b9dc22ca49f50d55e&imgtype=0&src=http%3A%2F%2Ft8.baidu.com%2Fit%2Fu%3D3571592872%2C3353494284%26fm%3D79%26app%3D86%26f%3DJPEG%3Fw%3D1200%26h%3D1290" alt="">
-           <div class="name">001号桌</div>
-           <div class="iconfont el-icon-close"></div>
-        </li>
-        <li>
-           <img src="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1589718303262&di=b832f5d361dfd07b9dc22ca49f50d55e&imgtype=0&src=http%3A%2F%2Ft8.baidu.com%2Fit%2Fu%3D3571592872%2C3353494284%26fm%3D79%26app%3D86%26f%3DJPEG%3Fw%3D1200%26h%3D1290" alt="">
-           <div class="name">001号桌</div>
-           <div class="iconfont el-icon-close"></div>
-        </li>
-        <li>
-           <img src="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1589718303262&di=b832f5d361dfd07b9dc22ca49f50d55e&imgtype=0&src=http%3A%2F%2Ft8.baidu.com%2Fit%2Fu%3D3571592872%2C3353494284%26fm%3D79%26app%3D86%26f%3DJPEG%3Fw%3D1200%26h%3D1290" alt="">
-           <div class="name">001号桌</div>
-           <div class="iconfont el-icon-close"></div>
-        </li>
-        <li>
-           <img src="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1589718303262&di=b832f5d361dfd07b9dc22ca49f50d55e&imgtype=0&src=http%3A%2F%2Ft8.baidu.com%2Fit%2Fu%3D3571592872%2C3353494284%26fm%3D79%26app%3D86%26f%3DJPEG%3Fw%3D1200%26h%3D1290" alt="">
-           <div class="name">001号桌</div>
-           <div class="iconfont el-icon-close"></div>
-        </li>
+        
       </ul>
     </div>
      <el-dialog title="生成新的二维码" :visible.sync="toNew" width="520px">
        <div class="input-line">
-          <label for="">请输入桌号：</label><input type="text" placeholder="请输入桌号">
+          <label for="">请输入桌号：</label><input type="text" placeholder="请输入桌号" v-model.trim="addNum" >
        </div>
         <div class="btn-box">
-                  <button class="ok">添加</button>
-                  <button class="no">取消</button>   
+                  <button class="ok" @click="addImg">添加</button>
+                  <button class="no" @click="toNew =false">取消</button>   
         </div>
      </el-dialog>
   </div>
@@ -49,7 +30,59 @@
 export default {
   data(){
     return{
-      toNew:false
+      toNew:false,
+      pageIndex:1,
+      pageSize:20,
+      list:[],
+      addNum:''
+    }
+  },
+  mounted(){
+    this.init();
+  },
+  methods:{
+    //初始化列表
+    init(){
+      this.pageIndex = 1;
+      this.getList();
+    },
+    getList(){
+      this.$http.storePost(this.$api.GetQuickMakList,{pageIndex:this.pageIndex,pageSize:this.pageSize}).then(res=>{
+        if(res.data.Code == 1){
+          this.list = res.data.Data?res.data.Data.list:[]
+        }else{
+          this.list = []
+        }
+      })
+    },
+    //添加二维码
+    addImg(){
+      if(this.addNum == ''){
+        this.$message.error('请输入桌号')
+        return false
+      }else{
+        this.$http.storePost(this.$api.AddMyQuickMak,{Name:this.addNum}).then(res=>{
+          if(res.data.Code == 1){
+            this.$message.success('添加成功');
+            this.toNew = false;
+            this.addNum = '';
+            this.init();
+          }else{
+            this.$message.error(res.data.Msg)
+          }
+        })
+      }
+    },
+    //删除二维码
+    deleteImg(name){
+      this.$http.storePost(this.$api.DeleteQuickMak,{QRcodeName:name}).then(res=>{
+        if(res.data.Code == 1){
+          this.$message.success('删除成功')
+          this.init();
+        }else{
+          this.$message.error(res.data.Msg)
+        }
+      })
     }
   }
 }
@@ -107,6 +140,7 @@ export default {
         right:15px;
         font-size:14px;
         color:@subtitle_color;
+        cursor: pointer;
       }
     }
   }

@@ -1,65 +1,23 @@
 <template>
     <div class="box">
         <h3 class="title">
-             {{config.title}}
+             {{config.titleA}}
         </h3>
         <div class="content">
             <div class="left" :class="{canchu:config.type==2,peijian:config.type==3,jujia:config.type ==4}"> 
-                <img src="../../assets/img/chuju.png" alt="">
-                <div class="name">一体织轻薄羽绒服</div>
+                <img :src="config.CateGorysItems[0].picurl" alt="">
+                <div class="name">{{config.CateGorysItems[0].titleA}}</div>
                 <div class="des">爱人冬天的感觉</div>
-                <div class="price">¥249</div>
+                <div class="price">¥{{config.CateGorysItems[0].price}}</div>
                 <button>查看全部服饰</button>
             </div>
             <div class="right">
-                <div class="item">
-                    <img src="../../assets/img/fuzhuang.png" alt="">
-                    <div class="name">女式超柔软拉毛运动开衫毛衣女式超柔软拉毛运动开衫毛衣…</div>
-                    <div class="score">积分：20</div>
-                    <div class="price">¥249</div>
-                </div>
-                <div class="item">
-                    <img src="../../assets/img/fuzhuang.png" alt="">
-                    <div class="name">女式超柔软拉毛运动开衫毛衣女式超柔软拉毛运动开衫毛衣…</div>
-                    <div class="score">积分：20</div>
-                    <div class="price">¥249</div>
-                </div>
-                <div class="item">
-                    <img src="../../assets/img/fuzhuang.png" alt="">
-                    <div class="name">女式超柔软拉毛运动开衫毛衣女式超柔软拉毛运动开衫毛衣…</div>
-                    <div class="score">积分：20</div>
-                    <div class="price">¥249</div>
-                </div>
-                <div class="item">
-                    <img src="../../assets/img/fuzhuang.png" alt="">
-                    <div class="name">女式超柔软拉毛运动开衫毛衣女式超柔软拉毛运动开衫毛衣…</div>
-                    <div class="score">积分：20</div>
-                    <div class="price">¥249</div>
-                </div>
-                <div class="item">
-                    <img src="../../assets/img/fuzhuang.png" alt="">
-                    <div class="name">女式超柔软拉毛运动开衫毛衣女式超柔软拉毛运动开衫毛衣…</div>
-                    <div class="score">积分：20</div>
-                    <div class="price">¥249</div>
-                </div>
-                <div class="item">
-                    <img src="../../assets/img/fuzhuang.png" alt="">
-                    <div class="name">女式超柔软拉毛运动开衫毛衣女式超柔软拉毛运动开衫毛衣…</div>
-                    <div class="score">积分：20</div>
-                    <div class="price">¥249</div>
-                </div>
-                <div class="item">
-                    <img src="../../assets/img/fuzhuang.png" alt="">
-                    <div class="name">女式超柔软拉毛运动开衫毛衣女式超柔软拉毛运动开衫毛衣…</div>
-                    <div class="score">积分：20</div>
-                    <div class="price">¥249</div>
-                </div>
-                <div class="item">
-                    <img src="../../assets/img/fuzhuang.png" alt="">
-                    <div class="name">女式超柔软拉毛运动开衫毛衣女式超柔软拉毛运动开衫毛衣…</div>
-                    <div class="score">积分：20</div>
-                    <div class="price">¥249</div>
-                    <div class="commend">
+                <div class="item" v-for="(item,index) in config.CateGorysItems" :key="index" :class="{none:index == 0}">
+                    <img :src="item.picurl" alt="">
+                    <div class="name">{{item.titleA}}</div>
+                    <div class="score">{{item.titleB}}</div>
+                    <div class="price">¥{{item.price}}</div>
+                     <div class="commend">
                         <div class="commend-content">快递收到了，下单发货挺快的，快递也挺好的快递收到了，下单发货挺快的，快递也挺好的</div>
                         <div class="commend-from">— 来自于 Windir 的评论</div>
                     </div>
@@ -209,8 +167,12 @@ export default {
             width:239px;
             height:294px;
             overflow: hidden;
+            text-align: center;
             border-right:1px solid @class_border;
             border-bottom:1px solid @class_border;
+            &.none{
+                display: none;
+            }
             &:nth-of-type(4n){
                 border-right:1px solid #fff;
             }

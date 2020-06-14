@@ -23,6 +23,9 @@
   </div>
 </template>
 <script>
+
+import BMap from 'BMap'
+import { mapState, mapMutations} from 'vuex' //注册 action 和 state
 export default {
   data(){
     return{
@@ -33,15 +36,26 @@ export default {
       userName:''
     }
   },
+  computed:{
+     ...mapState([
+       'positionX'
+     ])
+  },
   mounted(){
     let _this = this;
     this.getMessage()
     setTimeout(()=>{
       _this.getUserInfo();
     })
+    this.baiduMap();
+    // this.getLcationPostion();
     
   },
   methods:{
+    ...mapMutations([
+      'setPositionX',
+      'setPositionY'
+    ]),
     loop(){
       clearInterval(this.timer);
       this.timer = setInterval(()=>{
@@ -71,6 +85,64 @@ export default {
            sessionStorage.setItem('userInfo',userInfo)
          }
        })
+     },
+     //百度地图获取地理文职
+     baiduMap(){
+      var geolocation = new BMap.Geolocation();
+      const _this = this;
+      geolocation.getCurrentPosition(function(r){
+        if(this.getStatus() == 0){
+          _this.setPositionX(r.point.lng);
+          _this.setPositionY(r.point.lat);
+            console.log('您的位置：'+r.point.lng+','+r.point.lat);
+          }
+          else {
+            console.log('failed'+this.getStatus());
+          }        
+        },{enableHighAccuracy: true})
+     },
+     //获取用户地理位置
+     getLcationPostion(){
+       navigator.geolocation.getCurrentPosition(function (position) {
+        var currentLat = position.coords.latitude;
+        var currentLon = position.coords.longitude;
+        
+        console.log(currentLat,currentLon)
+        },
+            function (err) {
+                switch (err.code) {
+                    case 0:
+                        {
+                            alert("不包括其他错误编号中的错误");
+                            break;
+                        }
+                    case 1:
+                        {
+                            alert("用户拒绝浏览器获取位置信息");
+                            break;
+                        }
+                    case 2:
+                        {
+                            alert("尝试获取用户信息，但失败了");
+                            break;
+                        }
+                    case 3:
+                        {
+                            alert("获取位置超时了");
+                            break;
+                        }
+                    default:
+                        {
+                            alert("未知错误");
+                            break;
+                        }
+                }
+            },
+            {
+                //enableHighAcuracy: true, //位置是否精确获取
+                //timeout: 5000,            //获取位置允许的最长时间
+                //maximumAge: 1000          //多久更新获取一次位置
+            });
      }
   },
   beforeDestroy(){

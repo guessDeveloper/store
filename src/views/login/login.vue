@@ -13,7 +13,7 @@
               <div class="input-box">
                 <span class="iconfont iconmima"></span><input type="password" placeholder="密码" v-model.trim="password">
               </div>
-              <div class="input-box" v-if="needCode">
+              <div class="input-box" v-if="needCode == 'true'">
                  <span class="iconfont icondxyzm" ></span><input type="text" placeholder="输入短信验证码" v-model.trim="msgCode" maxlength="6"><button class="msg-btn" @click="getMsgCode">{{codeBtn}}</button>
               </div>
               <button class="btn login-btn" @click="login">登录</button>
@@ -87,7 +87,7 @@ export default {
       if(this.type == 1){
         this.$router.push('/reset')
       }else{
-        this.$router.push('/reset?isStore=1')
+        this.$router.push('/reset?type=2')
       }
     },
     checkLogin(){
@@ -120,7 +120,7 @@ export default {
           this.$message.error(res.data.Msg)
         })
       }else{
-        this.$http.post(this.$api.M_SendRegistCode,{phone:this.userName}).then(res=>{
+        this.$http.post(this.$api.MerchanterSendVerifyCode,{MName:this.userName}).then(res=>{
           if(res.data.Code == 1){
             this.setCode()
           }else{
@@ -175,7 +175,8 @@ export default {
 
       }).then(res=>{
         if(res.data.Code == 1){
-          this.$router.push('/')
+          localStorage.setItem('storeToken',res.data.Data)
+          this.$router.push('/store')
         }else{
           this.$message.error(res.data.Msg)
         }

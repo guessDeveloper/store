@@ -28,7 +28,7 @@
             <div class="input-line-box" style="overflow:hidden">
                 <img :src="imgUrl" alt="" class="code">  <button class="img-reset" @click="getImageUrl">看不清？<span>换一张</span></button>
             </div>
-            <button class="btn submit" @click="step=2">下一步</button>
+            <button class="btn submit" @click="stepOne">下一步</button>
         </div>
         <div class="tab-item" :class="{active:step == 2}">
             <div style="height:40px;"></div>
@@ -47,7 +47,7 @@
             <div class="input-line-box">
                 <label for="">重复密码：</label><input type="password" placeholder="请再次输入登录密码" v-model.trim="rePwd" maxlength="20">
             </div>
-            <button class="btn submit" @click="restPas">下一步</button>
+            <button class="btn submit" @click="resetcheck">下一步</button>
         </div>
         <div class="tab-item" :class="{active:step == 3}">
              <span class="iconfont iconqrwc icon-complate"></span>
@@ -68,6 +68,7 @@ import footerBar from '@/components/common/footer'
 export default {
     data(){
         return{
+           type:1, // 1 用户找回密码 2 商家找回密码
            step:'1',
            userNmae:'',
            imgCode:'',
@@ -87,6 +88,9 @@ export default {
         navBar:navBar
     },
     mounted(){
+        if(this.$route.query.type){
+            this.type = this.$route.query.type
+        }
         this.getImageUrl();
     },
     methods:{
@@ -96,8 +100,42 @@ export default {
             }else if(this.imgCode == ''){
                 this.$message.error('请输入图形验证码')
             }else{
-                console.log();
+                if(this.type == 1){
+                    this.userImgCheck()
+                }else{
+                    this.storeImgCheck()
+                }
             }
+        },
+        //用户校验
+        userImgCheck(){
+            this.$http.post(this.$api.UserForgetUserNameAndImgCode,{
+                UserName:this.userNmae,
+                ImgVerifyCode:this.imgCode,
+            }).then(res=>{
+                if(res.data.Code == 1){
+                    this.lockUserTel = res.data.Data.UserTel
+                    this.lockUserName = res.data.Data.NickName
+                    this.step = '2'
+                }else{
+                    this.$message.error(res.data.Msg)
+                }
+            })
+        },
+        //商家图形校验
+        storeImgCheck(){
+            this.$http.post(this.$api.MerchanteForgetUserNameAndImgCode,{
+                MerchantName:this.userNmae,
+                ImgVerifyCode:this.imgCode
+            }).then(res=>{
+                if(res.data.Code == 1){
+                    this.lockUserName = res.data.Data.MerchantName
+                    this.lockUserTel =  res.data.Data.MerchantTel
+                    this.step = '2'
+                }else{
+                    this.$message.error(res.data.Msg)
+                }
+            })
         },
         //图像验证码
         getImageUrl(){
@@ -110,16 +148,30 @@ export default {
         getCode(){
             if(this.lock)return false
             this.lock = true;
-            this.$http.post(this.$api.UserForgetPWDSendVerifyCode,{UserName:this.lockUserName,UserTel:this.lockUserTel}).then(res=>{
-                if(res.data.Code == 1){
-                    this.setCode();
-                }else{
-                    this.$message.error(res.data.Msg)
-                }
+            if(this.type == 1){
+                this.$http.post(this.$api.UserForgetPWDSendVerifyCode,{UserName:this.lockUserName,UserTel:this.lockUserTel}).then(res=>{
+                    if(res.data.Code == 1){
+                        this.setCode();
+                    }else{
+                        this.$message.error(res.data.Msg)
+                    }
                 this.lock = false
-            }).catch(()=>{
+                }).catch(()=>{
+                    this.lock = false
+                })
+            }else{
+                this.$http.post(this.$api.MerchanteForgetPWDSendVerifyCode,{Name:this.lockUserTel}).then(res=>{
+                    if(res.data.Code == 1){
+                        this.setCode();
+                    }else{
+                        this.$message.error(res.data.Msg)
+                    }
                 this.lock = false
-            })
+                }).catch(()=>{
+                    this.lock = false
+                })
+            }
+            
         },
         //验证码倒计时
         setCode(){
@@ -140,6 +192,7 @@ export default {
         },
         //校验
         resetcheck(){
+            console.log(this.type)
            if(this.msgCode == ''){
              this.$message.error('请输入短信验证码')
            }else if(this.newPwd.length<6){
@@ -147,17 +200,38 @@ export default {
            }else if(this.newPwd !== this.rePwd){
              this.$message.error('两次输入密码不一致')
            }else{
-               this.restPas()
+              
+               if(this.type == 1){
+                    this.restPas()
+               }else{
+                   this.storeRest()
+               }
            }
+            
         },
-        //重置密码
+        //用户重置密码
         restPas(){
           this.$http.post(this.$api.UserForgetPWD,{
               UserName:this.lockUserName,
-              UserTel:this.lockUserName,
+              UserTel:this.lockUserTel,
               VerifyCode:this.msgCode,
               UserPWD:this.newPwd
           }).then(res=>{
+              if(res.data.Code == 1){
+                  this.step = '3'
+              }else{
+                  this.$message.error(res.data.Msg)
+              }
+          })
+        },
+        //商家重置密码
+        storeRest(){
+            this.$http.post(this.$api.MerchanteForgetPWD,{
+                "Name": this.lockUserTel,
+                "Tel": this.lockUserTel,
+                "VerifyCode": this.msgCode,
+                "PWD": this.newPwd
+            }).then(res=>{
               if(res.data.Code == 1){
                   this.step = '3'
               }else{
@@ -343,6 +417,7 @@ export default {
     width:150px;
     height:50px;
     margin-right:20px;
+    cursor: pointer;
 }
 .img-reset{
     float: left;
