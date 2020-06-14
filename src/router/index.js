@@ -121,6 +121,12 @@ const routes = [{
                 component: () =>
                     import ( /* webpackChunkName: "pddList" */ '../views/home/pddList.vue')
             },
+            {
+                path: '/search', //搜索
+                name: 'search',
+                component: () =>
+                    import ( /* webpackChunkName: "search" */ '../views/home/search.vue')
+            },
         ]
     },
     {
@@ -182,6 +188,7 @@ const routes = [{
                 component: () =>
                     import ( /* webpackChunkName: "orderGrievance" */ '../views/persion/orderGrievance.vue')
             },
+
         ]
     }, {
         path: '/store',

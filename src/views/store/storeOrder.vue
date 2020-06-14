@@ -17,22 +17,32 @@
                
                 <div class="status-select">
                     订单状态
-                    <el-dropdown>
+                    <!-- <el-dropdown trigger="click" >
                         <span class="select">
                             全部<i class="iconfont iconxiasanjiao"></i>
                         </span>
                         <el-dropdown-menu slot="dropdown">
-                            <el-dropdown-item>黄金糕</el-dropdown-item>
+                            <el-dropdown-item :>待付款</el-dropdown-item>
                             <el-dropdown-item>狮子头</el-dropdown-item>
                             <el-dropdown-item>螺蛳粉</el-dropdown-item>
                             <el-dropdown-item disabled>双皮奶</el-dropdown-item>
                         
                         </el-dropdown-menu>
-                    </el-dropdown>
+                    </el-dropdown> -->
+                    <span class="select">   
+                        <el-select v-model="value" placeholder="请选择"  >
+                            <el-option
+                                v-for="item in options"
+                                :key="item.value"
+                                :label="item.label"
+                                :value="item.value">
+                                </el-option>
+                        </el-select>
+                    </span>
                 </div>
                 <div class="input-box">
-                    <input type="text" placeholder="输入订单号">
-                    <span class="iconfont iconsousuo"></span>
+                    <input type="text" placeholder="输入订单号" v-model.trim="orderNum">
+                    <span class="iconfont iconsousuo" @click="search"></span>
                 </div>
                 
             </div>
@@ -57,6 +67,7 @@
                     </el-table-column>
                 </el-table>
             </div>
+
         </div>
   </div>
 </template>
@@ -65,8 +76,54 @@ import '../../plugins/element-dataPicker.js'
 export default {
   data(){
     return{
-
+        dataValue:[new Date(),new Date()],
+        value:'',
+        options:[{
+            label:"全部",
+            value:'',
+        },{
+            label:'待付款',
+            value:0
+        },{
+            label:'已付款，待奖励',
+            value:1
+        },{
+            label:'已奖励',
+            value:2
+        },{
+             label:'订单取消',
+            value:3
+        }],
+        listData:[],
+        orderNum:'',
+        pageIndex:1,
+        pageSize:20,
+        total:0,
     }
+  },
+  mounted(){
+      this.getList();
+  },
+  methods:{
+      search(){
+         this.pageIndex = 1;
+         this.getList();
+      },
+      getList(){
+         this.$http.storePost(this.$api.GetOrderlist,{
+             BingTime:this.dataValue[0],
+             entTime:this.dataValue[1],
+             state:this.value,
+             UserName:this.orderNum,
+             pageIndex:this.pageIndex,
+             pageSize:this.pageSize
+         }).then(res=>{
+            if(res.data.Code == 1){
+                this.listData = res.data.Data.list;
+                this.total = res.data.Data.count
+            }
+         })
+      }
   }
 }
 </script>
@@ -111,10 +168,10 @@ export default {
         height:34px;
         margin-left:15px;
         box-sizing:border-box;
-        border:1px solid @class_border;
+        // border:1px solid @class_border;
         font-size:12px;
-        line-height:12px ;
-        padding:10px 15px;
+        line-height:34px ;
+        
         
         .iconfont{
             position: absolute;

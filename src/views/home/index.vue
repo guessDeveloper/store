@@ -18,54 +18,31 @@
           <h2 class="title">商家联盟</h2>
           <span class="sub-title">积分直返消费者</span>
           <router-link class="more" tag="a" to="/storeList"> 查看全部 <span class="iconfont iconjiantou"></span></router-link>
-          <div class="position-box">
-          <el-dropdown trigger="click">
+          <div class="position-box" >
+          <el-dropdown trigger="click" @command="chengeCity">
             <span class="el-dropdown-link box">
-              <span class="iconfont iconweizhixuanze"></span>  <span class="icon-arrow-down"></span>
+              <span class="iconfont iconweizhixuanze"></span>  {{nowCity}}<span class="icon-arrow-down"></span>
             </span>
-            <el-dropdown-menu slot="dropdown">
-              <!-- <el-dropdown-item  v-for="(item, index) in cityList" :key="index"></el-dropdown-item> -->
+            <el-dropdown-menu slot="dropdown" >
+              <el-dropdown-item  v-for="(item, index) in cityList" :key="index" :command="item">{{item.CityName}}</el-dropdown-item>
             </el-dropdown-menu>
           </el-dropdown>
           </div>
        </div>
        <div class="class-box">
-          <router-link class="store-box" tag="div" to="/foodDetail">
+          <router-link class="store-box" tag="div" to="/foodDetail" v-for="(item,index) in storeList">
               <div class="store-name">
-                天津包子铺
+                {{item.title1}}
               </div>
               <div class="store-percent">
-                返比：<span>20%</span>
+                <!-- 返比：<span>20%</span> -->
+                {{item.title2}}
               </div>
-              <img src="../../assets/img/brand.png" alt="">
+              <div class="img-box">
+                <img :src="item.picurl" alt="">
+              </div>
           </router-link>
-          <router-link class="store-box" tag="div" to="/foodDetail">
-              <div class="store-name">
-                Belule
-              </div>
-              <div class="store-percent">
-                返比：<span>20%</span>
-              </div>
-               <img src="../../assets/img/brand.png" alt="">
-          </router-link>
-         <router-link class="store-box" tag="div" to="/foodDetail">
-              <div class="store-name">
-                品牌名称
-              </div>
-              <div class="store-percent">
-                返比：<span>20%</span>
-              </div>
-              <img src="../../assets/img/brand.png" alt="">
-          </router-link>
-         <router-link class="store-box" tag="div" to="/foodDetail">
-              <div class="store-name">
-                ROYAL CANIN
-              </div>
-              <div class="store-percent">
-                返比：<span>20%</span>
-              </div>
-               <img src="../../assets/img/brand.png" alt="">
-          </router-link>
+        
        </div>
     </div>
     <!-- 推荐专区 -->
@@ -138,6 +115,7 @@ export default {
         active:0,
         type:4
       },],
+      nowCity:'',
       storeActiveIndex:0,
       cityList:[],
       storeList:[],
@@ -152,12 +130,25 @@ export default {
   methods:{
      //获取城市商家联盟
      getCityAndStore(){
-       this.$http.post(this.$api.GetMerchanters,{syscityDTO:''}).then(res=>{
+       this.$http.post(this.$api.GetMerchanters,{CityID:''}).then(res=>{
          if(res.data.Code == 1){
           //  let _this = this;
            let alldata = res.data.Data;
-           this.storeList = alldata;
-         
+           this.storeList = alldata.length>0?alldata[0].Merchants:[];
+           this.nowCity = alldata.length>0?alldata[0].currentcity.CityName:'';
+           this.cityList = alldata.length>0?alldata[0].city:[];
+         }
+       })
+     },
+     chengeCity(item){
+       console.log(item,'5555')
+       this.$http.post(this.$api.GetMerchanters,{CityID:item.CityId}).then(res=>{
+         if(res.data.Code == 1){
+          //  let _this = this;
+           let alldata = res.data.Data;
+           this.storeList = alldata.length>0?alldata[0].Merchants:[];
+           this.nowCity = alldata.length>0?alldata[0].currentcity.CityName:'';
+           this.cityList = alldata.length>0?alldata[0].city:[];
          }
        })
      },
@@ -280,7 +271,7 @@ export default {
         background:@body_color;
         .iconweizhixuanze{
           position:absolute;
-          left:12px;
+          left:5px;
           font-size:14px;
           color:#D51B32;
         }
@@ -364,10 +355,19 @@ export default {
         &:nth-last-child(1){
           border-color:#FFF;
         }
+        .img-box{
+          height:220px;
+          line-height:220px;
+          vertical-align:middle;
+        }
         img{
-          display: block;
+          display:inline-block;
           width:250px;
+          height:108px;
+          max-height:100%;
           margin:0 auto;
+          vertical-align:middle;
+        
         }
         .store-name{
           font-size:20px;

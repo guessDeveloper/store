@@ -7,7 +7,7 @@
       </div>
      <div class="tab-content" v-show="tab==1">
         <div class="btn-box">
-           <button class="chong-btn">立即充值</button>
+           <router-link class="chong-btn" tag="button" to="/storeMoney">立即充值</router-link>
         </div>
         <div class="table-box">
           <el-table :data="chongList"  header-row-style="font-size:12px;color:#999;" row-class-name="table-line" width="930">

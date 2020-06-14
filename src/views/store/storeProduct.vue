@@ -17,7 +17,7 @@
                     </div>    
                 <div class="status-select">
                     状态 
-                    <el-dropdown>
+                    <!-- <el-dropdown>
                         <span class="select">
                             全部<i class="iconfont iconxiasanjiao"></i>
                         </span>
@@ -28,11 +28,21 @@
                             <el-dropdown-item disabled>双皮奶</el-dropdown-item>
                         
                         </el-dropdown-menu>
-                    </el-dropdown>
+                    </el-dropdown> -->
+                    <span class="select">   
+                        <el-select v-model="status" placeholder="请选择"  >
+                            <!-- <el-option
+                                v-for="item in options"
+                                :key="item.value"
+                                :label="item.label"
+                                :value="item.value">
+                                </el-option> -->
+                        </el-select>
+                    </span>
                 </div>
                 <div class="status-select">
                     产品分类 
-                    <el-dropdown>
+                    <!-- <el-dropdown>
                         <span class="select">
                             全部<i class="iconfont iconxiasanjiao"></i>
                         </span>
@@ -43,7 +53,17 @@
                             <el-dropdown-item disabled>双皮奶</el-dropdown-item>
                         
                         </el-dropdown-menu>
-                    </el-dropdown>
+                    </el-dropdown> -->
+                    <span class="select">   
+                        <el-select v-model="classNow" placeholder="请选择"  >
+                            <el-option
+                                v-for="item in classOption"
+                                :key="item.CategoryID"
+                                :label="item.CategoryName"
+                                :value="item.CategoryID">
+                                </el-option>
+                        </el-select>
+                    </span>
                 </div>
                 <div class="input-box">
                     <input type="text" placeholder="输入订单号">
@@ -75,7 +95,7 @@
             </div>  
       </div> 
       <div class="" v-if="tab== 2">
-        <addProduct></addProduct>
+        <addProduct @success="addSuccess"></addProduct>
       </div>  
   </div>
 </template>
@@ -86,6 +106,7 @@ export default {
   data(){
     return{
       tab:1,
+      dataValue:[new Date(),new Date()],
       listData:[
                {
                    img:'https://b-ssl.duitang.com/uploads/item/201706/27/20170627012435_mJLiX.thumb.700_0.jpeg',
@@ -97,7 +118,13 @@ export default {
                    score:'333'
                }
            ],
+       classNow:"",
+       status:'', // 状态
+       classOption:[]
     }
+  },
+  mounted(){
+      this.getClass();
   },
   components:{
       addProduct:addProduct
@@ -105,7 +132,20 @@ export default {
   methods:{
       toTab(num){
           this.tab = num
+      },
+      //获取产品分类
+      getClass(){
+          this.$http.storeGet(this.$api.GetProductCategory).then(res=>{
+              if(res.data.Code == 1){
+                  this.classOption = res.data.Data;
+              }
+          })
+      },
+      //添加成功
+      addSuccess(){
+          this.tab =1;
       }
+     
   }
 }
 </script>
@@ -167,10 +207,10 @@ export default {
         height:34px;
         margin-left:15px;
         box-sizing:border-box;
-        border:1px solid @class_border;
+        // border:1px solid @class_border;
         font-size:12px;
-        line-height:12px ;
-        padding:10px 15px;
+        line-height:34px ;
+        // padding:10px 15px;
         
         .iconfont{
             position: absolute;

@@ -85,6 +85,18 @@ export default {
         }],
         value: ''
     }
+  },
+  mounted(){
+    this.getConfig();
+  },
+  methods:{
+    getConfig(){
+      this.$http.storePost(this.$api.SelectRechargeMoney).then(res=>{
+        if(res.data.Code == 1){
+          console.log(res)
+        }
+      })
+    }
   }
 }
 </script>

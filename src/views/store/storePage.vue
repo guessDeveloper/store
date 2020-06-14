@@ -17,7 +17,7 @@
          <label for="">商家LOGO：</label><div class="input-box">
             <el-upload
               class="upload-demo"
-              action="/up/create"
+              :action="uploadImgUrl()"
               :on-preview="handlePreview"
               :on-remove="logoRemove"
               :on-success="logoSuccess"
@@ -72,7 +72,7 @@
           
           </div>
           <div class="input-box" style="height:50px;margin-top:20px;" v-show="value!==''">
-              <el-select v-model="secondOptionValue" placeholder="请选择">
+              <el-select v-model="secondOptionValue" placeholder="请选择"@change="setCat" >
                 <el-option
                   v-for="item in secondOption"
                   :key="item.Id"
@@ -87,7 +87,17 @@
          <label for="">联系方式：</label><div class="input-box"><input type="text" placeholder="请输入联系方式" v-model.trim="infos.TelPhone"></div>
        </div>
         <div class="input-line">
-         <label for="">营业时间：</label><div class="input-box"><input type="text" placeholder="请输入营业时间" ></div>
+         <!-- <label for="">营业时间：</label><div class="input-box"><input type="text" placeholder="请输入营业时间" ></div> -->
+         <label for="">营业时间：</label><div class="input-box">  
+           <el-time-picker
+            is-range
+            v-model="time"
+            range-separator="至"
+            start-placeholder="开始时间"
+            end-placeholder="结束时间"
+            placeholder="选择时间范围">
+          </el-time-picker>
+          </div>
        </div>
         <div class="input-line">
          <label for="">商家网址：</label><div class="input-box"><input type="text" placeholder="请输入商家网址" v-model.trim="netWork"></div>
@@ -96,7 +106,7 @@
          <label for="">商家奖励比例：</label><div class="input-box"><input type="text" placeholder="商家默认奖励比例" v-model.trim="infos.ReturnPercent"></div>
        </div>
        <div class="input-line">
-         <button class="submit">提交</button>
+         <button class="submit" @click="submit">提交</button>
        </div>
        <el-dialog title="选择地址" :visible.sync="showMap" width="520px" class="small">
          <Map @getLocation="addressClick"></Map>
@@ -105,7 +115,9 @@
   </div>
 </template>
 <script>
+const beforeUrl = 'http://files.youledui.com';
 import '@/plugins/element-upload.js'
+import '@/plugins/element-dataPicker.js'
 import Map from '@/components/store/map'
 export default {
   data(){
@@ -131,9 +143,10 @@ export default {
         sendData:{
           dir:'media'
         },
-        lat:'',
-        lng:'',
-        address:'', 
+        lat:'',//经度
+        lng:'',//纬度
+        address:'', //地址
+        addressCity:'',
         infos:{
           BeginWorkTime:"",
           Category: "",
@@ -149,7 +162,8 @@ export default {
           describe: null,
           introduce: null,
           phone: "",
-        }
+        },
+        time:''
       }
   },
   computed:{
@@ -171,7 +185,7 @@ export default {
         console.log(file);
       },
       uploadImgUrl(){
-
+        return process.env.NODE_ENV === 'production' ? 'http://files.youledui.com/create?dir=image' : '/up/create?dir=image'
       },
       getStoreInfo(){
         this.$http.storePost(this.$api.MerchanterMerchanter).then(res=>{
@@ -188,6 +202,9 @@ export default {
             this.secondOption = res.data.Data
           }
         })
+      },
+      setCat(value){
+        this.infos.Category = value
       },
       beforeLogoUpload(file){
          var testmsg=file.name.substring(file.name.lastIndexOf('.')+1)                
@@ -211,12 +228,12 @@ export default {
       //logo 上传成功
       logoSuccess(file){
         if(file.Code == 1){
-          this.logoUrl = file.Data
+          this.logoUrl = beforeUrl+file.Data
         }
       },
       mp4Success(file){
          if(file.Code == 1){
-           this.desMp4.push(file.Data)
+           this.desMp4.push(beforeUrl+file.Data)
          }
          console.log(this.mp4List,this.desMp4,'ttt')
       },
@@ -231,10 +248,10 @@ export default {
         const extension2 = testmsg === 'png'
         const extension3 = testmsg === 'mp4'
         if(extension || extension2){
-          this.changeUrl= '/up/create?dir=image' 
+          this.changeUrl= process.env.NODE_ENV === 'production' ? 'http://files.youledui.com/create?dir=image' : '/up/create?dir=image'
         }
         if(extension3){
-          this.changeUrl= '/up/create?dir=media' 
+          this.changeUrl= process.env.NODE_ENV === 'production' ? 'http://files.youledui.com/create?dir=media' : '/up/create?dir=media'
         }
         setTimeout(()=>{
           this.$refs.mp4Uploader.submit()
@@ -267,10 +284,11 @@ export default {
         }
         return extension || extension2 || extension3&& isLt2M
       },
-      addressClick(res){
+    addressClick(res){
       this.address = res.address.surroundingPois[0].address
       this.lat = res.address.point.lat
       this.lng = res.address.point.lng
+      this.addressCity = res.address.addressComponents.city
       this.showMap = false
     },
     // 提交
@@ -281,12 +299,16 @@ export default {
         this.$message.error('请输入商家描述')
       }else if(this.logoUrl == ''){
         this.$message('请上传logo')
-      }else if(this.mp4List.length == 0){
+      }else if(this.desMp4.length == 0){
         this.$message.error('请上传商家简介')
       }else if(this.address==''){
         this.$message.error('请选择商家地址')
-      }else if(this.infos.TelPhone){
+      }else if(this.infos.Category == ''){
+        this.$message.error('请选择商家分类')
+      }else if(this.infos.TelPhone == ''){
         this.$message.error('请输入联系方式')
+      }else if(this.time == ''){
+        this.$message.error('请选择营业时间')
       }else if(this.infos.ReturnPercent == ''){
         this.$message.error('商家奖励比例：')
       }else{
@@ -298,12 +320,12 @@ export default {
           PointY:this.lng,
           Remark:this.infos.describe,
           MerchantLogo:this.logoUrl,
-          ShowImgs:this.mp4List,
-          Category:'',
+          ShowImgs:this.desMp4,
+          Category:this.infos.Category,
           Email:'',
-          BigworkTime:'',
-          EndworkTime:'',
-          BdCityCode:''
+          BigworkTime:this.time[0],
+          EndworkTime:this.time[1],
+          BdCityCode:this.addressCity
         }).then(res=>{
           if(res.data.Code == 1){
             this.$message.success('修改成功')

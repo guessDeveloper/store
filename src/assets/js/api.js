@@ -1,10 +1,17 @@
 export default {
+    //搜索
+    GetGoodsByKey: '/api/Taobao/GetGoodsByKey', // 搜索淘宝
+    GJKeyWordSearch: "/api/shopping/GJKeyWordSearch", //逛街购物搜索
+    pddGetGoodsByKey: '/api/PDD/GetGoodsByKey', //拼多多搜索
+    MSKeyWordSearch: '/api/Food/MSKeyWordSearch', //美食广场搜索
+    storeGJKeyWordSearch: '/api/YiQiFa/GJKeyWordSearch', //商城搜索
     //首页
     GetBannerGoods: '/api/Webconfig/GetBannerGoods', //获取banner
     GetWebMessage: '/api/Webconfig/GetWebMessage', //获取公告
     GetHomePageCats: '/api/Webconfig/GetHomePageCats', //获取分类
     GetCat: '/api/Webconfig/GetCat', //获取商品
     GetMerchanters: '/api/Webconfig/GetMerchanters', //获取城市商家联盟
+
     //淘宝
     GetClassNoPic: '/api/Taobao/GetClass', //获取顶部分类
     GetClassMaterial: '/api/Taobao/GetClassMaterial', //获取精选分类
@@ -87,4 +94,9 @@ export default {
     MerchantUseIntegralRecords: '/api/Merchant/MerchantUseIntegralRecords', //获取积分奖励记录
     ChangeMyInfo: '/api/Merchant/ChangeMyInfo', // 修改商家信息
     GetMerchantCategory: '/api/Merchant/GetMerchantCategory', //获取商家分类
+    SelectRechargeMoney: '/api/Merchant/SelectRechargeMoney', //获取充值配置
+    GetOrderlist: '/api/Merchant/GetOrderlist', //获取订单列表
+    GetProductCategory: '/api/Merchant/GetProductCategory', //获取商家全部分类
+    AddProduct: '/api/Merchant/AddProduct', //添加商品
+
 }

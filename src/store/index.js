@@ -8,6 +8,7 @@ export default new Vuex.Store({
         positionX: '', // 经度
         positionY: '', //纬度
         storeInfo: '', //商家信息
+        searchItem: '', //搜索页面
     },
     getters: {
 

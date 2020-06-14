@@ -18,20 +18,20 @@
         </div>
         <div class="search-box" v-show="!navIsOpen">
             <div class="input-box">
-             <el-dropdown trigger="click" class="select">
+             <el-dropdown trigger="click" class="select" @command="chengeSelect">
                 <span class="el-dropdown-link">
-                   {{nowName}}<span class="iconfont icon-arrow-downYellow"></span>
+                   {{nowSelect}}<span class="iconfont icon-arrow-downYellow"></span>
                 </span>
                 <el-dropdown-menu slot="dropdown">
-                <el-dropdown-item v-for="(item,index) in navList" :key="index">{{item.name}}</el-dropdown-item>
+                <el-dropdown-item v-for="(item,index) in option" :key="index" :command="item">{{item.name}}</el-dropdown-item>
                 </el-dropdown-menu>
               </el-dropdown>
                 <!-- <div class="select" >
                     拼多多<span class="iconfont icon-arrow-downYellow"></span>
                 </div> -->
-                <input type="text" placeholder="输入商品关键词">
+                <input type="text" placeholder="输入商品关键词" v-model.trim="searchContent">
             </div>
-            <a href="" class="btn">
+            <a  class="btn" @click="search">
                 <span class="iconfont iconsousuo"></span><span class="name">搜索</span>
             </a>
         </div>
@@ -71,8 +71,40 @@ export default {
                name:'美食广场',
                path:'/food'
            }],
+           searchContent:'',
+           option:[
+               {
+                  path:['/','/taobo','/taobaoList'],
+                  name:'淘宝',
+                  query:this.$api.GetGoodsByKey,
+                  type:'taobao'
+               },{
+                  path:['/Pdd'],
+                  name:'拼多多',
+                  query:this.$api.pddGetGoodsByKey,
+                  type:'pdd' 
+               },{
+                  path:['/storeList'],
+                  name:'商城返利',
+                  query:this.$api.storeGJKeyWordSearch,
+                  type:'store' 
+               },{
+                  path:['/shop'],
+                  name:'逛街购物',
+                  query:this.$api.GJKeyWordSearch,
+                  type:'shop' 
+               },{
+                  path:['/food'],
+                  name:'美食广场',
+                  query:this.$api.MSKeyWordSearch,
+                  type:'food' 
+               }
+           ],
            nowName:'首页',
-           navIsOpen:false
+           nowSelect:'',
+           nowSearchUrl:'',
+           navIsOpen:false,
+           searchType:'',
         }
     },
     computed:{
@@ -90,6 +122,29 @@ export default {
                }
            })
         })
+       
+        if(this.$route.query.type){
+            this.option.forEach((item)=>{
+                if(item.type ==this.$route.query.type){
+                    this.nowSelect = item.name
+                    this.nowSearchUrl = item.query
+                    this.searchType = item.type
+                }
+             })
+        }else{
+             this.option.forEach((item)=>{
+                item.path.forEach((item2)=>{
+                if(item2 == this.nowPath){
+                    this.nowSelect = item.name
+                    this.nowSearchUrl = item.query
+                     this.searchType = item.type
+                }
+                })
+             })
+        }
+        if(this.$route.query.content){
+            this.searchContent = this.$route.query.content
+        }
     },
     methods:{
         goRouter(){
@@ -105,8 +160,20 @@ export default {
             this.navIsOpen = false
             document.querySelector('body').style.height = 'auto';
             document.querySelector('body').style.overflow = 'auto';
+        },
+        chengeSelect(item){
+            this.nowSelect = item.name
+            this.nowSearchUrl = item.query
+            this.searchType = item.type
+        },
+        search(){
+          if(this.searchContent == ''){
+            this.$message.error('请输入关键字')
+          }else{
+            this.$router.push(`/search?type=${this.searchType}&content=${this.searchContent}`)
+          }
+         
         }
-        
     },
 }
 </script>
