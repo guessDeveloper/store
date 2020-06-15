@@ -6,7 +6,7 @@
              <div class="input-box" v-show="tab == 1">
                 <label>订单号</label> <input type="text" placeholder="输入订单号"><button>提交订单</button>
              </div>
-        </div>    
+        </div>
         <div class="order-content" v-show="tab == '1'">
             <div class="choose-small-box">
                <router-link class="btn small-btn" tag="button" to="/orderGrievance">订单申诉</router-link>
@@ -35,12 +35,12 @@
                             <el-dropdown-item>狮子头</el-dropdown-item>
                             <el-dropdown-item>螺蛳粉</el-dropdown-item>
                             <el-dropdown-item disabled>双皮奶</el-dropdown-item>
-                        
+
                         </el-dropdown-menu>
                     </el-dropdown>
                    </div>
                    <div class="last">
-                       订单类型 
+                       订单类型
                         <el-dropdown>
                             <span class="select">
                                 全部<i class="iconfont iconxiasanjiao"></i>
@@ -50,7 +50,7 @@
                                 <el-dropdown-item>狮子头</el-dropdown-item>
                                 <el-dropdown-item>螺蛳粉</el-dropdown-item>
                                 <el-dropdown-item disabled>双皮奶</el-dropdown-item>
-                            
+
                             </el-dropdown-menu>
                         </el-dropdown>
                    </div>
@@ -59,7 +59,7 @@
                    <div class="input-box">
                     <input type="text" placeholder="输入订单号">
                     <span class="iconfont iconsousuo"></span>
-                  </div>   
+                  </div>
                </div>
             </div>
             <div class="choose-box">
@@ -71,9 +71,9 @@
                         start-placeholder="开始日期"
                         end-placeholder="结束日期">
                         </el-date-picker>
-                    </div>    
+                    </div>
                 <div class="status-select">
-                    状态 
+                    状态
                     <el-dropdown>
                         <span class="select">
                             全部<i class="iconfont iconxiasanjiao"></i>
@@ -83,12 +83,12 @@
                             <el-dropdown-item>狮子头</el-dropdown-item>
                             <el-dropdown-item>螺蛳粉</el-dropdown-item>
                             <el-dropdown-item disabled>双皮奶</el-dropdown-item>
-                        
+
                         </el-dropdown-menu>
                     </el-dropdown>
                 </div>
                 <div class="status-select">
-                    订单类型 
+                    订单类型
                     <el-dropdown>
                         <span class="select">
                             全部<i class="iconfont iconxiasanjiao"></i>
@@ -98,7 +98,7 @@
                             <el-dropdown-item>狮子头</el-dropdown-item>
                             <el-dropdown-item>螺蛳粉</el-dropdown-item>
                             <el-dropdown-item disabled>双皮奶</el-dropdown-item>
-                        
+
                         </el-dropdown-menu>
                     </el-dropdown>
                 </div>
@@ -128,34 +128,34 @@
                         </template>
                     </el-table-column>
                 </el-table>
-           
+
                 <div class="table-small-box">
                     <div class="item">
-                    <div class="des">
-                        <div class="">
-                            <img src="" alt="">
-                        </div>
-                        <div>
-                            <div class="name">儿童网鞋男童透气网鞋男童透气…</div>
-                            <div>
-                                订单号：<span>20191212083520</span>
+                        <div class="des">
+                            <div class="item-img-wrap">
+                                <img src="https://b-ssl.duitang.com/uploads/item/201706/27/20170627012435_mJLiX.thumb.700_0.jpeg" alt="" class="item-img">
                             </div>
                             <div>
-                                消费时间<span>2020-05-05 06:30:30</span>
-                            </div>
-                            <div>
-                                订单类型：<span>淘宝订单</span>
-                            </div>
-                            <div>消费金额(元)：<span>8000</span>
+                                <div class="name">儿童网鞋男童透气网鞋男童透气…</div>
+                                <div class="item-name">
+                                    订单号：<span class="item-value">20191212083520</span>
+                                </div>
+                                <div class="item-name">
+                                    消费时间：<span class="item-value">2020-05-05 06:30:30</span>
+                                </div>
+                                <div class="item-name">
+                                    订单类型：<span class="item-value">淘宝订单</span>
+                                </div>
+                                <div class="item-name">消费金额(元)：<span class="item-value">8000</span>
 
+                                </div>
+                                <div class="item-name">奖励积分：<span class="item-value">60</span></div>
                             </div>
-                            <div>奖励积分：<span>60</span></div>
+                            <div class="order-status-wrap">
+                                <div class="order-status-name">状态：<span>已付款</span></div>
+                            </div>
                         </div>
-                        <div>
-                            <div>状态：<span>已付款</span></div>
-                        </div>
-                    </div>
-                    <div class="btn">查看详情</div>
+                        <div class="btn-detail">查看详情</div>
                     </div>
                 </div>
              </div>
@@ -170,9 +170,9 @@
                         start-placeholder="开始日期"
                         end-placeholder="结束日期">
                         </el-date-picker>
-                    </div>    
+                    </div>
                 <div class="status-select">
-                    状态 
+                    状态
                     <el-dropdown>
                         <span class="select">
                             全部<i class="iconfont iconxiasanjiao"></i>
@@ -182,7 +182,7 @@
                             <el-dropdown-item>狮子头</el-dropdown-item>
                             <el-dropdown-item>螺蛳粉</el-dropdown-item>
                             <el-dropdown-item disabled>双皮奶</el-dropdown-item>
-                        
+
                         </el-dropdown-menu>
                     </el-dropdown>
                 </div>
@@ -305,7 +305,7 @@ export default {
        float: right;
        font-size:12px;
        line-height: 60px;
-       
+
        input{
            display: inline-block;
            width:200px;
@@ -324,7 +324,7 @@ export default {
    @media screen and(max-width:@change_width){
        padding:0px;
        margin-bottom:10px;
-       
+
        .tab-item{
            margin:0;
            margin-left:34px;
@@ -432,7 +432,7 @@ export default {
         font-size:12px;
         line-height:12px ;
         padding:10px 15px;
-        
+
         .iconfont{
             position: absolute;
             top:10px;
@@ -470,7 +470,7 @@ export default {
     }
      @media screen and(max-width:@change_width){
          padding:0 0px;
-        
+
      }
 }
 //表格
@@ -525,7 +525,7 @@ export default {
           font-size:12px;
           line-height:12px ;
           padding:10px 15px;
-          
+
           .iconfont{
               position: absolute;
               top:10px;
@@ -567,7 +567,7 @@ export default {
          }
        }
     }
-    
+
   }
   .btn-box{
       .clear();
@@ -595,10 +595,53 @@ export default {
     }
     .table-small-box{
         display: none;
+        padding: 0 15px;
+        .item-img-wrap {
+            margin-right: 15px;
+        }
         .item{
+            padding-top: 20px;
             .des{
+                position: relative;
                 display: flex;
+                .name {
+                    font-size:12px;
+                    font-family:PingFangSC-Semibold,PingFang SC;
+                    font-weight:600;
+                    color:rgba(51,51,51,1);
+                }
+                .item-name {
+                    color: #999999;
+                    line-height: 26px;
+                }
+                .item-value {
+                    color: #333333;
+                }
+                .order-status-wrap {
+                    position: absolute;
+                    top: 0;
+                    right: 0;
+                    z-index: 1;
+                    background-color: #ffffff;
+                    .order-status-name {
+                        color: #999999;
+                    }
+                }
             }
+            .btn-detail {
+                padding: 15px 0;
+                margin-top: 20px;
+                border-top: 1px solid #eeeeee;
+                border-bottom: 1px solid #eeeeee;
+                text-align: center;
+                text-decoration-line: underline;
+            }
+            .item-img {
+                width: 50px;
+            }
+        }
+        .item:not(:first-child){
+            padding-top: 30px;
         }
     }
      @media screen and(max-width:@change_width){

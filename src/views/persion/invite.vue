@@ -10,7 +10,7 @@
       <div class="invite-list-title">
         邀请记录
       </div>
-      <div class="invite-list"> 
+      <div class="invite-list">
         <div class="item" v-for="(item,index) in list" :key="index">
            <div class="user"><span class="header"><img src="" alt=""></span>{{item.NickNamep}}</div><div class="phone">{{item.Tel}}</div><div class="time">{{item.CreateTime}}</div>
         </div>
@@ -25,9 +25,9 @@
              </span>
           </div>
              <div class="time">{{item.CreateTime}}</div>
-          
+
         </div>
-        
+
       </div>
       <div class="empty" v-show="total == 0">
           <span class="iconfont iconzwyqzwt"></span>
@@ -54,7 +54,7 @@ export default {
     const _this = this;
     this.Clipboard = new this.clipboard('.copy');
     this.Clipboard.on('success', function(e) {
-    
+
       _this.$message.success('复制成功')
     e.clearSelection();
     });
@@ -160,7 +160,7 @@ export default {
         font-size:12px;
         text-align: left;
         line-height: 18px;
-        
+
         .header{
           text-align: left;
           display: inline-block;
@@ -172,7 +172,7 @@ export default {
           border-radius: 30px;
           vertical-align: middle;
         }
-        
+
       }
       .phone{
         text-align: center;
@@ -189,7 +189,7 @@ export default {
   }
    @media screen and(max-width:@change_width){
     padding:0 15px;
-   
+
     .user-link{
       padding:0;
       .name{
@@ -238,7 +238,7 @@ export default {
           }
           .name-box{
           margin-left:8px;
-        } 
+        }
         }
         .time{
             align-self:flex-end;
@@ -265,6 +265,7 @@ export default {
     color:@subtitle_color;
   }
    @media screen and(max-width:@change_width){
+     padding-top: 60px;
      padding-bottom:119px;
    }
 }
