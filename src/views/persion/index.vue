@@ -15,7 +15,7 @@
         <router-view></router-view>
       </div>
     </div>
-    
+
     <footerBar></footerBar>
   </div>
 </template>
@@ -29,11 +29,11 @@ export default {
   name: 'Home',
   data(){
     return{
- 
+
     }
   },
   mounted(){
-     
+
   },
   components: {
     navBar:navBar,
@@ -59,7 +59,7 @@ export default {
     width:990px;
     height:100%;
     background:#fff;
-    
+
   }
   @media screen and(max-width:@change_width){
      width:100%;
@@ -70,7 +70,12 @@ export default {
       width:100%;
       margin-top:10px;
     }
-    
+
+  }
+}
+@media screen and(max-width:@change_width){
+  .box {
+    margin-bottom: 0;
   }
 }
 

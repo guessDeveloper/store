@@ -4,14 +4,17 @@
       订单详情
     </div>
     <div class="order-detail-content">
+       <div class="img-box">
+         <img src="../../assets/img/fuzhuang.png" alt="">
+       </div>
        <div class="item">
           <label for="">订单号：</label>20191212083520
        </div>
        <div class="item">
          <label for="">消费时间：</label>2020-01-01 1:12:12
        </div>
-        <div class="item">
-         <label for="">产品名称：</label>运动开衫式超柔软拉毛运动开衫女式超柔软拉毛运动开衫式超柔软拉毛运动
+        <div class="item item-name-wrap">
+         <label for="">产品名称：</label><span class="item-name-value">运动开衫式超柔软拉毛运动开衫女式超柔软拉毛运动开衫式超柔软拉毛运动</span>
        </div>
         <div class="item">
          <label for="">消费金额：</label>200
@@ -27,9 +30,6 @@
        </div>
          <div class="item">
          <label for="">状态：</label>200
-       </div>
-       <div class="img-box">
-         <img src="../../assets/img/fuzhuang.png" alt="">
        </div>
     </div>
     <div class="btn-box">
@@ -58,9 +58,8 @@ export default {
 }
 .order-detail-content{
   position: relative;
-  padding:22px 30px 0;
-  height:400px;
- 
+  padding:22px 30px 60px;
+
   .item{
     font-size:12px;
     line-height:38px;
@@ -82,11 +81,35 @@ export default {
       width:100%;
     }
   }
+  @media screen and(max-width:@change_width){
+    padding-bottom: 10px;
+    .img-box {
+      position: static;
+      margin: 0 auto 10px;
+    }
+    .item {
+      color: #333333;
+      line-height: 20px;
+      padding-bottom: 18px;
+      label {
+        color: #666666;
+      }
+      &.item-name-wrap {
+        display: flex;
+        .item-name-value {
+          flex: 1;
+        }
+      }
+    }
+  }
 }
 .btn-box{
   margin:0 30px;
   text-align: center;
   border-top:1px solid @class_border;
+  @media screen and(max-width:@change_width){
+    padding-bottom: 119px;
+  }
 }
 .btn{
   width:220px;
