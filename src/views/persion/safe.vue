@@ -78,7 +78,7 @@
         </div>
         <div class="stepTwo" v-show="step == 2">
            <div class="big-box">
-              <div class="input-line-box">
+              <div class="input-line-box mobile-box">
                  <div class="input-box">
                     <label for="">新手机号码：</label><input type="text" placeholder="输入新的手机号码" maxlength="11" v-model.trim="newPhone">
                 </div>
@@ -552,6 +552,9 @@ export default {
        .tip {
           margin-bottom: 60px;
         }
+        .now-phone {
+          margin-top: 40px;
+        }
      }
     }
    .stepTwo{
@@ -559,6 +562,15 @@ export default {
       border-bottom:1px solid @class_border;
       padding-bottom:100px;
    }
+   @media screen and(max-width:@change_width){
+     .stepTwo {
+       padding-top: 55px;
+       padding-bottom: 30px;
+       .tip {
+          margin-bottom: 60px;
+        }
+     }
+    }
    .stepThree{
      padding-bottom:100px;
      .iconfont{
@@ -584,6 +596,17 @@ export default {
      }
 
    }
+    @media screen and(max-width:@change_width){
+      .stepThree {
+        padding-bottom: 60px;
+        .iconfont{
+          margin-top: 60px;
+        }
+        .tip {
+          margin-bottom: 40px;
+        }
+      }
+    }
    .btn{
     width:380px;
     height:50px;
@@ -631,10 +654,14 @@ export default {
     .input-line-box {
       width: 100%;
       max-width: 380px;
+
       label {
         left: 0;
         top: -45px;
       }
+    }
+    .mobile-box {
+      margin-bottom: 47px;
     }
     .btn {
       width: 100%;
@@ -730,5 +757,10 @@ export default {
             margin:0 45px;
         }
       }
+  }
+  @media screen and(max-width:@change_width){
+    .step {
+      margin-top: 30px;
+    }
   }
 </style>
