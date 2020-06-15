@@ -192,7 +192,7 @@
                 </div>
             </div>
             <div class="table-box">
-                  <el-table :data="listData"  header-row-style="font-size:12px;color:#999;" row-class-name="table-line" width="930">
+                  <el-table :data="listData"  header-row-style="font-size:12px;color:#999;" row-class-name="table-line" width="930" class="table-big">
                     <el-table-column property="img" label="产品图片" width="50" align="left">
                          <template slot-scope="scope">
                             <img :src="scope.row.img" alt="" class="product-img">
@@ -213,6 +213,36 @@
                         </template>
                     </el-table-column>
                 </el-table>
+
+                <div class="table-small-box">
+                    <div class="item">
+                        <div class="des">
+                            <div class="item-img-wrap">
+                                <img src="https://b-ssl.duitang.com/uploads/item/201706/27/20170627012435_mJLiX.thumb.700_0.jpeg" alt="" class="item-img">
+                            </div>
+                            <div>
+                                <div class="name">儿童网鞋男童透气网鞋男童透气…</div>
+                                <div class="item-name">
+                                    订单号：<span class="item-value">20191212083520</span>
+                                </div>
+                                <div class="item-name">
+                                    消费时间：<span class="item-value">2020-05-05 06:30:30</span>
+                                </div>
+                                <div class="item-name">
+                                    订单类型：<span class="item-value">淘宝订单</span>
+                                </div>
+                                <div class="item-name">消费金额(元)：<span class="item-value">8000</span>
+
+                                </div>
+                                <div class="item-name">奖励积分：<span class="item-value">60</span></div>
+                            </div>
+                            <div class="order-status-wrap">
+                                <div class="order-status-name">状态：<span>已付款</span></div>
+                            </div>
+                        </div>
+                        <div class="btn-detail">查看详情</div>
+                    </div>
+                </div>
                 <!-- 评价 -->
                 <el-dialog title="评价" :visible.sync="toRate" width="520px">
                     <div class="rate-box">
