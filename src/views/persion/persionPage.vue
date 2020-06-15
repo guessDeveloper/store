@@ -24,7 +24,7 @@
                 <div class="num">{{UserIntegralUsed?UserIntegralUsed:'0'}}</div>
               </div>
            </div>
-          
+
         </div>
          <div class="set">
             <span class="iconfont iconzhushi"></span> 请完善您的信息：您的手机号尚未绑定！<a href="">立即设置</a>
@@ -32,7 +32,7 @@
           <div class="small-nav-list">
              <div class="margin"></div>
              <ul>
-               <li class="" v-for="(item,index) in smallNav" :key="index"> 
+               <li class="" v-for="(item,index) in smallNav" :key="index">
                    <router-link tag="a" :to="item.to" @click.native="routerChange(item.to)"><span class="iconfont" :class="item.icon" :style="'font-size:'+item.iconSize+';'"></span>{{item.title}}<span class="iconfont iconjiantou"></span></router-link>
                </li>
              </ul>
@@ -177,11 +177,17 @@ export default {
         text-align: right;
         width:100px;
         color:@subtitle_color;
+        @media screen and(max-width:@change_width){
+          width:60px;
+        }
       }
       .change{
         margin-left:50px;
         color:@main;
         cursor: pointer;
+        @media screen and(max-width:@change_width){
+          margin-left:20px;
+        }
       }
     }
   }
