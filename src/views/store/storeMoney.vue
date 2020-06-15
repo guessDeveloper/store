@@ -5,7 +5,7 @@
      <div class="banner">
        <img src="" alt="">
      </div>
-     <div class="">
+     <div class="big-box">
        <div class="input-line-box">
           <label for="">充值金额：</label>
            <el-select v-model="value" placeholder="请选择">
@@ -19,19 +19,19 @@
        </div>
        <div class="input-line-box">
          <label>商家名称：</label>
-         <input type="text">
+         <input type="text" v-model.trim="infos.Name">
        </div>
        <div class="input-line-box">
           <label>商家描述：</label>
-         <input type="text">
+         <input type="text" v-model.trim="infos.describe">
        </div>
-       <div class="input-line-box">
+       <div class="input-line-box" style="height:auto;">
          <label for="">商家LOGO：</label><div class="input-box">
             <el-upload
               class="upload-demo"
               action="https://jsonplaceholder.typicode.com/posts/"
-              :on-preview="handlePreview"
-              :on-remove="handleRemove"
+             
+             
               :file-list="fileList"
               list-type="picture">
               <button size="small" type="primary" class="upload-btn">选择上传文件</button>
@@ -41,15 +41,15 @@
        </div>
        <div class="input-line-box">
          <label>商家网址：</label>
-         <input type="text">
+         <input type="text" v-model.trim="infos.URl">
        </div>
       <div class="input-line-box">
          <label>商家地址：</label>
-         <input type="text">
+         <input type="text" v-model.trim="inofs.Site">
        </div>
         <div class="input-line-box">
          <label>联系方式：</label>
-         <input type="text">
+         <input type="text" v-model.trim="infos.">
        </div>
        <div class="input-line-box">
          <label>营业时间：</label>
@@ -83,7 +83,16 @@ export default {
           value: '选项5',
           label: '北京烤鸭'
         }],
-        value: ''
+        value: '',
+        infos:{
+          BeginEndWorkTime: "0:19-1:19",
+          Logo: "http://files.youledui.com/Uploadfiles/image/20200615/9795572b-725a-4e6c-a298-e7582a621bf8.jpg",
+          Name: "你好a2",
+          Site: "北京市东城区前门大都市街17号北6号楼",
+          TelPhpne: "15297692091",
+          URl: null,
+          describe: null,
+        }
     }
   },
   mounted(){
@@ -101,7 +110,10 @@ export default {
 }
 </script>
 <style lang="less" scoped>
-.baner{
+.big-box{
+  padding-bottom:100px;
+}
+.banner{
   margin:30px;
   img{
     display: block;
@@ -150,7 +162,7 @@ export default {
       font-size:16px;
       background:@main;
       border:0;
-      margin:30px auto 100px;
+      // margin:30px auto 100px;
     }
   }
 </style>

@@ -31,12 +31,12 @@
                     </el-dropdown> -->
                     <span class="select">   
                         <el-select v-model="status" placeholder="请选择"  >
-                            <!-- <el-option
-                                v-for="item in options"
-                                :key="item.value"
+                            <el-option
+                                v-for="item in statusOption"
+                                :key="item.status"
                                 :label="item.label"
-                                :value="item.value">
-                                </el-option> -->
+                                :value="item.status">
+                                </el-option>
                         </el-select>
                     </span>
                 </div>
@@ -119,6 +119,16 @@ export default {
                }
            ],
        classNow:"",
+       statusOption:[{
+           label:'下架',
+           status:0,
+       },{
+           label:'上架',
+           status:1,
+       },{
+           label:'待审核',
+           status:2
+       }],
        status:'', // 状态
        classOption:[]
     }

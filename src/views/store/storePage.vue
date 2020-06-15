@@ -72,7 +72,7 @@
           
           </div>
           <div class="input-box" style="height:50px;margin-top:20px;" v-show="value!==''">
-              <el-select v-model="secondOptionValue" placeholder="请选择"@change="setCat" >
+              <el-select v-model="secondOptionValue" placeholder="请选择" @change="setCat" >
                 <el-option
                   v-for="item in secondOption"
                   :key="item.Id"
@@ -92,7 +92,7 @@
            <el-time-picker
             is-range
             v-model="time"
-            range-separator="至"
+            range-separator="-"
             start-placeholder="开始时间"
             end-placeholder="结束时间"
             placeholder="选择时间范围">
