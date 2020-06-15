@@ -191,6 +191,9 @@ export default {
         this.$http.storePost(this.$api.MerchanterMerchanter).then(res=>{
           if(res.data.Code == 1){
             this.infos = res.data.Data
+            if(this.infos.BeginWorkTime !== ''){
+              this.time = [new Date(this.infos.BeginWorkTime),new Date(this.infos.EndWorkTime)]
+            }
           }
         })
       },

@@ -3,7 +3,7 @@
    <div class="persion-title">充值中心</div>
    <div class="money-box">
      <div class="banner">
-       <img src="" alt="">
+       <img :src="bannerUrl" alt="">
      </div>
      <div class="big-box">
        <div class="input-line-box">
@@ -29,10 +29,9 @@
          <label for="">商家LOGO：</label><div class="input-box">
             <el-upload
               class="upload-demo"
-              action="https://jsonplaceholder.typicode.com/posts/"
-             
-             
+              :action="uploadImgUrl"
               :file-list="fileList"
+              :limit="1"
               list-type="picture">
               <button size="small" type="primary" class="upload-btn">选择上传文件</button>
               <span slot="tip" class="tip">只能上传jpg/png文件，且不超过1M</span>
@@ -45,11 +44,11 @@
        </div>
       <div class="input-line-box">
          <label>商家地址：</label>
-         <input type="text" v-model.trim="inofs.Site">
+         <input type="text" v-model.trim="infos.Site">
        </div>
         <div class="input-line-box">
          <label>联系方式：</label>
-         <input type="text" v-model.trim="infos.">
+         <input type="text" v-model.trim="infos.TelPhpne">
        </div>
        <div class="input-line-box">
          <label>营业时间：</label>
@@ -83,6 +82,7 @@ export default {
           value: '选项5',
           label: '北京烤鸭'
         }],
+        bannerUrl:'',
         value: '',
         infos:{
           BeginEndWorkTime: "0:19-1:19",
@@ -102,10 +102,13 @@ export default {
     getConfig(){
       this.$http.storePost(this.$api.SelectRechargeMoney).then(res=>{
         if(res.data.Code == 1){
-          console.log(res)
+            this.bannerUrl = res.data.Data.RechangeBanner
         }
       })
-    }
+    },
+    uploadImgUrl(){
+        return process.env.NODE_ENV === 'production' ? 'http://files.youledui.com/create?dir=image' : '/up/create?dir=image'
+    },
   }
 }
 </script>

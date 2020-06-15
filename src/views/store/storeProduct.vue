@@ -66,8 +66,8 @@
                     </span>
                 </div>
                 <div class="input-box">
-                    <input type="text" placeholder="输入订单号">
-                    <span class="iconfont iconsousuo"></span>
+                    <input type="text" placeholder="输入订单号" v-model.trim="ProductName">
+                    <span class="iconfont iconsousuo" @click="search"></span>
                 </div>
             </div>
             <div class="table-box">
@@ -119,6 +119,7 @@ export default {
                }
            ],
        classNow:"",
+       ProductName:'',
        statusOption:[{
            label:'下架',
            status:0,
@@ -129,12 +130,15 @@ export default {
            label:'待审核',
            status:2
        }],
-       status:'', // 状态
-       classOption:[]
+       status:1, // 状态
+       classOption:[],
+       pageIndex:1,
+       pageSize:20
     }
   },
   mounted(){
       this.getClass();
+      this.getList();
   },
   components:{
       addProduct:addProduct
@@ -154,6 +158,26 @@ export default {
       //添加成功
       addSuccess(){
           this.tab =1;
+      },
+      //获取产品列表
+      getList(){
+         this.$http.storePost(this.$api.Products,{
+             State:this.status,
+             ProductName:this.ProductName,
+             OnShelevesTimeBegin: this.dataValue[0] ,
+            OnShelevesTimeEnd: this.dataValue[1] ,
+            Catid:this.classNow,
+            pageIndex: this.pageIndex ,
+            pageSize:this.pageSize
+         }).then(res=>{
+             if(res.data.Code == 1){
+                 this.listData = res.data.Data.list
+             }
+         })
+      },
+      search(){
+          this.pageIndex = 1;
+          this.getList();
       }
      
   }

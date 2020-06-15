@@ -19,8 +19,8 @@
           <label for="">产品描述：</label>
           <input type="text" maxlength="1000" v-model.trim="des">
     </div>
-    <div class="input-line-box" style="height:auto;">
-      <label for="">产品主图：</label><div class="input-box" >
+    <!-- <div class="input-line-box" style="height:auto;">
+      <label for="">产品详情图：</label><div class="input-box" >
             <el-upload
               class="upload-demo"
               :action="uploadImgUrl()"
@@ -36,7 +36,7 @@
               <span slot="tip" class="tip" v-show="mainUrl == ''">只能上传jpg/png文件，且不超过1M</span>
             </el-upload>
         </div>
-    </div>
+    </div> -->
     <div class="input-line-box">
           <label for="">产品价格：</label>
           <input type="text" maxlength="1000" v-model.trim="price">
@@ -179,8 +179,6 @@ export default {
          this.$message.error('请输入产品名称')
       }else if(this.des == ''){
         this.$message.error('请输入产品描述')
-      }else if(this.mainUrl == ''){
-        this.$message.error('请上传产品主图')
       }else if(this.price == ''){
         this.$message.error('请输入价格')
       }else if(this.detialFileList.length==0){
@@ -194,7 +192,7 @@ export default {
         })
         this.$http.storePost(this.$api.AddProduct,{
           ProductName:this.productName,
-          ProductImg:this.mainUrl,
+          ProductImg:imgList[0],
           ProductPrice:this.price,
           ProductDescribe:this.des,
           CatID:this.value,

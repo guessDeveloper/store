@@ -98,5 +98,6 @@ export default {
     GetOrderlist: '/api/Merchant/GetOrderlist', //获取订单列表
     GetProductCategory: '/api/Merchant/GetProductCategory', //获取商家全部分类
     AddProduct: '/api/Merchant/AddProduct', //添加商品
+    Products: '/api/Merchant/Products', //获取产品列表
 
 }
