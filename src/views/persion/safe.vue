@@ -9,7 +9,7 @@
            <div class="name">登录密码</div>
            <div class="con">建议您定期更换密码，设置安全性高的密码可以使帐号更安全</div>
          </div>
-         <button class="btn" @click="isChangingPhone = true">修改</button>
+         <button class="btn" @click="changePas = true">修改</button>
        </div>
        <div class="item">
          <span class="iconfont iconbdsj"></span>
@@ -17,7 +17,7 @@
            <div class="name">安全手机 {{userPhone}}</div>
            <div class="con">安全手机可以用于登录帐号，重置密码或其他安全验证</div>
          </div>
-         <button class="btn" @click="changePas = true">修改</button>
+         <button class="btn" @click="isChangingPhone = true">修改</button>
        </div>
 
     </div>

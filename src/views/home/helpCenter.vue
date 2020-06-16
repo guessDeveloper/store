@@ -26,7 +26,7 @@
                 <p>{{item.title}}</p>
              </div>
           </li>
-         
+
         </ul>
       </div>
   </div>
@@ -84,6 +84,8 @@ export default {
   @media screen and(max-width:@change_width){
     width:100%;
     margin-top:10/@p;
+    height: 140px;
+    line-height: 140px;
     .txt{
       .top{
         font-size:30px;
@@ -111,7 +113,7 @@ export default {
       width:4px;
       height:24px;
       background:@main;
-      
+
     }
   }
   ul{
@@ -179,6 +181,7 @@ export default {
       }
     }
     ul{
+      padding-bottom: 100px;
       li{
         display: block;
         float: none;

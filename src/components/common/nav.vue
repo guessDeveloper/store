@@ -13,7 +13,7 @@
            </span>
            <span v-show="isLogin">
              <router-link to="/persion" class="userName">{{userName}}</router-link>
-             <router-link to='/message' tag='a'>我的订单</router-link>
+             <router-link to='/myOrder' tag='a'>我的订单</router-link>
            </span>
           <router-link to="/helpCenter" class="help" tag="a">帮助中心</router-link>
        </div>
@@ -49,7 +49,7 @@ export default {
     })
     this.baiduMap();
     // this.getLcationPostion();
-    
+
   },
   methods:{
     ...mapMutations([
@@ -60,7 +60,7 @@ export default {
       clearInterval(this.timer);
       this.timer = setInterval(()=>{
         this.tipActive++;
-        
+
         if(this.tipActive>this.tip.length-1){
           this.tipActive = 0;
         }
@@ -98,7 +98,7 @@ export default {
           }
           else {
             console.log('failed'+this.getStatus());
-          }        
+          }
         },{enableHighAccuracy: true})
      },
      //获取用户地理位置
@@ -106,7 +106,7 @@ export default {
        navigator.geolocation.getCurrentPosition(function (position) {
         var currentLat = position.coords.latitude;
         var currentLon = position.coords.longitude;
-        
+
         console.log(currentLat,currentLon)
         },
             function (err) {

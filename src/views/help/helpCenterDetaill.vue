@@ -136,7 +136,7 @@ export default {
           transform: translateY(-50%) scale(.6);
           color:@main;
           font-size:12px;
-          
+
         }
       }
     }
@@ -145,6 +145,9 @@ export default {
     }
     .box-right{
       width:100%;
+      height: auto;
+      min-height: auto;
+      padding-bottom: 60px;
       .title{
         margin:0 15/@p;
         line-height:80/@p ;

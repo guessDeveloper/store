@@ -6,16 +6,28 @@
      <div class="grievace-content">
         <div class="choose-box">
                 <div class="date-box">
+                  <el-date-picker
+                      v-model="dataValue"
+                      type="daterange"
+                      range-separator="-"
+                      start-placeholder="开始日期"
+                      end-placeholder="结束日期">
+                      </el-date-picker>
+                </div>
+                <div class="mobile-app-data">
+                   <el-date-picker
+                      v-model="value1"
+                      type="date"
+                      placeholder="开始日期">
+                      </el-date-picker>
                     <el-date-picker
-                        v-model="dataValue"
-                        type="daterange"
-                        range-separator="-"
-                        start-placeholder="开始日期"
-                        end-placeholder="结束日期">
-                        </el-date-picker>
-                    </div>    
+                      v-model="value1"
+                      type="date"
+                      placeholder="结束日期">
+                    </el-date-picker>
+               </div>
                 <div class="status-select">
-                    状态 
+                    状态
                     <el-dropdown trigger="click">
                         <span class="select">
                             全部<i class="iconfont iconxiasanjiao"></i>
@@ -25,12 +37,12 @@
                             <el-dropdown-item>狮子头</el-dropdown-item>
                             <el-dropdown-item>螺蛳粉</el-dropdown-item>
                             <el-dropdown-item disabled>双皮奶</el-dropdown-item>
-                        
+
                         </el-dropdown-menu>
                     </el-dropdown>
                 </div>
-                <div class="status-select">
-                    订单类型 
+                <div class="status-select select-type">
+                    订单类型
                     <el-dropdown>
                         <span class="select">
                             全部<i class="iconfont iconxiasanjiao"></i>
@@ -63,17 +75,39 @@
                     </el-table-column>
                 </el-table>
           </div>
+          <!-- 移动端列表 -->
+          <div class="mobile-list">
+            <div class="list-item" v-for="(item, index) in listData" :key="index">
+              <div class="list-item-data">
+                <div class="list-item-name">申诉订单号：</div>
+                {{ item.orderNum }}
+                <p class="status-wrap">状态：<span>{{ item.status }}</span></p>
+              </div>
+              <div class="list-item-data">
+                <div class="list-item-name">申诉时间：</div>
+                {{ item.time }}
+              </div>
+              <div class="list-item-data">
+                <div class="list-item-name">订单类型：</div>
+                {{ item.type }}
+              </div>
+              <div class="list-item-data">
+                <div class="list-item-name">处理结果：</div>
+                {{ item.result }}
+              </div>
+            </div>
+          </div>
           <!-- 订单申诉 -->
-          <el-dialog title="订单申诉" :visible.sync="toNew" width="520px">
+          <el-dialog title="订单申诉" :visible.sync="toNew" custom-class="custom-dialog">
               <div class="change-box">
               <div class="wary">订单申诉，请确认您的订单是通过本站跳转并提交的！</div>
               <div class="tip">请输入您要申诉的第三方平台订单号：</div>
                 <div class="input-line">
                   <label for="">订单号：</label><div class="input-box"><input type="text" placeholder="请输入订单号"></div>
                 </div>
-                <div class="input-line"> 
+                <div class="input-line">
                     <label for="">平台类型：</label>
-                    <div class="input-box"> 
+                    <div class="input-box">
                       <el-dropdown>
                           <span class="select el-dropdown-link">
                               全部<i class="iconfont iconxiasanjiao"></i>
@@ -82,19 +116,19 @@
                               <el-dropdown-item>黄金糕</el-dropdown-item>
                               <el-dropdown-item>狮子头</el-dropdown-item>
                               <el-dropdown-item>螺蛳粉</el-dropdown-item>
-                          
+
                           </el-dropdown-menu>
                       </el-dropdown>
                    </div>
-                
+
                 </div>
-                <div class="input-line"> 
+                <div class="input-line">
                     <label for="">申诉说明：</label><div class="input-box"><div class="textarea-box"><textarea name="" id="" cols="30" rows="10" placeholder="请输入申诉说明"></textarea><span class="input-limit">还可输入500字</span></div></div>
                 </div>
                 <div class="btn-box">
                   <button class="ok">确认</button>
                   <button class="no">取消</button>
-                  
+
                 </div>
               </div>
            </el-dialog>
@@ -125,6 +159,54 @@ export default {
 }
 .grievace-content{
   padding:0 30px;
+  @media screen and(max-width:@change_width) {
+    padding: 0 15px;
+    .choose-box {
+      position: relative;
+      padding-top: 90px;
+      padding-bottom: 0;
+      .date-box {
+        display: none;
+      }
+      .mobile-app-data {
+        display: flex;
+      }
+      .status-select {
+        width: 50%;
+        margin: 10px 0;
+        display: inline-flex;
+        align-items: center;
+      }
+      .select-type {
+        justify-content: flex-end;
+      }
+      .input-box {
+        width: 100%;
+        margin-left: 0;
+      }
+      .btn {
+        position: absolute;
+        top: 15px;
+        left: 0;
+        width: 100%;
+      }
+      .btn:after {
+        content: '';
+        position: absolute;
+        left: -15px;
+        right: -15px;
+        bottom: -25px;
+        height: 10px;
+        background-color: #F8F8F8;
+      }
+    }
+    .table-box {
+      display: none;
+    }
+    .mobile-list {
+      display: block;
+    }
+  }
 }
 .choose-box{
     padding:30px 0;
@@ -139,6 +221,9 @@ export default {
     .date-box{
         display: inline-block;
         vertical-align: middle;
+    }
+    .mobile-app-data {
+      display: none;
     }
     .status-select{
       display: inline-block;
@@ -156,7 +241,7 @@ export default {
         font-size:12px;
         line-height:12px ;
         padding:10px 15px;
-        
+
         .iconfont{
             position: absolute;
             top:10px;
@@ -192,6 +277,31 @@ export default {
             color:@subtitle_color;
         }
     }
+}
+.mobile-list {
+  display: none;
+  .list-item {
+    position: relative;
+    padding: 25px 0 10px;
+    border-bottom: 1px solid #eeeeee;
+    .list-item-data {
+      padding-bottom: 15px;
+      .list-item-name {
+        display: inline-block;
+        color: #999999;
+      }
+      .status-wrap {
+        color: #999999;
+        float: right;
+      }
+    }
+    .list-item-status {
+      position: absolute;
+      top: 25px;
+      right: 0;
+      color: #999999;
+    }
+  }
 }
 .result{
   width:375px;
@@ -236,7 +346,7 @@ export default {
           font-size:12px;
           line-height:12px ;
           padding:10px 15px;
-          
+
           .iconfont{
               position: absolute;
               top:10px;
@@ -278,7 +388,6 @@ export default {
          }
        }
     }
-    
   }
   .btn-box{
       .clear();
@@ -297,6 +406,19 @@ export default {
         color:#fff;
         background:@main;
         border-color:@main;
+      }
+    }
+    @media screen and (max-width:@change_width){
+      .input-line {
+        .input-box {
+          width: calc(100% - 70px);
+          input {
+            width: calc(100% - 12px);
+          }
+          .textarea-box {
+            width: 100%;
+          }
+        }
       }
     }
 }
