@@ -27,6 +27,7 @@
               name="FileContent"
               :limit="1" 
               list-type="picture">
+              
               <button size="small" type="primary" class="upload-btn">选择上传文件</button>
               <span slot="tip" class="tip">只能上传jpg/png文件，且不超过1M</span>
             </el-upload>
@@ -234,11 +235,13 @@ export default {
           this.logoUrl = beforeUrl+file.Data
         }
       },
-      mp4Success(file){
+      mp4Success(file,fileList){
          if(file.Code == 1){
-           this.desMp4.push(beforeUrl+file.Data)
+          //  this.desMp4.push(beforeUrl+file.Data)
+          this.desMp4.push(fileList[0])
+
          }
-         console.log(this.mp4List,this.desMp4,'ttt')
+         console.log(fileList,this.desMp4,'ttt')
       },
       //logo 删除
       logoRemove(){

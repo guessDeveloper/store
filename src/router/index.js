@@ -49,6 +49,11 @@ const routes = [{
                 component: () =>
                     import ( /* webpackChunkName: "shop" */ '../views/home/shop.vue')
             }, {
+                path: '/shopDetail', //逛街购物
+                name: 'shopDetail',
+                component: () =>
+                    import ( /* webpackChunkName: "shopDetail" */ '../views/home/shopDetail.vue')
+            }, {
                 path: '/special', //特惠推荐
                 name: 'special',
                 component: () =>
@@ -126,7 +131,12 @@ const routes = [{
                 name: 'search',
                 component: () =>
                     import ( /* webpackChunkName: "search" */ '../views/home/search.vue')
-            },
+            }, {
+                path: '/productDetail', //搜索
+                name: 'productDetail',
+                component: () =>
+                    import ( /* webpackChunkName: "productDetail" */ '../views/home/productDetail.vue')
+            }
         ]
     },
     {

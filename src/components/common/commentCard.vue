@@ -2,19 +2,19 @@
   <div class="comment-box">
       <div class="user">
          <div class="head-img">
-             <img src="../../assets/img/fuzhuang.png" alt="">
+             <img :src="data.UserIcon" alt="">
          </div>
          <div class="name">
-           <div class="name-des"> Anna Ivanenko</div>
+           <div class="name-des">{{data.UserNickname}}</div>
            <el-rate
-            v-model="value"
+            v-model="data.StarNum"
             disabled
             >
           </el-rate>
           </div>
-         <div class="time">2020-05-01</div>
+         <div class="time">{{data.Time}}</div>
       </div>
-      <div class="content" @click="dialogVisible = true">非常好的品牌，一直都在使用。没有什么品牌能fasdfadsfasdfasdfadsfasdfa比的上这家。非常fasdfasdfsf好…</div>
+      <div class="content" @click="getCommentDetail">{{data.UserComment}}</div>
       <el-dialog
       title="评价详情"
       :visible.sync="dialogVisible"
@@ -22,21 +22,21 @@
       >
       <div class="user alert">
         <div class="head-img">
-             <img src="../../assets/img/fuzhuang.png" alt="">
+             <img :src="data.UserIcon" alt="">
          </div>
          <div class="name">
-           <div class="name-des"> Anna Ivanenko</div>
+           <div class="name-des"> {{data.UserNickname}}</div>
            <el-rate
-            v-model="value"
+            v-model="data.StarNum"
             disabled
             >
           </el-rate>
           </div>
-         <div class="time">2020-05-01</div>
+         <div class="time">{{data.Time}}</div>
         
       </div>
        <div class="detail-content">
-             非常好的品牌，一直都在使用。没有什么品牌能fasdfadsfasdfasdfadsfasdfa比的上这家。非常fasdfasdfsf好…
+            {{Detial.UserComment}}
        </div>
         <div class="btn-box">
             <button class="ok" @click="dialogVisible=false">确认</button>
@@ -52,9 +52,26 @@ export default {
   data(){
     return{
         dialogVisible:false,
-        value:3
+        Detial:{},
     }
-  }
+  },
+  methods:{
+    getCommentDetail(){
+      this.$http.post(this.$api.GetPinoinfo,{
+        CommentID:this.data.ID
+      }).then(res=>{
+        if(res.data.Code == 1){
+          this.Detial = res.data.Data
+          this.dialogVisible = true
+        }
+      })
+    }
+  },
+  props:{
+    data:{
+      type:Object
+    }
+  },
 }
 </script>
 <style lang="less" scoped>

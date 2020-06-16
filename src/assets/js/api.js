@@ -23,16 +23,23 @@ export default {
     GetThemeList: '/api/PDD/GetThemeList', //获取专题
     pddGetClassNoPic: '/api/PDD/GetClassNoPic', //获取拼多多全部分类
     pddGerPageList: '/api/PDD/GerPageList', //通过分类获取拼多多列表
+    //详情页面
+    GetMaterialGoodsById: '/api/Detail/GetMaterialGoodsById', //获取详情
     //商家列表
     GetMerchaterClass: '/api/YiQiFa/GetMerchaterClass', //获取商家列表
     //逛街购物
     shopCitys: '/api/shopping/Citys', //获取城市分类
     shopCategorys: '/api/shopping/Categorys', //商家类型
     NearBy: '/api/shopping/NearBy', //h获取列表
+    MerchantInfo: '/api/Detail/MerchantInfo', //获取商家详情
     //美食广场
     foodCategorys: '/api/Food/Categorys', //商家类型
     foodCitys: '/api/Food/Citys', // 城市
     foodNearBy: '/api/Food/NearBy', //获取列表
+    GetMerchanterGoodInfo: '/api/Food/GetMerchanterGoodInfo', //获取商家详情
+    GetMerchanter: "/api/Food/GetMerchanter", //获取商家评论
+    GetPinoinfo: '/api/Food/GetPinoinfo', //获取评论详情
+    Products: '/api/Food/Products', //获取产品列表
     //帮助中心
     Q_A_Class: '/api/QuestionAnswer/Q_A_Class', //帮助中心
     Q_A_ByClass: '/api/QuestionAnswer/Q_A_ByClass', //通过id 获取分类列表
@@ -99,5 +106,6 @@ export default {
     GetProductCategory: '/api/Merchant/GetProductCategory', //获取商家全部分类
     AddProduct: '/api/Merchant/AddProduct', //添加商品
     Products: '/api/Merchant/Products', //获取产品列表
+    Recharge: '/api/Merchant/Recharge', //充值
 
 }

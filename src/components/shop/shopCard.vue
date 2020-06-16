@@ -1,6 +1,6 @@
 <template>
   <div class="shop-card-box" >
-     <div class="img-box" >
+     <div class="img-box" @click="goDetail">
         <img :src="item.MertchatLogo" alt="">
      </div>
      <div class="des-box">
@@ -38,8 +38,8 @@ export default {
   },
   methods:{
      goDetail(){
-            this.$router.push('/earthDetail');
-        }
+      this.$router.push(`/shopDetail?id=${this.item.MertchatId}`);
+    }
   }
 }
 </script>

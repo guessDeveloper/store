@@ -1,10 +1,10 @@
 <template>
   <div class="card-box">
-    <img :src="data.picurl" alt="" @click="goDetail">
+    <img :src="data.GoodsImg" alt="">
     <div class="des">
-      <h4>{{data.titleA}}</h4>
-      <p>{{data.tieleB}}</p>
-      <div class="price">¥{{data.price}}</div>
+      <h4>{{data.GoodsName}}</h4>
+      <p>{{data.GoodsTitle}}</p>
+      <div class="price">¥{{data.GoodsMoneny}}</div>
     </div>
   </div>
 </template>
@@ -18,11 +18,6 @@ export default {
   props:{
     data:{
       type:Object
-    }
-  },
-  methods:{
-    goDetail(){
-      this.$router.push(`/productDetail?GoodType=1&GoodID=${this.data.ID}`)
     }
   }
 }

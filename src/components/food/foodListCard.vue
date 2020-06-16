@@ -1,9 +1,9 @@
 <template>
   <div class="item">
-     <img src="../../assets/img/good.png" alt="">
-     <h4>女式坑条冰纱短袖针织衫</h4>
-     <p>积分约：50</p>
-     <div class="price">¥249</div>
+     <img :src="data.GoodsImg" alt="">
+     <h4>{{data.GoodsName}}</h4>
+     <p>积分约：</p>
+     <div class="price">¥{{data.GoodsMoneny}}</div>
      <button class="add">加入购物车</button>
   </div>
 </template>
@@ -12,6 +12,11 @@ export default {
   data(){
     return{
 
+    }
+  },
+  props:{
+    data:{
+      type:Object
     }
   }
 }

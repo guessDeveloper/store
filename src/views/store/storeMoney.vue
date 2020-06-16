@@ -11,9 +11,9 @@
            <el-select v-model="value" placeholder="请选择">
           <el-option
             v-for="item in options"
-            :key="item.value"
-            :label="item.label"
-            :value="item.value">
+            :key="item.price"
+            :label="item.price"
+            :value="item.price">
           </el-option>
           </el-select>
        </div>
@@ -29,12 +29,17 @@
          <label for="">商家LOGO：</label><div class="input-box">
             <el-upload
               class="upload-demo"
-              :action="uploadImgUrl"
+              :action="uploadImgUrl()"
               :file-list="fileList"
+              accept=".jpg,.png"
               :limit="1"
-              list-type="picture">
-              <button size="small" type="primary" class="upload-btn">选择上传文件</button>
-              <span slot="tip" class="tip">只能上传jpg/png文件，且不超过1M</span>
+              :beforeUpload="beforeLogoUpload"
+              list-type="picture-card"
+              name="FileContent"
+              >
+               <i class="el-icon-plus" v-if="fileList.length == 0"></i>
+              <!-- <button size="small" type="primary" class="upload-btn" v-show="fileList.length == 0">选择上传文件</button> -->
+              <span slot="tip" class="tip" v-show="fileList.length == 0">只能上传jpg/png文件，且不超过1M</span>
             </el-upload>
           </div>
        </div>
@@ -52,10 +57,17 @@
        </div>
        <div class="input-line-box">
          <label>营业时间：</label>
-         <input type="text">
+          <el-time-picker
+            is-range
+            v-model="time"
+            range-separator="-"
+            start-placeholder="开始时间"
+            end-placeholder="结束时间"
+            placeholder="选择时间范围">
+          </el-time-picker>
        </div>
        <div class="input-line-box">
-         <button class="btn submit">立即充值</button>
+         <button class="btn submit" @click="Recharge">立即充值</button>
        </div>
      </div>
    </div>
@@ -66,33 +78,15 @@ import '@/plugins/element-upload.js'
 export default {
   data(){
     return{
-       options: [{
-          value: '选项1',
-          label: '黄金糕'
-        }, {
-          value: '选项2',
-          label: '双皮奶'
-        }, {
-          value: '选项3',
-          label: '蚵仔煎'
-        }, {
-          value: '选项4',
-          label: '龙须面'
-        }, {
-          value: '选项5',
-          label: '北京烤鸭'
-        }],
+       options: [],
+        fileList:[],
         bannerUrl:'',
         value: '',
+        time:'',
         infos:{
-          BeginEndWorkTime: "0:19-1:19",
-          Logo: "http://files.youledui.com/Uploadfiles/image/20200615/9795572b-725a-4e6c-a298-e7582a621bf8.jpg",
-          Name: "你好a2",
-          Site: "北京市东城区前门大都市街17号北6号楼",
-          TelPhpne: "15297692091",
-          URl: null,
-          describe: null,
-        }
+         
+        },
+        
     }
   },
   mounted(){
@@ -103,7 +97,32 @@ export default {
       this.$http.storePost(this.$api.SelectRechargeMoney).then(res=>{
         if(res.data.Code == 1){
             this.bannerUrl = res.data.Data.RechangeBanner
+            this.infos = res.data.Data.MerchantInfo
+            if(this.infos.BeginWorkTime !== ''){
+              this.time = [new Date(this.infos.BeginWorkTime),new Date(this.infos.EndWorkTime)]
+            }
+            if(this.infos.Logo){
+              this.fileList.push({url:this.infos.Logo})
+            }
+            this.options=res.data.Data.Recharge
         }
+      })
+    },
+    //充值
+    Recharge(){
+      this.$http.storePost(this.$api.Recharge,{
+        price:this.value,
+        type:0,
+        Name: this.infos.Name,
+        describe: this.infos.describe,
+        Logo: this.fileList[0].url,
+        site: this.infos.Site,
+        TelPhone: this.infos.TelPhpne,
+        BeginWorkTime: this.time[0],
+        EndWorkTime: this.time[1],
+        URl: this.infos.URl
+      }).then(res=>{
+        console.log(res)
       })
     },
     uploadImgUrl(){
@@ -166,6 +185,14 @@ export default {
       background:@main;
       border:0;
       // margin:30px auto 100px;
+    }
+    .upload-btn{
+      width:126px;
+      height:40px;
+      font-size: 14px;
+      color:#fff;
+      background:@main;
+      border:0;
     }
   }
 </style>
