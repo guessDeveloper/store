@@ -28,7 +28,7 @@ export default {
    },
    methods:{
      goDetail(){
-       this.$router.push('/fooddetail');
+       this.$router.push(`/fooddetail?id=${this.item.MertchntID}`);
      }
    }
 }

@@ -27,6 +27,7 @@
               name="FileContent"
               :limit="1" 
               list-type="picture">
+              
               <button size="small" type="primary" class="upload-btn">选择上传文件</button>
               <span slot="tip" class="tip">只能上传jpg/png文件，且不超过1M</span>
             </el-upload>
@@ -72,7 +73,7 @@
           
           </div>
           <div class="input-box" style="height:50px;margin-top:20px;" v-show="value!==''">
-              <el-select v-model="secondOptionValue" placeholder="请选择"@change="setCat" >
+              <el-select v-model="secondOptionValue" placeholder="请选择" @change="setCat" >
                 <el-option
                   v-for="item in secondOption"
                   :key="item.Id"
@@ -92,7 +93,7 @@
            <el-time-picker
             is-range
             v-model="time"
-            range-separator="至"
+            range-separator="-"
             start-placeholder="开始时间"
             end-placeholder="结束时间"
             placeholder="选择时间范围">
@@ -191,6 +192,9 @@ export default {
         this.$http.storePost(this.$api.MerchanterMerchanter).then(res=>{
           if(res.data.Code == 1){
             this.infos = res.data.Data
+            if(this.infos.BeginWorkTime !== ''){
+              this.time = [new Date(this.infos.BeginWorkTime),new Date(this.infos.EndWorkTime)]
+            }
           }
         })
       },
@@ -231,11 +235,13 @@ export default {
           this.logoUrl = beforeUrl+file.Data
         }
       },
-      mp4Success(file){
+      mp4Success(file,fileList){
          if(file.Code == 1){
-           this.desMp4.push(beforeUrl+file.Data)
+          //  this.desMp4.push(beforeUrl+file.Data)
+          this.desMp4.push(fileList[0])
+
          }
-         console.log(this.mp4List,this.desMp4,'ttt')
+         console.log(fileList,this.desMp4,'ttt')
       },
       //logo 删除
       logoRemove(){

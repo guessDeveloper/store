@@ -94,7 +94,7 @@ export default {
                   query:this.$api.GJKeyWordSearch,
                   type:'shop' 
                },{
-                  path:['/food'],
+                  path:['/food','/fooddetail'],
                   name:'美食广场',
                   query:this.$api.MSKeyWordSearch,
                   type:'food' 

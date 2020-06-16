@@ -9,6 +9,7 @@ export default new Vuex.Store({
         positionY: '', //纬度
         storeInfo: '', //商家信息
         searchItem: '', //搜索页面
+        isLogin: false,
     },
     getters: {
 

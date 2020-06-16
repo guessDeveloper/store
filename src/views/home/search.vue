@@ -15,7 +15,7 @@
              </li>
           </ul>
            <ul class="food-list" v-if="searchType == 'food'">
-                <li  v-for="(item,index) in list"><foodCard :item="item"></foodCard></li>
+                <li  v-for="(item,index) in list" :key="index"><foodCard :item="item"></foodCard></li>
             </ul>
              <ul class="shop-list" v-if="searchType == 'shop'">
                 <li v-for="(item,index) in list" :key="index"><shopCard :item="item"></shopCard></li>

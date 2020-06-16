@@ -3,7 +3,7 @@
      <div class="brand-top-nav">
         <router-link tag="a" to="/">首页</router-link>
         <span class="iconfont iconjiantou"></span>
-        <span class="now-nav">美食广场</span>
+        <span class="now-nav">逛街购物</span>
     </div>
     <div class="detail">
        <div class="detail-left">
@@ -40,7 +40,7 @@
     </div>
     <div class="goods-about">
       <h3 class="title">
-            全部商品 <span>100</span>  <router-link  class="more" tag="a" :to="'/goodsList?id='+MerchanterId"> 查看全部<span class="iconfont iconjiantou"></span></router-link>
+            相关商品 <span>100</span>
       </h3>
       <ul class="good-list">
              <li v-for="(item,index) in goodsList" :key="index"><goodCard :data="item"></goodCard></li>
@@ -61,7 +61,7 @@
   </div>
 </template>
 <script>
-import goodCard from '@/components/food/foodListCard'
+import goodCard from '@/components/shop/shopGoodsCard'
 import commentCard from '@/components/common/commentCard'
 export default {
   data(){
@@ -241,16 +241,6 @@ export default {
     line-height:24px;
     span{
       color:@main;
-    }
-    .more{
-      float: right;
-      font-size:12px;
-      color:@font_color;
-      font-weight: normal;
-      .iconfont{
-        font-size:10px;
-        color:@font_color;
-      }
     }
   }
 
