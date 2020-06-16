@@ -98,7 +98,7 @@
             </div>
           </div>
           <!-- 订单申诉 -->
-          <el-dialog title="订单申诉" :visible.sync="toNew" width="520px">
+          <el-dialog title="订单申诉" :visible.sync="toNew" custom-class="custom-dialog">
               <div class="change-box">
               <div class="wary">订单申诉，请确认您的订单是通过本站跳转并提交的！</div>
               <div class="tip">请输入您要申诉的第三方平台订单号：</div>
@@ -388,7 +388,6 @@ export default {
          }
        }
     }
-
   }
   .btn-box{
       .clear();
@@ -407,6 +406,19 @@ export default {
         color:#fff;
         background:@main;
         border-color:@main;
+      }
+    }
+    @media screen and (max-width:@change_width){
+      .input-line {
+        .input-box {
+          width: calc(100% - 70px);
+          input {
+            width: calc(100% - 12px);
+          }
+          .textarea-box {
+            width: 100%;
+          }
+        }
       }
     }
 }

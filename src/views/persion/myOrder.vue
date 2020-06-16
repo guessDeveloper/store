@@ -161,6 +161,43 @@
              </div>
         </div>
        <div class="order-content" v-show="tab=='2'">
+           <div class="choose-small-box choose-small-box-2">
+               <div class="date-box">
+                   <el-date-picker
+                    v-model="value1"
+                    type="date"
+                    placeholder="开始日期">
+                    </el-date-picker>
+                    <el-date-picker
+                    v-model="value1"
+                    type="date"
+                    placeholder="结束日期">
+                    </el-date-picker>
+               </div>
+               <div class="select-box">
+                   <div class="status-wrap">
+                       <label for="">状态</label>
+                       <el-dropdown>
+                        <span class="select">
+                            全部<i class="iconfont iconxiasanjiao"></i>
+                        </span>
+                        <el-dropdown-menu slot="dropdown">
+                            <el-dropdown-item>黄金糕</el-dropdown-item>
+                            <el-dropdown-item>狮子头</el-dropdown-item>
+                            <el-dropdown-item>螺蛳粉</el-dropdown-item>
+                            <el-dropdown-item disabled>双皮奶</el-dropdown-item>
+
+                        </el-dropdown-menu>
+                    </el-dropdown>
+                   </div>
+               </div>
+               <div class="search-box">
+                   <div class="input-box">
+                    <input type="text" placeholder="输入订单号">
+                    <span class="iconfont iconsousuo"></span>
+                  </div>
+               </div>
+            </div>
             <div class="choose-box">
                 <div class="date-box">
                     <el-date-picker
@@ -244,7 +281,7 @@
                     </div>
                 </div>
                 <!-- 评价 -->
-                <el-dialog title="评价" :visible.sync="toRate" width="520px">
+                <el-dialog title="评价" :visible.sync="toRate" custom-class="custom-dialog">
                     <div class="rate-box">
                         <div class="input-line">
                             <label for="">商品评分：</label> <div class="input-box" style="padding-top:7px;"><el-rate v-model="value1" ></el-rate></div>
@@ -399,9 +436,9 @@ export default {
         color:@main;
         border-radius: 34px;
     }
-     @media screen and(max-width:@change_width){
-         display:none;
-     }
+    @media screen and(max-width:@change_width){
+        display:none;
+    }
 }
 .choose-small-box{
     display: none;
@@ -443,6 +480,41 @@ export default {
      @media screen and(max-width:@change_width){
          display:block;
      }
+}
+.choose-small-box-2 {
+    padding-top: 0;
+    .select-box {
+        display: inline-flex;
+        padding-right: 10px;
+        box-sizing: border-box;
+        width: 46%;
+        .status-wrap {
+            width: 100%;
+            display: flex;
+            align-items: center;
+            label {
+                width: 40px;
+            }
+            .el-dropdown {
+                flex: 1;
+                .select {
+                    margin-left: 0;
+                    width: 100%;
+                }
+            }
+        }
+    }
+    .search-box {
+        display: inline-flex;
+        box-sizing: border-box;
+        width: 54%;
+        padding-right: 15px;
+        .input-box {
+            margin-left: 0;
+            margin-right: 0;
+            width: 100%;
+        }
+    }
 }
 .order-content{
     padding:0 30px;
@@ -596,8 +668,13 @@ export default {
 
          }
        }
+        @media screen and(max-width:@change_width) {
+            width: calc(100% - 70px);
+            .textarea-box {
+                width: 100%;
+            }
+        }
     }
-
   }
   .btn-box{
       .clear();

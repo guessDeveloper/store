@@ -65,3 +65,11 @@
 @status_over:#86B80C;
 @status_toBe:#4A90E2;
 @status_Rewarded:#D51B32;
+
+// dialog弹窗-移动端样式
+.el-dialog.custom-dialog {
+  width: 520px;
+  @media screen and(max-width:@change_width){
+    width: 85%;
+  }
+}
