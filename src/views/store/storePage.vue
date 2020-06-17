@@ -25,9 +25,9 @@
               :file-list="fileList"
               :beforeUpload="beforeLogoUpload"
               name="FileContent"
-              :limit="1" 
+              :limit="1"
               list-type="picture">
-              
+
               <button size="small" type="primary" class="upload-btn">选择上传文件</button>
               <span slot="tip" class="tip">只能上传jpg/png文件，且不超过1M</span>
             </el-upload>
@@ -70,7 +70,7 @@
                   :value="item.value">
                 </el-option>
             </el-select>
-          
+
           </div>
           <div class="input-box" style="height:50px;margin-top:20px;" v-show="value!==''">
               <el-select v-model="secondOptionValue" placeholder="请选择" @change="setCat" >
@@ -81,7 +81,7 @@
                   :value="item.Id">
                 </el-option>
             </el-select>
-          
+
           </div>
        </div>
         <div class="input-line">
@@ -89,7 +89,7 @@
        </div>
         <div class="input-line">
          <!-- <label for="">营业时间：</label><div class="input-box"><input type="text" placeholder="请输入营业时间" ></div> -->
-         <label for="">营业时间：</label><div class="input-box">  
+         <label for="">营业时间：</label><div class="input-box">
            <el-time-picker
             is-range
             v-model="time"
@@ -151,7 +151,7 @@ export default {
         infos:{
           BeginWorkTime:"",
           Category: "",
-          EndWorkTime:"", 
+          EndWorkTime:"",
           Invitelink: "",
           Logo: "",
           Name: "",
@@ -211,7 +211,7 @@ export default {
         this.infos.Category = value
       },
       beforeLogoUpload(file){
-         var testmsg=file.name.substring(file.name.lastIndexOf('.')+1)                
+         var testmsg=file.name.substring(file.name.lastIndexOf('.')+1)
         const extension = testmsg === 'jpg'
         const extension2 = testmsg === 'png'
         const isLt2M = file.size / 1024 / 1024 <= 1
@@ -249,7 +249,7 @@ export default {
       },
       uploadChane(file){
         console.log('change')
-        var testmsg=file.name.substring(file.name.lastIndexOf('.')+1)                
+        var testmsg=file.name.substring(file.name.lastIndexOf('.')+1)
         const extension = testmsg === 'jpg'
         const extension2 = testmsg === 'png'
         const extension3 = testmsg === 'mp4'
@@ -263,18 +263,18 @@ export default {
           this.$refs.mp4Uploader.submit()
         })
       },
-      
+
       beforeBannerUpload(file){
-        var testmsg=file.name.substring(file.name.lastIndexOf('.')+1)                
+        var testmsg=file.name.substring(file.name.lastIndexOf('.')+1)
         const extension = testmsg === 'jpg'
         const extension2 = testmsg === 'png'
         const extension3 = testmsg === 'mp4'
         const isLt2M = file.size / 1024 / 1024 <= 1
         // if(extension || extension2){
-        //   this.uploadMp4Url= '/up/create?dir=image' 
+        //   this.uploadMp4Url= '/up/create?dir=image'
         // }
         // if(extension3){
-        //   this.uploadMp4Url= '/up/create?dir=media' 
+        //   this.uploadMp4Url= '/up/create?dir=media'
         // }
         if(!extension && !extension2 && !extension3) {
             this.$message({
@@ -342,7 +342,7 @@ export default {
       }
     }
     },
-    
+
 }
 </script>
 <style lang="less" scoped>
@@ -368,7 +368,7 @@ export default {
       text-align: right;
       padding-right:15px;
   }
-  .input-box{ 
+  .input-box{
     input{
       display: block;
       box-sizing: border-box;
@@ -404,5 +404,28 @@ export default {
   background:@main;
   border:0;
   margin:30px auto 100px;
+}
+@media screen and(max-width:@change_width) {
+  .store-page {
+    .content {
+      padding-top: 60px;
+      .input-line {
+        width: 92%;
+        margin-bottom: 46px;
+        label {
+          left: 0;
+          right: auto;
+          top: -38px;
+          width: auto;
+          line-height: 38px;
+        }
+        .input-box {
+          input {
+            width: 100%;
+          }
+        }
+      }
+    }
+  }
 }
 </style>

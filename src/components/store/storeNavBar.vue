@@ -1,5 +1,5 @@
 <template>
- <div class="nav-bar-box">
+ <div :class="['nav-bar-box', {'store-nav-bar-box': isStore}]">
     <div class="box clear">
         <a href="" class="logo">
             <img src="../../assets/img/logo.png" alt="">
@@ -66,12 +66,18 @@ export default {
            }]
         }
     },
+    computed: {
+        // 是否是商家页面
+        isStore() {
+            return this.$route.path.indexOf('store') > -1;
+        }
+    },
     mounted(){
         this.nowPath = this.$route.path
     },
     methods:{
         goRouter(to){
-            this.nowPath = to 
+            this.nowPath = to
         }
     }
 }
@@ -85,7 +91,7 @@ export default {
     background: #fff;
     text-align: center;
     .box{
-   
+
         width:@max-width;
         height: 100%;
         margin:0 auto;
@@ -217,6 +223,9 @@ export default {
                 height:100%;
             }
         }
+        .loginOut {
+            display: none;
+        }
         .nav-box{
         display: none;
     }
@@ -283,7 +292,11 @@ export default {
         }
     }
     }
-    
+
+  }
+  .store-nav-bar-box {
+      height: 60px;
+      line-height: 60px;
   }
 }
 </style>
