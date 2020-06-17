@@ -67,7 +67,7 @@
           <input type="text" maxlength="2" v-model.trim="rate" placeholder="请输入1至60的整数">
           <span class="percent">%</span>
     </div>
-     <div class="input-line-box">
+     <div class="input-line-box input-line-box-integral">
            <label for="">返积分数量：</label><div class="input-box"><span class="tip">{{backScore}}</span> </div>
          </div>
        <div class="input-line-box input-line-box-shelf">
@@ -221,6 +221,7 @@ export default {
     position: relative;
     width:380px;
     height:50px;
+    line-height:50px;
     margin-left:160px;
     margin-bottom:20px;
     &.textarea{
@@ -333,12 +334,28 @@ export default {
           width: 4%;
           max-width: 50px;
         }
+        .input-box {
+          .tip {
+            font-size: 12px;
+          }
+        }
+      }
+      .input-line-box-integral {
+        display: flex;
+        height: 50px;
+        line-height: 50px;
+        margin: -30px auto 0;
+        label {
+          position: static;
+          line-height: 50px;
+        }
       }
       .input-line-box-shelf {
         display: flex;
         align-items: center;
         padding-left: 75px;
         box-sizing: border-box;
+        margin-bottom: 25px;
         label {
           top: 0;
           line-height: 50px;

@@ -1,5 +1,5 @@
 <template>
-  <div class="store-page">
+  <div :class="['store-page', {'store-page-center': enterpriseSet}]">
     <div class="persion-title">
        基本信息
     </div>
@@ -113,6 +113,15 @@
          <Map @getLocation="addressClick"></Map>
        </el-dialog>
     </div>
+
+    <!-- 移动端个人中心 -->
+    <div class="small-nav-list">
+      <ul>
+        <li class="" v-for="(item,index) in smallNav" :key="index">
+            <router-link tag="a" :to="item.to" @click.native="routerChange(item.to)"><span class="iconfont" :class="item.icon" :style="'font-size:'+item.iconSize+';'"></span>{{item.title}}<span class="iconfont iconjiantou"></span></router-link>
+        </li>
+      </ul>
+    </div>
   </div>
 </template>
 <script>
@@ -164,12 +173,66 @@ export default {
           introduce: null,
           phone: "",
         },
+        smallNav: [
+          {
+            title:"商家账号",
+            to:'/store?basicInfo=true',
+            icon:"iconsjzh",
+            iconSize:'15px'
+          },
+          {
+            title:"安全设置",
+            to:'/storeSafe',
+            icon:"iconaqsz",
+            iconSize:'15px'
+          },
+          {
+            title:"产品管理",
+            to:'/storeProduct',
+            icon:"iconcpgl",
+            iconSize:'15px'
+          },
+          {
+            title:"分类管理",
+            to:'/storeClassify',
+            icon:"iconflgl",
+            iconSize:'15px'
+          },
+          {
+            title:"二维码管理",
+            to:'/storeErweima',
+            icon:"iconewmgl",
+            iconSize:'15px'
+          },
+          {
+            title:"订单管理",
+            to:'/storeOrder',
+            icon:"iconddgl",
+            iconSize:'15px'
+          },
+          {
+            title:"积分管理",
+            to:'/storeScore',
+            icon:"iconjfgl",
+            iconSize:'15px'
+          },
+          {
+            title:"扫码返奖励积分",
+            to:'/storeReturn',
+            icon:"iconsmfjl",
+            iconSize:'15px'
+          }
+        ],
         time:''
       }
   },
   computed:{
     uploadMp4Url(){
       return this.changeUrl
+    },
+    // 商家个人中心
+    enterpriseSet() {
+      return JSON.stringify(this.$route.query) === '{}'
     }
   },
   components:{
@@ -405,8 +468,50 @@ export default {
   border:0;
   margin:30px auto 100px;
 }
+.small-nav-list {
+  display: none;
+  .margin{
+    width:100%;
+    height:10px;
+    background:@body_color;
+  }
+  ul{
+    padding: 0 15px;
+    li{
+      height:50/@p;
+      line-height: 50/@p;
+      a{
+        display: block;
+        font-size:14px;
+        color:@persion_left;
+        border-bottom:1px solid @class_border;
+        .iconfont{
+          margin-right:10px;
+          color:@placeholder_color;
+        }
+        .iconjiantou{
+          float:right;
+          font-size:10px;
+        }
+      }
+    }
+  }
+}
 @media screen and(max-width:@change_width) {
+  .store-page-center {
+    .small-nav-list {
+      display: block;
+    }
+    .persion-title {
+      display: none;
+    }
+    .content {
+      display: none;
+    }
+  }
   .store-page {
+    min-height: auto;
+    margin-bottom: 100px;
     .content {
       padding-top: 60px;
       .input-line {
