@@ -9,7 +9,7 @@
            <div class="name">登录密码</div>
            <div class="con">建议您定期更换密码，设置安全性高的密码可以使帐号更安全</div>
          </div>
-         <button class="btn" @click="isChangingPhone = true">修改</button>
+         <button class="btn" @click="changePas = true">修改</button>
        </div>
        <div class="item">
          <span class="iconfont iconbdsj"></span>
@@ -17,9 +17,9 @@
            <div class="name">安全手机 {{userPhone}}</div>
            <div class="con">安全手机可以用于登录帐号，重置密码或其他安全验证</div>
          </div>
-         <button class="btn" @click="changePas = true">修改</button>
+         <button class="btn" @click="isChangingPhone = true">修改</button>
        </div>
-       
+
     </div>
     <el-dialog title="修改密码" :visible.sync="changePas" width="520px" class="small">
       <div class="change-box">
@@ -28,19 +28,19 @@
         <div class="input-line">
            <label for="">短信验证码：</label><div class="input-box"><input type="text" placeholder="输入短信验证码" v-model.trim="changeCode"><button class="btn" @click="getCode">{{codeBtn}}</button></div>
         </div>
-        <div class="input-line"> 
+        <div class="input-line">
             <label for="">输入原密码：</label><div class="input-box"><input type="password" placeholder="请输入原密码" max-length="20" v-model.trim="oldPas"></div>
         </div>
-        <div class="input-line"> 
+        <div class="input-line">
             <label for="">输入新密码：</label><div class="input-box"><input type="password" placeholder="设置6至20位登录密码" max-length="20" v-model.trim="newPas"></div>
         </div>
-        <div class="input-line"> 
+        <div class="input-line">
             <label for="">再次输入：</label><div class="input-box"><input type="password" placeholder="请再次输入登录密码" max-length="20" v-model.trim="reNewpas"></div>
         </div>
         <div class="btn-box">
           <button class="ok" @click="changePaswrod">确认</button>
           <button class="no" @click="changePas=fale">取消</button>
-          
+
         </div>
        </div>
     </el-dialog>
@@ -71,7 +71,7 @@
                 <div class="input-box">
                     <label for="">短信验证码：</label><input type="text" placeholder="输入短信验证码" maxlength="8" v-model.trim="oldPhoneCode"><button class="code" @click="changePhoneCode">{{codeBtn}}</button>
                 </div>
-                
+
               </div>
               <button class="btn" @click="goStepTwo">下一步</button>
             </div>
@@ -87,7 +87,7 @@
                 <div class="input-box">
                     <label for="">短信验证码：</label><input type="text" placeholder="输入短信验证码" maxlength="8" v-model.trim="newPhoneCode"><button class="code" @click="getNewPhoneCode" >{{newCodeBtn}}</button>
                 </div>
-                
+
               </div>
               <button class="btn" @click="goStepThree">下一步</button>
             </div>
@@ -170,7 +170,7 @@ export default {
            this.count -- ;
            this.codeBtn = `${this.count}s`
          }
-       },1000) 
+       },1000)
     },
     setNewCode(){
        this.newCount--
@@ -186,7 +186,7 @@ export default {
            this.newCount -- ;
            this.newCodeBtn = `${this.newCount}s`
          }
-       },1000) 
+       },1000)
     },
     changePaswrod(){
        if(this.changeCode == ''){
@@ -301,9 +301,14 @@ export default {
   min-height: @persion_height;
   padding-bottom:60px;
 }
+@media screen and(max-width:@change_width){
+  .safe-box {
+    padding-bottom: 120px;
+  }
+}
 .safe-content{
   padding:0 30px;
-  
+
   .user{
     box-sizing: border-box;
     height:64px;
@@ -540,14 +545,34 @@ export default {
        margin-bottom:40px;
        color:@subtitle_color;
      }
-   
-     
+
+
    }
+   @media screen and(max-width:@change_width){
+     .stepOne {
+       padding-bottom: 30px;
+       .tip {
+          margin-bottom: 60px;
+        }
+        .now-phone {
+          margin-top: 40px;
+        }
+     }
+    }
    .stepTwo{
       padding-top:77px;
       border-bottom:1px solid @class_border;
       padding-bottom:100px;
    }
+   @media screen and(max-width:@change_width){
+     .stepTwo {
+       padding-top: 55px;
+       padding-bottom: 30px;
+       .tip {
+          margin-bottom: 60px;
+        }
+     }
+    }
    .stepThree{
      padding-bottom:100px;
      .iconfont{
@@ -573,6 +598,17 @@ export default {
      }
 
    }
+    @media screen and(max-width:@change_width){
+      .stepThree {
+        padding-bottom: 60px;
+        .iconfont{
+          margin-top: 60px;
+        }
+        .tip {
+          margin-bottom: 40px;
+        }
+      }
+    }
    .btn{
     width:380px;
     height:50px;
@@ -616,6 +652,24 @@ export default {
         padding:0 15px;
     }
   }
+  @media screen and(max-width:@change_width){
+    .input-line-box {
+      width: 100%;
+      max-width: 380px;
+
+      label {
+        left: 0;
+        top: -45px;
+      }
+    }
+    .mobile-box {
+      margin-bottom: 47px;
+    }
+    .btn {
+      width: 100%;
+      max-width: 380px;
+    }
+  }
  }
   .step{
       position: relative;
@@ -645,7 +699,7 @@ export default {
           top:19px;
           width:325px;
           height:2px;
-          background:@class_border; 
+          background:@class_border;
       }
       .step-item{
           float: left;
@@ -685,16 +739,16 @@ export default {
       }
       @media screen and(max-width:@change_width){
         &:before{
-          width:calc(50% - 60px);
-          left:50px;
+          width:calc(50% - 75px);
+          left:59px;
         }
         &:after{
-          width:calc(50% - 60px);
-          right:50px;
+          width:calc(50% - 75px);
+          right:55px;
         }
         .step-item{
           float:left;
-          width:60px;
+          width:75px;
           .step-name{
               font-size:12px;
               line-height: 12px;
@@ -702,8 +756,13 @@ export default {
           }
         }
         .middle{
-            margin:0 70px;
+            margin:0 45px;
         }
       }
+  }
+  @media screen and(max-width:@change_width){
+    .step {
+      margin-top: 30px;
+    }
   }
 </style>

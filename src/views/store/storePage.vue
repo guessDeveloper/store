@@ -424,6 +424,9 @@ export default {
             width: 100%;
           }
         }
+        .submit {
+          margin-top: 0;
+        }
       }
     }
   }
