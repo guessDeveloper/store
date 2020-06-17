@@ -12,17 +12,19 @@
            <div class="name">{{item.QRcodeName}}</div>
            <div class="iconfont el-icon-close" @click="deleteImg(item.QRcodeName)"></div>
         </li>
-        
+
       </ul>
     </div>
-     <el-dialog title="生成新的二维码" :visible.sync="toNew" width="520px">
-       <div class="input-line">
-          <label for="">请输入桌号：</label><input type="text" placeholder="请输入桌号" v-model.trim="addNum" >
+     <el-dialog title="生成新的二维码" :visible.sync="toNew" custom-class="custom-dialog">
+       <div class="dialog-content-wrap">
+          <div class="input-line">
+            <label for="">请输入桌号：</label><input type="text" placeholder="请输入桌号" v-model.trim="addNum" >
+          </div>
+          <div class="btn-box">
+            <button class="ok" @click="addImg">添加</button>
+            <button class="no" @click="toNew =false">取消</button>
+          </div>
        </div>
-        <div class="btn-box">
-                  <button class="ok" @click="addImg">添加</button>
-                  <button class="no" @click="toNew =false">取消</button>   
-        </div>
      </el-dialog>
   </div>
 </template>
@@ -110,6 +112,7 @@ export default {
     }
   }
   ul{
+    overflow: hidden;
     li{
       position: relative;
       box-sizing: border-box;
@@ -183,4 +186,31 @@ export default {
         border-color:@main;
       }
     }
+@media screen and(max-width:@change_width){
+  .img-list {
+    padding: 0 15px;
+    .btn-box {
+      padding: 15px;
+      margin: 0 -15px;
+      border-bottom: 10px solid #F8F8F8;
+      button {
+        width: 100%;
+        margin-left: 0;
+      }
+    }
+    ul {
+      li {
+        float: none;
+        margin: 20px auto 0;
+      }
+    }
+  }
+  .dialog-content-wrap {
+    .input-line {
+      input {
+        width: calc(100% - 82px);
+      }
+    }
+  }
+}
 </style>
