@@ -22,6 +22,11 @@
               <p>国内知名</p>
             </div>
          </div>
+         <div class="score-box">
+           <div class="line">奖励比例：<span class="num red">{{detial.MertchntMaxFanli}}</span></div>
+           <div class="line">商家诚信积分：<span class="num blue">{{detial.MertchntReputationIntegral}}</span></div>
+           <div class="line">商家剩余积分：<span class="num yellow">{{detial.MertchntResidueIntegral}}</span></div>
+         </div>
          <div class="icon-box phone">
             <span class="name">联系方式：</span>{{detial.MertchntTel}}
          </div>
@@ -31,16 +36,12 @@
          <div class="icon-box">
             <span class="name">商家故事：</span>{{detial.MertchnStory}}
          </div>
-         <div class="score-box">
-           <div class="line">奖励比例：<span class="num red">{{detial.MertchntMaxFanli}}</span></div>
-           <div class="line">商家诚信积分：<span class="num blue">{{detial.MertchntReputationIntegral}}</span></div>
-           <div class="line">商家剩余积分：<span class="num yellow">{{detial.MertchntResidueIntegral}}</span></div>
-         </div>
+         
        </div>
     </div>
     <div class="goods-about">
       <h3 class="title">
-            全部商品 <span>100</span>  <router-link  class="more" tag="a" :to="'/goodsList?id='+MerchanterId"> 查看全部<span class="iconfont iconjiantou"></span></router-link>
+            全部商品 <span>100</span>  <router-link  class="more" tag="a" :to="'/foodList?id='+MerchanterId"> 查看全部<span class="iconfont iconjiantou"></span></router-link>
       </h3>
       <ul class="good-list">
              <li v-for="(item,index) in goodsList" :key="index"><goodCard :data="item"></goodCard></li>
@@ -48,7 +49,7 @@
     </div>
     <div class="comment-list-box">
       <h3 class="title">
-              全部评价 <span>{{commentTotal}}</span>
+              全部评价 <span>{{commentTotal}}</span><router-link  class="more" tag="a" :to="'/commentList?id='+MerchanterId+'&type=2'"> 查看全部<span class="iconfont iconjiantou"></span></router-link>
           </h3>
         
             <ul class="comment-list">
@@ -124,6 +125,10 @@ export default {
     width:568px;
     height:100%;
     background:#ccc;
+    img{
+      width:100%;
+      height:100%;
+    }
   }
   .detail-right{
     position: relative;
@@ -200,6 +205,30 @@ export default {
     }
     
   }
+  @media screen and(max-width:@change_width){
+    width:100%;
+    height:auto;
+    overflow: hidden;
+    .detail-left{
+      float:none;
+      width:100%;
+      height:320px;
+    }
+    .detail-right{
+      width:100%;
+      padding:0 15px 30px;
+      .goods-box{
+        margin-top:20px;
+        margin-bottom:20px;
+      }
+      .score-box{
+        position: static;
+      }
+      .icon-box{
+        padding-left:0;
+      }
+    }
+  }
 }
 
 //评论
@@ -216,7 +245,38 @@ export default {
     span{
       color:@comment_num_color;
     }
+    .more{
+      float: right;
+      font-size:12px;
+      color:@font_color;
+      font-weight: normal;
+      .iconfont{
+        font-size:10px;
+        color:@font_color;
+      }
+    }
   }
+   @media screen and(max-width:@change_width){
+     width:100%;
+    margin: 10px auto 100px;
+    .title{
+      position: relative;
+      padding:0 15px 0 30px;
+      font-size:20px;
+      line-height: 58px;
+      border-bottom:1px solid @class_border;
+      &:before{
+        content:'';
+        display: block;
+        position: absolute;
+        left:15px;
+        top:20px;
+        width:4px;
+        height:18px;
+        background:@main;
+      }
+    }
+   }
 }
 .comment-list{
   display:block;
@@ -227,7 +287,13 @@ export default {
     width:545px;
     margin:0 25px;
   }
-
+  @media screen and(max-width:@change_width){
+    li{
+      float:none;
+      width:auto;
+      margin:0 10px;
+    }
+  }
 }
 //相关商品
 .goods-about{
@@ -253,7 +319,29 @@ export default {
       }
     }
   }
+  @media screen and(max-width:@change_width){
+    width:100%;
+    margin: 10px auto;
+    .title{
+      position: relative;
+      padding:0 15px 0 30px;
+      font-size:20px;
+      line-height: 58px;
+      border-bottom:1px solid @class_border;
+      &:before{
+        content:'';
+        display: block;
+        position: absolute;
+        left:15px;
+        top:20px;
+        width:4px;
+        height:18px;
+        background:@main;
 
+
+      }
+    }
+  }
 }
 .good-list{
   display: block;
@@ -263,6 +351,13 @@ export default {
     float: left;
     width:265px;
     margin:13px;
+  }
+  @media screen and(max-width:@change_width){
+    padding:15px 0 0 15px;
+    li{
+      width:calc(50% - 15px);
+      margin:0 15px 15px 0;
+    }
   }
 }
 </style>

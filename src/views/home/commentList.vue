@@ -7,37 +7,22 @@
     </div>
     <div class="comment-list-box">
           <h2 class="title">
-              全部评价 <span>100</span>
+              全部评价 <span>{{total}}</span>
           </h2>
         
             <ul class="comment-list">
-              <li>
-                <commentCard></commentCard>
+              <li v-for="(item,index) in list" :key="index">
+                <commentCard :data="item"></commentCard>
               </li>
-              <li>
-                <commentCard></commentCard>
-              </li>
-              <li>
-                <commentCard></commentCard>
-              </li>
-              <li>
-                <commentCard></commentCard>
-              </li>
-              <li>
-                <commentCard></commentCard>
-              </li>
-              <li>
-                <commentCard></commentCard>
-              </li>
+             
             </ul>
             <div class="page-box">
                 <el-pagination
-                    @size-change="handleSizeChange"
-                    @current-change="handleCurrentChange"
-                    :current-page.sync="currentPage3"
-                    :page-size="100"
+                    @current-change="getList"
+                    :current-page.sync="pageIndex"
+                    :page-size="pageSize"
                     layout="prev, pager, next, jumper"
-                    :total="1000">
+                    :total="total">
                 </el-pagination>
             </div>
     </div>
@@ -48,12 +33,39 @@ import commentCard from '@/components/common/commentCard'
 export default {
   data(){
     return{
-
+      ID:'',
+      type:'',
+      list:[],
+      pageIndex:1,
+      pageSize:20,
+      total:0,
+      url:""
     }
+  },
+  mounted(){
+    this.$route.query.id?this.ID = this.$route.query.id:''
+    this.$route.query.type?this.type = this.$route.query.type:''
+    this.type==1?this.url = this.$api.shopGetMerchanter:this.url = this.$api.GetMerchanter
+    this.getList();
+  },
+  methods:{
+     getList(){
+       this.$http.post(this.url,{
+         MerchanterId:this.ID,
+         pageIndex:this.pageIndex,
+         pageSize:this.pageSize
+       }).then(res=>{
+         if(res.data.Code == 1){
+           this.list = res.data.Data.List;
+           this.total = res.data.Data.Count
+         }
+       })
+     }
   },
   components:{
     commentCard:commentCard
-  }
+  },
+
 }
 </script>
 <style lang="less" scoped>

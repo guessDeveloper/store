@@ -10,11 +10,21 @@ export default new Vuex.Store({
         storeInfo: '', //商家信息
         searchItem: '', //搜索页面
         isLogin: false,
+        charNum: 0, // 购物车数量
     },
     getters: {
 
     },
     mutations: {
+        addNum(state) {
+            state.charNum++
+        },
+        delNum(state) {
+            state.charNum--
+        },
+        setLogin(state, num) {
+            state.isLogin = num
+        },
         setPositionX(state, num) {
             state.positionX = num
         },

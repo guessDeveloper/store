@@ -4,9 +4,9 @@
         <a href="" class="logo">
             <img src="../../assets/img/logo.png" alt="">
         </a>
-        <a href="" class="sao">
+        <router-link  class="sao" tag="a" to="/sao">
             <span class="iconfont iconyd_saoyisao"></span>
-        </a>
+        </router-link>
         <a class="menu" @click="openNav" v-show="!navIsOpen">
             <span class="iconfont iconyd_gengduo"></span>
         </a>
@@ -16,7 +16,7 @@
         <div class="nav-box" >
             <router-link :to="item.path" v-for="(item,index) in navList" :key="index" tag="a" :class="{active:nowPath == item.path||nowName == item.name}" @click.native="goRouter(item.path)" target="_blank">{{item.name}}</router-link>
         </div>
-        <div class="search-box" v-show="!navIsOpen">
+        <div class="search-box" v-show="!navIsOpen" :class="{'has-car':showCar&&isLogin}">
             <div class="input-box">
              <el-dropdown trigger="click" class="select" @command="chengeSelect">
                 <span class="el-dropdown-link">
@@ -35,13 +35,18 @@
                 <span class="iconfont iconsousuo"></span><span class="name">搜索</span>
             </a>
         </div>
+        <router-link class="shop-car" v-show="showCar&&isLogin" tag="div" to="/shopCar">
+            <span class="iconfont icongwc"></span>美食订单 <span class="num" v-show="charNum>0">{{charNum}}</span>
+        </router-link>
     </div>
      <div class="nav-list" :class='{open:navIsOpen}'>
             <router-link :to="item.path" v-for="(item,index) in navList" :key="index" tag="a" :class="{active:nowPath == item.path||nowName == item.name}" @click.native="goRouter(item.path)" target="_blank">{{item.name}}</router-link>
      </div>
+     <div class="back" :class="{show:navIsOpen}"></div>
  </div>
 </template>
 <script>
+import { mapState, mapMutations} from 'vuex' //注册 action 和 state
 export default {
     data(){
         return{
@@ -94,7 +99,7 @@ export default {
                   query:this.$api.GJKeyWordSearch,
                   type:'shop' 
                },{
-                  path:['/food','/fooddetail'],
+                  path:['/food','/fooddetail','/earthDetail'],
                   name:'美食广场',
                   query:this.$api.MSKeyWordSearch,
                   type:'food' 
@@ -105,11 +110,28 @@ export default {
            nowSearchUrl:'',
            navIsOpen:false,
            searchType:'',
+           showCar:false,
+           showCarList:['/fooddetail','/earthDetail']
         }
     },
     computed:{
-       
+     ...mapState([
+       'isLogin',
+       'charNum'
+     ])
     },
+    watch:{
+     $route: {
+        handler() {
+           this.showCarList.forEach(item=>{
+               if(item == this.$route.path){
+                   this.showCar = true
+               }
+           })
+        },
+        deep: true,
+    }
+   },
     mounted(){
         this.nowPath = this.$route.path
         this.navList.forEach((item)=>{
@@ -145,6 +167,11 @@ export default {
         if(this.$route.query.content){
             this.searchContent = this.$route.query.content
         }
+        this.showCarList.forEach(item=>{
+            if(item == this.$route.path){
+                this.showCar = true
+            }
+        })
     },
     methods:{
         goRouter(){
@@ -303,6 +330,7 @@ export default {
     height:115/@p;
     padding:0 15/@p 15/@p;
     background:#fff;
+    z-index: 200;
         .box{
              position: relative;
             width:100%;
@@ -353,9 +381,13 @@ export default {
         width:60%;
     }
     .search-box{
+        float: left;
         width:100%;
         margin-top:14px;
         position: relative;
+        &.has-car{
+            width:calc(100% - 124px);
+        }
         .input-box{
             width:100%;
             height:40px;
@@ -385,6 +417,28 @@ export default {
             }
         }
     }
+        }
+    .shop-car{
+        float: right;
+        width:114px;
+        height:36px;
+        line-height: 36px;
+        border:2px solid @main;
+        text-align:center;
+        font-size:12px;
+        color:@main;
+        margin-top: 14px;
+        .iconfont{
+            font-size:14px;
+            margin-right:3px;
+        }
+        .num{
+            color:#fff;
+            border-radius: 50%;
+            background:#D51B32;
+            height:14px;
+            padding:0 4px;
+        }
     }
     .nav-list{
         display: none;
@@ -411,6 +465,20 @@ export default {
                    border:0;
                }
             }
+        }
+    }
+    .back{
+        display: none;
+        position: absolute;
+        top:60px;
+        left:0;
+        
+        width:100%;
+        height:100vh;
+        background:rgba(0,0,0,.5);
+        z-index: 100;
+        &.show{
+            display: block;
         }
     }
   }

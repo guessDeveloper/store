@@ -9,7 +9,7 @@
       </div>
         <div class="goods-box">
            <h2 class="title">
-              全部商品 <span>100</span>
+              全部商品 <span>{{total}}</span>
           </h2>
           <ul class="list">
             <li>
@@ -34,12 +34,11 @@
           </ul>
           <div class="page-box">
                 <el-pagination
-                    @size-change="handleSizeChange"
-                    @current-change="handleCurrentChange"
-                    :current-page.sync="currentPage3"
-                    :page-size="100"
+                    @current-change="getList"
+                    :current-page.sync="pageIndex"
+                    :page-size="pageSize"
                     layout="prev, pager, next, jumper"
-                    :total="1000">
+                    :total="total">
                 </el-pagination>
             </div>
         </div>
@@ -50,14 +49,32 @@ import foodCard from '@/components/food/foodListCard'
 export default {
   data(){
     return{
-      classType:[],
+      list:[],
+      pageIndex:1,
+      pageSize:20,
+      total:0,
+      id:'',
     }
   },
   mounted(){
-    this.getCalss();
+     if(this.$route.query.id){
+      this.id = this.$route.query.id
+      this.getList();
+    }
   },
   methods:{
-    
+    getList(){
+      this.$http.post(this.$api.Products,{
+         MerchanterId:this.id,
+         pageIndex:this.pageIndex,
+         pageSize:this.pageSize
+      }).then(res=>{
+        if(res.data.Code == 1){
+          this.list = res.data.Data.list
+          this.total = res.data.Data.count
+        }
+      })
+    }
   },
   components:{
     foodCard:foodCard

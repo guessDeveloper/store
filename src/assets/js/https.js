@@ -1,6 +1,7 @@
 import Axios from 'axios'
 import qs from 'qs'
 import router from '../../router'
+import store from '../../store/index'
 const baseUrl = process.env.NODE_ENV === 'production' ? 'https://api.youledui.com/' : '/Sev'
 const baseData = {
         // timestamp: parseInt((+new Date()) / 1000),
@@ -35,7 +36,7 @@ newInstance.interceptors.response.use(
             switch (error.response.status) {
                 case 401:
                     // 返回 401 清除token信息并跳转到登录页面
-
+                    store.commit('isLogin', false)
                     router.replace({
                             path: '/login'
                         })
@@ -128,10 +129,18 @@ export default {
         })
     },
     limitGet(url, parame) {
-        return newInstance({
-            url: baseUrl + url,
-            method: 'get',
-            data: qs.stringify(parame),
+        // return newInstance({
+        //     url: baseUrl + url,
+        //     method: 'get',
+        //     data: qs.stringify(parame),
+        //     headers: {
+        //         'content-type': 'application/x-www-form-urlencoded',
+        //         'token': localStorage.getItem('token') ? localStorage.getItem('token') : ''
+        //     }
+        // })
+        const data = JSON.parse(JSON.stringify(baseData))
+        return newInstance.get(baseUrl + url, {
+            params: Object.assign(data, parame),
             headers: {
                 'content-type': 'application/x-www-form-urlencoded',
                 'token': localStorage.getItem('token') ? localStorage.getItem('token') : ''

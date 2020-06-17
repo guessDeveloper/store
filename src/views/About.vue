@@ -1,20 +1,21 @@
 <template>
   <div class="about">
     <!-- <input type="file">sfs  -->
-    <canvas class="can"></canvas>
+    <canvas class="can" id="can"></canvas>
     <video src="" id="video" ></video>
   </div>
 </template>
 <script>
-
+import jsQR from 'jsqr';
 export default {
   data(){
     return{
-      height:400
+      height:400,
+      timer:''
     }
   },
   mounted(){
-    // const _this = this;
+    const _this = this;
     this.height = window.innerHeight;
     console.log(window.navigator.getUserMedia)
     if ( window.navigator.getUserMedia || window.navigator.webkitGetUserMedia || window.navigator.mozGetUserMedia){
@@ -25,11 +26,27 @@ export default {
       console.log(res)
       var CompatibleURL = window.URL || window.webkitURL;
       console.log(CompatibleURL)
-    var video = document.getElementById("video");
-    //将视频流设置为video元素的源
-    video.srcObject = res;   // 此处的代码将会报错  解决的办法是将video的srcObject属性指向stream即可
-    //播放视频
-    video.play();
+      var video = document.getElementById("video");
+      //将视频流设置为video元素的源
+      video.srcObject = res;   // 此处的代码将会报错  解决的办法是将video的srcObject属性指向stream即可
+      //播放视频
+      video.play();
+      var canvas = document.querySelector('#can');
+      var context = canvas.getContext("2d");
+      clearInterval(_this.timer)
+      _this.timer = setInterval(()=>{
+        console.log('time')
+        context.drawImage(video, 0, 0, canvas.width = video.videoWidth, canvas.height = video.videoHeight);
+        var imageData=context.getImageData(0,0,canvas.width,canvas.width);
+        console.log(imageData)
+        var code = jsQR(imageData.data, imageData.width, imageData.height, {
+          inversionAttempts: 'dontInvert'
+        });
+        if(code){
+          window.location.replace = code.data
+        }
+      },1000)
+
     },'');
       } else {
           alert("你的浏览器不支持访问用户媒体设备");
@@ -61,6 +78,11 @@ export default {
     video.src = CompatibleURL.createObjectURL(stream);   // 此处的代码将会报错  解决的办法是将video的srcObject属性指向stream即可
     //播放视频
     video.play();
+    
+    
+  },
+  beforeDestroy(){
+    clearInterval(this.timer)
   }
 }
 </script>
@@ -76,5 +98,7 @@ export default {
   }
  .can{
    display: none;
+   width:100%;
+   height:100vh;
  }
 </style>

@@ -1,7 +1,7 @@
 <template>
   <div>
      <div class="title">我的购物车</div>
-     <div class="table-box">
+     <!-- <div class="table-box">
         <div class="table-item">
            <div class="subtitle">
               麦当劳
@@ -74,11 +74,58 @@
       <div class="">
          <el-checkbox v-model="checked">备选项</el-checkbox>
       </div>
-        </div>
+        </div> -->
+     <!-- </div> -->
+     <div class="car-item" >
+       <div class="car-store-name">麦当劳</div>
+       <div class="top-check">
+          <el-checkbox v-model="checked" class="check-box"></el-checkbox>全选
+       </div>
+       <div class="car-list">
+         <div class="item">
+           <div class="car-check">
+             <el-checkbox v-model="checked" class="check-box"></el-checkbox>
+           </div>
+           <div class="img-box">
+              <img src="http://image.biaobaiju.com/uploads/20181227/20/1545914811-SLGUAHsukp.jpeg" alt="">
+           </div>
+           <div class="content">
+             <div class="name">奶油鸡蛋卷 150克（5袋）</div>
+             <div class="price-box">单价：<i>¥15</i> <span class="score">积分约：<i>300</i></span></div>
+             <div style="height:28px;">
+                 <el-input-number size="mini" ></el-input-number>
+             </div>
+             <div class="total">
+                小计：<span class="money">¥249</span>    <button class="cancle">删除</button>
+             </div>
+           </div>
+         </div>
+       </div>
+      <div class="top-check">
+          <el-checkbox v-model="checked" class="check-box"></el-checkbox>全选<span class="cancle-all">删除选中商品</span>
+       </div>
+       <div class="total-box">
+         <div class="chose-num">
+           共<span>2</span>件商品，已选择<span>1</span>件
+         </div>
+         <div>
+            总积分约：400 
+         </div>
+         <div>
+           商品合计 :¥1245.00
+         </div>
+         <div>
+           应付总额：<span class="money">¥1245.00</span>
+         </div>
+         <div>
+         <button class="btn">提交订单</button>
+         </div>
+       </div>
      </div>
   </div>
 </template>
 <script>
+import '../../plugins/element-checkbox.js'
 import '@/plugins/element-shopCar'
 export default {
   data(){
@@ -91,7 +138,8 @@ export default {
            num:1,
            total:'¥249',
 
-        }]
+        }],
+        checked:false,
     }
   }
 }
@@ -113,6 +161,19 @@ export default {
       height:24px;
       background:@main;
       
+    }
+    @media screen and(max-width:@change_width){
+      width:auto;
+      height:58px;
+      line-height: 58px;
+      font-size: 20px;
+      padding-left:29px;
+      background:#fff;
+      margin:10px auto;
+      &::before{
+        left: 15px;
+        top:20px;
+      }
     }
   }
   .table-box{
@@ -137,4 +198,117 @@ export default {
     width:40px;
     height:40px;
   }
+.car-item{
+  .car-store-name{
+    font-size:16px;
+    height:56px;
+    line-height: 56px;
+    background:#fff;
+    padding:0 15px;
+  }
+  .top-check{
+    height:54px;
+    line-height: 54px;
+    font-size:14px;
+    color:@subtitle_color;
+    padding:0 24px;
+    .check-box{
+      margin-right:20px;
+    }
+    .cancle-all{
+      margin-left:20px;
+    }
+  }
+      //合计
+  .total-box{
+    background: #fff;
+    padding:25px 15px 30px; 
+    color:#666666;
+    line-height: 20px;
+    span{
+      color:@main;
+    }
+    .money{
+      font-size:18px;
+      color:#D51B32;
+      font-weight: bold;
+    }
+    .btn{
+      display: block;
+      width:100%;
+      background:@main;
+      color:#fff;
+      height:50px;
+      font-size: 16px;
+      margin-top:30px;
+    }
+
+  }
+  .car-list{
+    background:#fff;
+    .item{
+      display: flex;
+      overflow: hidden;
+      padding-bottom:20px;
+      border-bottom:1px solid @class_border;
+      .car-check{
+        width:36px;
+        padding-left:24px;
+        .check-box{
+          margin-top:27px;
+        }
+      }
+      .img-box{
+        width:40px;
+        padding-top:15px;
+        img{
+          display: block;
+          width:40px;
+          height:40px;
+        }
+      }
+      .content{
+        width:calc(100% - 100px);
+        padding-left:20px;
+        padding-top:15px;
+        padding-right:15px;
+        .name{
+          font-size:14px;
+          line-height:14px;
+          margin-bottom: 10px;
+        }
+        .price-box{
+          overflow: hidden;
+          font-size:14px;
+          color:@subtitle_color;
+          line-height: 14px;
+          margin-bottom:10px;
+          .score{
+            float:right;
+          }
+          i{
+            color:@font_color;
+            font-style:normal ;
+          }
+        }
+        .total{
+          font-size:14px;
+          color:@subtitle_color;
+          line-height: 14px;
+          margin-top:10px;
+          .money{
+            color:#D51B32;
+          }
+          .clear();
+          .cancle{
+            float:right;
+            color:@subtitle_color;
+          }
+        }
+      }
+    }
+
+  }
+  
+}
 </style>

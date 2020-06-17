@@ -1,17 +1,34 @@
 <template>
     <div class="item">
-        <img src="../../assets/img/good.png" alt="">
-        <h4>女式超柔软拉毛运动开衫</h4>
-        <p>积分约：50</p>
-        <span class="price">¥249</span>
-
+        <img :src="item.picurl" alt="">
+        <h4>{{item.titleA}}</h4>
+        <p>{{item.Fanli}}</p>
+        <span class="price">¥{{item.price}}</span>
     </div>
 </template>
+<script>
+export default {
+    data(){
+        return{
+
+        }
+    },
+    props:{
+        item:{
+          type:Object
+        }
+    },
+    methods:{
+        
+    }
+}
+</script>
 <style lang="less" scoped>
 .item{
     width:100%;
     height: 325px;
     overflow: hidden;
+    text-align: center;
     img{
         display: block;
         width:180px;
@@ -46,12 +63,3 @@
     }
 }
 </style>
-<script>
-export default {
-    data(){
-        return{
-
-        }
-    }
-}
-</script>
