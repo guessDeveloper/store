@@ -17,53 +17,68 @@
             </el-table-column>
         </el-table>
         </div>
+
+        <!-- 移动端分类列表 -->
+        <div class="table-box-small">
+          <div v-for="(item, index) in listData" :key="index" class="list-item">
+            <div class="list-item-left">
+              <p>分类名称：<span>{{ item.RateName }}</span></p>
+              <p>奖励比例：<span>{{ item.Rate }}</span></p>
+              <p>添加时间：<span>{{ item.CreateTime }}</span></p>
+            </div>
+            <div class="list-item-right">
+              <p>修改</p>
+              <p>删除</p>
+            </div>
+          </div>
+        </div>
       </div>
-      <el-dialog title="添加新产品分类" :visible.sync="toNew" width="520px">
-       <div class="input-line">
-          <label for="">产品分类名称：</label><input type="text" placeholder="请输入分类名称" v-model.trim="NewClassName">
-       </div>
-       <div class="input-line">
-          <label for="">奖励比例：</label>
-          <div class="input-box">
-            <!-- <el-select v-model="value" placeholder="请选择比例">
-              <el-option
-                v-for="item in options"
-                :key="item.value"
-                :label="item.label"
-                :value="item.value">
-              </el-option>
-            </el-select> -->
-            <input type="text" placeholder="请输入1至60的整数" class="percent" v-model.trim="NewClassRate"><span class="per">%</span>
+      <el-dialog title="添加新产品分类" :visible.sync="toNew" custom-class="custom-dialog">
+        <div class="dialog-content-wrap">
+          <div class="input-line">
+              <label for="">产品分类名称：</label><input type="text" placeholder="请输入分类名称" v-model.trim="NewClassName">
           </div>
-       </div>
-        <div class="btn-box">
-                  <button class="ok" @click="addClass">提交</button>
-                  <button class="no" @click="toNew = false">取消</button>   
-        </div>
-         </el-dialog>
-        <el-dialog title="编辑分类" :visible.sync="toEdit" width="520px">
-       <div class="input-line">
-          <label for="">产品分类名称：</label><input type="text" placeholder="请输入分类名称" v-model.trim="editName">
-       </div>
-       <div class="input-line">
-          <label for="">奖励比例：</label>
-          <div class="input-box">
-            <!-- <el-select v-model="value" placeholder="请选择比例">
-              <el-option
-                v-for="item in options"
-                :key="item.value"
-                :label="item.label"
-                :value="item.value">
-              </el-option>
-            </el-select> -->
-            <input type="text" placeholder="请输入1至60的整数" class="percent" v-model.trim="editRate"><span class="per">%</span>
+          <div class="input-line">
+              <label for="">奖励比例：</label>
+              <div class="input-box">
+                <!-- <el-select v-model="value" placeholder="请选择比例">
+                  <el-option
+                    v-for="item in options"
+                    :key="item.value"
+                    :label="item.label"
+                    :value="item.value">
+                  </el-option>
+                </el-select> -->
+                <input type="text" placeholder="请输入1至60的整数" class="percent" v-model.trim="NewClassRate"><span class="per">%</span>
+              </div>
           </div>
-       </div>
-        <div class="btn-box">
-                  <button class="ok" @click="sendEdit">提交</button>
-                  <button class="no" @click="toEdit = false">取消</button>   
         </div>
-     </el-dialog>
+      </el-dialog>
+      <el-dialog title="编辑分类" :visible.sync="toEdit" custom-class="custom-dialog">
+        <div class="dialog-content-wrap">
+          <div class="input-line">
+              <label for="">产品分类名称：</label><input type="text" placeholder="请输入分类名称" v-model.trim="editName">
+          </div>
+          <div class="input-line">
+              <label for="">奖励比例：</label>
+              <div class="input-box">
+                <!-- <el-select v-model="value" placeholder="请选择比例">
+                  <el-option
+                    v-for="item in options"
+                    :key="item.value"
+                    :label="item.label"
+                    :value="item.value">
+                  </el-option>
+                </el-select> -->
+                <input type="text" placeholder="请输入1至60的整数" class="percent" v-model.trim="editRate"><span class="per">%</span>
+              </div>
+          </div>
+          <div class="btn-box">
+                    <button class="ok" @click="sendEdit">提交</button>
+                    <button class="no" @click="toEdit = false">取消</button>
+          </div>
+        </div>
+      </el-dialog>
   </div>
 </template>
 <script>
@@ -107,7 +122,7 @@ export default {
   methods:{
    getList(){
      this.$http.storePost(this.$api.GetProcoteClassList,{pageIndex:this.pageIndex,pageSize:this.pageSize}).then(res=>{
-       if(res.data.Code == 1){ 
+       if(res.data.Code == 1){
           this.listData = res.data.Data.list
           this.total = res.data.Data.count
        }else{
@@ -259,4 +274,64 @@ export default {
         border-color:@main;
       }
     }
+.table-box-small {
+  display: none;
+  .list-item {
+    padding: 20px 10px;
+    border-bottom: 1px solid #eeeeee;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    .list-item-left {
+      p {
+        margin-bottom: 12px;
+        color: #999999;
+        span {
+          color: #333333;
+        }
+      }
+    }
+    .list-item-right {
+      p {
+        margin-bottom: 15px;
+        text-decoration-line: underline;
+      }
+    }
+  }
+}
+@media screen and(max-width:@change_width){
+  .classify-box {
+    padding: 0 15px;
+    .btn-top-box {
+      padding: 15px;
+      margin: 0 -15px;
+      border-bottom: 10px solid #F8F8F8;
+      button {
+        width: 100%;
+      }
+    }
+    .table-box {
+      display: none;
+    }
+    .table-box-small {
+      display: block;
+    }
+  }
+  .dialog-content-wrap {
+    .input-line {
+      .input-box {
+        width: calc(100% - 95px);
+        input {
+          width: 96%;
+        }
+        .per {
+          width: 4%;
+        }
+      }
+      &>input {
+        width: calc(100% - 95px);
+      }
+    }
+  }
+}
 </style>
