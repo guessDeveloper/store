@@ -14,6 +14,8 @@
         "compression-webpack-plugin": "^3.1.0",
         "core-js": "^3.6.4",
         "element-ui": "^2.4.5",
+        "jsqr": "^1.3.1",
+        "qrcodejs2": "0.0.2",
         "style-resources-loader": "^1.3.3",
         "vue": "^2.6.11",
         "vue-cli-plugin-style-resources-loader": "^0.1.4",

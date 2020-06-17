@@ -40,7 +40,7 @@
     </div>
     <div class="goods-about">
       <h3 class="title">
-            相关商品 <span>100</span>
+            相关商品 <span>100</span><router-link  class="more" tag="a" :to="'/goodsList?id='+MerchanterId"> 查看全部<span class="iconfont iconjiantou"></span></router-link>
       </h3>
       <ul class="good-list">
              <li v-for="(item,index) in goodsList" :key="index"><goodCard :data="item"></goodCard></li>
@@ -48,7 +48,7 @@
     </div>
     <div class="comment-list-box">
       <h3 class="title">
-              全部评价 <span>{{commentTotal}}</span>
+              全部评价 <span>{{commentTotal}}</span><router-link  class="more" tag="a" :to="'/commentList?id='+MerchanterId+'&type=1'"> 查看全部<span class="iconfont iconjiantou"></span></router-link>
           </h3>
         
             <ul class="comment-list">
@@ -217,6 +217,16 @@ export default {
       color:@comment_num_color;
     }
   }
+  .more{
+      float: right;
+      font-size:12px;
+      color:@font_color;
+      font-weight: normal;
+      .iconfont{
+        font-size:10px;
+        color:@font_color;
+      }
+    }
 }
 .comment-list{
   display:block;
@@ -241,6 +251,16 @@ export default {
     line-height:24px;
     span{
       color:@main;
+    }
+    .more{
+      float: right;
+      font-size:12px;
+      color:@font_color;
+      font-weight: normal;
+      .iconfont{
+        font-size:10px;
+        color:@font_color;
+      }
     }
   }
 

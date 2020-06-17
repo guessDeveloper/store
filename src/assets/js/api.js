@@ -25,6 +25,7 @@ export default {
     pddGerPageList: '/api/PDD/GerPageList', //通过分类获取拼多多列表
     //详情页面
     GetMaterialGoodsById: '/api/Detail/GetMaterialGoodsById', //获取详情
+    clickTobuy: '/api/Detail/clickTobuy', //购买
     //商家列表
     GetMerchaterClass: '/api/YiQiFa/GetMerchaterClass', //获取商家列表
     //逛街购物
@@ -32,6 +33,8 @@ export default {
     shopCategorys: '/api/shopping/Categorys', //商家类型
     NearBy: '/api/shopping/NearBy', //h获取列表
     MerchantInfo: '/api/Detail/MerchantInfo', //获取商家详情
+    shopGetMerchanter: '/api/shopping/GetMerchanter', //获取商家评价
+    shopProducts: '/api/shopping/Products', //获取产品列表
     //美食广场
     foodCategorys: '/api/Food/Categorys', //商家类型
     foodCitys: '/api/Food/Citys', // 城市

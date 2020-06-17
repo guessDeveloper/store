@@ -19,6 +19,7 @@
       title="评价详情"
       :visible.sync="dialogVisible"
       width="520px"
+      class="small"
       >
       <div class="user alert">
         <div class="head-img">
@@ -128,6 +129,13 @@ export default {
     color:@subtitle_color;
     .overTextOne()
   }
+   @media screen and(max-width:@change_width){
+     height:auto;
+     padding-bottom:25px;
+     .user{
+       margin-top:20px;
+     }
+   }
   
 }
 .detail-content{

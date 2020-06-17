@@ -1,23 +1,43 @@
 <template>
-  <div class="item">
-     <img :src="data.GoodsImg" alt="">
+  <div class="item" >
+     <img :src="data.GoodsImg" alt="" @click="goDetail">
      <h4>{{data.GoodsName}}</h4>
      <p>积分约：</p>
      <div class="price">¥{{data.GoodsMoneny}}</div>
-     <button class="add">加入购物车</button>
+     <button class="add" @click="addCar">加入购物车</button>
   </div>
 </template>
 <script>
+import { mapState, mapMutations} from 'vuex' //注册 action 和 state
 export default {
   data(){
     return{
 
     }
   },
+  computed:{
+     ...mapState([
+       'positionX',
+       'isLogin'
+     ])
+  },
   props:{
     data:{
       type:Object
     }
+  },
+  methods:{
+   ...mapMutations([
+      'addNum',
+      'setLogin',
+   ]),
+   goDetail(){
+      this.$router.push(`/earthDetail?ProductId=${this.data.GoodsId}`)
+   },
+   //添加购物车
+   addCar(){
+     this.addNum()
+   }
   }
 }
 </script>
@@ -58,6 +78,13 @@ export default {
     border:1px solid @main;
     border-radius:26px;
 
+  }
+  @media screen and(max-width:@change_width){
+    padding-bottom:15px;
+    img{
+      width:100%;
+      height:auto;
+    }
   }
 }
 </style>

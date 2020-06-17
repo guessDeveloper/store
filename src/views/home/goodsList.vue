@@ -3,7 +3,7 @@
       <div class="brand-top-nav">
         <router-link tag="a" to="/">首页</router-link>
         <span class="iconfont iconjiantou"></span>
-        <span class="now-nav">美食广场</span>
+        <span class="now-nav">逛街购物</span>
       </div>
       <div class="goods-box">
          <h2 class="title">
@@ -11,11 +11,11 @@
          </h2>
          <div class="list-box">
           <ul class="good-list">
-             <li v-for="(item,index) in list" :key="index"><goodCard ></goodCard></li>
+             <li v-for="(item,index) in list" :key="index"><goodCard :data="item"></goodCard></li>
           </ul>
           <div class="page-box">
                 <el-pagination
-                    @current-change="handleCurrentChange"
+                    @current-change="getList"
                     :current-page.sync="pageIndex"
                     :page-size="pageSize"
                     layout="prev, pager, next, jumper"
@@ -27,7 +27,7 @@
   </div>
 </template>
 <script>
-import goodCard from '@/components/taobao/goodCard'
+import goodCard from '@/components/shop/shopGoodsCard'
 export default {
   data(){
     return {
@@ -50,14 +50,14 @@ export default {
   },
   methods:{
     getList(){
-      this.$http.post(this.$api.Products,{
+      this.$http.post(this.$api.shopProducts,{
         MerchanterId:this.id,
         pageIndex:this.pageIndex,
         pageSize:this.pageSize
       }).then(res=>{
         if(res.data.Code == 1){
           this.list = res.data.Data.list
-          this.count = res.data.Data.count
+          this.total = res.data.Data.count
         }
       })
     }

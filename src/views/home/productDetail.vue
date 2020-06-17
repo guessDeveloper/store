@@ -7,7 +7,16 @@
     </div>
     <div class="top">
        <div class="left">
-
+          <div class="big-img-box">
+            <img :src="piclist[nowActiveIndex]" alt="">
+          </div>
+          <div class="imgs-box">
+            <div class="img-box">
+              <div class="item" v-for="(item,index) in piclist" :key="index">
+                <img :src="item" alt="" @click="selecting(index)">
+              </div>
+            </div>
+          </div>
        </div>
        <div class="right">
          <div class="title">
@@ -39,7 +48,7 @@
             </div>
          </div>
          <div class="notice">提醒：使用天猫红包和购物卷将无法返现</div>
-         <button  class="btn">立即购买</button>
+         <button  class="btn" @click="buy">立即购买</button>
        </div>
     </div>
     <div class="promote">
@@ -47,10 +56,10 @@
           同类商品推荐
         </div>
         <el-carousel trigger="click" height="411px">
-          <el-carousel-item v-for="item in promoteList" :key="item">
+          <el-carousel-item v-for="(item,index) in promoteList" :key="index">
            <div class="goods-box">
-             <div class="goods-item" >
-                <goodCard :data="item" ></goodCard>
+             <div class="goods-item" v-for="(item2,index2) in item" :key="index2">
+                <goodCard :item="item2" ></goodCard>
              </div>
            </div>
           </el-carousel-item>
@@ -69,7 +78,7 @@
          </div>
          <div class="list">
            <div class="" v-for="(item,index) in proudectData.PopProducts" :key="index">
-             <goodCard :data="item"></goodCard>
+             <goodCard :item="item"></goodCard>
            </div>
          </div>
        </div>
@@ -77,14 +86,16 @@
   </div>
 </template>
 <script>
-import goodCard from '@/components/taobao/goodCard'
+import goodCard from '@/components/recommend/recommendCard'
 export default {
   data(){
     return{
+      nowActiveIndex:0,
       GoodType:'',
       GoodID:'',
       proudectData:{},
       promoteList:[],
+      piclist:[],
     }
   },
   components:{
@@ -108,6 +119,7 @@ export default {
       }).then(res=>{
           if(res.data.Code == 1){
             this.proudectData = res.data.Data
+            this.piclist = res.data.Data.piclist
             this.promoteList = this.changeArray(res.data.Data.SameClassproducts)
             console.log(this.promoteList)
           }
@@ -129,9 +141,24 @@ export default {
         num++
       }
       return att
+    },
+    //购买
+    buy(){
+      this.$http.limitGet(this.$api.clickTobuy,{
+        type:this.GoodType,
+        id:this.GoodID
+      }).then(res=>{
+         if(res.data.Code == 1){
+           window.location.href = res.data.Data
+         }
+      })
+    },
+    //轮播图
+    selecting(index){
+      this.nowActiveIndex = index;
     }
   },
- 
+
 
 }
 </script>
@@ -145,6 +172,38 @@ export default {
     float: left;
     width:490px;
     height:100%;
+    box-sizing: border-box;
+    padding:30px 40px 0 30px;
+    .big-img-box{
+      float: left;
+      width:348px;
+      height:348px;
+      img{
+        display: block;
+        width:100%;
+        height:100%;
+      }
+    }
+    .imgs-box{
+      float:right;
+      width:60px;
+      height:348px;
+      overflow: hidden;
+      .imgs-box{
+        overflow: hidden;
+      }
+      .item{
+        display: block;
+        width:60px;
+        padding-bottom:12px;
+        img{
+          display: block;
+          width:60px;
+          height:60px;
+          cursor: pointer;
+        }
+      }
+    }
 
   }
   .right{
@@ -215,6 +274,17 @@ export default {
      line-height: 68px;
      padding-left:30px;
      border-bottom:1px solid @class_border;
+   }
+   .goods-box{
+     width:1040px;
+     margin:0 auto;
+     overflow: hidden;
+     padding-top:40px;
+     .goods-item{
+       float:left;
+       width:220px;
+       margin:0 20px;
+     }
    }
 }
 .goods-detial{

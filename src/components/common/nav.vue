@@ -17,6 +17,8 @@
            </span>
           <router-link to="/helpCenter" class="help" tag="a">帮助中心</router-link>
        </div>
+      <a  class="loginout" v-show="isLogin">退出登录</a>
+      <router-link tag="a" to="/persion" class="logined" v-show="isLogin"><span class="iconfont iconzh"></span>个人中心</router-link>
       <router-link href="" class="regester" to="/register" tag="a" v-show="!isLogin"> 注册</router-link>
       <router-link class="login" tag="a" to="/login" v-show="!isLogin">登录</router-link>
     </div>
@@ -32,13 +34,13 @@ export default {
       tip:[],
       tipActive:0,
       timer:'',
-      isLogin:false,
       userName:''
     }
   },
   computed:{
      ...mapState([
-       'positionX'
+       'positionX',
+       'isLogin'
      ])
   },
   mounted(){
@@ -46,7 +48,7 @@ export default {
     this.getMessage()
     setTimeout(()=>{
       _this.getUserInfo();
-    })
+    },200)
     this.baiduMap();
     // this.getLcationPostion();
 
@@ -54,7 +56,8 @@ export default {
   methods:{
     ...mapMutations([
       'setPositionX',
-      'setPositionY'
+      'setPositionY',
+      'setLogin',
     ]),
     loop(){
       clearInterval(this.timer);
@@ -79,7 +82,7 @@ export default {
      getUserInfo(){
        this.$http.get(this.$api.GetUserInfo).then(res=>{
          if(res.data.Code == 1){
-           this.isLogin = true
+           this.setLogin(true)
            this.userName = res.data.Data.nickName
            let userInfo = JSON.stringify(res.data.Data);
            sessionStorage.setItem('userInfo',userInfo)
@@ -147,7 +150,8 @@ export default {
   },
   beforeDestroy(){
     clearInterval(this.timer)
-  }
+  },
+ 
 }
 </script>
 <style lang="less" scoped>
@@ -266,6 +270,34 @@ export default {
         font-size:12px;
         border:1px solid @main;
         border-radius: 4/@p;
+      }
+      .logined{
+        float: right;
+        width:83/@p;
+        height:24/@p;
+        color:#4A90E2;
+        line-height: 24/@p;
+        text-align: center;
+        border:1px solid #4A90E2;
+        border-radius:4/@p ;
+        margin-top:8/@p;
+        margin-right: 8/@p;
+        .iconfont{
+          font-size:12px;
+          color:#4A90E2;
+          margin-right:5px;
+        }
+      }
+      .loginout{
+        float: right;
+        width:68/@p;
+        height:24/@p;
+        color:@main;
+        line-height: 24/@p;
+        text-align: center;
+        border:1px solid @main;
+        border-radius:4/@p ;
+        margin-top:8/@p;
       }
     }
   }

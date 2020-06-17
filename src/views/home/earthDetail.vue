@@ -6,16 +6,22 @@
         <span class="now-nav">逛街购物</span>
     </div>
     <div class="detail-box">
-       <div class="banner"></div>
+       <div class="banner">
+         <el-carousel trigger="click" height="420px">
+          <el-carousel-item v-for="item in detail.GoodInfoPic" :key="item">
+            <img :src="item" alt="" class="banner-img" >
+          </el-carousel-item>
+         </el-carousel>
+       </div>
        <div class="detail-des">
-          <h2>姚记羊蝎子（回龙观店）</h2>
-          <p>羊蝎子（Lamb Spine Hot Pot），是一道鲁菜，主材是带里脊肉和脊髓的完整羊脊椎骨，因其形跟蝎子相似，故而俗称羊蝎子。羊蝎子低脂肪、低胆固醇、高蛋白，富含钙质。易于吸收，有滋阴补肾，美颜壮阳…</p>
-          <div class="price"><span class="one">¥</span><span class="num">15</span><span class="danwei">/串</span></div>
+          <h2>{{detail.Name}}</h2>
+          <p>{{detail.Describe}}</p>
+          <div class="price"><span class="one">¥</span><span class="num">{{detail.price}}</span><span class="danwei">/串</span></div>
           <div class="score">积分约：50</div>
           <div style="height:40px;">
           <el-input-number v-model="num" @change="handleChange" :min="1" :max="10" label="描述文字"></el-input-number>
           </div>
-          <button  class="buy-btn"><i class="iconfont icongwc"></i>加入购物车</button>
+          <button  class="buy-btn" :disabled="!isLogin"><i class="iconfont icongwc"></i>加入购物车</button>
        </div>
     </div>
     <div class="store-des">
@@ -40,16 +46,38 @@
 </template>
 <script>
 import '@/plugins/element-inputNum.js'
+import { mapState, mapMutations} from 'vuex' //注册 action 和 state
 export default {
   data(){
     return{
-       num: 1
+       num: 1,
+       ProductId:'',
+       detail:'',
     }
+  },
+  computed:{
+     ...mapState([
+       'isLogin'
+     ])
+  },
+  mounted(){
+    this.$route.query.ProductId?this.ProductId = this.$route.query.ProductId:''
+    this.getDetail();
   },
   methods:{
      handleChange(value) {
         console.log(value);
-      }
+      },
+     getDetail(){
+       this.$http.post(this.$api.GetMerchanterGoodInfo,{
+         ProductId:this.ProductId,
+         isSweepQrCode:'0'
+       }).then(res=>{
+         if(res.data.Code == 1){
+           this.detail = res.data.Data.Model
+         }
+       })
+     }
   }
 }
 </script>
@@ -66,6 +94,10 @@ export default {
     width:420px;
     height:420px;
     background:#ccc;
+    img{
+      width: 100%;
+      height:100%;
+    }
   }
   .detail-des{
     float:left;
@@ -114,10 +146,26 @@ export default {
     background:@main;
     font-size:18px;
     color:#fff;
+    &:disabled{
+      background:@subtitle_color;
+    }
     .iconfont{
       color:#fff;
       font-size: 20px;
       margin-right:8px;
+    }
+  }
+  @media screen and(max-width:@change_width){
+    width:100%;
+    padding:0;
+    .banner{
+      float:none;
+      width:100%;
+    }
+    .detail-des{
+      margin:0;
+      float: none;
+      padding:0 15px;
     }
   }
 }
