@@ -84,9 +84,9 @@ export default {
         value: '',
         time:'',
         infos:{
-         
+
         },
-        
+
     }
   },
   mounted(){
@@ -195,4 +195,26 @@ export default {
       border:0;
     }
   }
+@media screen and(max-width:@change_width){
+  .menager-box {
+    .money-box {
+      .banner {
+        margin: 15px;
+      }
+      .big-box {
+        padding-top: 30px;
+        .input-line-box {
+          width: 92%;
+          margin-bottom: 46px;
+          label {
+            left: 0;
+            height: 38px;
+            line-height: 38px;
+            top: -38px;
+          }
+        }
+      }
+    }
+  }
+}
 </style>

@@ -13,7 +13,7 @@
          <div class="input-line">
            <label for="">请选择返还比例：</label><div class="input-box"><input type="text" placeholder="默认调取商家的奖励比例" v-model="rate"></div>
          </div>
-         <div class="input-line">
+         <div class="input-line input-line-integral">
            <label for="">返积分数量：</label><div class="input-box"><span class="tip">{{backNum}}</span> </div>
          </div>
          <div class="input-line">
@@ -65,7 +65,7 @@ export default {
         })
       }
     },
-   
+
     //返利给用户
     backUser(){
       this.$http.storePost(this.$api.ReturnUserIntegrals,{
@@ -98,7 +98,7 @@ export default {
       text-align: right;
       padding-right:15px;
   }
-  .input-box{ 
+  .input-box{
     input{
       display: block;
       box-sizing: border-box;
@@ -130,5 +130,40 @@ export default {
       border:0;
       margin:20px auto 100px;
     }
+}
+@media screen and(max-width:@change_width){
+  .content {
+    padding-top: 56px;
+    .input-line {
+      width: 92%;
+      margin-bottom: 46px;
+      label {
+        left: 0;
+        height: 38px;
+        line-height: 38px;
+        top: -38px;
+        text-align: left;
+      }
+      .input-box {
+        input {
+          width: 100%;
+        }
+      }
+    }
+    .input-line-integral {
+      display: flex;
+      margin-top: -25px;
+      margin-bottom: 10px;
+      label {
+        position: static;
+        width: 84px;
+        height: 50px;
+        line-height: 50px;
+      }
+      .input-box {
+
+      }
+    }
+  }
 }
 </style>

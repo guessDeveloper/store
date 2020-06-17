@@ -1,5 +1,5 @@
 <template>
-  <div class="store-page">
+  <div :class="['store-page', {'store-page-center': enterpriseSet}]">
     <div class="persion-title">
        基本信息
     </div>
@@ -25,9 +25,9 @@
               :file-list="fileList"
               :beforeUpload="beforeLogoUpload"
               name="FileContent"
-              :limit="1" 
+              :limit="1"
               list-type="picture">
-              
+
               <button size="small" type="primary" class="upload-btn">选择上传文件</button>
               <span slot="tip" class="tip">只能上传jpg/png文件，且不超过1M</span>
             </el-upload>
@@ -70,7 +70,7 @@
                   :value="item.value">
                 </el-option>
             </el-select>
-          
+
           </div>
           <div class="input-box" style="height:50px;margin-top:20px;" v-show="value!==''">
               <el-select v-model="secondOptionValue" placeholder="请选择" @change="setCat" >
@@ -81,7 +81,7 @@
                   :value="item.Id">
                 </el-option>
             </el-select>
-          
+
           </div>
        </div>
         <div class="input-line">
@@ -89,7 +89,7 @@
        </div>
         <div class="input-line">
          <!-- <label for="">营业时间：</label><div class="input-box"><input type="text" placeholder="请输入营业时间" ></div> -->
-         <label for="">营业时间：</label><div class="input-box">  
+         <label for="">营业时间：</label><div class="input-box">
            <el-time-picker
             is-range
             v-model="time"
@@ -112,6 +112,15 @@
        <el-dialog title="选择地址" :visible.sync="showMap" width="520px" class="small">
          <Map @getLocation="addressClick"></Map>
        </el-dialog>
+    </div>
+
+    <!-- 移动端个人中心 -->
+    <div class="small-nav-list">
+      <ul>
+        <li class="" v-for="(item,index) in smallNav" :key="index">
+            <router-link tag="a" :to="item.to" @click.native="routerChange(item.to)"><span class="iconfont" :class="item.icon" :style="'font-size:'+item.iconSize+';'"></span>{{item.title}}<span class="iconfont iconjiantou"></span></router-link>
+        </li>
+      </ul>
     </div>
   </div>
 </template>
@@ -151,7 +160,7 @@ export default {
         infos:{
           BeginWorkTime:"",
           Category: "",
-          EndWorkTime:"", 
+          EndWorkTime:"",
           Invitelink: "",
           Logo: "",
           Name: "",
@@ -164,12 +173,66 @@ export default {
           introduce: null,
           phone: "",
         },
+        smallNav: [
+          {
+            title:"商家账号",
+            to:'/store?basicInfo=true',
+            icon:"iconsjzh",
+            iconSize:'15px'
+          },
+          {
+            title:"安全设置",
+            to:'/storeSafe',
+            icon:"iconaqsz",
+            iconSize:'15px'
+          },
+          {
+            title:"产品管理",
+            to:'/storeProduct',
+            icon:"iconcpgl",
+            iconSize:'15px'
+          },
+          {
+            title:"分类管理",
+            to:'/storeClassify',
+            icon:"iconflgl",
+            iconSize:'15px'
+          },
+          {
+            title:"二维码管理",
+            to:'/storeErweima',
+            icon:"iconewmgl",
+            iconSize:'15px'
+          },
+          {
+            title:"订单管理",
+            to:'/storeOrder',
+            icon:"iconddgl",
+            iconSize:'15px'
+          },
+          {
+            title:"积分管理",
+            to:'/storeScore',
+            icon:"iconjfgl",
+            iconSize:'15px'
+          },
+          {
+            title:"扫码返奖励积分",
+            to:'/storeReturn',
+            icon:"iconsmfjl",
+            iconSize:'15px'
+          }
+        ],
         time:''
       }
   },
   computed:{
     uploadMp4Url(){
       return this.changeUrl
+    },
+    // 商家个人中心
+    enterpriseSet() {
+      return JSON.stringify(this.$route.query) === '{}'
     }
   },
   components:{
@@ -211,7 +274,7 @@ export default {
         this.infos.Category = value
       },
       beforeLogoUpload(file){
-         var testmsg=file.name.substring(file.name.lastIndexOf('.')+1)                
+         var testmsg=file.name.substring(file.name.lastIndexOf('.')+1)
         const extension = testmsg === 'jpg'
         const extension2 = testmsg === 'png'
         const isLt2M = file.size / 1024 / 1024 <= 1
@@ -249,7 +312,7 @@ export default {
       },
       uploadChane(file){
         console.log('change')
-        var testmsg=file.name.substring(file.name.lastIndexOf('.')+1)                
+        var testmsg=file.name.substring(file.name.lastIndexOf('.')+1)
         const extension = testmsg === 'jpg'
         const extension2 = testmsg === 'png'
         const extension3 = testmsg === 'mp4'
@@ -263,18 +326,18 @@ export default {
           this.$refs.mp4Uploader.submit()
         })
       },
-      
+
       beforeBannerUpload(file){
-        var testmsg=file.name.substring(file.name.lastIndexOf('.')+1)                
+        var testmsg=file.name.substring(file.name.lastIndexOf('.')+1)
         const extension = testmsg === 'jpg'
         const extension2 = testmsg === 'png'
         const extension3 = testmsg === 'mp4'
         const isLt2M = file.size / 1024 / 1024 <= 1
         // if(extension || extension2){
-        //   this.uploadMp4Url= '/up/create?dir=image' 
+        //   this.uploadMp4Url= '/up/create?dir=image'
         // }
         // if(extension3){
-        //   this.uploadMp4Url= '/up/create?dir=media' 
+        //   this.uploadMp4Url= '/up/create?dir=media'
         // }
         if(!extension && !extension2 && !extension3) {
             this.$message({
@@ -342,7 +405,7 @@ export default {
       }
     }
     },
-    
+
 }
 </script>
 <style lang="less" scoped>
@@ -368,7 +431,7 @@ export default {
       text-align: right;
       padding-right:15px;
   }
-  .input-box{ 
+  .input-box{
     input{
       display: block;
       box-sizing: border-box;
@@ -404,5 +467,73 @@ export default {
   background:@main;
   border:0;
   margin:30px auto 100px;
+}
+.small-nav-list {
+  display: none;
+  .margin{
+    width:100%;
+    height:10px;
+    background:@body_color;
+  }
+  ul{
+    padding: 0 15px;
+    li{
+      height:50/@p;
+      line-height: 50/@p;
+      a{
+        display: block;
+        font-size:14px;
+        color:@persion_left;
+        border-bottom:1px solid @class_border;
+        .iconfont{
+          margin-right:10px;
+          color:@placeholder_color;
+        }
+        .iconjiantou{
+          float:right;
+          font-size:10px;
+        }
+      }
+    }
+  }
+}
+@media screen and(max-width:@change_width) {
+  .store-page-center {
+    .small-nav-list {
+      display: block;
+    }
+    .persion-title {
+      display: none;
+    }
+    .content {
+      display: none;
+    }
+  }
+  .store-page {
+    min-height: auto;
+    margin-bottom: 100px;
+    .content {
+      padding-top: 60px;
+      .input-line {
+        width: 92%;
+        margin-bottom: 46px;
+        label {
+          left: 0;
+          right: auto;
+          top: -38px;
+          width: auto;
+          line-height: 38px;
+        }
+        .input-box {
+          input {
+            width: 100%;
+          }
+        }
+        .submit {
+          margin-top: 0;
+        }
+      }
+    }
+  }
 }
 </style>
