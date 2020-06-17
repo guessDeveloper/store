@@ -14,9 +14,9 @@
                         start-placeholder="开始日期"
                         end-placeholder="结束日期">
                         </el-date-picker>
-                    </div>    
-                <div class="status-select">
-                    状态 
+                    </div>
+                <div class="status-select status-select-wrap">
+                    状态
                     <!-- <el-dropdown>
                         <span class="select">
                             全部<i class="iconfont iconxiasanjiao"></i>
@@ -26,10 +26,10 @@
                             <el-dropdown-item>狮子头</el-dropdown-item>
                             <el-dropdown-item>螺蛳粉</el-dropdown-item>
                             <el-dropdown-item disabled>双皮奶</el-dropdown-item>
-                        
+
                         </el-dropdown-menu>
                     </el-dropdown> -->
-                    <span class="select">   
+                    <span class="select">
                         <el-select v-model="status" placeholder="请选择"  >
                             <el-option
                                 v-for="item in statusOption"
@@ -41,7 +41,7 @@
                     </span>
                 </div>
                 <div class="status-select">
-                    产品分类 
+                    产品分类
                     <!-- <el-dropdown>
                         <span class="select">
                             全部<i class="iconfont iconxiasanjiao"></i>
@@ -51,10 +51,10 @@
                             <el-dropdown-item>狮子头</el-dropdown-item>
                             <el-dropdown-item>螺蛳粉</el-dropdown-item>
                             <el-dropdown-item disabled>双皮奶</el-dropdown-item>
-                        
+
                         </el-dropdown-menu>
                     </el-dropdown> -->
-                    <span class="select">   
+                    <span class="select">
                         <el-select v-model="classNow" placeholder="请选择"  >
                             <el-option
                                 v-for="item in classOption"
@@ -92,11 +92,41 @@
                         </template>
                     </el-table-column>
                     </el-table>
-            </div>  
-      </div> 
+            </div>
+            <!-- 移动端列表 -->
+            <div class="table-small-box">
+                <div class="item">
+                    <div class="des">
+                        <div class="item-img-wrap">
+                            <img src="https://b-ssl.duitang.com/uploads/item/201706/27/20170627012435_mJLiX.thumb.700_0.jpeg" alt="" class="item-img">
+                        </div>
+                        <div>
+                            <div class="name">儿童网鞋男童透气网鞋男童透气…</div>
+                            <div class="item-name">
+                                订单号：<span class="item-value">20191212083520</span>
+                            </div>
+                            <div class="item-name">
+                                消费时间：<span class="item-value">2020-05-05 06:30:30</span>
+                            </div>
+                            <div class="item-name">
+                                订单类型：<span class="item-value">淘宝订单</span>
+                            </div>
+                            <div class="item-name">消费金额(元)：<span class="item-value">8000</span>
+
+                            </div>
+                            <div class="item-name">奖励积分：<span class="item-value">60</span></div>
+                        </div>
+                        <div class="order-status-wrap">
+                            <div class="order-status-name">状态：<span>已付款</span></div>
+                        </div>
+                    </div>
+                    <div class="btn-detail">修改</div>
+                </div>
+            </div>
+      </div>
       <div class="" v-if="tab== 2">
         <addProduct @success="addSuccess"></addProduct>
-      </div>  
+      </div>
   </div>
 </template>
 <script>
@@ -179,7 +209,7 @@ export default {
           this.pageIndex = 1;
           this.getList();
       }
-     
+
   }
 }
 </script>
@@ -245,7 +275,7 @@ export default {
         font-size:12px;
         line-height:34px ;
         // padding:10px 15px;
-        
+
         .iconfont{
             position: absolute;
             top:10px;
@@ -293,4 +323,96 @@ export default {
   .comment-btn{
       margin-left:8px;
   }
+.table-small-box{
+    display: none;
+    // padding: 0 15px;
+    .item-img-wrap {
+        margin-right: 15px;
+    }
+    .item{
+        padding-top: 20px;
+        .des{
+            position: relative;
+            display: flex;
+            .name {
+                font-size:12px;
+                font-family:PingFangSC-Semibold,PingFang SC;
+                font-weight:600;
+                color:rgba(51,51,51,1);
+            }
+            .item-name {
+                color: #999999;
+                line-height: 26px;
+            }
+            .item-value {
+                color: #333333;
+            }
+            .order-status-wrap {
+                position: absolute;
+                top: 0;
+                right: 0;
+                z-index: 1;
+                background-color: #ffffff;
+                .order-status-name {
+                    color: #999999;
+                }
+            }
+        }
+        .btn-detail {
+            padding: 15px 0;
+            margin-top: 20px;
+            border-top: 1px solid #eeeeee;
+            border-bottom: 1px solid #eeeeee;
+            text-align: center;
+            text-decoration-line: underline;
+        }
+        .item-img {
+            width: 50px;
+        }
+    }
+    .item:not(:first-child){
+        padding-top: 30px;
+    }
+}
+@media screen and(max-width:@change_width){
+    .tab-box {
+        border-bottom: 10px solid #F8F8F8;
+    }
+    .order-content {
+        padding: 0 15px;
+        .choose-box {
+            padding: 15px 0 0;
+            .date-box {
+                display: flex;
+                align-items: center;
+                // justify-content: center;
+            }
+            .status-select {
+                margin-left: 0;
+                margin-top: 10px;
+                margin-bottom: 10px;
+                width: 50%;
+                display: inline-flex;
+                align-items: center;
+                box-sizing: border-box;
+                .select {
+                    flex: 1;
+                }
+            }
+            .status-select-wrap {
+                padding-right: 20px;
+            }
+            .input-box {
+                width: 100%;
+                margin-left: 0;
+            }
+        }
+        .table-box {
+            display: none;
+        }
+        .table-small-box {
+            display: block;
+        }
+    }
+}
 </style>

@@ -70,7 +70,7 @@
      <div class="input-line-box">
            <label for="">返积分数量：</label><div class="input-box"><span class="tip">{{backScore}}</span> </div>
          </div>
-       <div class="input-line-box">
+       <div class="input-line-box input-line-box-shelf">
          <label>是否上架：</label>
          <el-switch
           v-model="online"
@@ -128,7 +128,7 @@ export default {
         return process.env.NODE_ENV === 'production' ? 'http://files.youledui.com/create?dir=image' : '/up/create?dir=image'
       },
     beforeLogoUpload(file){
-        var testmsg=file.name.substring(file.name.lastIndexOf('.')+1)                
+        var testmsg=file.name.substring(file.name.lastIndexOf('.')+1)
       const extension = testmsg === 'jpg'
       const extension2 = testmsg === 'png'
       const isLt2M = file.size / 1024 / 1024 <= 1
@@ -148,7 +148,7 @@ export default {
     },
     //主图上传成功
     mainSuccess(file,fileList){
-      
+
       if(file.Code == 1){
         this.mainUrl =  beforeUrl+ file.Data
         console.log(this.mainUrl)
@@ -281,9 +281,9 @@ export default {
       font-size:16px;
       background:@main;
       border:0;
-      
+
     }
-    .input-box{ 
+    .input-box{
     input{
       display: block;
       box-sizing: border-box;
@@ -301,7 +301,7 @@ export default {
        color:@subtitle_color;
        line-height: 50px;
     }
-   
+
   }
     .upload-btn{
       width:126px;
@@ -315,6 +315,35 @@ export default {
       font-size:12px;
       color:@subtitle_color;
       padding-left:20px;
+    }
+  }
+  @media screen and(max-width:@change_width){
+    .box {
+      padding-top: 50px;
+      .input-line-box {
+        margin: 0 auto 46px;
+        width: 92%;
+        label {
+          line-height: 38px;
+          top: -38px;
+          right: auto;
+          left: 0;
+        }
+        .percent {
+          width: 4%;
+          max-width: 50px;
+        }
+      }
+      .input-line-box-shelf {
+        display: flex;
+        align-items: center;
+        padding-left: 75px;
+        box-sizing: border-box;
+        label {
+          top: 0;
+          line-height: 50px;
+        }
+      }
     }
   }
 </style>
