@@ -13,8 +13,8 @@
                         start-placeholder="开始日期"
                         end-placeholder="结束日期">
                         </el-date-picker>
-                    </div>    
-               
+                    </div>
+
                 <div class="status-select">
                     订单状态
                     <!-- <el-dropdown trigger="click" >
@@ -26,10 +26,10 @@
                             <el-dropdown-item>狮子头</el-dropdown-item>
                             <el-dropdown-item>螺蛳粉</el-dropdown-item>
                             <el-dropdown-item disabled>双皮奶</el-dropdown-item>
-                        
+
                         </el-dropdown-menu>
                     </el-dropdown> -->
-                    <span class="select">   
+                    <span class="select">
                         <el-select v-model="value" placeholder="请选择"  >
                             <el-option
                                 v-for="item in options"
@@ -44,7 +44,7 @@
                     <input type="text" placeholder="输入订单号" v-model.trim="orderNum">
                     <span class="iconfont iconsousuo" @click="search"></span>
                 </div>
-                
+
             </div>
             <div class="table-box">
                   <el-table :data="listData"  header-row-style="font-size:12px;color:#999;" row-class-name="table-line" width="930">
@@ -66,6 +66,35 @@
                         </template>
                     </el-table-column>
                 </el-table>
+            </div>
+
+            <!-- 移动端分类列表 -->
+            <div class="table-small-box">
+                <div class="item">
+                    <div class="des">
+                        <div>
+                            <div class="item-name">
+                                订单号：<span class="item-value">20191212083520</span>
+                            </div>
+                            <div class="item-name">
+                                用户名：<span class="item-value">2020-05-05 06:30:30</span>
+                            </div>
+                            <div class="item-name">
+                                消费金额(元)：<span class="item-value">淘宝订单</span>
+                            </div>
+                            <div class="item-name">
+                                下单时间：<span class="item-value">2020-05-05 06:30:30</span>
+                            </div>
+                            <div class="item-name">
+                                返积分数：<span class="item-value">2020</span>
+                            </div>
+                        </div>
+                        <div class="order-status-wrap">
+                            <div class="order-status-name">状态：<span>已付款</span></div>
+                        </div>
+                    </div>
+                    <div class="btn-detail">查看详情</div>
+                </div>
             </div>
 
         </div>
@@ -171,8 +200,8 @@ export default {
         // border:1px solid @class_border;
         font-size:12px;
         line-height:34px ;
-        
-        
+
+
         .iconfont{
             position: absolute;
             top:10px;
@@ -208,5 +237,106 @@ export default {
             color:@subtitle_color;
         }
     }
-} 
+}
+.table-small-box {
+    display: none;
+}
+@media screen and(max-width:@change_width) {
+    .table-box {
+        display: none;
+    }
+    .table-small-box {
+        display: block;
+        padding: 0 15px;
+        .item {
+            padding-top: 20px;
+            .des{
+                position: relative;
+                display: flex;
+                .name {
+                    font-size:12px;
+                    font-family:PingFangSC-Semibold,PingFang SC;
+                    font-weight:600;
+                    color:rgba(51,51,51,1);
+                }
+                .item-name {
+                    color: #999999;
+                    line-height: 26px;
+                }
+                .item-value {
+                    color: #333333;
+                }
+                .order-status-wrap {
+                    position: absolute;
+                    top: 0;
+                    right: 0;
+                    z-index: 1;
+                    background-color: #ffffff;
+                    .order-status-name {
+                        color: #999999;
+                    }
+                }
+            }
+            .btn-detail {
+                padding: 15px 0;
+                margin-top: 20px;
+                border-top: 1px solid #eeeeee;
+                border-bottom: 1px solid #eeeeee;
+                text-align: center;
+                text-decoration-line: underline;
+            }
+        }
+    }
+    .score-box {
+        position: absolute;
+        top: 68px;
+        left: 0;
+        right: 0;
+        height: 64px;
+        padding: 0 30px;
+        display: flex;
+        align-items: center;
+        border-bottom: 10px solid #F8F8F8;
+        span {
+            margin-left: 0;
+            display: inline-block;
+            height: 24px;
+            line-height: 24px;
+            flex: 1;
+            text-align: right;
+        }
+        span:not(:last-child) {
+            border-right: 1px solid #eeeeee;
+            text-align: left;
+        }
+    }
+    .order-content {
+        padding: 0 15px;
+        .choose-box {
+            padding: 90px 0 0;
+            .date-box {
+                display: block;
+                margin-bottom: 10px;
+            }
+            .status-select {
+                width: 50%;
+                margin-left: 0;
+                padding-right: 8px;
+                box-sizing: border-box;
+                .select {
+                    margin-left: 0;
+                    width: calc(100% - 66px);
+                }
+            }
+            .input-box {
+                width: 50%;
+                margin-left: 0;
+                box-sizing: border-box;
+                input {
+                    width: 100%;
+                }
+            }
+        }
+    }
+}
 </style>

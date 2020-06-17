@@ -16,7 +16,18 @@
             <el-table-column property="status" label="状态" width="563" align="center"></el-table-column>
             <el-table-column property="num" label="积分数量" width="148" align="center"></el-table-column>
           </el-table>
-        </div>  
+        </div>
+        <div class="table-small-box">
+          <div class="list-item">
+            <div class="list-item-p">
+              <p>时间：<span>2020-05-29 21:10:00</span></p>
+              <p>积分数量：<span>+600</span></p>
+            </div>
+            <div class="list-item-b text-right">
+              <p>状态：<span>成功</span></p>
+            </div>
+          </div>
+        </div>
      </div>
      <div class="tab-content"  v-show="tab==2">
         <div class="table-box jiangli">
@@ -26,7 +37,18 @@
             <el-table-column property="status" label="状态" width="563" align="center"></el-table-column>
             <el-table-column property="num" label="积分数量" width="148" align="center"></el-table-column>
           </el-table>
-        </div>  
+        </div>
+        <div class="table-small-box">
+          <div class="list-item">
+            <div class="list-item-p">
+              <p>时间：<span>2020-05-29 21:10:00</span></p>
+              <p>积分数量：<span>+600</span></p>
+            </div>
+            <div class="list-item-b">
+              <p>状态：<span>成功</span></p>
+            </div>
+          </div>
+        </div>
      </div>
   </div>
 </template>
@@ -59,7 +81,7 @@ export default {
       this.$http.storePost(this.$api.RechangeList,{pageIndex:this.chongIndex,pageSize:this.chongPage}).then(res=>{
         if(res.data.Code ==1){
           this.chongList= res.data.Data.list
-          
+
         }else{
           this.$message.error(res.data.Msg)
         }
@@ -71,7 +93,7 @@ export default {
       this.$http.storePost(this.$api.MerchantUseIntegralRecords,{pageIndex:this.chongIndex,pageSize:this.chongPage}).then(res=>{
         if(res.data.Code ==1){
           this.jiangList= res.data.Data.list
-          
+
         }else{
           this.$message.error(res.data.Msg)
         }
@@ -137,6 +159,57 @@ export default {
     color:@main;
     border:1px solid @main;
     background:#fff;
+  }
+}
+.table-small-box {
+  display: none;
+  .list-item {
+    padding: 20px 0;
+    border-bottom: 1px solid #eeeeee;
+    .list-item-p {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 15px;
+      color: #999999;
+      span {
+        color: #333333;
+      }
+    }
+    .list-item-b {
+      color: #999999;
+    }
+  }
+}
+@media screen and(max-width:@change_width) {
+  .menager-box {
+    .tab-box {
+      padding: 0 15px;
+      border-bottom: 10px solid #F8F8F8;
+      .tab-item {
+        margin-right: 0;
+      }
+      .tab-item:first-child {
+        margin-right: 30px;
+      }
+    }
+    .tab-content {
+      padding: 0 15px;
+      .btn-box {
+        padding: 15px;
+        margin: 0 -15px;
+        border-bottom: 10px solid #F8F8F8;
+        button {
+          width: 100%;
+        }
+      }
+      .table-box {
+        display: none;
+      }
+      .table-small-box {
+        display: block;
+      }
+    }
   }
 }
 </style>
