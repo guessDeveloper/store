@@ -166,6 +166,12 @@ export default {
       margin:0;
       float: none;
       padding:0 15px;
+      width: 100%;
+      box-sizing: border-box;
+      .buy-btn {
+        width: 100%;
+        margin-bottom: 20px;
+      }
     }
   }
 }
@@ -194,6 +200,16 @@ export default {
     img{
       display:block;
       width:100%;
+    }
+  }
+  @media screen and(max-width:@change_width){
+    width: 100%;
+    .des-box {
+      .des {
+        .item {
+          float: none;
+        }
+      }
     }
   }
 }

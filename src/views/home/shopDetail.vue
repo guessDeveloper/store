@@ -50,12 +50,12 @@
       <h3 class="title">
               全部评价 <span>{{commentTotal}}</span><router-link  class="more" tag="a" :to="'/commentList?id='+MerchanterId+'&type=1'"> 查看全部<span class="iconfont iconjiantou"></span></router-link>
           </h3>
-        
+
             <ul class="comment-list">
               <li v-for="(item,index) in commentList" :key="index">
                 <commentCard :data="item"></commentCard>
               </li>
-              
+
           </ul>
     </div>
   </div>
@@ -102,7 +102,7 @@ export default {
     //获取商家banner
     getBanner(){
       this.bannerList = JSON.parse(this.detial.MertchntImge);
-      
+
     },
     //判断是否是mp4
     isMp4(url){
@@ -198,7 +198,7 @@ export default {
         text-decoration: underline;
       }
     }
-    
+
   }
 }
 
@@ -273,6 +273,93 @@ export default {
     float: left;
     width:265px;
     margin:13px;
+  }
+}
+@media screen and(max-width:@change_width) {
+  .detail {
+    width: 100%;
+    height: auto;
+    .detail-left {
+      float: none;
+      width: 100%;
+      // height: 212px;
+    }
+    .detail-right {
+      float: none;
+      width: 100%;
+      padding: 0 15px 20px;
+      .goods-box {
+        margin-bottom: 120px;
+      }
+      .icon-box {
+        padding-left: 0;
+      }
+      .score-box {
+        // position: static;
+        // margin-top: 15px;
+        left: 15px;
+        right: auto;
+        top: 85px;
+      }
+    }
+  }
+  .goods-about {
+    width: 100%;
+    margin: 10px auto 0;
+    .title {
+      padding: 15px 15px 15px 30px;
+      border-bottom: 1px solid #F8F8F8;
+      font-size:20px;
+      position: relative;
+    }
+    .title:before {
+      content: '';
+      display: block;
+      position: absolute;
+      left: 15px;
+      top: 50%;
+      width: 4px;
+      height: 30%;
+      transform: translateY(-50%);
+      background-color: #F38A1D;
+    }
+    .good-list {
+        padding: 15px;
+        overflow: hidden;
+        li {
+          margin: 0;
+          float: left;
+          width: 50%;
+          box-sizing: border-box;
+        }
+        li:nth-child(odd) {
+          padding-right: 8px;
+        }
+        li:nth-child(even) {
+          padding-left: 8px;
+        }
+    }
+  }
+  .comment-list-box {
+    width: 100%;
+    margin-top: 10px;
+    .title {
+      padding: 15px 15px 15px 30px;
+      font-size: 20px;
+      position: relative;
+      border-bottom: 1px solid #F8F8F8;
+    }
+    .title:before {
+      content: '';
+      display: block;
+      position: absolute;
+      left: 15px;
+      top: 50%;
+      width: 4px;
+      height: 30%;
+      transform: translateY(-50%);
+      background-color: #F38A1D;
+    }
   }
 }
 </style>

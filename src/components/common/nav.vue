@@ -151,7 +151,7 @@ export default {
   beforeDestroy(){
     clearInterval(this.timer)
   },
- 
+
 }
 </script>
 <style lang="less" scoped>
@@ -232,6 +232,9 @@ export default {
      opacity: 1;
       transform: translate3d(0,0,0);
    }
+}
+.loginout, .logined {
+  display: none;
 }
 @media screen and(max-width:@change_width){
   .nav{

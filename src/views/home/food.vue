@@ -30,13 +30,46 @@
                 </ul>
             </div>
         </div>
+
+        <!-- 移动端筛选条件 -->
+        <div class="classify-list-small-box">
+            <ul>
+                <li class="active">全部</li>
+                <li v-for="(item, index) in classType" :key="index">{{ item.Classname }}</li>
+            </ul>
+        </div>
+        <div class="filter-small-box">
+            <div>
+                地址：
+                <el-dropdown trigger="click" class="select" @command="chengeSelect">
+                    <span class="el-dropdown-link">
+                    <span class="el-dropdown-label">全部</span><span class="iconfont icon-arrow-downYellow"></span>
+                    </span>
+                    <el-dropdown-menu slot="dropdown">
+                        <el-dropdown-item>黄金糕</el-dropdown-item>
+                    </el-dropdown-menu>
+                </el-dropdown>
+            </div>
+            <div>
+                排序：
+                <el-dropdown trigger="click" class="select" @command="chengeSelect">
+                    <span class="el-dropdown-link">
+                    <span class="el-dropdown-label">默认</span><span class="iconfont icon-arrow-downYellow"></span>
+                    </span>
+                    <el-dropdown-menu slot="dropdown">
+                        <el-dropdown-item>黄金糕</el-dropdown-item>
+                    </el-dropdown-menu>
+                </el-dropdown>
+            </div>
+        </div>
+
         <div class="food-list-box">
             <ul class="food-list">
                 <li  v-for="(item,index) in list"><foodCard :item="item"></foodCard></li>
             </ul>
             <div class="page-box">
                 <el-pagination
-                    
+
                     @current-change="getList"
                     :current-page.sync="pageIndex"
                     :page-size="pageSize"
@@ -171,5 +204,88 @@ export default {
     background:url(../../assets/img/icon-sort.png) no-repeat center center;
     background-size:100%;
   }
+}
+.classify-list-small-box {
+    display: none;
+}
+.filter-small-box {
+    display: none;
+}
+@media screen and(max-width:@change_width) {
+    .shop-list-box {
+        display: none;
+    }
+    .classify-list-small-box {
+        display: block;
+        border-top: 10px solid #F8F8F8;
+        border-bottom: 1px solid #F8F8F8;
+        padding: 0 15px;
+        overflow-x: auto;
+        overflow-y: hidden;
+        height: 58px;
+        box-sizing: border-box;
+        background-color: #ffffff;
+        ul {
+            // width: 100%;
+            overflow-x: auto;
+            overflow-y: hidden;
+            white-space: nowrap;
+            li {
+                position: relative;
+                display: inline-block;
+                margin-right: 20px;
+                height: 56px;
+                // line-height: 56px;
+                padding-top: 15px;
+                box-sizing: border-box;
+                font-size:12px;
+                color: #999999;
+            }
+            li.active {
+                color: #F38A1D;
+            }
+            li.active:after {
+                content: '';
+                position: absolute;
+                left: 50%;
+                bottom: 13px;
+                transform: translateX(-50%);
+                width: 50%;
+                height: 2px;
+                background-color: #F38A1D;
+            }
+        }
+    }
+    .filter-small-box {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 0 60px;
+        color: #999999;
+        height: 47px;
+        background-color: #ffffff;
+        .el-dropdown-label {
+            margin-right: 4px;
+            color: #F38A1D;
+            font-size: 12px;
+        }
+    }
+    .food-list-box {
+        width: 100%;
+        background-color: transparent;
+        .food-list {
+            padding: 0 15px 15px;
+            background-color: transparent;
+            li {
+                margin: 0;
+                width: 100%;
+                background-color: #ffffff;
+                margin-bottom: 15px;
+                .card-des {
+                    padding: 0 15px 20px;
+                }
+            }
+        }
+    }
 }
 </style>

@@ -90,7 +90,7 @@ export default {
       margin-top:13px;
       color:@subtitle_color;
       font-size:12px;
-      
+
       .red{
         color:@percent_color;
       }
@@ -113,6 +113,21 @@ export default {
           text-decoration: underline;
         }
       }
+    }
+  }
+}
+@media screen and(max-width:@change_width) {
+  .shop-card-box {
+    border: 0;
+    height: auto;
+    .img-box {
+      float: none;
+      width: 100%;
+      height: 195px;
+    }
+    .des-box {
+      padding: 0 15px 20px;
+      height: auto;
     }
   }
 }

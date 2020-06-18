@@ -9,12 +9,12 @@
           <h2 class="title">
               全部评价 <span>{{total}}</span>
           </h2>
-        
+
             <ul class="comment-list">
               <li v-for="(item,index) in list" :key="index">
                 <commentCard :data="item"></commentCard>
               </li>
-             
+
             </ul>
             <div class="page-box">
                 <el-pagination
@@ -97,4 +97,28 @@ export default {
 .page-box{
       padding:60px 0 60px;
   }
+@media screen and(max-width:@change_width){
+  .comment-list-box {
+    width: 100%;
+    .title {
+      width: 100%;
+      padding: 15px 15px 15px 30px;
+      border-bottom: 1px solid #F8F8F8;
+      box-sizing: border-box;
+      font-size:20px;
+      position: relative;
+    }
+    .title:before {
+      content: '';
+      display: block;
+      position: absolute;
+      left: 15px;
+      top: 50%;
+      width: 4px;
+      height: 30%;
+      transform: translateY(-50%);
+      background-color: #F38A1D;
+    }
+  }
+}
 </style>
