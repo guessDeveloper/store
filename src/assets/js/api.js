@@ -84,6 +84,7 @@ export default {
     UserEditPhoneNOSendVerifyCode: '/api/User/UserEditPhoneNOSendVerifyCode', // 获取旧手机验证码
     UserEditPhoneNOSendVerifyCodeAgain: '/api/User/UserEditPhoneNOSendVerifyCodeAgain', //获取新手机验证码
     UserEditPhoneNOVerifyAgain: '/api/User/UserEditPhoneNOVerifyAgain', //验证新手机号
+    AddOrderAppealList: '/api/User/AddOrderAppealList', //订单申诉
     //商家中心
     MerchanterMerchanter: '/api/Merchant/MerchanterMerchanter', //获取商家信息
     GetQuickMakList: '/api/Merchant/GetQuickMakList', //获取商家里的二维码

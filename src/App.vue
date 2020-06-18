@@ -208,6 +208,9 @@ export default {
   border-color:@main!important;
   background:@main!important;
 }
+.select .el-input__icon{
+  line-height: 34px;
+}
 //page-box
  .page-box{
     text-align: center;

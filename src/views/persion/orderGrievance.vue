@@ -16,19 +16,19 @@
                 </div>
                 <div class="mobile-app-data">
                    <el-date-picker
-                      v-model="value1"
+                      v-model="dataValue[0]"
                       type="date"
                       placeholder="开始日期">
                       </el-date-picker>
                     <el-date-picker
-                      v-model="value1"
+                      v-model="dataValue[2]"
                       type="date"
                       placeholder="结束日期">
                     </el-date-picker>
                </div>
                 <div class="status-select">
                     状态
-                    <el-dropdown trigger="click">
+                    <!-- <el-dropdown trigger="click">
                         <span class="select">
                             全部<i class="iconfont iconxiasanjiao"></i>
                         </span>
@@ -39,9 +39,19 @@
                             <el-dropdown-item disabled>双皮奶</el-dropdown-item>
 
                         </el-dropdown-menu>
-                    </el-dropdown>
+                    </el-dropdown> -->
+                      <span class="select">
+                        <el-select v-model="status" placeholder="请选择"  >
+                            <el-option
+                                v-for="item in statusOptions"
+                                :key="item.value"
+                                :label="item.label"
+                                :value="item.value">
+                            </el-option>
+                        </el-select>
+                    </span>
                 </div>
-                <div class="status-select select-type">
+                <!-- <div class="status-select select-type">
                     订单类型
                     <el-dropdown>
                         <span class="select">
@@ -54,7 +64,7 @@
                             <el-dropdown-item disabled>双皮奶</el-dropdown-item>
                         </el-dropdown-menu>
                     </el-dropdown>
-                </div>
+                </div> -->
                 <div class="input-box">
                     <input type="text" placeholder="输入订单号">
                     <span class="iconfont iconsousuo"></span>
@@ -103,31 +113,30 @@
               <div class="wary">订单申诉，请确认您的订单是通过本站跳转并提交的！</div>
               <div class="tip">请输入您要申诉的第三方平台订单号：</div>
                 <div class="input-line">
-                  <label for="">订单号：</label><div class="input-box"><input type="text" placeholder="请输入订单号"></div>
+                  <label for="">订单号：</label><div class="input-box"><input type="text" placeholder="请输入订单号" v-model.trim="newOrderNumber"></div>
                 </div>
                 <div class="input-line">
                     <label for="">平台类型：</label>
                     <div class="input-box">
-                      <el-dropdown>
-                          <span class="select el-dropdown-link">
-                              全部<i class="iconfont iconxiasanjiao"></i>
-                          </span>
-                          <el-dropdown-menu slot="dropdown">
-                              <el-dropdown-item>黄金糕</el-dropdown-item>
-                              <el-dropdown-item>狮子头</el-dropdown-item>
-                              <el-dropdown-item>螺蛳粉</el-dropdown-item>
-
-                          </el-dropdown-menu>
-                      </el-dropdown>
+                      <span class="select">
+                        <el-select v-model="pingtaiSelect" placeholder="请选择"  >
+                            <el-option
+                                v-for="item in pingtai"
+                                :key="item.value"
+                                :label="item.label"
+                                :value="item.value">
+                            </el-option>
+                        </el-select>
+                      </span>
                    </div>
 
                 </div>
                 <div class="input-line">
-                    <label for="">申诉说明：</label><div class="input-box"><div class="textarea-box"><textarea name="" id="" cols="30" rows="10" placeholder="请输入申诉说明"></textarea><span class="input-limit">还可输入500字</span></div></div>
+                    <label for="">申诉说明：</label><div class="input-box"><div class="textarea-box"><textarea name="" id="" cols="30" rows="10" placeholder="请输入申诉说明" v-model.trim="newOrderDes"></textarea><span class="input-limit">还可输入500字</span></div></div>
                 </div>
                 <div class="btn-box">
-                  <button class="ok">确认</button>
-                  <button class="no">取消</button>
+                  <button class="ok" @click="addOrder">确认</button>
+                  <button class="no" @click="toNew = false">取消</button>
 
                 </div>
               </div>
@@ -147,8 +156,66 @@ export default {
          status:'未处理',
          result:'线上到线下(Online To Offline，O2O)，是指将线下的商务机会与互联网结合，让互联网成为线下交易的平台。O2O服务性电商模式包括选择商品(服务)、下单、支付等流程。随着O2O服务性电商模式的不断发…'
        }],
-       toNew:false
+       dataValue:[new Date(),new Date()],
+       status:'',
+       statusOptions:[{
+         label:'全部',
+         value:''
+       },
+       { //0-待审核 1-已通过 2-已驳回 -1 已取消 
+         label:'待审核',
+         value:0
+       },{
+         label:'已通过',
+         value:1
+       },{
+         label:'已驳回',
+         value:2
+       },{
+         label:'已取消',
+         value:-1
+       }],
+       pingtai:[{ //2-淘宝 3-拼多多 4-亿起发 ,
+         label:'淘宝',
+         value:2
+       },{
+         label:'拼多多',
+         value:3
+       },{
+         label:'亿起发',
+         value:4
+       }],
+       pingtaiSelect:2,
+       toNew:false,
+       newOrderNumber:'',
+       newOrderDes:'', // 申诉原因
+
     }
+  },
+  methods:{
+    //添加申诉
+    addOrder(){
+      if(this.newOrderNumber == ''){
+        this.$message.error('请输入订单号')
+      }else if(this.newOrderDes == ''){
+        this.$message.error('请输入申诉说明')
+      }else{
+        this.$http.limitPost(this.$api.AddOrderAppealList,{
+          "orderSerialNumber": this.newOrderNumber,
+          "orderType": this.pingtaiSelect,
+          "ComplaintContent": this.newOrderDes
+        }).then(res=>{
+          if(res.data.Code == 1){
+            this.$message.success('发送成功')
+            this.toNew = false;
+            this.newOrderNumber = '';
+            this.newOrderDes = '';
+          }else{
+            this.$message.error(res.data.Msg)
+          }
+        })
+      }
+    },
   }
 }
 </script>
@@ -237,11 +304,13 @@ export default {
         height:34px;
         margin-left:15px;
         box-sizing:border-box;
-        border:1px solid @class_border;
+        // border:1px solid @class_border;
         font-size:12px;
         line-height:12px ;
-        padding:10px 15px;
-
+        // padding:10px 15px;
+        .el-input__icon{
+          line-break: 34px;
+        }
         .iconfont{
             position: absolute;
             top:10px;
@@ -342,10 +411,10 @@ export default {
           width:105px;
           height:34px;
           box-sizing:border-box;
-          border:1px solid @class_border;
+          // border:1px solid @class_border;
           font-size:12px;
-          line-height:12px ;
-          padding:10px 15px;
+          line-height:34px ;
+          // padding:10px 15px;
 
           .iconfont{
               position: absolute;
