@@ -72,7 +72,9 @@ export default {
       goodsList:[],
       commentTotal:'',
       detial:'',
-      bannerList:[]
+      bannerList:[],
+      IsQRcode:0,
+      tablenumber:''
     }
   },
   mounted(){
@@ -88,14 +90,23 @@ export default {
   methods:{
     //获取商家产品
     getDetail(){
+      let _this = this;
       this.$http.post(this.$api.MerchantInfo,{
-        MerchanterId:this.MerchanterId
+        MerchantId:this.MerchanterId
       }).then(res=>{
         if(res.data.Code == 1){
-          console.log(res.data.Data)
-          this.detial = res.data.Data
-          this.commentList = res.data.Data.PinList
-          this.goodsList = res.data.Data.GoodsList
+          this.IsQRcode = res.data.Data.IsQRcode
+          this.tablenumber = res.data.Data.tablenumber
+          this.detial = res.data.Data.model
+          this.commentList = res.data.Data.model.PinList
+          let arry = res.data.Data.model.GoodsList;
+          arry.forEach(element => {
+            element.IsQRcode = _this.IsQRcode
+            element.tablenumber = _this.tablenumber
+            element.Mertchntname = this.detial.Mertchntname
+            element.MertchntID = this.detial.MertchntID
+          });
+          this.goodsList = arry
           this.getBanner();
         }
       })

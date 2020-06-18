@@ -4,7 +4,7 @@
      <h4>{{data.GoodsName}}</h4>
      <p>积分约：</p>
      <div class="price">¥{{data.GoodsMoneny}}</div>
-     <button class="add" @click="addCar">加入购物车</button>
+     <button class="add" @click="addCar" >加入购物车</button>
   </div>
 </template>
 <script>
@@ -26,17 +26,21 @@ export default {
       type:Object
     }
   },
+  mounted(){
+    console.log(this.data)
+  },
   methods:{
    ...mapMutations([
       'addNum',
       'setLogin',
+      'carAddStore'
    ]),
    goDetail(){
       this.$router.push(`/earthDetail?ProductId=${this.data.GoodsId}`)
    },
    //添加购物车
    addCar(){
-     this.addNum()
+     this.carAddStore([{id:this.data.MertchntID,name:this.data.Mertchntname},{...this.data,num:1,checked:false}])
    }
   }
 }

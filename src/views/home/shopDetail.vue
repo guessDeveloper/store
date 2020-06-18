@@ -88,13 +88,14 @@ export default {
     //获取商家产品
     getDetail(){
       this.$http.post(this.$api.MerchantInfo,{
-        MerchanterId:this.MerchanterId
+        MerchantId:this.MerchanterId,
+        token:localStorage.getItem('token')?localStorage.getItem('token'):''
       }).then(res=>{
         if(res.data.Code == 1){
           console.log(res.data.Data)
-          this.detial = res.data.Data
-          this.commentList = res.data.Data.PinList
-          this.goodsList = res.data.Data.GoodsList
+          this.detial = res.data.Data.model
+          this.commentList = res.data.Data.model.PinList
+          this.goodsList = res.data.Data.model.GoodsList
           this.getBanner();
         }
       })

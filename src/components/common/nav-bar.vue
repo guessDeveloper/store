@@ -35,7 +35,7 @@
                 <span class="iconfont iconsousuo"></span><span class="name">搜索</span>
             </a>
         </div>
-        <router-link class="shop-car" v-show="showCar&&isLogin" tag="div" to="/shopCar">
+        <router-link class="shop-car" :class="{show:showCar&&isLogin}" tag="div" to="/shopCar">
             <span class="iconfont icongwc"></span>美食订单 <span class="num" v-show="charNum>0">{{charNum}}</span>
         </router-link>
     </div>
@@ -94,7 +94,7 @@ export default {
                   query:this.$api.storeGJKeyWordSearch,
                   type:'store' 
                },{
-                  path:['/shop'],
+                  path:['/shop','/shopDetail'],
                   name:'逛街购物',
                   query:this.$api.GJKeyWordSearch,
                   type:'shop' 
@@ -320,6 +320,9 @@ export default {
                 }
             }
         }
+        .shop-car{
+            display: none;
+        }
     }
 }
 @media screen and(max-width:@change_width){
@@ -378,7 +381,7 @@ export default {
         color:@main;
     }
     input{
-        width:60%;
+        width:59%;
     }
     .search-box{
         float: left;
@@ -428,6 +431,9 @@ export default {
         font-size:12px;
         color:@main;
         margin-top: 14px;
+        &.show{
+            display: block;
+        }
         .iconfont{
             font-size:14px;
             margin-right:3px;

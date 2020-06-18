@@ -24,7 +24,7 @@ export default {
     pddGetClassNoPic: '/api/PDD/GetClassNoPic', //获取拼多多全部分类
     pddGerPageList: '/api/PDD/GerPageList', //通过分类获取拼多多列表
     //详情页面
-    GetMaterialGoodsById: '/api/Detail/GetMaterialGoodsById', //获取详情
+    GetMaterialGoodsById: '/api/Detail/GetGoodsinfo', //获取详情
     clickTobuy: '/api/Detail/clickTobuy', //购买
     //商家列表
     GetMerchaterClass: '/api/YiQiFa/GetMerchaterClass', //获取商家列表

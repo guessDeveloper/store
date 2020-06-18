@@ -27,6 +27,22 @@ const storeInstance = Axios.create({
         'token': localStorage.getItem('storeToken') ? localStorage.getItem('storeToken') : ''
     }
 })
+instance.interceptors.response.use(
+    response => {
+        return response
+    },
+    error => {
+        if (error.response) {
+            switch (error.response.status) {
+                case 401:
+                    // 返回 401 清除token信息并跳转到登录页面
+                    store.commit('isLogin', false)
+
+                    // location.reload()
+            }
+        }
+        return Promise.reject(error.response.data) // 返回接口返回的错误信息
+    })
 newInstance.interceptors.response.use(
     response => {
         return response
@@ -54,7 +70,7 @@ storeInstance.interceptors.response.use(
                 switch (error.response.status) {
                     case 401:
                         // 返回 401 清除token信息并跳转到登录页面
-
+                        store.commit('isLogin', false)
                         router.replace({
                                 path: '/login'
                             })
@@ -101,7 +117,11 @@ export default {
     get(url, parame) {
         const data = JSON.parse(JSON.stringify(baseData))
         return instance.get(baseUrl + url, {
-            params: Object.assign(data, parame)
+            params: Object.assign(data, parame),
+            headers: {
+                'content-type': 'application/x-www-form-urlencoded',
+                'token': localStorage.getItem('token') ? localStorage.getItem('token') : ''
+            }
         })
     },
     post(url, parame) {
