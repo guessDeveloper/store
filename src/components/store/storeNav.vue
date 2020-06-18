@@ -7,15 +7,17 @@
       </div>
        <div class="nav-right">
           <!-- <a class=""></a> -->
-         
+
            <span v-show="isLogin" class="">
              <router-link to="/store" class="userName login-btn">{{userName}}</router-link>
-            
+
            </span>
           <a href="" class="help">帮助中心</a>
        </div>
-      <a href="" class="regester">注册</a>
-      <a class="login">登录</a>
+      <!-- <a href="" class="regester">注册</a>
+      <a class="login">登录</a> -->
+      <a  class="loginout">退出登录</a>
+      <a href="javascript:;" class="logined"><span class="iconfont iconzh"></span>商家中心</a>
     </div>
   </div>
 </template>
@@ -40,7 +42,7 @@ export default {
     setTimeout(()=>{
       this.getStoreInfo();
     },500)
-    
+
   },
   methods:{
     ...mapMutations([
@@ -50,7 +52,7 @@ export default {
       clearInterval(this.timer);
       this.timer = setInterval(()=>{
         this.tipActive++;
-        
+
         if(this.tipActive>this.tip.length-1){
           this.tipActive = 0;
         }
@@ -151,6 +153,9 @@ export default {
       transform: translate3d(0,0,0);
    }
 }
+.loginout, .logined {
+  display: none;
+}
 @media screen and(max-width:@change_width){
   .nav{
     width:100%;
@@ -188,6 +193,36 @@ export default {
         font-size:12px;
         border:1px solid @main;
         border-radius: 4/@p;
+      }
+      .loginout{
+        display: block;
+        float: right;
+        width:68/@p;
+        height:24/@p;
+        color:@main;
+        line-height: 24/@p;
+        text-align: center;
+        border:1px solid @main;
+        border-radius:4/@p ;
+        margin-top:8/@p;
+      }
+      .logined{
+        display: block;
+        float: right;
+        width:83/@p;
+        height:24/@p;
+        color:#4A90E2;
+        line-height: 24/@p;
+        text-align: center;
+        border:1px solid #4A90E2;
+        border-radius:4/@p ;
+        margin-top:8/@p;
+        margin-right: 8/@p;
+        .iconfont{
+          font-size:12px;
+          color:#4A90E2;
+          margin-right:5px;
+        }
       }
     }
   }

@@ -23,7 +23,7 @@
                 </el-pagination>
             </div>
         </div>
-      </div>  
+      </div>
   </div>
 </template>
 <script>
@@ -97,6 +97,49 @@ export default {
     float: left;
     width:265px;
     margin:13px;
+  }
+}
+@media screen and(max-width:@change_width){
+  .goods-box {
+    width: 100%;
+    .title {
+      width: 100%;
+      padding: 15px 15px 15px 30px;
+      border-bottom: 1px solid #F8F8F8;
+      box-sizing: border-box;
+      font-size:20px;
+      position: relative;
+    }
+    .title:before {
+      content: '';
+      display: block;
+      position: absolute;
+      left: 15px;
+      top: 50%;
+      width: 4px;
+      height: 30%;
+      transform: translateY(-50%);
+      background-color: #F38A1D;
+    }
+    .list-box {
+      width: 100%;
+      .good-list {
+        padding: 15px;
+        overflow: hidden;
+        li {
+          margin: 0;
+          float: left;
+          width: 50%;
+          box-sizing: border-box;
+        }
+        li:nth-child(odd) {
+          padding-right: 8px;
+        }
+        li:nth-child(even) {
+          padding-left: 8px;
+        }
+      }
+    }
   }
 }
 </style>
