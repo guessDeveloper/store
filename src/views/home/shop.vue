@@ -62,38 +62,6 @@
             </el-dropdown>
         </div>
     </div>
-    <!-- 移动端商品列表 -->
-    <div class="shop-list-small-box">
-        <ul>
-            <li class="list-item">
-                <img src="https://b-ssl.duitang.com/uploads/item/201706/27/20170627012435_mJLiX.thumb.700_0.jpeg" alt="" class="list-item-img">
-                <div class="list-item-title">
-                    <img src="https://b-ssl.duitang.com/uploads/item/201706/27/20170627012435_mJLiX.thumb.700_0.jpeg" alt="">
-                    <span>全聚德烤鸭店（昌平店）</span>
-                </div>
-                <div class="list-item-integral">
-                    <p class="list-item-integral-honesty">
-                        商家诚信积分：<span>100</span>
-                    </p>
-                    <p class="list-item-integral-residue">
-                        剩余积分：<span>100</span>
-                    </p>
-                </div>
-                <div class="list-item-reward">
-                    任务奖励：<span>5%-20%</span>
-                </div>
-                <div class="list-item-area">
-                    <div class="list-item-area-left">
-                        距离：<span>500m</span>
-                    </div>
-                    <div class="list-item-area-right">
-                        <img src="https://b-ssl.duitang.com/uploads/item/201706/27/20170627012435_mJLiX.thumb.700_0.jpeg" alt="" class="list-item-area-img">
-                        <span>北京</span>
-                    </div>
-                </div>
-            </li>
-        </ul>
-    </div>
 
         <div class="shop-list-box">
             <ul class="shop-list">
@@ -244,20 +212,19 @@ export default {
 .filter-small-box {
     display: none;
 }
-.shop-list-small-box {
-    display: none;
-}
 @media screen and(max-width:@change_width) {
     .shop-list-box {
-        display: none;
+        // display: none;
+        width: 100%;
     }
     .classify-list-small-box {
         display: block;
+        border-top: 10px solid #F8F8F8;
         border-bottom: 1px solid #F8F8F8;
         padding: 0 15px;
         overflow-x: auto;
         overflow-y: hidden;
-        height: 48px;
+        height: 58px;
         box-sizing: border-box;
         background-color: #ffffff;
         ul {
@@ -305,84 +272,18 @@ export default {
             font-size: 12px;
         }
     }
-    .shop-list-small-box {
-        display: block;
-        ul {
+    .shop-list-box {
+        width: 100%;
+        margin-top: 0;
+        .shop-list {
             padding: 15px;
-            .list-item {
-                padding-bottom: 15px;
-                .list-item-img {
-                    width: 100%;
-                }
-                .list-item-title {
-                    display: flex;
-                    align-items: center;
-                    margin-top: 20px;
-                    padding-left: 15px;
-                    img {
-                        width: 29px;
-                        margin-right: 10px;
-                    }
-                    span {
-                        font-size:16px;
-                        color: #333333;
-                        font-weight:600;
-                    }
-                }
-                .list-item-integral {
-                    display: flex;
-                    align-items: center;
-                    padding-left: 15px;
-                    margin-top: 10px;
-                    color: #999999;
-                    .list-item-integral-honesty {
-                        margin-right: 20px;
-                        span {
-                            color: #50BCFF;
-                            font-weight:400;
-                        }
-                    }
-                    .list-item-integral-residue {
-                        span {
-                            color: #F38A1D;
-                            font-weight:400;
-                        }
-                    }
-                }
-                .list-item-reward {
-                    padding-left: 15px;
-                    margin-top: 12px;
-                    color: #999999;
-                    span {
-                        color: #D51B32;
-                        font-weight:400;
-                    }
-                }
-                .list-item-area {
-                    display: flex;
-                    align-items: center;
-                    justify-content: space-between;
-                    padding-left: 15px;
-                    margin-top: 12px;
-                    color: #999999;
-                    .list-item-area-left {
-                        span {
-                            color: #333333;
-                            font-weight: 400;
-                        }
-                    }
-                    .list-item-area-right {
-                        display: flex;
-                        align-items: center;
-                        .list-item-area-img {
-                            width: 11px;
-                            margin-right: 5px;
-                        }
-                        span {
-                            text-decoration-line: underline;
-                        }
-                    }
-                }
+            margin: 0;
+            background-color: #F8F8F8;
+            li {
+                width: 100%;
+                margin: 0 0 15px;
+                background-color: #ffffff;
+                border: 1px solid #eeeeee;
             }
         }
     }
