@@ -46,9 +46,7 @@ export default {
   mounted(){
     let _this = this;
     this.getMessage()
-    setTimeout(()=>{
-      _this.getUserInfo();
-    },200)
+    _this.getUserInfo();
     this.baiduMap();
     // this.getLcationPostion();
 
@@ -275,6 +273,7 @@ export default {
         border-radius: 4/@p;
       }
       .logined{
+        display: block;
         float: right;
         width:83/@p;
         height:24/@p;
@@ -292,6 +291,7 @@ export default {
         }
       }
       .loginout{
+        display: block;
         float: right;
         width:68/@p;
         height:24/@p;

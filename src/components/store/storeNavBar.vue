@@ -1,9 +1,9 @@
 <template>
  <div :class="['nav-bar-box', {'store-nav-bar-box': isStore}]">
     <div class="box clear">
-        <a href="" class="logo">
+        <router-link  class="logo" tag="a" to="/store">
             <img src="../../assets/img/logo.png" alt="">
-        </a>
+        </router-link>
         <!-- <a href="" class="sao">
             <span class="iconfont iconyd_saoyisao"></span>
         </a>

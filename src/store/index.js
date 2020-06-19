@@ -11,6 +11,7 @@ export default new Vuex.Store({
         searchItem: '', //搜索页面
         isLogin: false,
         charNum: 0, // 购物车数量
+        myCar: {}, //购物车对象
     },
     getters: {
 
@@ -33,6 +34,27 @@ export default new Vuex.Store({
         },
         setStoreInfo(state, object) {
             state.storeInfo = object
+        },
+        carAddStore(state, object) {
+            let storeObject = object[0]
+            let goodsObject = object[1]
+            if (state.myCar[storeObject.id]) {
+                if (state.myCar[storeObject.id].goodsList[goodsObject.GoodsId]) {
+                    state.myCar[storeObject.id].goodsList[goodsObject.GoodsId].num = state.myCar[storeObject.id][goodsObject.GoodsId].num + goodsObject.num
+                } else {
+                    state.myCar[storeObject.id].goodsList[goodsObject.GoodsId] = goodsObject
+                    state.charNum++
+                }
+            } else {
+                state.myCar[storeObject.id] = {
+                    MertchntID: storeObject.id,
+                    Mertchntname: storeObject.name,
+                    goodsList: {},
+                    checked: false
+                }
+                state.myCar[storeObject.id].goodsList[goodsObject.GoodsId] = goodsObject
+                state.charNum++
+            }
         }
     },
     actions: {

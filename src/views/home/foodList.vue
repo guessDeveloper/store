@@ -65,9 +65,10 @@ export default {
   methods:{
     getList(){
       this.$http.post(this.$api.Products,{
-         MerchanterId:this.id,
-         pageIndex:this.pageIndex,
-         pageSize:this.pageSize
+         'MerchantId':this.id,
+         'token':localStorage.getItem('token')?localStorage.getItem('token'):'',
+         'pageIndex':this.pageIndex,
+         'pageSize':this.pageSize
       }).then(res=>{
         if(res.data.Code == 1){
           this.list = res.data.Data.list

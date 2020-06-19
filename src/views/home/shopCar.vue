@@ -76,10 +76,10 @@
       </div>
         </div> -->
      <!-- </div> -->
-     <div class="car-item" >
-       <div class="car-store-name">麦当劳</div>
+     <div class="car-item"  v-for="(item ,index) in myCar" :key="index">
+       <div class="car-store-name">{{item.Mertchntname}}</div>
        <div class="top-check">
-          <el-checkbox v-model="checked" class="check-box"></el-checkbox>全选
+          <el-checkbox v-model="item.check" class="check-box"></el-checkbox>全选
        </div>
        <div class="car-list">
          <div class="item">
@@ -121,12 +121,14 @@
          <button class="btn">提交订单</button>
          </div>
        </div>
+       <div>{{myCar}}</div>
      </div>
   </div>
 </template>
 <script>
 import '../../plugins/element-checkbox.js'
 import '@/plugins/element-shopCar'
+import { mapState, mapMutations} from 'vuex' //注册 action 和 state
 export default {
   data(){
     return{
@@ -141,7 +143,13 @@ export default {
         }],
         checked:false,
     }
-  }
+  },
+  computed:{
+    ...mapState([
+      'myCar'
+    ])
+  },
+  
 }
 </script>
 <style lang="less" scoped>
