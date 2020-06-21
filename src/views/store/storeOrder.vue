@@ -53,16 +53,16 @@
                             <img :src="scope.row.img" alt="" class="product-img">
                         </template>
                     </el-table-column>
-                    <el-table-column property="status" label="订单号" width="160" align="center"></el-table-column>
+                    <el-table-column property="orderNumber" label="订单号" width="160" align="center"></el-table-column>
                     <el-table-column property="productName" label="产品名称" width="108" align="left"></el-table-column>
-                    <el-table-column property="time" label="消费时间" width="195" align="center"></el-table-column>
+                    <el-table-column property="orderCreateTime" label="消费时间" width="195" align="center"></el-table-column>
                     <el-table-column property="type" label="订单类型" width="69" align="center"></el-table-column>
-                    <el-table-column property="money" label="消费金额(元)" width="88" align="center"></el-table-column>
+                    <el-table-column property="orderMoney" label="消费金额(元)" width="88" align="center"></el-table-column>
                     <el-table-column property="score" label="奖励积分" width="70" align="center"></el-table-column>
-                     <el-table-column property="score" label="状态" width="88" align="center"></el-table-column>
+                     <el-table-column property="orderState" label="状态" width="88" align="center"></el-table-column>
                     <el-table-column  label="操作" width="102" align="center">
                          <template slot-scope="scope">
-                            <button :data="scope" class="action-btn">查看详情</button>
+                            <button :data="scope" class="action-btn" @click="goDetail(scope.row.orderNumber)">查看详情</button>
                         </template>
                     </el-table-column>
                 </el-table>
@@ -152,6 +152,10 @@ export default {
                 this.total = res.data.Data.count
             }
          })
+      },
+      //产看订单详情
+      goDetail(id){
+        this.$router.push('/storeOrderDetail?id='+id)
       }
   }
 }

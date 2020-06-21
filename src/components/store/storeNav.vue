@@ -16,8 +16,8 @@
        </div>
       <!-- <a href="" class="regester">注册</a>
       <a class="login">登录</a> -->
-      <a  class="loginout">退出登录</a>
-      <a href="javascript:;" class="logined"><span class="iconfont iconzh"></span>商家中心</a>
+      <a  class="loginout" @click="loginOut">退出登录</a>
+      <router-link tag="a" to="/store" class="logined"><span class="iconfont iconzh"></span>商家中心</router-link>
     </div>
   </div>
 </template>
@@ -67,7 +67,16 @@ export default {
            sessionStorage.setItem('storeUserInfo',userInfo)
         }
       })
-    }
+    },
+        loginOut(){
+            this.$http.storeGet(this.$api.MerchanterLoginOut).then(res=>{
+                if(res.data.Code == 1){
+                    this.$router.push('/login')
+                }else{
+                    this.$message.error(res.data.Msg)
+                }
+            })
+        }
   },
   beforeDestroy(){
     clearInterval(this.timer)

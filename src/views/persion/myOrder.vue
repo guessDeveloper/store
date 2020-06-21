@@ -7,6 +7,7 @@
                 <label>订单号</label> <input type="text" placeholder="输入订单号"><button>提交订单</button>
              </div>
         </div>
+        <!-- 线上订单 start -->
         <div class="order-content" v-show="tab == '1'">
             <div class="choose-small-box">
                <router-link class="btn small-btn" tag="button" to="/orderGrievance">订单申诉</router-link>
@@ -65,7 +66,7 @@
             <div class="choose-box">
                 <div class="date-box">
                     <el-date-picker
-                        v-model="dataValue"
+                        v-model="onlieTime"
                         type="daterange"
                         range-separator="-"
                         start-placeholder="开始日期"
@@ -74,36 +75,28 @@
                     </div>
                 <div class="status-select">
                     状态
-                    <el-dropdown>
-                        <span class="select">
-                            全部<i class="iconfont iconxiasanjiao"></i>
-                        </span>
-                        <el-dropdown-menu slot="dropdown">
-                            <el-dropdown-item>黄金糕</el-dropdown-item>
-                            <el-dropdown-item>狮子头</el-dropdown-item>
-                            <el-dropdown-item>螺蛳粉</el-dropdown-item>
-                            <el-dropdown-item disabled>双皮奶</el-dropdown-item>
-
-                        </el-dropdown-menu>
-                    </el-dropdown>
+                    <el-select v-model="onlieStatus" placeholder="请选择"  class="select">
+                        <el-option
+                            v-for="item in statusOptions"
+                            :key="item.value"
+                            :label="item.label"
+                            :value="item.value">
+                        </el-option>
+                    </el-select>
                 </div>
                 <div class="status-select">
                     订单类型
-                    <el-dropdown>
-                        <span class="select">
-                            全部<i class="iconfont iconxiasanjiao"></i>
-                        </span>
-                        <el-dropdown-menu slot="dropdown">
-                            <el-dropdown-item>黄金糕</el-dropdown-item>
-                            <el-dropdown-item>狮子头</el-dropdown-item>
-                            <el-dropdown-item>螺蛳粉</el-dropdown-item>
-                            <el-dropdown-item disabled>双皮奶</el-dropdown-item>
-
-                        </el-dropdown-menu>
-                    </el-dropdown>
+                    <el-select v-model="onlineType" placeholder="请选择"  class="select">
+                        <el-option
+                            v-for="item in orderType"
+                            :key="item.value"
+                            :label="item.label"
+                            :value="item.value">
+                        </el-option>
+                    </el-select>
                 </div>
                 <div class="input-box">
-                    <input type="text" placeholder="输入订单号">
+                    <input type="text" placeholder="输入订单号" v-model.trim="onlineSearch">
                     <span class="iconfont iconsousuo"></span>
                 </div>
                 <router-link class="btn" tag="button" to="/orderGrievance">订单申诉</router-link>
@@ -159,7 +152,18 @@
                     </div>
                 </div>
              </div>
+             <div class="page-box">
+                 <el-pagination
+                    @current-change="getOnlineList"
+                    :current-page.sync="pageIndex"
+                    :page-size="pageSize"
+                    layout="prev, pager, next, jumper"
+                    :total="onlineTotal">
+                </el-pagination>
+             </div>
         </div>
+        <!-- 线上订单 end -->
+        <!-- 地面订单 start -->
        <div class="order-content" v-show="tab=='2'">
            <div class="choose-small-box choose-small-box-2">
                <div class="date-box">
@@ -201,52 +205,54 @@
             <div class="choose-box">
                 <div class="date-box">
                     <el-date-picker
-                        v-model="dataValue"
+                        v-model="unlineTime"
                         type="daterange"
+                        value-format="yyyy-MM-dd HH:mm:ss"
                         range-separator="-"
                         start-placeholder="开始日期"
-                        end-placeholder="结束日期">
+                        end-placeholder="结束日期" 
+                        default-time="">
                         </el-date-picker>
                     </div>
                 <div class="status-select">
                     状态
-                    <el-dropdown>
-                        <span class="select">
-                            全部<i class="iconfont iconxiasanjiao"></i>
-                        </span>
-                        <el-dropdown-menu slot="dropdown">
-                            <el-dropdown-item>黄金糕</el-dropdown-item>
-                            <el-dropdown-item>狮子头</el-dropdown-item>
-                            <el-dropdown-item>螺蛳粉</el-dropdown-item>
-                            <el-dropdown-item disabled>双皮奶</el-dropdown-item>
-
-                        </el-dropdown-menu>
-                    </el-dropdown>
+                    <el-select v-model="unlineOrderType" placeholder="请选择"  class="select">
+                        <el-option
+                            v-for="item in unlineType"
+                            :key="item.value"
+                            :label="item.label"
+                            :value="item.value">
+                        </el-option>
+                    </el-select>
                 </div>
                 <div class="input-box">
-                    <input type="text" placeholder="输入订单号">
-                    <span class="iconfont iconsousuo"></span>
+                    <input type="text" placeholder="输入订单号" v-model.trim="unlineSearch">
+                    <span class="iconfont iconsousuo" @click="foodSearch"></span>
                 </div>
             </div>
             <div class="table-box">
-                  <el-table :data="listData"  header-row-style="font-size:12px;color:#999;" row-class-name="table-line" width="930" class="table-big">
+                  <el-table :data="unlineData"  header-row-style="font-size:12px;color:#999;" row-class-name="table-line" width="930" class="table-big">
                     <el-table-column property="img" label="产品图片" width="50" align="left">
                          <template slot-scope="scope">
                             <img :src="scope.row.img" alt="" class="product-img">
                         </template>
                     </el-table-column>
-                    <el-table-column property="status" label="订单号" width="160" align="center"></el-table-column>
-                    <el-table-column property="productName" label="店铺名称" width="247" align="left">
-                        <template slot-scope="scope">
-                           <div class="store-name">{{scope.row.productName}}</div>
+                    <el-table-column property="OrderNumber" label="订单号" width="160" align="center">
+                         <template slot-scope="scope">
+                           <div class="order-name">{{scope.row.OrderNumber}}</div>
                         </template>
                     </el-table-column>
-                    <el-table-column property="time" label="消费时间" width="195" align="center"></el-table-column>
-                    <el-table-column property="money" label="消费金额(元)" width="88" align="center"></el-table-column>
-                     <el-table-column property="score" label="状态" width="88" align="center"></el-table-column>
+                    <el-table-column property="MerchantName" label="店铺名称" width="247" align="left">
+                        <template slot-scope="scope">
+                           <div class="store-name">{{scope.row.MerchantName}}</div>
+                        </template>
+                    </el-table-column>
+                    <el-table-column property="CreationTime" label="消费时间" width="195" align="center"></el-table-column>
+                    <el-table-column property="Money" label="消费金额(元)" width="88" align="center"></el-table-column>
+                     <el-table-column property="state" label="状态" width="88" align="center"></el-table-column>
                     <el-table-column  label="操作" width="102" align="center">
                          <template slot-scope="scope">
-                            <button :data="scope" class="action-btn" @click="goDetail">查看详情</button><button class="action-btn comment-btn" @click="toRate = true">评价</button>
+                            <button :data="scope" class="action-btn" @click="unlineDetail(scope.row.OrderNumber)">查看详情</button><button class="action-btn comment-btn" @click="toRate = true">评价</button>
                         </template>
                     </el-table-column>
                 </el-table>
@@ -305,33 +311,115 @@ import '../../plugins/element-rate.js'
 export default {
     data(){
         return{
-           dataValue:'',
-           listData:[
-               {
-                   img:'https://b-ssl.duitang.com/uploads/item/201706/27/20170627012435_mJLiX.thumb.700_0.jpeg',
-                   productName:'儿童网鞋男童透气…',
-                   status:'20191212083520',
-                   time:'2020-05-05 06:30:30',
-                   type:'淘宝订单',
-                   money:'3000',
-                   score:'333'
-               }
+           //线上订单
+           onlieTime:[new Date(),new Date()],
+           pageIndex:1,
+           pageSize:20,
+           onlineTotal:0,
+           onlieStatus:'',
+           statusOptions:[
+               {value:'',label:'全部'},
+               {value:'1',label:'已返利'},
+               {value:'2',label:'待返利'},
+               {value:'3',label:'等待订单'},
+               {value:'-1',label:'订单关闭'},
            ],
+           orderType:[{ //2-淘宝 3-拼多多 4-亿起发 ,
+                label:'淘宝',
+                value:2
+            },{
+                label:'拼多多',
+                value:3
+            },{
+                label:'亿起发',
+                value:4
+            }],
+            onlineType:'',
+            onlineSearch:'',
+           listData:[],
            tab:1,
+           //地面订单
+           unlineTime:[new Date(),new Date()],
+           unlineType:[
+               {value:'',label:'全部'},
+                {value:'0',label:'待付款'},
+               {value:'1',label:"已付款，待奖励"},
+               {value:'2',label:'已奖励'},
+               {value:'3',label:'订单取消'},
+           ],
+           unlineOrderType:'',
+           unlineSearch:'',
+           unlineIndex:1,
+           unlineSize:20,
+           unlineData:[],
+           unlineTotal:0,
+           dataValue:'',
            value1:'',
            toRate:false
         }
     },
     mounted(){
-       this.tab = this.$route.query.tab?this.$route.query.tab:'1'
+       this.tab = this.$route.query.tab?this.$route.query.tab:'1';
+       if(this.tab == '1'){
+           this.getOnlineList();
+       }else{
+           this.getUnderLineList();
+       }
     },
     methods:{
         toTab(num){
           this.tab = num
-          this.$router.push('/myOrder?tab='+num)
+          this.$router.push('/myOrder?tab='+num);
+          if(this.num == 1){
+              this.getOnlineList();
+          }else{
+              this.getUnderLineList();
+          }
         },
         goDetail(){
             this.$router.push('/orderDetail')
+        },
+        //获取线上订单列表
+        getOnlineList(){
+            this.$http.limitPost(this.$api.UserOnlineOrderList,{
+                StartTime:this.onlieTime[0],
+                EndTime:this.onlieTime[1],
+                State:this.onlieStatus,
+                OrderNo:this.onlineSearch,
+                OrderType:this.onlineType,
+                pageIndex:this.pageIndex,
+                pageSize:this.pageSize
+            }).then(res=>{
+                if(res.data.Code == 1){
+                    this.listData = res.data.Data.list,
+                    this.onlineTotal = res.data.Data.count
+                }
+            })
+        },
+        //获取地面订单列表
+        getUnderLineList(){
+            this.$http.limitPost(this.$api.UserGroundOrderList,{
+                StartTime:this.unlineTime[0],
+                EndTime:this.unlineTime[1],
+                State:this.unlineOrderType,
+                OrderNoOrMerchantName:this.unlineSearch,
+                pageIndex:this.unlineIndex,
+                pageSize:this.unlineSize
+            }).then(res=>{
+                if(res.data.Code == 1){
+                    this.unlineData = res.data.Data.list
+                    this.unlineTotal = res.data.Data.count
+                }
+            })
+        },
+        //
+        foodSearch(){
+            this.unlineIndex = 1;
+            this.getUnderLineList();
+        },
+        //获取地面订单详情
+        unlineDetail(id){
+            this.$router.push('/underlineDetail?id='+id)
         }
     }
 }
@@ -530,10 +618,10 @@ export default {
         height:34px;
         margin-left:15px;
         box-sizing:border-box;
-        border:1px solid @class_border;
+        // border:1px solid @class_border;
         font-size:12px;
         line-height:12px ;
-        padding:10px 15px;
+        
 
         .iconfont{
             position: absolute;
@@ -596,6 +684,11 @@ export default {
 .store-name{
     width:221px;
     .overTextOne()
+}
+.order-name{
+    width:126px;
+    margin:0 auto;
+    
 }
 // 评价
 .rate-box{

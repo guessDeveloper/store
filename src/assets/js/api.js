@@ -42,7 +42,8 @@ export default {
     GetMerchanterGoodInfo: '/api/Food/GetMerchanterGoodInfo', //获取商家详情
     GetMerchanter: "/api/Food/GetMerchanter", //获取商家评论
     GetPinoinfo: '/api/Food/GetPinoinfo', //获取评论详情
-    Products: '/api/Food/Products', //获取产品列表
+    foodProducts: '/api/Food/Products', //获取产品列表
+    submitFoodOrder: '/api/User/submitFoodOrder', //扫码下单
     //帮助中心
     Q_A_Class: '/api/QuestionAnswer/Q_A_Class', //帮助中心
     Q_A_ByClass: '/api/QuestionAnswer/Q_A_ByClass', //通过id 获取分类列表
@@ -69,6 +70,7 @@ export default {
     MerchanteForgetPWD: '/api/LoginRegister/MerchanteForgetPWD', // 商家找回密码
     MerchanteForgetPWDSendVerifyCode: '/api/LoginRegister/MerchanteForgetPWDSendVerifyCode', //商家找回密码获验证码
     //个人中心
+    ScanQRcode: '/api/User/ScanQRcode', //扫码提交
     GetUserInfo: '/api/User/GetUserInfo', //获取用户登录状态
     GetVerificationNum: '/api/User/GetVerificationNum', //获取用户二维码
     UserIntegralRecordInfo: '/api/User/UserIntegralRecordInfo', //获取用户的积分
@@ -85,8 +87,14 @@ export default {
     UserEditPhoneNOSendVerifyCodeAgain: '/api/User/UserEditPhoneNOSendVerifyCodeAgain', //获取新手机验证码
     UserEditPhoneNOVerifyAgain: '/api/User/UserEditPhoneNOVerifyAgain', //验证新手机号
     AddOrderAppealList: '/api/User/AddOrderAppealList', //订单申诉
+    GetOrderAppealList: '/api/User/GetOrderAppealList', //订单申诉列表
+    UserOnlineOrderList: '/api/User/UserOnlineOrderList', //获取线上订单列表
+    UserGroundOrderList: '/api/User/UserGroundOrderList', // 获取地面订单列表
+    UserGroundOrderModel: '/api/User/UserGroundOrderModel', //获取订单详情
+    CollectionConfirmation: '/api/User/CollectionConfirmation', //取消订单
     //商家中心
     MerchanterMerchanter: '/api/Merchant/MerchanterMerchanter', //获取商家信息
+    MerchanterLoginOut: '/api/LoginRegister/MerchanterLoginOut', //退出登录
     GetQuickMakList: '/api/Merchant/GetQuickMakList', //获取商家里的二维码
     AddMyQuickMak: "/api/Merchant/AddMyQuickMak", //添加商家二维码
     DeleteQuickMak: '/api/Merchant/DeleteQuickMak', // 删除商家二维码
@@ -111,5 +119,8 @@ export default {
     AddProduct: '/api/Merchant/AddProduct', //添加商品
     Products: '/api/Merchant/Products', //获取产品列表
     Recharge: '/api/Merchant/Recharge', //充值
-
+    GetOrderInfo: '/api/Merchant/GetOrderInfo', //获取订单详情
+    CancelOrder: '/api/Merchant/CancelOrder', //取消订单
+    confirmOrderPay: '/api/Merchant/confirmOrderPay', //确认首款
+    confirmOrder: '/api/Merchant/confirmOrder', //确认返积分
 }

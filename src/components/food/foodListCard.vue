@@ -4,7 +4,7 @@
      <h4>{{data.GoodsName}}</h4>
      <p>积分约：</p>
      <div class="price">¥{{data.GoodsMoneny}}</div>
-     <button class="add" @click="addCar" >加入购物车</button>
+     <button class="add" @click="addCar" v-if="data.IsQRcode==1&&data.tablenumber">加入购物车</button>
   </div>
 </template>
 <script>
@@ -18,7 +18,8 @@ export default {
   computed:{
      ...mapState([
        'positionX',
-       'isLogin'
+       'isLogin',
+       'myCar'
      ])
   },
   props:{
@@ -27,7 +28,7 @@ export default {
     }
   },
   mounted(){
-    console.log(this.data)
+    console.log(this.myCar)
   },
   methods:{
    ...mapMutations([
@@ -40,7 +41,7 @@ export default {
    },
    //添加购物车
    addCar(){
-     this.carAddStore([{id:this.data.MertchntID,name:this.data.Mertchntname},{...this.data,num:1,checked:false}])
+     this.carAddStore([{id:this.data.MertchntID,name:this.data.Mertchntname,tablenumber:this.data.tablenumber},{...this.data,num:1,checked:false}])
    }
   }
 }
