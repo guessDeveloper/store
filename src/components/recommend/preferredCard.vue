@@ -22,7 +22,7 @@
         <preferredCard></preferredCard>
       </li>
     </ul>
-   
+
   </div>
 </template>
 <script>
@@ -93,6 +93,43 @@ export default {
     border-right:1px solid @class_border;
     &:nth-last-child(1){
       border-right:0;
+    }
+  }
+}
+@media screen and(max-width:@change_width){
+  .card-box {
+    width: 100%;
+    .title {
+      margin-left: 15px;
+      margin-right: 15px;
+      padding: 15px 0 15px 15px;
+      h3 {
+        font-size: 20px;
+      }
+      &::before {
+        top: 18px;
+      }
+      .more {
+        top: 35px;
+        right: 0;
+      }
+    }
+    .list {
+      display: flex;
+      flex-wrap: wrap;
+      padding: 0 15px 30px;
+      width: 100%;
+      box-sizing: border-box;
+      li {
+        width: 50%;
+        border: 0;
+        &:nth-child(odd) {
+          padding-right: 7px;
+        }
+        &:nth-child(even) {
+          padding-left: 7px;
+        }
+      }
     }
   }
 }

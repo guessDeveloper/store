@@ -64,4 +64,33 @@ export default {
     margin-bottom:20px;
   }
 }
+@media screen and(max-width:@change_width){
+  .recomend-title {
+    width: 100%;
+    height: auto;
+    padding-bottom: 20px;
+    border-top: 10px solid #F8F8F8;
+    border-bottom: 1px solid #F8F8F8;
+    h2 {
+      margin-top: 20px;
+      font-size: 20px;
+    }
+    p {
+      margin-top: 10px;
+    }
+  }
+  .content-box {
+    margin-top: 10px;
+    .line {
+      margin-bottom: 10px;
+      .card-box {
+        width: 100%;
+        .title {
+          margin-left: 15px;
+          padding: 15px 0 15px 25px;
+        }
+      }
+    }
+  }
+}
 </style>

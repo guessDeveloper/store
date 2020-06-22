@@ -15,7 +15,7 @@
             <li v-for="(item,index) in list" :key="index">
               <foodCard :data="item"></foodCard>
             </li>
-             
+
           </ul>
           <div class="page-box">
                 <el-pagination
@@ -51,7 +51,7 @@ export default {
       }else{
         this.getList();
       }
-      
+
     }
   },
   methods:{
@@ -116,5 +116,46 @@ export default {
 }
 .page-box{
   padding:10px 0 60px 0;
+}
+@media screen and(max-width:@change_width){
+  .goods-box {
+    width: 100%;
+    .title {
+      padding: 15px 15px 15px 30px;
+      border-top: 10px solid #F8F8F8;
+      border-bottom: 1px solid #F8F8F8;
+      font-size: 20px;
+      position: relative;
+    }
+    .title:before {
+      content: '';
+      display: block;
+      position: absolute;
+      left: 15px;
+      top: 50%;
+      width: 4px;
+      height: 30%;
+      transform: translateY(-50%);
+      background-color: #F38A1D;
+    }
+    .list {
+      padding: 15px;
+      // overflow: hidden;
+      display: flex;
+      flex-wrap: wrap;
+      li {
+        margin: 0;
+        // float: left;
+        width: 50%;
+        box-sizing: border-box;
+      }
+      li:nth-child(odd) {
+        padding-right: 8px;
+      }
+      li:nth-child(even) {
+        padding-left: 8px;
+      }
+    }
+  }
 }
 </style>
