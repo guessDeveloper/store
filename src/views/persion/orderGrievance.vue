@@ -28,18 +28,7 @@
                </div>
                 <div class="status-select">
                     状态
-                    <!-- <el-dropdown trigger="click">
-                        <span class="select">
-                            全部<i class="iconfont iconxiasanjiao"></i>
-                        </span>
-                        <el-dropdown-menu slot="dropdown">
-                            <el-dropdown-item>黄金糕</el-dropdown-item>
-                            <el-dropdown-item>狮子头</el-dropdown-item>
-                            <el-dropdown-item>螺蛳粉</el-dropdown-item>
-                            <el-dropdown-item disabled>双皮奶</el-dropdown-item>
-
-                        </el-dropdown-menu>
-                    </el-dropdown> -->
+          
                       <span class="select">
                         <el-select v-model="status" placeholder="请选择"  >
                             <el-option
@@ -51,23 +40,10 @@
                         </el-select>
                     </span>
                 </div>
-                <!-- <div class="status-select select-type">
-                    订单类型
-                    <el-dropdown>
-                        <span class="select">
-                            全部<i class="iconfont iconxiasanjiao"></i>
-                        </span>
-                        <el-dropdown-menu slot="dropdown">
-                            <el-dropdown-item>黄金糕</el-dropdown-item>
-                            <el-dropdown-item>狮子头</el-dropdown-item>
-                            <el-dropdown-item>螺蛳粉</el-dropdown-item>
-                            <el-dropdown-item disabled>双皮奶</el-dropdown-item>
-                        </el-dropdown-menu>
-                    </el-dropdown>
-                </div> -->
+             
                 <div class="input-box">
                     <input type="text" placeholder="输入订单号">
-                    <span class="iconfont iconsousuo"></span>
+                    <span class="iconfont iconsousuo" @click="search"></span>
                 </div>
                 <button class="btn" @click="toNew = true">新的申诉</button>
           </div>
@@ -158,6 +134,7 @@ export default {
        }],
        dataValue:[new Date(),new Date()],
        status:'',
+       total:0,
        statusOptions:[{
          label:'全部',
          value:''
@@ -189,8 +166,13 @@ export default {
        toNew:false,
        newOrderNumber:'',
        newOrderDes:'', // 申诉原因
+       pageIndex:1,
+       pageSize:20,
 
     }
+  },
+  mounted(){
+    this.getList()
   },
   methods:{
     //添加申诉
@@ -210,12 +192,33 @@ export default {
             this.toNew = false;
             this.newOrderNumber = '';
             this.newOrderDes = '';
+            this.getList();
           }else{
             this.$message.error(res.data.Msg)
           }
         })
       }
     },
+    //获取申诉列表
+    getList(){
+      this.$http.limitPost(this.$api.GetOrderAppealList,{
+        StartTime:this.dataValue[0],
+        EndTime:this.dataValue[1],
+        State:this.State,
+        pageIndex:this.pageIndex,
+        pageSize:this.pageSize
+      }).then(res=>{
+        if(res.data.Code == 1){
+          this.listData = res.data.Data.list
+          this.total = res.data.Data.count
+        }
+      })
+    },
+    //搜索
+    search(){
+      this.pageIndex = 1;
+      this.getList()
+    }
   }
 }
 </script>

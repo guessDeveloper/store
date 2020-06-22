@@ -79,56 +79,60 @@
      <div class="car-item"  v-for="(item ,index) in myCar" :key="index">
        <div class="car-store-name">{{item.Mertchntname}}</div>
        <div class="top-check">
-          <el-checkbox v-model="item.check" class="check-box"></el-checkbox>全选
+          <el-checkbox v-model="item.check" class="check-box" @change="choseAll"></el-checkbox>全选
        </div>
        <div class="car-list">
-         <div class="item">
+         <div class="item" v-for="(goodItem,goodIndex) in item.goodsList" :key="goodIndex">
            <div class="car-check">
-             <el-checkbox v-model="checked" class="check-box"></el-checkbox>
+             <el-checkbox v-model="goodItem.check" class="check-box" @change="choseGood"></el-checkbox>
            </div>
            <div class="img-box">
-              <img src="http://image.biaobaiju.com/uploads/20181227/20/1545914811-SLGUAHsukp.jpeg" alt="">
+              <img :src="goodItem.GoodsImg" alt="">
            </div>
            <div class="content">
-             <div class="name">奶油鸡蛋卷 150克（5袋）</div>
-             <div class="price-box">单价：<i>¥15</i> <span class="score">积分约：<i>300</i></span></div>
+             <div class="name">{{goodItem.GoodsName}}</div>
+             <div class="price-box">单价：<i>{{goodItem.GoodsMoneny}}</i> <span class="score">积分约：<i>500</i></span></div>
              <div style="height:28px;">
-                 <el-input-number size="mini" ></el-input-number>
+                 <el-input-number size="mini" v-model="goodItem.num" :min="1" @change="choseGood"></el-input-number>
              </div>
              <div class="total">
-                小计：<span class="money">¥249</span>    <button class="cancle">删除</button>
+                小计：<span class="money">¥{{goodItem.GoodsMoneny*goodItem.num}}</span>    <button class="cancle" @click="cancleSingle([index,goodIndex])">删除</button>
              </div>
            </div>
          </div>
        </div>
       <div class="top-check">
-          <el-checkbox v-model="checked" class="check-box"></el-checkbox>全选<span class="cancle-all">删除选中商品</span>
+          <el-checkbox v-model="item.check" class="check-box" @change="choseAll"></el-checkbox>全选<span class="cancle-all" @click="cancleChose(index)">删除选中商品</span>
        </div>
        <div class="total-box">
          <div class="chose-num">
-           共<span>2</span>件商品，已选择<span>1</span>件
+           共<span>{{item.goodsNum}}</span>件商品，已选择<span>{{item.choseNum}}</span>件
          </div>
          <div>
             总积分约：400 
          </div>
          <div>
-           商品合计 :¥1245.00
+           商品合计 :¥{{item.totoalMony}}
          </div>
          <div>
-           应付总额：<span class="money">¥1245.00</span>
+           应付总额：<span class="money">¥{{item.totoalMony}}</span>
          </div>
          <div>
-         <button class="btn">提交订单</button>
+         <button class="btn" @click="orderSubmit(item)">提交订单</button>
          </div>
        </div>
-       <div>{{myCar}}</div>
+     </div>
+     <div class="empty" v-show="charNum==0">
+        <span class="iconfont icongouwuche"></span>
+        <div class="tip">购物车内暂时没有商品</div>
+        <router-link class="btn" tag="button" to="/food">继续逛逛</router-link>
      </div>
   </div>
 </template>
 <script>
 import '../../plugins/element-checkbox.js'
 import '@/plugins/element-shopCar'
-import { mapState, mapMutations} from 'vuex' //注册 action 和 state
+import { mapState, mapMutations,mapGetters} from 'vuex' //注册 action 和 state
 export default {
   data(){
     return{
@@ -146,9 +150,48 @@ export default {
   },
   computed:{
     ...mapState([
-      'myCar'
-    ])
+      'myCar',
+      'charNum'
+    ]),
   },
+  methods:{
+    ...mapMutations([
+      'choseGood',
+      'choseAll',
+      'cancleSingle',
+      'cancleChose'
+    ]),
+    numChange(item,i){
+      this.choseGood()
+    },
+    //提交订单
+    orderSubmit(item){
+      console.log(item)
+      if(item.totoalMony == 0){
+        this.$message.error('请选择要结算的商品')
+        return false
+      }
+      let arr = [];
+      for(let i in item.goodsList){
+        if(item.goodsList[i].check == true){
+          let o = {}
+           o.goodsID = item.goodsList[i].GoodsId
+           o.goodsNumber = item.goodsList[i].num
+           arr.push(o)
+        }
+         
+      }
+      let sendData = {
+        MerchantID:item.MertchntID,
+        TableId:item.tablenumber,
+        goodsList:arr
+      }
+      console.log(sendData)
+      this.$http.limitPost(this.$api.submitFoodOrder,sendData).then(res=>{
+        console.log(res)
+      })
+    }
+  }
   
 }
 </script>
@@ -319,4 +362,26 @@ export default {
   }
   
 }
+.empty{
+    text-align: center;
+    background:#fff;
+    padding:110px 0 150px;
+    .iconfont{
+      font-size:102px;
+      color:@subtitle_color;
+    }
+    .tip{
+      font-size:14px;
+      line-height: 14px;
+      color:@subtitle_color;
+      margin-bottom: 30px;
+    }
+    .btn{
+      width:250px;
+      height:50px;
+      font-size:16px;
+      color:#fff;
+      background:@main;
+    }
+  }
 </style>

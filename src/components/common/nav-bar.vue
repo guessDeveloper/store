@@ -4,9 +4,9 @@
         <a href="" class="logo">
             <img src="../../assets/img/logo.png" alt="">
         </a>
-        <router-link  class="sao" tag="a" to="/sao">
+        <a  class="sao" tag="a" to="/sao" @click="sao">
             <span class="iconfont iconyd_saoyisao"></span>
-        </router-link>
+        </a>
         <a class="menu" @click="openNav" v-show="!navIsOpen">
             <span class="iconfont iconyd_gengduo"></span>
         </a>
@@ -36,7 +36,7 @@
             </a>
         </div>
         <router-link class="shop-car" :class="{show:showCar&&isLogin}" tag="div" to="/shopCar">
-            <span class="iconfont icongwc"></span>美食订单 <span class="num" v-show="charNum>0">{{charNum}}</span>
+            <span class="iconfont icongwc"></span>美食订单 <span class="num" v-show="charNowNum>0||charNum>0">{{charNum>0?charNum:charNowNum}}</span>
         </router-link>
     </div>
      <div class="nav-list" :class='{open:navIsOpen}'>
@@ -46,7 +46,7 @@
  </div>
 </template>
 <script>
-import { mapState, mapMutations} from 'vuex' //注册 action 和 state
+import { mapState, mapGetters,mapMutations} from 'vuex' //注册 action 和 state
 export default {
     data(){
         return{
@@ -99,7 +99,7 @@ export default {
                   query:this.$api.GJKeyWordSearch,
                   type:'shop' 
                },{
-                  path:['/food','/fooddetail','/earthDetail'],
+                  path:['/food','/fooddetail','/earthDetail','/shopCar','/foodList'],
                   name:'美食广场',
                   query:this.$api.MSKeyWordSearch,
                   type:'food' 
@@ -111,13 +111,19 @@ export default {
            navIsOpen:false,
            searchType:'',
            showCar:false,
-           showCarList:['/fooddetail','/earthDetail']
+           showCarList:['/fooddetail','/earthDetail','/shopCar'],
+        //    charNowNum:0,
         }
     },
     computed:{
      ...mapState([
        'isLogin',
-       'charNum'
+       'charNum',
+       'myCar'
+       
+     ]),
+     ...mapGetters([
+         'charNowNum'
      ])
     },
     watch:{
@@ -130,6 +136,22 @@ export default {
            })
         },
         deep: true,
+    },
+    myCar:{
+        handler(){
+           let num = 0;
+            for (let element in this.myCar) {
+                if (this.myCar[element].goodsList) {
+                    for (let item in this.myCar[element].goodsList) {
+                        num++
+                    }
+                }
+            }
+           
+           this.changeNum(num)
+           localStorage.setItem("carObject", JSON.stringify(this.myCar));
+        },
+        deep:true,
     }
    },
     mounted(){
@@ -144,7 +166,7 @@ export default {
                }
            })
         })
-       
+        console.log(this.charNowNum,'eeee')
         if(this.$route.query.type){
             this.option.forEach((item)=>{
                 if(item.type ==this.$route.query.type){
@@ -154,6 +176,7 @@ export default {
                 }
              })
         }else{
+            
              this.option.forEach((item)=>{
                 item.path.forEach((item2)=>{
                 if(item2 == this.nowPath){
@@ -174,6 +197,9 @@ export default {
         })
     },
     methods:{
+        ...mapMutations([
+            'changeNum'
+        ]),
         goRouter(){
             this.nowPath = this.$route.path;
            
@@ -200,6 +226,14 @@ export default {
             this.$router.push(`/search?type=${this.searchType}&content=${this.searchContent}`)
           }
          
+        },
+        //点击扫一扫
+        sao(){
+            if(this.isLogin){
+                this.$router.push('/sao')
+            }else{
+                this.$router.push('/login')
+            }
         }
     },
 }

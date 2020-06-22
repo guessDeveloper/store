@@ -36,7 +36,7 @@
                 <span class="iconfont iconsousuo"></span><span class="name">搜索</span>
             </a> -->
         <!-- </div> -->
-        <button class="loginOut">退出登录</button>
+        <button class="loginOut" @click="loginOut">退出登录</button>
     </div>
  </div>
 </template>
@@ -78,6 +78,15 @@ export default {
     methods:{
         goRouter(to){
             this.nowPath = to
+        },
+        loginOut(){
+            this.$http.storeGet(this.$api.MerchanterLoginOut).then(res=>{
+                if(res.data.Code == 1){
+                    this.$router.push('/login')
+                }else{
+                    this.$message.error(res.data.Msg)
+                }
+            })
         }
     }
 }

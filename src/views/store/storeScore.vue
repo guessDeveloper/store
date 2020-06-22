@@ -11,10 +11,10 @@
         </div>
         <div class="table-box">
           <el-table :data="chongList"  header-row-style="font-size:12px;color:#999;" row-class-name="table-line" width="930">
-            <el-table-column property="time" label="时间" width="219" align="center">
+            <el-table-column property="CreateTime" label="时间" width="219" align="center">
             </el-table-column>
-            <el-table-column property="status" label="状态" width="563" align="center"></el-table-column>
-            <el-table-column property="num" label="积分数量" width="148" align="center"></el-table-column>
+            <el-table-column property="state" label="状态" width="563" align="center"></el-table-column>
+            <el-table-column property="number" label="积分数量" width="148" align="center"></el-table-column>
           </el-table>
         </div>
         <div class="table-small-box">
@@ -34,8 +34,8 @@
           <el-table :data="jiangList"  header-row-style="font-size:12px;color:#999;" row-class-name="table-line" width="930">
             <el-table-column property="time" label="时间" width="219" align="center">
             </el-table-column>
-            <el-table-column property="status" label="状态" width="563" align="center"></el-table-column>
-            <el-table-column property="num" label="积分数量" width="148" align="center"></el-table-column>
+            <el-table-column property="Type" label="状态" width="563" align="center"></el-table-column>
+            <el-table-column property="Number" label="积分数量" width="148" align="center"></el-table-column>
           </el-table>
         </div>
         <div class="table-small-box">
@@ -81,7 +81,7 @@ export default {
       this.$http.storePost(this.$api.RechangeList,{pageIndex:this.chongIndex,pageSize:this.chongPage}).then(res=>{
         if(res.data.Code ==1){
           this.chongList= res.data.Data.list
-
+          this.chongTotal = res.data.Data.count
         }else{
           this.$message.error(res.data.Msg)
         }
@@ -92,7 +92,7 @@ export default {
     getJiangList(){
       this.$http.storePost(this.$api.MerchantUseIntegralRecords,{pageIndex:this.chongIndex,pageSize:this.chongPage}).then(res=>{
         if(res.data.Code ==1){
-          this.jiangList= res.data.Data.list
+          this.jiangList= res.data.Data.List
 
         }else{
           this.$message.error(res.data.Msg)

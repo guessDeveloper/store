@@ -193,6 +193,11 @@ const routes = [{
                     import ( /* webpackChunkName: "orderDetail" */ '../views/persion/orderDetail.vue')
             },
             {
+                path: '/underlineDetail', //地面订单详情
+                name: 'underlineDetail',
+                component: () =>
+                    import ( /* webpackChunkName: "underlineDetail" */ '../views/persion/underlineDetail.vue')
+            }, {
                 path: '/orderGrievance', //订单申诉
                 name: 'orderGrievance',
                 component: () =>
