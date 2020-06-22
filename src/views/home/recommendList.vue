@@ -97,4 +97,26 @@ export default {
  .page-box{
       padding:60px 0 60px;
 }
+@media screen and(max-width:@change_width){
+  .content-box {
+    width: 100%;
+    .list {
+      width: 100%;
+      display: flex;
+      flex-wrap: wrap;
+      padding: 0 15px 30px;
+      box-sizing: border-box;
+      li {
+        width: 50%;
+        border: 0;
+        &:nth-child(odd) {
+          padding-right: 7px;
+        }
+        &:nth-child(even) {
+          padding-left: 7px;
+        }
+      }
+    }
+  }
+}
 </style>
