@@ -4,7 +4,7 @@
         <router-link tag="a" to="/">首页</router-link>
         <span class="iconfont iconjiantou"></span>
         <span class="now-nav">特惠推荐</span>
-        
+
       </div>
       <div class="recomend-title">
           <h2>特惠推荐</h2>
@@ -17,9 +17,9 @@
             <div class="food-select-item">
                 <ul>
                     <li class="name">排序：</li>
-                    <li><a href="">价格排序 
+                    <li><a href="">价格排序
                       <span>
-                        
+
                       </span>
                     </a></li>
                     <li><a href="">积分排序</a></li>
@@ -104,5 +104,40 @@ export default {
  .page-box{
    text-align: center;
       padding:45px 0 60px;
+}
+@media screen and(max-width:@change_width){
+  .recomend-title {
+    width: 100%;
+    height: auto;
+    padding-bottom: 20px;
+    border-top: 10px solid #F8F8F8;
+    border-bottom: 1px solid #F8F8F8;
+    h2 {
+      margin-top: 20px;
+      font-size: 20px;
+    }
+    p {
+      margin-top: 10px;
+    }
+  }
+  .food-select-box.solt-box {
+    display: block;
+    width: 100%;
+    margin: 0 auto;
+  }
+  .list-box {
+    width: 100%;
+    background-color: transparent;
+    ul {
+      li {
+        width: 100%;
+        margin: 0 0 15px 0;
+        float: none;
+        .card-box {
+          width: 100%;
+        }
+      }
+    }
+  }
 }
 </style>
