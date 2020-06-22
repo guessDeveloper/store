@@ -48,7 +48,7 @@
       <h3 class="title">
               全部评价 <span>100</span>
           </h3>
-        
+
             <ul class="comment-list">
               <li>
                 <commentCard></commentCard>
@@ -173,7 +173,7 @@ export default {
         text-decoration: underline;
       }
     }
-    
+
   }
 }
 
@@ -228,6 +228,106 @@ export default {
     float: left;
     width:265px;
     margin:13px;
+  }
+}
+@media screen and(max-width:@change_width) {
+  .detail {
+    width: 100%;
+    height: auto;
+    .detail-left {
+      float: none;
+      width: 100%;
+      height: 212px;
+    }
+    .detail-right {
+      float: none;
+      width: 100%;
+      padding: 0 15px 30px 0;
+      .goods-box {
+        margin: 20px 0 120px;
+        padding-left: 15px;
+      }
+      .score-box {
+        left: 15px;
+        top: 80px;
+      }
+    }
+  }
+  .goods-about {
+    width: 100%;
+    .title {
+      position: relative;
+      padding: 15px 15px 15px 10px;
+      margin-left: 15px;
+      border-bottom: 1px solid #F8F8F8;
+      font-size: 20px;
+      &::before {
+        position: absolute;
+        left: 0;
+        top: 50%;
+        transform: translateY(-50%);
+        content: '';
+        width: 4px;
+        height: 30%;
+        background-color: #F38A1D;
+      }
+    }
+    .good-list {
+      width: 100%;
+      padding: 15px;
+      box-sizing: border-box;
+      display: flex;
+      flex-wrap: wrap;
+      li {
+        width: 50%;
+        margin: 0;
+        box-sizing: border-box;
+        &:nth-child(odd) {
+          padding-right: 7px;
+        }
+        &:nth-child(even) {
+          padding-left: 7px;
+        }
+      }
+    }
+  }
+  .comment-list-box {
+    width: 100%;
+    .title {
+      position: relative;
+      padding: 15px 15px 15px 10px;
+      margin-left: 15px;
+      border-bottom: 1px solid #F8F8F8;
+      font-size: 20px;
+      &::before {
+        position: absolute;
+        left: 0;
+        top: 50%;
+        transform: translateY(-50%);
+        content: '';
+        width: 4px;
+        height: 30%;
+        background-color: #F38A1D;
+      }
+    }
+    .comment-list {
+      width: 100%;
+      padding: 15px;
+      box-sizing: border-box;
+      display: flex;
+      flex-wrap: wrap;
+      li {
+        width: 50%;
+        margin: 0;
+        box-sizing: border-box;
+        &:nth-child(odd) {
+          padding-right: 7px;
+        }
+        &:nth-child(even) {
+          padding-left: 7px;
+        }
+      }
+    }
   }
 }
 </style>
