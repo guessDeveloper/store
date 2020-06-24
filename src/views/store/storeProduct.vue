@@ -10,6 +10,7 @@
                     <el-date-picker
                         v-model="dataValue"
                         type="daterange"
+                         value-format="yyyy-MM-dd"
                         range-separator="-"
                         start-placeholder="开始日期"
                         end-placeholder="结束日期">
@@ -17,18 +18,6 @@
                     </div>
                 <div class="status-select status-select-wrap">
                     状态
-                    <!-- <el-dropdown>
-                        <span class="select">
-                            全部<i class="iconfont iconxiasanjiao"></i>
-                        </span>
-                        <el-dropdown-menu slot="dropdown">
-                            <el-dropdown-item>黄金糕</el-dropdown-item>
-                            <el-dropdown-item>狮子头</el-dropdown-item>
-                            <el-dropdown-item>螺蛳粉</el-dropdown-item>
-                            <el-dropdown-item disabled>双皮奶</el-dropdown-item>
-
-                        </el-dropdown-menu>
-                    </el-dropdown> -->
                     <span class="select">
                         <el-select v-model="status" placeholder="请选择"  >
                             <el-option
@@ -42,18 +31,6 @@
                 </div>
                 <div class="status-select">
                     产品分类
-                    <!-- <el-dropdown>
-                        <span class="select">
-                            全部<i class="iconfont iconxiasanjiao"></i>
-                        </span>
-                        <el-dropdown-menu slot="dropdown">
-                            <el-dropdown-item>黄金糕</el-dropdown-item>
-                            <el-dropdown-item>狮子头</el-dropdown-item>
-                            <el-dropdown-item>螺蛳粉</el-dropdown-item>
-                            <el-dropdown-item disabled>双皮奶</el-dropdown-item>
-
-                        </el-dropdown-menu>
-                    </el-dropdown> -->
                     <span class="select">
                         <el-select v-model="classNow" placeholder="请选择"  >
                             <el-option
@@ -74,18 +51,18 @@
                     <el-table :data="listData"  header-row-style="font-size:12px;color:#999;" row-class-name="table-line" width="930">
                     <el-table-column property="img" label="产品图片" width="50" align="left">
                          <template slot-scope="scope">
-                            <img :src="scope.row.img" alt="" class="product-img">
+                            <img :src="scope.row.picurl" alt="" class="product-img">
                         </template>
                     </el-table-column>
-                    <el-table-column property="status" label="产品分类" width="160" align="center"></el-table-column>
-                    <el-table-column property="productName" label="店铺名称" width="247" align="left">
+                    <el-table-column property="Cat" label="产品分类" width="160" align="center"></el-table-column>
+                    <el-table-column property="Name" label="产品名称" width="247" align="left">
                         <template slot-scope="scope">
-                           <div class="store-name">{{scope.row.productName}}</div>
+                           <div class="store-name">{{scope.row.Name}}</div>
                         </template>
                     </el-table-column>
-                    <el-table-column property="time" label="消费时间" width="195" align="center"></el-table-column>
-                    <el-table-column property="money" label="消费金额(元)" width="88" align="center"></el-table-column>
-                     <el-table-column property="score" label="状态" width="88" align="center"></el-table-column>
+                    <el-table-column property="CreaterTime" label="产品上架时间" width="195" align="center"></el-table-column>
+                    <el-table-column property="price" label="价格(元)" width="88" align="center"></el-table-column>
+                     <el-table-column property="state" label="状态" width="88" align="center"></el-table-column>
                     <el-table-column  label="操作" width="102" align="center">
                          <template slot-scope="scope">
                             <button :data="scope" class="action-btn">查看详情</button><button class="action-btn comment-btn" @click="toRate = true">评价</button>
@@ -138,15 +115,7 @@ export default {
       tab:1,
       dataValue:[new Date(),new Date()],
       listData:[
-               {
-                   img:'https://b-ssl.duitang.com/uploads/item/201706/27/20170627012435_mJLiX.thumb.700_0.jpeg',
-                   productName:'儿童网鞋男童透气…',
-                   status:'20191212083520',
-                   time:'2020-05-05 06:30:30',
-                   type:'淘宝订单',
-                   money:'3000',
-                   score:'333'
-               }
+               
            ],
        classNow:"",
        ProductName:'',
@@ -167,6 +136,7 @@ export default {
     }
   },
   mounted(){
+        this.dataValue = [this.$util.getNowDate()+' 00:00:00',this.$util.getNowDate()+' 24:00:00']
       this.getClass();
       this.getList();
   },
@@ -192,10 +162,10 @@ export default {
       //获取产品列表
       getList(){
          this.$http.storePost(this.$api.Products,{
-             State:this.status,
-             ProductName:this.ProductName,
-             OnShelevesTimeBegin: this.dataValue[0] ,
-            OnShelevesTimeEnd: this.dataValue[1] ,
+            State:this.status,
+            ProductName:this.ProductName,
+            OnShelevesTimeBegin: this.dataValue[0] +' 00:00:00',
+            OnShelevesTimeEnd: this.dataValue[1]+' 24:00:00' ,
             Catid:this.classNow,
             pageIndex: this.pageIndex ,
             pageSize:this.pageSize
@@ -322,6 +292,10 @@ export default {
   }
   .comment-btn{
       margin-left:8px;
+  }
+  .product-img{
+      width:50px;
+      height:50px;
   }
 .table-small-box{
     display: none;

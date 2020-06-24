@@ -1,11 +1,11 @@
 <template>
-    <div class="card">
-        <div class="img-box">
-            <img :src="data.picurl" alt="">
+    <a class="card" :href="data.URL" target="_blank">
+        <div class="img-box" :style='"background-image:url("+data.picurl+");"'>
+            <!-- <img :src="data.picurl" alt=""> -->
         </div>
         <div class="name">{{data.title}}</div>
-        <div class="persiont">最高返<span>4%</span></div>
-    </div>
+        <div class="persiont">{{data.fanli}}</div>
+    </a>
 </template>
 <script>
 export default {
@@ -24,16 +24,21 @@ export default {
 </script>
 <style lang="less" scoped>
 .card{
+    display: block;
     width:100%;
     height:240px;
+    color:@font_color;
     text-align: center;
     .img-box{
         width:100px;
         height:100px;
-        border-radius: 100px;
-        background:#ccc;
+        // border-radius: 100px;
+        // background:#ccc;
         margin:40px auto 20px;
         overflow: hidden;
+        background-position: center center;
+        background-repeat: no-repeat;
+        background-size:contain;
         img{
             display: block;
             width:100%;

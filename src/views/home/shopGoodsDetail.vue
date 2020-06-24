@@ -16,12 +16,10 @@
        <div class="detail-des">
           <h2>{{detail.Name}}</h2>
           <p>{{detail.Describe}}</p>
-          <div class="price"><span class="one">¥</span><span class="num">{{detail.price}}</span><span class="danwei">/串</span></div>
+          <div class="price"><span class="one">¥</span><span class="num">{{detail.price}}</span><span class="danwei"></span></div>
           <div class="score">积分约：50</div>
-          <div style="height:40px;">
-          <el-input-number v-model="num" @change="handleChange" :min="1" :max="10" label="描述文字"></el-input-number>
-          </div>
-          <button  class="buy-btn" :disabled="!isLogin|| IsQRcode != 1" @click=""><i class="iconfont icongwc"></i>加入购物车</button>
+       
+         
        </div>
     </div>
     <div class="store-des">
@@ -78,7 +76,7 @@ export default {
         console.log(value);
       },
      getDetail(){
-       this.$http.post(this.$api.GetMerchanterGoodInfo,{
+       this.$http.post(this.$api.shopGetMerchanterGoodInfo,{
          ProductId:this.ProductId,
        }).then(res=>{
          if(res.data.Code == 1){

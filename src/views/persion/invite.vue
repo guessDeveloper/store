@@ -17,7 +17,7 @@
         <div class="small-item" v-for="(item,index) in list" :key="index">
           <div class="user-box">
              <span class="header">
-               <img src="" alt="">
+               <img :src="item.UserImg" alt="">
              </span>
              <span class="name-box">
                <div class="name">{{item.NickNamep}}</div>
@@ -27,7 +27,27 @@
              <div class="time">{{item.CreateTime}}</div>
 
         </div>
-
+          <div class="page-box">
+        <el-pagination
+                    @size-change="getList"
+                    :current-page.sync="pageIndex"
+                    :page-size="pageSize"
+                    :hide-on-single-page="total == 0"
+                    layout="prev, pager, next, jumper"
+                    :total="total">
+          </el-pagination>
+      </div>
+       <div class="page-box small">
+        <el-pagination
+                     small
+                    @size-change="getList"
+                    :current-page.sync="pageIndex"
+                    :page-size="pageSize"
+                    :hide-on-single-page="total == 0"
+                    layout="prev, pager, next"
+                    :total="total">
+          </el-pagination>
+      </div>
       </div>
       <div class="empty" v-show="total == 0">
           <span class="iconfont iconzwyqzwt"></span>
@@ -42,8 +62,8 @@ export default {
   data(){
     return{
        url:'',
-       pageIndex:'',
-       pageSize:'',
+       pageIndex:1,
+       pageSize:20,
        list:[],
        Clipboard:'',
        total:0
@@ -159,7 +179,7 @@ export default {
       .user{
         font-size:12px;
         text-align: left;
-        line-height: 18px;
+        line-height: 70px;
 
         .header{
           text-align: left;
@@ -268,5 +288,8 @@ export default {
      padding-top: 60px;
      padding-bottom:119px;
    }
+}
+.page-box{
+  padding:30px 0;
 }
 </style>

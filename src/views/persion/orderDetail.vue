@@ -5,31 +5,31 @@
     </div>
     <div class="order-detail-content">
        <div class="img-box">
-         <img src="../../assets/img/fuzhuang.png" alt="">
+         <img :src="detail.img" alt="">
        </div>
        <div class="item">
-          <label for="">订单号：</label>20191212083520
+          <label for="">订单号：</label>{{detail.orderNumber}}
        </div>
        <div class="item">
-         <label for="">消费时间：</label>2020-01-01 1:12:12
+         <label for="">消费时间：</label>{{detail.createrTime}}
        </div>
         <div class="item item-name-wrap">
-         <label for="">产品名称：</label><span class="item-name-value">运动开衫式超柔软拉毛运动开衫女式超柔软拉毛运动开衫式超柔软拉毛运动</span>
+         <label for="">产品名称：</label><span class="item-name-value">{{detail.GoosName}}</span>
        </div>
         <div class="item">
-         <label for="">消费金额：</label>200
+         <label for="">消费金额：</label>{{detail.orderMoney}}
        </div>
           <div class="item">
-         <label for="">订单类型：</label>淘宝订单
+         <label for="">订单类型：</label>{{detail.orderType}}
        </div>
           <div class="item">
-         <label for="">奖励积分：</label>200
+         <label for="">奖励积分：</label>{{detail.BonusPoints}}
        </div>
           <div class="item">
-         <label for="">积分到账时间：</label>200
+         <label for="">积分到账时间：</label>{{detail.IntegralToUserTime}}
        </div>
          <div class="item">
-         <label for="">状态：</label>200
+         <label for="">状态：</label>{{detail.state}}
        </div>
     </div>
     <div class="btn-box">
@@ -41,12 +41,26 @@
 export default {
   data(){
     return{
-
+      id:'',
+      detail:''
     }
+  },
+  mounted(){
+    this.$route.query.id?this.id = this.$route.query.id:''
+    this.getDetail()
   },
   methods:{
     back(){
       this.$router.push('/myOrder')
+    },
+    getDetail(){
+      this.$http.limitPost(this.$api.UserOnlineOrderModel,{
+        OrderNo:this.id
+      }).then(res=>{
+        if(res.data.Code == 1){
+          this.detail = res.data.Data
+        }
+      })
     }
   }
 }

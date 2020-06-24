@@ -111,7 +111,7 @@ export default {
            navIsOpen:false,
            searchType:'',
            showCar:false,
-           showCarList:['/fooddetail','/earthDetail','/shopCar'],
+           showCarList:['/fooddetail','/earthDetail','/shopCar','/foodList'],
         //    charNowNum:0,
         }
     },
@@ -186,6 +186,11 @@ export default {
                 }
                 })
              })
+             if(this.nowSelect == ''){
+                 this.nowSelect = this.option[0].name
+                  this.nowSearchUrl = this.option[0].query
+                     this.searchType = this.option[0].type
+             }
         }
         if(this.$route.query.content){
             this.searchContent = this.$route.query.content

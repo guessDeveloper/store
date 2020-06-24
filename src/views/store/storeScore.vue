@@ -18,16 +18,37 @@
           </el-table>
         </div>
         <div class="table-small-box">
-          <div class="list-item">
+          <div class="list-item" v-for="(item,index) in chongList" :key="index">
             <div class="list-item-p">
-              <p>时间：<span>2020-05-29 21:10:00</span></p>
-              <p>积分数量：<span>+600</span></p>
+              <p>时间：<span>{{item.CreateTime}}</span></p>
+              <p>积分数量：<span>{{item.number}}</span></p>
             </div>
             <div class="list-item-b text-right">
-              <p>状态：<span>成功</span></p>
+              <p>状态：<span>{{item.state}}</span></p>
             </div>
           </div>
         </div>
+          <div class="page-box">
+            <el-pagination
+                        @current-change="getChongList"
+                        :current-page.sync="chongIndex"
+                        :page-size="chongPage"
+                        :hide-on-single-page="chongTotal == 0"
+                        layout="prev, pager, next, jumper"
+                        :total="chongTotal">
+              </el-pagination>
+          </div>
+          <div class="page-box small">
+            <el-pagination
+                    small 
+                        @current-change="getChongList"
+                        :current-page.sync="chongIndex"
+                        :page-size="chongPage"
+                        :hide-on-single-page="chongTotal == 0"
+                        layout="prev, pager, next"
+                        :total="chongTotal">
+              </el-pagination>
+          </div>
      </div>
      <div class="tab-content"  v-show="tab==2">
         <div class="table-box jiangli">
@@ -39,16 +60,37 @@
           </el-table>
         </div>
         <div class="table-small-box">
-          <div class="list-item">
+          <div class="list-item" v-for="(item,index) in jiangList" :key="index">
             <div class="list-item-p">
-              <p>时间：<span>2020-05-29 21:10:00</span></p>
-              <p>积分数量：<span>+600</span></p>
+              <p>时间：<span>{{item.time}}</span></p>
+              <p>积分数量：<span>{{item.Number}}</span></p>
             </div>
             <div class="list-item-b">
-              <p>状态：<span>成功</span></p>
+              <p>状态：<span>{{item.Type}}</span></p>
             </div>
           </div>
         </div>
+        <div class="page-box">
+            <el-pagination
+                        @current-change="getJiangList"
+                        :current-page.sync="jinagIndex"
+                        :page-size="jiangPagesize"
+                        :hide-on-single-page="jiangTotal == 0"
+                        layout="prev, pager, next, jumper"
+                        :total="jiangTotal">
+              </el-pagination>
+          </div>
+          <div class="page-box small">
+            <el-pagination
+                    small 
+                        @current-change="getJiangList"
+                        :current-page.sync="jinagIndex"
+                        :page-size="jiangPagesize"
+                        :hide-on-single-page="jiangTotal == 0"
+                        layout="prev, pager, next"
+                        :total="jiangTotal">
+              </el-pagination>
+          </div>
      </div>
   </div>
 </template>
@@ -93,7 +135,7 @@ export default {
       this.$http.storePost(this.$api.MerchantUseIntegralRecords,{pageIndex:this.chongIndex,pageSize:this.chongPage}).then(res=>{
         if(res.data.Code ==1){
           this.jiangList= res.data.Data.List
-
+          this.jiangTotal = res.data.Data.Count
         }else{
           this.$message.error(res.data.Msg)
         }
@@ -211,5 +253,8 @@ export default {
       }
     }
   }
+}
+.page-box{
+  padding:30px 0;
 }
 </style>

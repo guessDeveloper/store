@@ -1,5 +1,5 @@
 <template>
-  <div class="subject-card">
+  <a class="subject-card" :href="data.ClickURl" target="_blank"> 
       <img :src="data.picurl" alt="">
       <div class="des">
          <h4><span class="title">{{data.title}}</span><span class="price">249元起</span></h4>
@@ -7,7 +7,7 @@
          <div class="phone-price">249元起</div>
          <div class="num-box"><span class="zan num"><i class="iconfont iconxh"></i>39948</span><span class="num"><i class="iconfont iconck"></i>3434322</span><span class="num comment"><i class="iconfont iconpl"></i>fsdfsdf </span></div>
       </div>
-  </div>
+  </a>
 </template>
 <script>
 export default {
@@ -28,6 +28,7 @@ export default {
   width:100%;
    background:#fff;
    text-align: left;
+   color:@font_color;
   img{
     display: block;
     width:380px;

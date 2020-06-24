@@ -101,7 +101,10 @@ export default {
     mounted(){
         this.getClass()
         this.getCity()
-        this.getList();
+        setTimeout(()=>{
+             this.getList();
+        },200)
+       
     },
     computed:{
      ...mapState([

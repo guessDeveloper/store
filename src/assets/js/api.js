@@ -35,6 +35,7 @@ export default {
     MerchantInfo: '/api/Detail/MerchantInfo', //获取商家详情
     shopGetMerchanter: '/api/shopping/GetMerchanter', //获取商家评价
     shopProducts: '/api/shopping/Products', //获取产品列表
+    shopGetMerchanterGoodInfo: "/api/shopping/GetMerchanterGoodInfo", //获取商家产品详情
     //美食广场
     foodCategorys: '/api/Food/Categorys', //商家类型
     foodCitys: '/api/Food/Citys', // 城市
@@ -89,9 +90,11 @@ export default {
     AddOrderAppealList: '/api/User/AddOrderAppealList', //订单申诉
     GetOrderAppealList: '/api/User/GetOrderAppealList', //订单申诉列表
     UserOnlineOrderList: '/api/User/UserOnlineOrderList', //获取线上订单列表
+    UserOnlineOrderModel: '/api/User/UserOnlineOrderModel', //获取线上订单详情
     UserGroundOrderList: '/api/User/UserGroundOrderList', // 获取地面订单列表
     UserGroundOrderModel: '/api/User/UserGroundOrderModel', //获取订单详情
     CollectionConfirmation: '/api/User/CollectionConfirmation', //取消订单
+    AddComment: '/api/User/AddComment', //评价
     //商家中心
     MerchanterMerchanter: '/api/Merchant/MerchanterMerchanter', //获取商家信息
     MerchanterLoginOut: '/api/LoginRegister/MerchanterLoginOut', //退出登录

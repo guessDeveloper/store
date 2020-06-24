@@ -9,6 +9,7 @@
                   <el-date-picker
                       v-model="dataValue"
                       type="daterange"
+                      value-format="yyyy-MM-dd"
                       range-separator="-"
                       start-placeholder="开始日期"
                       end-placeholder="结束日期">
@@ -18,11 +19,13 @@
                    <el-date-picker
                       v-model="dataValue[0]"
                       type="date"
+                      value-format="yyyy-MM-dd"
                       placeholder="开始日期">
                       </el-date-picker>
                     <el-date-picker
                       v-model="dataValue[2]"
                       type="date"
+                      value-format="yyyy-MM-dd"
                       placeholder="结束日期">
                     </el-date-picker>
                </div>
@@ -125,13 +128,7 @@ import '../../plugins/element-dataPicker.js'
 export default {
   data(){
     return{
-       listData:[{
-         orderNum:20191212083520,
-         time:'2020-05-05 06:30:30',
-         type:'淘宝',
-         status:'未处理',
-         result:'线上到线下(Online To Offline，O2O)，是指将线下的商务机会与互联网结合，让互联网成为线下交易的平台。O2O服务性电商模式包括选择商品(服务)、下单、支付等流程。随着O2O服务性电商模式的不断发…'
-       }],
+       listData:[],
        dataValue:[new Date(),new Date()],
        status:'',
        total:0,
@@ -172,6 +169,7 @@ export default {
     }
   },
   mounted(){
+    this.dataValue = [this.$util.getNowDate()+' 00:00:00',this.$util.getNowDate()+' 24:00:00']
     this.getList()
   },
   methods:{
@@ -204,7 +202,7 @@ export default {
       this.$http.limitPost(this.$api.GetOrderAppealList,{
         StartTime:this.dataValue[0],
         EndTime:this.dataValue[1],
-        State:this.State,
+        State:this.status,
         pageIndex:this.pageIndex,
         pageSize:this.pageSize
       }).then(res=>{
