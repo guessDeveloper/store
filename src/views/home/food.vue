@@ -67,7 +67,7 @@
             </div>
         </div>
 
-        <div class="food-list-box">
+        <div class="food-list-box" v-show="total>0">
             <ul class="food-list">
                 <li  v-for="(item,index) in list"><foodCard :item="item"></foodCard></li>
             </ul>
@@ -81,6 +81,10 @@
                     :total="total">
                 </el-pagination>
             </div>
+        </div>
+        <div class="empty" v-show="total == 0">
+            <span class="iconfont iconspzw"></span>
+            <div class="tip">对不起，对应商品分类或筛选组合下没有商品</div>
         </div>
     </div>
 </template>
@@ -293,6 +297,27 @@ export default {
                 }
             }
         }
+    }
+}
+.empty{
+    width:@max-width;
+    margin:20px auto 100px;
+    height:500px;
+    text-align: center;
+    background:#fff;
+    overflow: hidden;
+    .iconfont{
+        display: block;
+        margin-top:104px;
+        font-size:114px;
+        color:#C8C8C8;
+    }
+    .tip{
+        font-size:14px;
+        color:@subtitle_color;
+    }
+    @media screen and(max-width:@change_width) {
+        width:100%;
     }
 }
 </style>

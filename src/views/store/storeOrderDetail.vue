@@ -27,11 +27,10 @@
                         </template>
                     </el-table-column>
                     <el-table-column property="goodsPrice" label="单价" width="144" align="center"></el-table-column>
-                    <el-table-column property="goodsNumber" label="数量" width="84" align="center">
-
-                    </el-table-column>
-                    <el-table-column property="Subtotal" label="小计" width="144" align="center"></el-table-column>
+                    <el-table-column property="goodsNumber" label="数量" width="84" align="center"></el-table-column>
                     <el-table-column property="Subtotal" label="实付" width="84" align="center"></el-table-column>
+                    <el-table-column property="GoodsFanbi" label="返比(%)" width="60" align="center"></el-table-column>
+                    <el-table-column property="GoodsIntegralCount" label="返积分" width="84" align="center"></el-table-column>
                 </el-table>
       <!-- 移动端-商品信息列表 -->
       <div class="goods-list-small">
@@ -60,7 +59,7 @@
       </div>
       <div class="price">
          <div class="item">
-              返积分数：<span>{{detail.GoodsCount}}</span>
+              返积分数：<span>{{detail.Integral}}</span>
          </div>
           <div class="item">
               商品件数：<span>{{detail.GoodsCount}}件</span>
@@ -76,10 +75,11 @@
     <el-dialog title="确认返积分" :visible.sync="toNew" custom-class="custom-dialog">
       <div class="dialog-content-wrap">
         <div class="jifen-line">
-          <label for="">用户手机号：</label><span class="content">18******265</span> <label for="">返还比例：</label><span >10%</span>
+          <label for="">用户手机号：</label><span class="content">{{detail.Userphone}}</span> 
+          <!-- <label for="">返还比例：</label><span >10%</span> -->
         </div>
         <div class="jifen-line">
-          <label for="">消费金额：</label><span class="content">600</span> <label for="">返积分数量：</label><span >10%</span>
+          <label for="">消费金额：</label><span class="content">{{detail.orderGoodRealMoney}}</span> <label for="">返积分数量：</label><span >{{detail.Integral}}</span>
         </div>
         <div class="btn-box">
               <button class="ok" @click="backScore">确认</button>
@@ -324,6 +324,9 @@ export default {
         border-color:@main;
       }
     }
+     .goods-list-small{
+       display: none;
+     }
 @media screen and(max-width:@change_width){
   .goods-table {
     display: none;

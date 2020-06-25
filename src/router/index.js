@@ -279,6 +279,11 @@ const routes = [{
             name: 'storeMoney',
             component: () =>
                 import ( /* webpackChunkName: "storeMoney" */ '../views/store/storeMoney.vue')
+        }, {
+            path: '/storeProductDetail', //产品详情
+            name: 'storeProductDetail',
+            component: () =>
+                import ( /* webpackChunkName: "storeProductDetail" */ '../views/store/storeProductDetail.vue')
         }]
     },
     {

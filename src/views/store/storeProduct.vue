@@ -15,7 +15,26 @@
                         start-placeholder="开始日期"
                         end-placeholder="结束日期">
                         </el-date-picker>
+                </div>
+                <div class="date-small-box">
+                    <div class="small-date-box">
+                    <el-date-picker
+                        v-model="dataValue[0]"
+                        type="date"
+                        value-format="yyyy-MM-dd"
+                        placeholder="开始日期">
+                    </el-date-picker>
+                   </div>
+                   <div class="date-middle"> -</div>
+                   <div class="small-date-box">
+                        <el-date-picker
+                        v-model="dataValue[1]"
+                        type="date"
+                        value-format="yyyy-MM-dd"
+                        placeholder="结束日期">
+                        </el-date-picker>
                     </div>
+                </div>
                 <div class="status-select status-select-wrap">
                     状态
                     <span class="select">
@@ -65,39 +84,36 @@
                      <el-table-column property="state" label="状态" width="88" align="center"></el-table-column>
                     <el-table-column  label="操作" width="102" align="center">
                          <template slot-scope="scope">
-                            <button :data="scope" class="action-btn">修改</button><button class="action-btn comment-btn" @click="toRate = true">下架</button><button class="action-btn comment-btn" @click="toRate = true">上架</button>
+                            <button :data="scope" class="action-btn" @click="toProductDetail(scope.row.ID)">修改</button><button class="action-btn comment-btn" @click="UpOrDownProduct(scope.row.ID,0)" v-show="scope.row.state == '审核通过上架'">下架</button><button class="action-btn comment-btn" @click="UpOrDownProduct(scope.row.ID,1)" v-show="scope.row.state == '审核通过下架'">上架</button>
                         </template>
                     </el-table-column>
                     </el-table>
             </div>
             <!-- 移动端列表 -->
             <div class="table-small-box">
-                <div class="item">
+                <div class="item" v-for="(item,index) in listData" :key="index">
                     <div class="des">
                         <div class="item-img-wrap">
-                            <img src="https://b-ssl.duitang.com/uploads/item/201706/27/20170627012435_mJLiX.thumb.700_0.jpeg" alt="" class="item-img">
+                            <img :src="item.picurl" alt="" class="item-img">
                         </div>
                         <div>
-                            <div class="name">儿童网鞋男童透气网鞋男童透气…</div>
+                            <div class="name">{{item.Name}}</div>
                             <div class="item-name">
-                                订单号：<span class="item-value">20191212083520</span>
-                            </div>
-                            <div class="item-name">
-                                消费时间：<span class="item-value">2020-05-05 06:30:30</span>
+                                产品分类：<span class="item-value">{{item.Cat}}</span>
                             </div>
                             <div class="item-name">
-                                订单类型：<span class="item-value">淘宝订单</span>
+                                产品上架时间：<span class="item-value"></span>
                             </div>
-                            <div class="item-name">消费金额(元)：<span class="item-value">8000</span>
-
+                            <div class="item-name">
+                                价格(元)：<span class="item-value">{{item.price}}</span>
                             </div>
-                            <div class="item-name">奖励积分：<span class="item-value">60</span></div>
+                            
                         </div>
                         <div class="order-status-wrap">
-                            <div class="order-status-name">状态：<span>已付款</span></div>
+                            <div class="order-status-name">状态：<span>{{item.state}}</span></div>
                         </div>
                     </div>
-                    <div class="btn-detail">修改</div>
+                    <div class="btn-detail" @click="toProductDetail(item.ID)">修改</div>
                 </div>
             </div>
             <div class="page-box">
@@ -106,6 +122,16 @@
                     :current-page.sync="pageIndex"
                     :page-size="pageSize"
                     layout="prev, pager, next, jumper"
+                    :total="total">
+                </el-pagination>
+            </div>
+            <div class="page-box small">
+                <el-pagination
+                    small
+                    @current-change="getList"
+                    :current-page.sync="pageIndex"
+                    :page-size="pageSize"
+                    layout="prev, pager, next"
                     :total="total">
                 </el-pagination>
             </div>
@@ -186,6 +212,22 @@ export default {
              }
          })
       },
+      //产品修改
+      toProductDetail(id){
+          this.$router.push('/storeProductDetail?id='+id)
+      },
+      //产品上下架
+      UpOrDownProduct(id,status){
+          this.$http.storePost(this.$api.UpOrDownProduct,{
+              ProductId:id,
+              UpOrDown:status
+          }).then(res=>{
+              if(res.data.Code == 1){
+                  this.$message.success('操作成功')
+                  this.getList();
+              }
+          })
+      },
       search(){
           this.pageIndex = 1;
           this.getList();
@@ -239,6 +281,9 @@ export default {
     .date-box{
         display: inline-block;
         vertical-align: middle;
+    }
+    .date-small-box{
+        display: none;
     }
      .status-select{
       display: inline-block;
@@ -368,9 +413,12 @@ export default {
         .choose-box {
             padding: 15px 0 0;
             .date-box {
-                display: flex;
+                display: none;
                 align-items: center;
                 // justify-content: center;
+            }
+            .date-small-box{
+                display: flex;
             }
             .status-select {
                 margin-left: 0;
