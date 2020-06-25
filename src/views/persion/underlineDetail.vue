@@ -116,6 +116,9 @@ export default {
       }).then(res=>{
         if(res.data.Code == 1){
           this.detail = res.data.Data
+          if(this.detail.state == '已奖励'){
+            this.step = 5
+          }
         }else{
           this.$message.error(res.data.Msg)
         }
@@ -279,17 +282,6 @@ export default {
                 background:@main;
             }
         }
-       
-        &:after{
-           content:'';
-            display: block;
-            position: absolute;
-            right: 54px;
-            top:19px;
-            width:288px;
-            height:2px;
-            background:@class_border; 
-        }
         .step-item{
             float: left;
             width:125px;
@@ -301,7 +293,7 @@ export default {
                   position: absolute;
                   left: 78px;
                   top:19px;
-                  width:190px;
+                  width:168px;
                   height:2px;
                   background:@class_border;
               }
@@ -329,6 +321,7 @@ export default {
             &:nth-last-child(1){
               margin-right:0;
               &::before{
+                display: none;
                 background:#fff;
               }
             }

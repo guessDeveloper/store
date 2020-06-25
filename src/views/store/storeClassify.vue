@@ -27,12 +27,34 @@
               <p>添加时间：<span>{{ item.CreateTime }}</span></p>
             </div>
             <div class="list-item-right">
-              <p>修改</p>
-              <p>删除</p>
+              <p @click="editClass(item)">修改</p>
+              <p @click="deleteClass(item.Id)">删除</p>
             </div>
           </div>
         </div>
+
       </div>
+      <div class="page-box">
+            <el-pagination
+                        @current-change="getList"
+                        :current-page.sync="pageIndex"
+                        :page-size="pageSize"
+                        :hide-on-single-page="total == 0"
+                        layout="prev, pager, next, jumper"
+                        :total="total">
+              </el-pagination>
+          </div>
+          <div class="page-box small">
+            <el-pagination
+                    small 
+                        @current-change="getList"
+                        :current-page.sync="pageIndex"
+                        :page-size="pageSize"
+                        :hide-on-single-page="total == 0"
+                        layout="prev, pager, next"
+                        :total="total">
+              </el-pagination>
+          </div>
       <el-dialog title="添加新产品分类" :visible.sync="toNew" custom-class="custom-dialog">
         <div class="dialog-content-wrap">
           <div class="input-line">
@@ -333,5 +355,8 @@ export default {
       }
     }
   }
+}
+.page-box{
+  padding:30px 0;
 }
 </style>

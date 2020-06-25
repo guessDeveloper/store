@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 // import { delete } from 'vue/types/umd';
+// import { delete } from 'vue/types/umd';
 
 
 Vue.use(Vuex)
@@ -102,18 +103,22 @@ let store = new Vuex.Store({
             for (let item in state.myCar) {
                 let checkNum = 0; //选择数
                 let totoalMony = 0; //总计金额
+                let totalScore = 0; // 总返利积分
                 let isChooseAll = true;
                 let goodsList = state.myCar[item].goodsList;
                 for (let element in state.myCar[item].goodsList) {
                     if (goodsList[element].check == true) {
                         checkNum++
                         totoalMony += goodsList[element].GoodsMoneny * goodsList[element].num
+                        totalScore += goodsList[element].Goodsfanli * goodsList[element].num
                     }
                     isChooseAll = isChooseAll && goodsList[element].check
                 }
                 state.myCar[item].choseNum = checkNum
                 state.myCar[item].totoalMony = totoalMony
+                state.myCar[item].totalScore = totalScore
                 state.myCar[item].check = isChooseAll
+
             }
             state.myCar = Object.assign({}, state.myCar)
         },
@@ -122,12 +127,14 @@ let store = new Vuex.Store({
             for (let item in state.myCar) {
                 let checkNum = 0; //选择数
                 let totoalMony = 0; //总计金额
+                let totalScore = 0; // 总返利积分
                 let goodsList = state.myCar[item].goodsList;
                 if (state.myCar[item].check == true) {
                     for (let element in state.myCar[item].goodsList) {
                         checkNum++
                         goodsList[element].check = true
                         totoalMony += goodsList[element].GoodsMoneny * goodsList[element].num
+                        totalScore += goodsList[element].Goodsfanli * goodsList[element].num
                     }
                 } else {
                     for (let element in state.myCar[item].goodsList) {
@@ -136,6 +143,7 @@ let store = new Vuex.Store({
                 }
                 state.myCar[item].choseNum = checkNum
                 state.myCar[item].totoalMony = totoalMony
+                state.myCar[item].totalScore = totalScore
                 state.myCar = Object.assign({}, state.myCar)
             }
         },
@@ -159,15 +167,18 @@ let store = new Vuex.Store({
             for (let item in state.myCar) {
                 let checkNum = 0; //选择数
                 let totoalMony = 0; //总计金额
+                let totalScore = 0; // 总返利积分
                 let goodsList = state.myCar[item].goodsList;
                 for (let element in state.myCar[item].goodsList) {
                     if (goodsList[element].check == true) {
                         checkNum++
                         totoalMony += goodsList[element].GoodsMoneny * goodsList[element].num
+                        totalScore += goodsList[element].Goodsfanli * goodsList[element].num
                     }
                 }
                 state.myCar[item].choseNum = checkNum
                 state.myCar[item].totoalMony = totoalMony
+                state.myCar[item].totalScore = totalScore
             }
             if (arr.length == 0) {
                 delete(state.myCar[storeId])
@@ -205,15 +216,18 @@ let store = new Vuex.Store({
             for (let item in state.myCar) {
                 let checkNum = 0; //选择数
                 let totoalMony = 0; //总计金额
+                let totalScore = 0; // 总返利积分
                 let goodsList = state.myCar[item].goodsList;
                 for (let element in state.myCar[item].goodsList) {
                     if (goodsList[element].check == true) {
                         checkNum++
                         totoalMony += goodsList[element].GoodsMoneny * goodsList[element].num
+                        totalScore += goodsList[element].Goodsfanli * goodsList[element].num
                     }
                 }
                 state.myCar[item].choseNum = checkNum
                 state.myCar[item].totoalMony = totoalMony
+                state.myCar[item].totalScore = totalScore
             }
             if (arr.length == 0) {
                 delete(state.myCar[storeId])
@@ -229,6 +243,11 @@ let store = new Vuex.Store({
             state.charNum = charNum
             state.myCar = Object.assign({}, state.myCar)
 
+        },
+        //购物成功
+        shopSuccess(state, id) {
+            delete state.myCar[id]
+            state.myCar = Object.assign({}, state.myCar)
         }
 
 

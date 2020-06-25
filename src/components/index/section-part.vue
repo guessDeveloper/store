@@ -7,12 +7,12 @@
             <div class="left" :class="{canchu:config.type==2,peijian:config.type==3,jujia:config.type ==4}"> 
                 <img :src="config.CateGorysItems[0].picurl" alt="">
                 <div class="name">{{config.CateGorysItems[0].titleA}}</div>
-                <div class="des">爱人冬天的感觉</div>
+                <div class="des">{{config.CateGorysItems[0].titleB}}</div>
                 <div class="price">¥{{config.CateGorysItems[0].price}}</div>
-                <button>查看全部服饰</button>
+                <a :href="config.CateGorysItems[0].Url"  class="btn" target="_blank">查看全部服饰</a>
             </div>
             <div class="right">
-                <div class="item" v-for="(item,index) in config.CateGorysItems" :key="index" :class="{none:index == 0}">
+                <a class="item" v-for="(item,index) in config.CateGorysItems" :key="index" :class="{none:index == 0}" :href="item.Url" target="_blank">
                     <img :src="item.picurl" alt="">
                     <div class="name">{{item.titleA}}</div>
                     <div class="score">{{item.titleB}}</div>
@@ -21,10 +21,10 @@
                         <div class="commend-content">快递收到了，下单发货挺快的，快递也挺好的快递收到了，下单发货挺快的，快递也挺好的</div>
                         <div class="commend-from">— 来自于 Windir 的评论</div>
                     </div>
-                </div>
+                </a>
             </div>
         </div>
-        <a class="more">查看更多</a>
+        <a class="more" :href="config.CateGorysItems[0].Url">查看更多</a>
     </div>
 </template>
 <script>
@@ -115,12 +115,15 @@ export default {
             margin:95px auto 30px;
         }
         .name{
+            width:80%;
+            .overTextOne();
             font-size:20px;
             line-height: 20px;
+             margin:0 auto;
             margin-bottom:14px;
             color:#fff;
             font-weight: bold;
-           
+            
         }
         .des{
             line-height: 14px;
@@ -135,9 +138,11 @@ export default {
             font-weight: bold;
             margin:26px 0;
         }
-        button{
+        .btn{
+            display: inline-block;
             width:118px;
             height:38px;
+            line-height: 38px;
             border:1px solid #fff;
             border-radius: 20px;
             font-size:12px;
@@ -168,6 +173,7 @@ export default {
             height:294px;
             overflow: hidden;
             text-align: center;
+            color:@font_color;
             border-right:1px solid @class_border;
             border-bottom:1px solid @class_border;
             &.none{

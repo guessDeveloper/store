@@ -17,7 +17,7 @@
        <div class="title-box">
           <h2 class="title">商家联盟</h2>
           <span class="sub-title">积分直返消费者</span>
-          <router-link class="more" tag="a" to="/storeList"> 查看全部 <span class="iconfont iconjiantou"></span></router-link>
+          <router-link class="more" tag="a" to="/storeList" target="_blank"> 查看全部 <span class="iconfont iconjiantou"></span></router-link>
           <div class="position-box" >
           <el-dropdown trigger="click" @command="chengeCity">
             <span class="el-dropdown-link box">
@@ -30,7 +30,7 @@
           </div>
        </div>
        <div class="class-box">
-          <router-link class="store-box" tag="div" to="/foodDetail" v-for="(item,index) in storeList">
+          <a class="store-box"   v-for="(item,index) in storeList" target="_blank" :href="item.clickurl">
               <div class="store-name">
                 {{item.title1}}
               </div>
@@ -41,7 +41,7 @@
               <div class="img-box">
                 <img :src="item.picurl" alt="">
               </div>
-          </router-link>
+          </a>
         
        </div>
     </div>
@@ -52,21 +52,21 @@
            <span class="sub-title">{{item.titleB}}</span>
        </div>
        <div class="class-box" v-if="item.CatType == 4">
-          <div class="recomend-box" tag="div" to="/special" v-for="(item2,index2) in item.CategorysItems" >
+          <a class="recomend-box" tag="div" to="/special" v-for="(item2,index2) in item.CategorysItems"  :href="item2.cickurl">
               <div class="recomend-title">{{item2.titleA}}</div>
               <div class="tip">{{item2.titleB}}</div>
               <img :src="item2.picurl" alt="">
-          </div>
+          </a>
        </div>
        <div class="class-box goods-class-box" v-if="item.CatType == 5">
          <div class="goods-big-box">
             <div class="goods">
-              <div class="goods-box" v-for="(item2,index2) in item.CategorysItems">
+              <a class="goods-box" v-for="(item2,index2) in item.CategorysItems" :href="item2.cickurl">
                   <img :src="item2.picurl" alt="">
                   <h3 class="">{{item2.titleA}}</h3>
                   <p>{{item2.titleB}}</p>
                   <div class="price">¥{{item2.price}}</div>
-              </div>
+              </a>
           
            </div>
         </div>
@@ -74,8 +74,8 @@
     </div>
     <div class="class-nav">
       <div class="class-nav-scroll-box">
-        <div class="class-nav-scroll" :style="'width:'+classNav.length*80+'px;'">
-          <a v-for="(item,index) in classNav" :key="index" :class="{active:item.active == 1}">{{item.titleA}}</a>
+        <div class="class-nav-scroll" >
+          <a v-for="(item,index) in classNav" :key="index" :class="{active:item.active == 1}" @click="activeClass(item.Id)">{{item.titleA}}</a>
         </div>
       </div>
     </div>
@@ -163,8 +163,21 @@ export default {
              });
              
              this.classNav = SysCategorysVoB
+             this.classNav[0].active = 1;
              this.promotlist = res.data.Data.SysCategorysVoA
          }
+       })
+     },
+     //激活分裂
+     activeClass(id){
+       this.classNav.forEach((element,index) => {
+          if(element.Id == id){
+            element.active = 1;
+          }else
+          {
+            element.active = 0
+          }
+                
        })
      }
   },
@@ -512,6 +525,7 @@ export default {
           margin:0 auto;
           font-weight: normal;
           font-size:14px;
+          color:@font_color;
           line-height: 14px;
         }
         p{
@@ -569,21 +583,31 @@ export default {
       overflow:hidden;
       margin:25px 0 20px 0;
       .class-nav-scroll-box{
+        width:100%;
+        display: flex;
+        flex-flow: row;
+        flex-wrap: nowrap;
         overflow: hidden;
-        overflow-x: scroll;
-        height:53/@p;
+        // overflow-x: scroll;
+        align-items: center;
+        // height:53/@p;
       }
       .class-nav-scroll{
+         display:-webkit-box;
+        flex: 1;
+        flex-flow: nowrap;
+        overflow: scroll;
         padding:0 15px; 
       }
       a{
-        float: left;
         height:34/@p;
         line-height: 34/@p;
         font-size:20/@p;
         padding:0 20px;
         color:@subtitle_color;
         border-radius:34/@p;
+        white-space: nowrap;
+        flex-shrink:1;
         &.active{
           color:#fff;
           background:@main;

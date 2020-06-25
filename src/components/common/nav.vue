@@ -45,9 +45,10 @@ export default {
   },
   mounted(){
     let _this = this;
+     this.baiduMap();
     this.getMessage()
     _this.getUserInfo();
-    this.baiduMap();
+   
     // this.getLcationPostion();
 
   },

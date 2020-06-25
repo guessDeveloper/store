@@ -1,12 +1,12 @@
 <template>
-  <div class="card-box">
+  <a class="card-box" :href="data.ClickURL" target="_blank">
     <img :src="data.picurl" alt="" @click="goDetail">
     <div class="des">
       <h4>{{data.titleA}}</h4>
       <p>{{data.tieleB}}</p>
       <div class="price">¥{{data.price}}</div>
     </div>
-  </div>
+  </a>
 </template>
 <script>
 export default {
@@ -21,15 +21,16 @@ export default {
     }
   },
   methods:{
-    goDetail(){
-      this.$router.push(`/productDetail?GoodType=1&GoodID=${this.data.ID}`)
-    }
+    // goDetail(){
+    //   this.$router.push(`/productDetail?GoodType=1&GoodID=${this.data.ID}`)
+    // }
   }
 }
 </script>
 <style lang="less" scoped>
 .card-box{
   width:100%;
+  color:@font_color;
   text-align: center;
   img{
     display: block;

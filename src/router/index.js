@@ -113,6 +113,11 @@ const routes = [{
                 name: 'shopCar',
                 component: () =>
                     import ( /* webpackChunkName: "shopCar" */ '../views/home/shopCar.vue')
+            }, {
+                path: '/shopCarsuccess', //购物车
+                name: 'shopCarsuccess',
+                component: () =>
+                    import ( /* webpackChunkName: "shopCarsuccess" */ '../views/home/shopCarsuccess.vue')
             },
             {
                 path: '/Pdd', //拼多多
@@ -136,6 +141,11 @@ const routes = [{
                 name: 'productDetail',
                 component: () =>
                     import ( /* webpackChunkName: "productDetail" */ '../views/home/productDetail.vue')
+            }, {
+                path: '/shopGoodsDetail', //搜索
+                name: 'shopGoodsDetail',
+                component: () =>
+                    import ( /* webpackChunkName: "shopGoodsDetail" */ '../views/home/shopGoodsDetail.vue')
             }
         ]
     },

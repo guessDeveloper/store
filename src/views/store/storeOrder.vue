@@ -10,6 +10,7 @@
                         v-model="dataValue"
                         type="daterange"
                         range-separator="-"
+                        value-format="yyyy-MM-dd"
                         start-placeholder="开始日期"
                         end-placeholder="结束日期">
                         </el-date-picker>
@@ -17,18 +18,7 @@
 
                 <div class="status-select">
                     订单状态
-                    <!-- <el-dropdown trigger="click" >
-                        <span class="select">
-                            全部<i class="iconfont iconxiasanjiao"></i>
-                        </span>
-                        <el-dropdown-menu slot="dropdown">
-                            <el-dropdown-item :>待付款</el-dropdown-item>
-                            <el-dropdown-item>狮子头</el-dropdown-item>
-                            <el-dropdown-item>螺蛳粉</el-dropdown-item>
-                            <el-dropdown-item disabled>双皮奶</el-dropdown-item>
-
-                        </el-dropdown-menu>
-                    </el-dropdown> -->
+           
                     <span class="select">
                         <el-select v-model="value" placeholder="请选择"  >
                             <el-option
@@ -131,6 +121,7 @@ export default {
     }
   },
   mounted(){
+      this.dataValue = [this.$util.getNowDate()+' 00:00:00',this.$util.getNowDate()+' 24:00:00']
       this.getList();
   },
   methods:{
@@ -140,8 +131,8 @@ export default {
       },
       getList(){
          this.$http.storePost(this.$api.GetOrderlist,{
-             BingTime:this.dataValue[0],
-             entTime:this.dataValue[1],
+             BingTime:this.dataValue[0] +' 00:00:00',
+             entTime:this.dataValue[1]+' 24:00:00',
              state:this.value,
              UserName:this.orderNum,
              pageIndex:this.pageIndex,

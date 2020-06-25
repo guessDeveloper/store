@@ -9,12 +9,14 @@
                         </div>
                         <ul class="class-box clear">
                             <li class="clear" v-for="(item2) in item.products" :key="item2.id">
-                                <img :src="item2.picurl" alt="">
-                                <div  class="des">
-                                    <div class="name">{{item2.title1}}</div>
-                                    <div class="subtitle">{{item2.title2}}</div>
-                                    <div class="price">¥{{item2.price}}</div>
-                                </div>
+                                <a :href="item2.URl" target="_blank">
+                                    <img :src="item2.picurl" alt="">
+                                    <div  class="des">
+                                        <div class="name">{{item2.title1}}</div>
+                                        <div class="subtitle">{{item2.title2}}</div>
+                                        <div class="price">¥{{item2.price}}</div>
+                                    </div>
+                                </a>
                             </li>
                         </ul>
                 </div>

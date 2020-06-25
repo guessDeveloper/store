@@ -2,6 +2,7 @@ import Axios from 'axios'
 import qs from 'qs'
 import router from '../../router'
 import store from '../../store/index'
+Axios.defaults.withCredentials = true;
 const baseUrl = process.env.NODE_ENV === 'production' ? 'https://api.youledui.com/' : '/Sev'
 const baseData = {
         // timestamp: parseInt((+new Date()) / 1000),

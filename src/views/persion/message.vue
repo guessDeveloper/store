@@ -6,11 +6,11 @@
     <div class="message-list">
       <div class="item" v-for="(item,index) in list" :key="index">
          <div class="message-title">
-             您的奖励积分已经到账
-             <span class="time">2020-12-26 21:10:30</span>
+             {{item.Title}}
+             <span class="time">{{item.SendTime}}</span>
          </div>
          <div class="message-content">
-           尊敬的用户，您的订单20151515已完成奖励，获得积分
+           {{item.value}}
          </div>
       </div>
       <div class="no-message" v-show="total == 0">
@@ -19,11 +19,22 @@
       </div>
       <div class="page-box">
         <el-pagination
-                    @size-change="handleSizeChange"
+                    @size-change="getMessage"
                     :current-page.sync="pageIndex"
                     :page-size="pageSize"
                     :hide-on-single-page="total == 0"
                     layout="prev, pager, next, jumper"
+                    :total="total">
+          </el-pagination>
+      </div>
+      <div class="page-box small">
+        <el-pagination
+                small 
+                    @size-change="getMessage"
+                    :current-page.sync="pageIndex"
+                    :page-size="pageSize"
+                    :hide-on-single-page="total == 0"
+                    layout="prev, pager, next"
                     :total="total">
           </el-pagination>
       </div>

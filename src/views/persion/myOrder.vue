@@ -69,6 +69,7 @@
                         v-model="onlieTime"
                         type="daterange"
                         range-separator="-"
+                        value-format="yyyy-MM-dd"
                         start-placeholder="开始日期"
                         end-placeholder="结束日期">
                         </el-date-picker>
@@ -97,7 +98,7 @@
                 </div>
                 <div class="input-box">
                     <input type="text" placeholder="输入订单号" v-model.trim="onlineSearch">
-                    <span class="iconfont iconsousuo"></span>
+                    <span class="iconfont iconsousuo" @click="getOnlineList"></span>
                 </div>
                 <router-link class="btn" tag="button" to="/orderGrievance">订单申诉</router-link>
             </div>
@@ -108,16 +109,16 @@
                             <img :src="scope.row.img" alt="" class="product-img">
                         </template>
                     </el-table-column>
-                    <el-table-column property="status" label="订单号" width="160" align="center"></el-table-column>
-                    <el-table-column property="productName" label="产品名称" width="108" align="left"></el-table-column>
-                    <el-table-column property="time" label="消费时间" width="195" align="center"></el-table-column>
-                    <el-table-column property="type" label="订单类型" width="69" align="center"></el-table-column>
+                    <el-table-column property="OrderNumber" label="订单号" width="160" align="center"></el-table-column>
+                    <el-table-column property="Name" label="产品名称" width="108" align="left"></el-table-column>
+                    <el-table-column property="CreateTime" label="消费时间" width="195" align="center"></el-table-column>
+                    <el-table-column property="OrderType" label="订单类型" width="69" align="center"></el-table-column>
                     <el-table-column property="money" label="消费金额(元)" width="88" align="center"></el-table-column>
-                    <el-table-column property="score" label="奖励积分" width="70" align="center"></el-table-column>
-                     <el-table-column property="score" label="状态" width="88" align="center"></el-table-column>
+                    <el-table-column property="fanli" label="奖励积分" width="70" align="center"></el-table-column>
+                     <el-table-column property="state" label="状态" width="88" align="center"></el-table-column>
                     <el-table-column  label="操作" width="102" align="center">
                          <template slot-scope="scope">
-                            <button :data="scope" class="action-btn" @click="goDetail">查看详情</button>
+                            <button :data="scope" class="action-btn" @click="goDetail(scope.row.OrderNumber)">查看详情</button>
                         </template>
                     </el-table-column>
                 </el-table>
@@ -207,7 +208,7 @@
                     <el-date-picker
                         v-model="unlineTime"
                         type="daterange"
-                        value-format="yyyy-MM-dd HH:mm:ss"
+                        value-format="yyyy-MM-dd"
                         range-separator="-"
                         start-placeholder="开始日期"
                         end-placeholder="结束日期" 
@@ -234,7 +235,7 @@
                   <el-table :data="unlineData"  header-row-style="font-size:12px;color:#999;" row-class-name="table-line" width="930" class="table-big">
                     <el-table-column property="img" label="产品图片" width="50" align="left">
                          <template slot-scope="scope">
-                            <img :src="scope.row.img" alt="" class="product-img">
+                            <img :src="scope.row.Phtoto" alt="" class="product-img">
                         </template>
                     </el-table-column>
                     <el-table-column property="OrderNumber" label="订单号" width="160" align="center">
@@ -252,7 +253,7 @@
                      <el-table-column property="state" label="状态" width="88" align="center"></el-table-column>
                     <el-table-column  label="操作" width="102" align="center">
                          <template slot-scope="scope">
-                            <button :data="scope" class="action-btn" @click="unlineDetail(scope.row.OrderNumber)">查看详情</button><button class="action-btn comment-btn" @click="toRate = true">评价</button>
+                            <button :data="scope" class="action-btn" @click="unlineDetail(scope.row.OrderNumber)">查看详情</button><button class="action-btn comment-btn" @click="goToComment(scope.row)" v-if='scope.row.state=="待奖励"||scope.row.state=="已奖励"'>评价</button>
                         </template>
                     </el-table-column>
                 </el-table>
@@ -293,10 +294,10 @@
                             <label for="">商品评分：</label> <div class="input-box" style="padding-top:7px;"><el-rate v-model="value1" ></el-rate></div>
                         </div>
                         <div class="input-line" style="margin-top:10px;">
-                            <label for="">填写评论：</label><div class="input-box"><div class="textarea-box"><textarea name="" id="" cols="30" rows="10" placeholder="宝贝是否满足了你的期待？说说你的使用心得分享给其它想购买的朋友吧"></textarea><span class="input-limit">还可输入500字</span></div></div>
+                            <label for="">填写评论：</label><div class="input-box"><div class="textarea-box"><textarea name="" id="" cols="30" rows="10" placeholder="宝贝是否满足了你的期待？说说你的使用心得分享给其它想购买的朋友吧" v-model="comment" maxlength="500"></textarea><span class="input-limit">还可输入{{500-comment.length}}字</span></div></div>
                         </div>
                         <div class="btn-box">
-                            <button class="ok">确认</button>
+                            <button class="ok" @click="comment">确认</button>
                             <button class="no">取消</button>
                         </div>
                     </div>
@@ -354,17 +355,22 @@ export default {
            unlineData:[],
            unlineTotal:0,
            dataValue:'',
-           value1:'',
-           toRate:false
+           //评价
+           value1:'', 
+           toRate:false,
+           comment:'',
+           commentData:''
         }
     },
     mounted(){
        this.tab = this.$route.query.tab?this.$route.query.tab:'1';
+       this.onlieTime = this.unlineTime = [this.$util.getNowDate()+' 00:00:00',this.$util.getNowDate()+' 24:00:00']
        if(this.tab == '1'){
            this.getOnlineList();
        }else{
            this.getUnderLineList();
        }
+       
     },
     methods:{
         toTab(num){
@@ -376,14 +382,14 @@ export default {
               this.getUnderLineList();
           }
         },
-        goDetail(){
-            this.$router.push('/orderDetail')
+        goDetail(id){
+            this.$router.push('/orderDetail?id='+id)
         },
         //获取线上订单列表
         getOnlineList(){
             this.$http.limitPost(this.$api.UserOnlineOrderList,{
-                StartTime:this.onlieTime[0],
-                EndTime:this.onlieTime[1],
+                StartTime:this.onlieTime[0] +' 00:00:00',
+                EndTime:this.onlieTime[1] +' 24:00:00',
                 State:this.onlieStatus,
                 OrderNo:this.onlineSearch,
                 OrderType:this.onlineType,
@@ -399,8 +405,8 @@ export default {
         //获取地面订单列表
         getUnderLineList(){
             this.$http.limitPost(this.$api.UserGroundOrderList,{
-                StartTime:this.unlineTime[0],
-                EndTime:this.unlineTime[1],
+                StartTime:this.unlineTime[0]+' 00:00:00',
+                EndTime:this.unlineTime[1]+ ' 24:00:00',
                 State:this.unlineOrderType,
                 OrderNoOrMerchantName:this.unlineSearch,
                 pageIndex:this.unlineIndex,
@@ -420,6 +426,28 @@ export default {
         //获取地面订单详情
         unlineDetail(id){
             this.$router.push('/underlineDetail?id='+id)
+        },
+        //评价
+        goToComment(data){
+            console.log(data)
+            this.commentData = data
+        },
+        AddComment(){
+            this.$http.limitPost(this.$api.AddComment,{
+                "MerchantID": '',
+                "Content": this.commentData,
+                "StarNum": this.value1,
+                "OrderID": this.commentData.ID
+            }).then(res=>{
+                if(res.data.Code == 1){
+                    this.$message.success('评价成功')
+                    this.toRate = false
+                    this.value1 = ''
+                    this.comment = ''
+                }else{
+                    this.$message.error(res.data.Msg)
+                }
+            })
         }
     }
 }
@@ -630,6 +658,7 @@ export default {
             transform: scale(.41);
             font-size:12px;
             color:#909399;
+            cursor: pointer;
         }
     }
     .input-box{
@@ -656,6 +685,7 @@ export default {
             height:14px;
             font-size:14px;
             color:@subtitle_color;
+            cursor: pointer;
         }
     }
      @media screen and(max-width:@change_width){
@@ -853,5 +883,7 @@ export default {
         }
      }
 }
-
+.page-box{
+    padding:60px 0;
+}
 </style>

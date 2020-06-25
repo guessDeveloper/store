@@ -34,30 +34,34 @@
         <!-- 移动端筛选条件 -->
         <div class="classify-list-small-box">
             <ul>
-                <li class="active">全部</li>
-                <li v-for="(item, index) in classType" :key="index">{{ item.Classname }}</li>
+                <li  @click="changeClass('')" :class="{active:ClasssId== ''}">全部</li>
+                <li v-for="(item, index) in classType" :key="index" :class="{active:ClasssId == item.ClasssId}" @click="changeClass(item.ClasssId)">{{ item.Classname }}</li>
             </ul>
         </div>
         <div class="filter-small-box">
             <div>
                 地址：
-                <el-dropdown trigger="click" class="select" @command="chengeSelect">
+                <el-dropdown trigger="click" class="select" @command="changeCity">
                     <span class="el-dropdown-link">
                     <span class="el-dropdown-label">全部</span><span class="iconfont icon-arrow-downYellow"></span>
                     </span>
                     <el-dropdown-menu slot="dropdown">
-                        <el-dropdown-item>黄金糕</el-dropdown-item>
+                        <el-dropdown-item :command="''">全部</el-dropdown-item>
+                        <el-dropdown-item v-for="(item,index) in cityList" :key="index" :command="item.CityId">{{item.CityName}}</el-dropdown-item>
                     </el-dropdown-menu>
                 </el-dropdown>
             </div>
             <div>
                 排序：
-                <el-dropdown trigger="click" class="select" @command="chengeSelect">
+                <el-dropdown trigger="click" class="select" >
                     <span class="el-dropdown-link">
                     <span class="el-dropdown-label">默认</span><span class="iconfont icon-arrow-downYellow"></span>
                     </span>
                     <el-dropdown-menu slot="dropdown">
-                        <el-dropdown-item>黄金糕</el-dropdown-item>
+                        <el-dropdown-item>默认</el-dropdown-item>
+                        <el-dropdown-item >任务奖励</el-dropdown-item>
+                        <el-dropdown-item >商家诚信(倒序)</el-dropdown-item>
+                        <el-dropdown-item >商家积分</el-dropdown-item>
                     </el-dropdown-menu>
                 </el-dropdown>
             </div>
@@ -98,9 +102,12 @@ export default {
         }
     },
     mounted(){
+        let _this = this;
         this.getCalss();
         this.getCity();
-        this.getList();
+        setTimeout(()=>{
+            _this.getList()
+        },200)
     },
     computed:{
      ...mapState([
