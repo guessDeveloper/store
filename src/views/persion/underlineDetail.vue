@@ -18,6 +18,7 @@
           </div>
        </div>
        <button class="btn ok" @click="CollectionConfirmation" v-show="detail.state=='待付款'">取消订单</button>
+       <button class="btn comment"  v-show="detail.state == '已奖励' || detail.state == '待奖励'" @click="goToComment">发表评价</button>
     </div>
     <div class="content">
       <div class="set">
@@ -45,11 +46,13 @@
                     <span class="step-num">4</span>
                     <span class="iconfont iconqrwc"></span>
                     <div class="step-name">交易完成</div>
+                     <div class="time" v-show="step == 4">{{detail.accomplishTime}}</div>
                 </div>
                 <div class="step-item" :class="{active:step >= 5}">
                     <span class="step-num">5</span>
                     <span class="iconfont iconqrwc"></span>
                     <div class="step-name">获赠积分</div>
+                    <div class="time" v-show="step == 5">{{detail.accomplishTime}}</div>
                 </div>
             </div>
         <!-- 步骤 -->
@@ -107,10 +110,26 @@
          </div>
       </div>
     </div>
+<!-- 评价 -->
+    <el-dialog title="评价" :visible.sync="toRate" custom-class="custom-dialog">
+        <div class="rate-box">
+            <div class="input-line">
+                <label for="">商品评分：</label> <div class="input-box" style="padding-top:7px;"><el-rate v-model="value1" ></el-rate></div>
+            </div>
+            <div class="input-line" style="margin-top:10px;">
+                <label for="">填写评论：</label><div class="input-box"><div class="textarea-box"><textarea name="" id="" cols="30" rows="10" placeholder="宝贝是否满足了你的期待？说说你的使用心得分享给其它想购买的朋友吧" v-model="comment" maxlength="500"></textarea><span class="input-limit">还可输入{{500-comment.length}}字</span></div></div>
+            </div>
+            <div class="btn-box">
+                <button class="ok" @click="AddComment">确认</button>
+                <button class="no" @click="quitComment">取消</button>
+            </div>
+        </div>
+    </el-dialog>
   </div>
 </template>
 <script>
 import '@/plugins/element-table'
+import '../../plugins/element-rate.js'
 export default {
   data(){
     return{
@@ -122,6 +141,11 @@ export default {
        id:'',
        detail:{},
        step:1,
+       //评价
+      value1:'',
+      toRate:false,
+      comment:'',
+      commentData:''
     }
   },
   mounted(){
@@ -136,6 +160,9 @@ export default {
       }).then(res=>{
         if(res.data.Code == 1){
           this.detail = res.data.Data
+          if(this.detail.state == '待奖励'){
+            this.step = 4
+          }
           if(this.detail.state == '已奖励'){
             this.step = 5
           }
@@ -156,6 +183,34 @@ export default {
           this.$message.error(res.data.Msg)
         }
       })
+    },
+    //评价
+  //去评价
+    goToComment(){
+        this.toRate = true;
+    },
+    AddComment(){
+
+        this.$http.limitPost(this.$api.AddComment,{
+            "MerchantID":this.detail.MerchantID,
+            "Content": this.comment,
+            "StarNum": this.value1,
+            "OrderID": this.commentData.ID
+        }).then(res=>{
+            if(res.data.Code == 1){
+                this.$message.success('评价成功')
+                this.toRate = false
+                this.value1 = ''
+                this.comment = ''
+            }else{
+                this.$message.error(res.data.Msg)
+            }
+        })
+    },
+    quitComment(){
+        this.toRate = false
+        this.value1 = ''
+        this.comment = ''
     }
   }
 }
@@ -196,6 +251,11 @@ export default {
     font-size:16px;
     &.cancle{
       margin-right: 15px;
+    }
+    &.comment{
+      border-color:#4A90E2;
+      background:#4A90E2;
+      color:#fff;
     }
   }
   .order-num{
@@ -509,4 +569,103 @@ export default {
         }
       }
     }
+// 评价
+.rate-box{
+  .input-line{
+    margin-top:20px;
+    label{
+      float: left;
+      display: inline-block;
+      width:60px;
+      line-height: 34px;
+      text-align: right;
+      font-size:12px;
+      color:@persion_left;
+      margin-right:9px;
+    }
+    .input-box{
+      display: inline-block;
+      width: auto;
+      height:auto;
+      margin-left:0;
+      border:0;
+        .select{
+          position: relative;
+          display: inline-block;
+          width:105px;
+          height:34px;
+          box-sizing:border-box;
+          border:1px solid @class_border;
+          font-size:12px;
+          line-height:12px ;
+          padding:10px 15px;
+
+          .iconfont{
+              position: absolute;
+              top:10px;
+              right:10px;
+              transform: scale(.41);
+              font-size:12px;
+              color:#909399;
+          }
+       }
+       input{
+         display: block;
+         width:397px;
+         height:32px;
+         padding-left: 12px;
+         font-size:12px;
+         border:1px solid @class_border;
+       }
+       .textarea-box{
+         position: relative;
+         width:411px;
+         textarea{
+           display: block;
+           box-sizing: border-box;
+           width:100%;
+           height:134px;
+           border:1px solid @class_border;
+           padding:12px 12px;
+           font-size:12px;
+           line-height: 18px;
+           outline: none;
+         }
+         .input-limit{
+           position: absolute;
+           right:12px;
+           bottom:12px;
+           font-size:12px;
+           color:@persion_left;
+
+         }
+       }
+        @media screen and(max-width:@change_width) {
+            width: calc(100% - 70px);
+            .textarea-box {
+                width: 100%;
+            }
+        }
+    }
+  }
+  .btn-box{
+      .clear();
+      margin-top:40px;
+      button{
+        float: right;
+        width:65px;
+        height:30px;
+        font-size:14px;
+        margin-left:15px;
+        background:#fff;
+        border:1px solid @class_border;
+        border-radius: 4px;
+      }
+      .ok{
+        color:#fff;
+        background:@main;
+        border-color:@main;
+      }
+    }
+}
 </style>

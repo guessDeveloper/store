@@ -52,14 +52,14 @@
           </div>
           <div class="table-box">
              <el-table :data="listData"  header-row-style="font-size:12px;color:#999;" row-class-name="table-line" width="930">
-                    <el-table-column property="orderNum" label="申诉订单号" width="105" align="left">
+                    <el-table-column property="orderNumber" label="申诉订单号" width="105" align="left">
                     </el-table-column>
-                    <el-table-column property="time" label="申诉时间" width="182" align="center"></el-table-column>
-                    <el-table-column property="type" label="订单类型" width="105" align="center"></el-table-column>
-                    <el-table-column property="status" label="状态" width="110" align="center"></el-table-column>
-                    <el-table-column property="result" label="处理结果" width="428" align="center">
+                    <el-table-column property="ComplaintTime" label="申诉时间" width="182" align="center"></el-table-column>
+                    <el-table-column property="ordertype" label="订单类型" width="105" align="center"></el-table-column>
+                    <el-table-column property="orderstate" label="状态" width="110" align="center"></el-table-column>
+                    <el-table-column property="ResultOfHandling" label="处理结果" width="428" align="center">
                       <template slot-scope="scope">
-                         <div class="result">{{scope.row.result}}</div>
+                         <div class="result">{{scope.row.ResultOfHandling}}</div>
                       </template>
                     </el-table-column>
                 </el-table>
@@ -69,20 +69,20 @@
             <div class="list-item" v-for="(item, index) in listData" :key="index">
               <div class="list-item-data">
                 <div class="list-item-name">申诉订单号：</div>
-                {{ item.orderNum }}
-                <p class="status-wrap">状态：<span>{{ item.status }}</span></p>
+                {{ item.orderNumber }}
+                <p class="status-wrap">状态：<span>{{ item.orderstate }}</span></p>
               </div>
               <div class="list-item-data">
                 <div class="list-item-name">申诉时间：</div>
-                {{ item.time }}
+                {{ item.ComplaintTime }}
               </div>
               <div class="list-item-data">
                 <div class="list-item-name">订单类型：</div>
-                {{ item.type }}
+                {{ item.ordertype }}
               </div>
               <div class="list-item-data">
                 <div class="list-item-name">处理结果：</div>
-                {{ item.result }}
+                {{ item.ResultOfHandling }}
               </div>
             </div>
           </div>

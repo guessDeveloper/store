@@ -13,7 +13,7 @@
       <!-- <div class="solt-box">
          <span></span>
       </div> -->
-          <div class="food-select-box solt-box">
+          <!-- <div class="food-select-box solt-box">
             <div class="food-select-item">
                 <ul>
                     <li class="name">排序：</li>
@@ -25,23 +25,20 @@
                     <li><a href="">积分排序</a></li>
                 </ul>
             </div>
-        </div>
+        </div> -->
       <div class="list-box">
         <ul>
-          <li><Card></Card></li>
-          <li><Card></Card></li>
-          <li><Card></Card></li>
-          <li><Card></Card></li>
-          <li><Card></Card></li>
+          <li v-for="(item,index) in list"><Card :data="item"></Card></li>
+         
         </ul>
           <div class="page-box">
                 <el-pagination
-                    @size-change="handleSizeChange"
-                    @current-change="handleCurrentChange"
+                  
+                    @current-change="getList"
                     :current-page.sync="currentPage3"
-                    :page-size="100"
+                    :page-size="pageSize"
                     layout="prev, pager, next, jumper"
-                    :total="1000">
+                    :total="totatl">
                 </el-pagination>
           </div>
       </div>
@@ -52,7 +49,29 @@ import Card from '@/components/recommend/specilCard'
 export default {
   data(){
     return{
-
+       pageIndex:1,
+       pageSize:20,
+       list:[],
+       totatl:0,
+       ThemeID:''
+    }
+  },
+  mounted(){
+    this.$route.query.ThemeID?this.ThemeID = this.$route.query.ThemeID:'';
+    this.getList()
+  },
+  methods:{
+    getList(){
+      this.$http.post(this.$api.GetThemeGoods,{
+        ThemeID:this.ThemeID,
+        pageIndex:this.pageIndex,
+        pageSize:this.pageSize
+      }).then(res=>{
+        if(res.data.Code == 1){
+          this.list = res.data.Data.List;
+          this.totatl = res.data.Data.count;
+        }
+      })
     }
   },
   components:{
@@ -90,7 +109,7 @@ export default {
 }
 .list-box{
   width:@max-width;
-  margin:0 auto 100px;
+  margin:20px auto 100px;
   background:#fff;
   ul{
     .clear();

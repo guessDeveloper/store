@@ -1,5 +1,5 @@
 <template>
-  <a class="card-box" :href="data.ClickURL" target="_blank">
+  <a class="card-box" :href="data.ClickUrl" target="_blank">
     <img :src="data.picurl" alt="" >
     <div class="des">
       <h4>{{data.titleA}}</h4>

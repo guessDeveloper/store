@@ -297,8 +297,8 @@
                             <label for="">填写评论：</label><div class="input-box"><div class="textarea-box"><textarea name="" id="" cols="30" rows="10" placeholder="宝贝是否满足了你的期待？说说你的使用心得分享给其它想购买的朋友吧" v-model="comment" maxlength="500"></textarea><span class="input-limit">还可输入{{500-comment.length}}字</span></div></div>
                         </div>
                         <div class="btn-box">
-                            <button class="ok" @click="comment">确认</button>
-                            <button class="no">取消</button>
+                            <button class="ok" @click="AddComment">确认</button>
+                            <button class="no" @click="quitComment">取消</button>
                         </div>
                     </div>
                 </el-dialog>
@@ -427,15 +427,17 @@ export default {
         unlineDetail(id){
             this.$router.push('/underlineDetail?id='+id)
         },
-        //评价
+        //去评价
         goToComment(data){
             console.log(data)
             this.commentData = data
+            this.toRate = true;
         },
         AddComment(){
+            
             this.$http.limitPost(this.$api.AddComment,{
-                "MerchantID": '',
-                "Content": this.commentData,
+                "MerchantID":this.commentData.MerchantID,
+                "Content": this.comment,
                 "StarNum": this.value1,
                 "OrderID": this.commentData.ID
             }).then(res=>{
@@ -448,6 +450,11 @@ export default {
                     this.$message.error(res.data.Msg)
                 }
             })
+        },
+        quitComment(){
+            this.toRate = false
+            this.value1 = ''
+            this.comment = ''
         }
     }
 }

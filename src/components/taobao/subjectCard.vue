@@ -5,7 +5,7 @@
          <h4><span class="title">{{data.title}}</span><span class="price">249元起</span></h4>
          <p>餐厨起居洗护好物</p>
          <div class="phone-price">249元起</div>
-         <div class="num-box"><span class="zan num"><i class="iconfont iconxh"></i>39948</span><span class="num"><i class="iconfont iconck"></i>3434322</span><span class="num comment"><i class="iconfont iconpl"></i>fsdfsdf </span></div>
+         <!-- <div class="num-box"><span class="zan num"><i class="iconfont iconxh"></i>39948</span><span class="num"><i class="iconfont iconck"></i>3434322</span><span class="num comment"><i class="iconfont iconpl"></i>fsdfsdf </span></div> -->
       </div>
   </a>
 </template>
