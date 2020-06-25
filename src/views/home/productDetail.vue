@@ -28,22 +28,22 @@
          <div class="tip">
             <div class="item">
               <span class="middle">
-               <span class="iconfont icongmsp"></span>购买商品
+               <span class="iconfont icongmsp"></span><span class="tip-item-name">购买商品</span>
                </span>
             </div>
             <div class="item">
               <span class="middle">
-               <span class="iconfont iconqrsh"></span>确认收货
+               <span class="iconfont iconqrsh"></span><span class="tip-item-name">确认收货</span>
               </span>
             </div>
             <div class="item">
               <span class="middle">
-               <span class="iconfont iconddjs"></span>等待结算
+               <span class="iconfont iconddjs"></span><span class="tip-item-name">等待结算</span>
               </span>
             </div>
             <div class="item">
               <span>
-               <span class="iconfont iconhdfl"></span>获得返利
+               <span class="iconfont iconhdfl"></span><span class="tip-item-name">获得返利</span>
               </span>
             </div>
          </div>
@@ -310,6 +310,153 @@ export default {
     background:#fff;
     .list{
       padding:30px;
+    }
+  }
+}
+@media screen and(max-width:@change_width) {
+  .top {
+    width: 100%;
+    height: auto;
+    .left {
+      float: none;
+      width: 100%;
+      padding: 0;
+      .big-img-box {
+        float: none;
+        width: 100%;
+        box-sizing: border-box;
+      }
+      .imgs-box {
+        display: none;
+      }
+    }
+    .right {
+      float: none;
+      padding: 15px;
+      width: 100%;
+      .title {
+        font-size: 20px;
+        text-overflow: ellipsis;
+        overflow: hidden;
+        white-space: nowrap;
+      }
+      .price {
+        font-size: 24px;
+      }
+      .tip {
+        display: flex;
+        justify-content: space-between;
+        padding: 15px 15px 0;
+        .item {
+          width: 50px;
+          height: 50px;
+          margin-bottom: 30px;
+          line-height: 50px;
+          border-radius: 50%;
+          border: 1px solid #eeeeee;
+          text-align: center;
+          &>span {
+            position: relative;
+            display: block;
+            line-height: 50px;
+            .iconfont {
+              margin: 0;
+            }
+            .tip-item-name {
+              position: absolute;
+              display: block;
+              left: 50%;
+              bottom: -40px;
+              width: 60px;
+              transform: translateX(-50%);
+            }
+          }
+          .middle {
+            line-height: 50px;
+            &::after {
+              content: '→';
+              width: 25px;
+              height: 10px;
+              line-height: 10px;
+              position: absolute;
+              right: -30px;
+              top: 50%;
+              transform: translateY(-50%);
+              color: #eeeeee;
+            }
+          }
+          &:last-child{
+            margin-right: 0;
+          }
+        }
+      }
+      .btn {
+        width: 100%;
+        margin-top: 30px;
+      }
+    }
+  }
+  .promote {
+    width: 100%;
+    margin: 10px auto;
+    .title {
+      line-height: 58px;
+      // padding-left: 15px;
+      position: relative;
+      &::before {
+        content: '';
+        position: absolute;
+        width: 4px;
+        height: 40%;
+        background-color: #F38A1D;
+        left: 15px;
+        top: 50%;
+        transform: translateY(-50%);
+      }
+    }
+    .goods-box {
+      padding-top: 0;
+    }
+  }
+  .goods-detial {
+    width: 100%;
+    .left {
+      float: none;
+      .title {
+        line-height: 58px;
+        // padding-left: 15px;
+        position: relative;
+        &::before {
+          content: '';
+          position: absolute;
+          width: 4px;
+          height: 40%;
+          background-color: #F38A1D;
+          left: 15px;
+          top: 50%;
+          transform: translateY(-50%);
+        }
+      }
+    }
+    .right {
+      float: none;
+      width: 100%;
+      padding-bottom: 20px;
+      .list {
+        padding: 15px;
+        display: flex;
+        flex-wrap: wrap;
+        &>div {
+          width: 50%;
+          box-sizing: border-box;
+        }
+        &>div:nth-child(odd) {
+          padding-right: 7px;
+        }
+        &>div:nth-child(even) {
+          padding-left: 7px;
+        }
+      }
     }
   }
 }
