@@ -1,10 +1,10 @@
 <template>
-    <div class="item">
+    <a class="item" :href="item.ClickUrl" target="_blank">
         <img :src="item.picurl" alt="">
         <h4>{{item.titleA}}</h4>
         <p>{{item.Fanli}}</p>
         <span class="price">¥{{item.price}}</span>
-    </div>
+    </a>
 </template>
 <script>
 export default {
@@ -25,9 +25,11 @@ export default {
 </script>
 <style lang="less" scoped>
 .item{
+    display: block;
     width:100%;
     height: 325px;
     overflow: hidden;
+    color:@font_color;
     text-align: center;
     img{
         display: block;

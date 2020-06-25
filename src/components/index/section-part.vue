@@ -9,7 +9,7 @@
                 <div class="name">{{config.CateGorysItems[0].titleA}}</div>
                 <div class="des">{{config.CateGorysItems[0].titleB}}</div>
                 <div class="price">¥{{config.CateGorysItems[0].price}}</div>
-                <a :href="config.CateGorysItems[0].Url"  class="btn" target="_blank">查看全部服饰</a>
+                <a :href="config.ClassUrl"  class="btn" target="_blank">查看全部服饰</a>
             </div>
             <div class="right">
                 <a class="item" v-for="(item,index) in config.CateGorysItems" :key="index" :class="{none:index == 0}" :href="item.Url" target="_blank">
@@ -24,7 +24,7 @@
                 </a>
             </div>
         </div>
-        <a class="more" :href="config.CateGorysItems[0].Url">查看更多</a>
+        <a class="more" :href="config.ClassUrl">查看更多</a>
     </div>
 </template>
 <script>

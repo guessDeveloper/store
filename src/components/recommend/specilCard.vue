@@ -1,15 +1,15 @@
 <template>
-  <div class="card-box">
-    <img src="../../assets/img/rec_2.png" alt="" class="left">
+  <a class="card-box" :href="data.ClickUrl" target="_blanck">
+    <img :src="data.picurl" alt="" class="left">
     <div class="des-box">
-       <h4 class="title">女式坑条冰纱短袖针织衫</h4>
+       <h4 class="title">{{data.titleA}}</h4>
        <div class="item">
-         <div class="line">积分约：<span class="yellow">50</span></div>
-         <div class="line">特惠价：<span class="red">¥345</span></div>
-         <div class="line"> 原价：<span class="gay">¥343</span></div>
+         <div class="line">{{data.tieleB}}</div>
+         <div class="line">特惠价：<span class="red">¥{{data.teamprice}}</span></div>
+         <div class="line"> 原价：<span class="gay">¥{{data.price}}</span></div>
        </div>
     </div>
-  </div>
+  </a>
 </template>
 <script>
 export default {
@@ -17,13 +17,20 @@ export default {
     return{
 
     }
+  },
+  props:{
+    data:{
+      type:Object
+    }
   }
 }
 </script>
 <style lang="less" scoped>
 .card-box{
+  display: block;
   width:555px;
   height:200px;
+  color:@font_color;
   box-sizing: border-box;
   border:1px solid @class_border;
   background:#fff;
@@ -33,7 +40,7 @@ export default {
     height:198px;
   }
   .des-box{
-    margin-left:30px;
+    margin-left:230px;
     margin-top:40px;
     .title{
       font-size:18px;

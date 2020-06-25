@@ -65,7 +65,7 @@
                      <el-table-column property="state" label="状态" width="88" align="center"></el-table-column>
                     <el-table-column  label="操作" width="102" align="center">
                          <template slot-scope="scope">
-                            <button :data="scope" class="action-btn">查看详情</button><button class="action-btn comment-btn" @click="toRate = true">评价</button>
+                            <button :data="scope" class="action-btn">修改</button><button class="action-btn comment-btn" @click="toRate = true">下架</button><button class="action-btn comment-btn" @click="toRate = true">上架</button>
                         </template>
                     </el-table-column>
                     </el-table>
@@ -100,6 +100,15 @@
                     <div class="btn-detail">修改</div>
                 </div>
             </div>
+            <div class="page-box">
+                <el-pagination
+                    @current-change="getList"
+                    :current-page.sync="pageIndex"
+                    :page-size="pageSize"
+                    layout="prev, pager, next, jumper"
+                    :total="total">
+                </el-pagination>
+            </div>
       </div>
       <div class="" v-if="tab== 2">
         <addProduct @success="addSuccess"></addProduct>
@@ -132,7 +141,8 @@ export default {
        status:1, // 状态
        classOption:[],
        pageIndex:1,
-       pageSize:20
+       pageSize:20,
+       total:0,
     }
   },
   mounted(){
@@ -172,6 +182,7 @@ export default {
          }).then(res=>{
              if(res.data.Code == 1){
                  this.listData = res.data.Data.list
+                 this.total = res.data.Data.count
              }
          })
       },
@@ -388,5 +399,8 @@ export default {
             display: block;
         }
     }
+}
+.page-box{
+    padding:30px 0;
 }
 </style>

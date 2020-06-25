@@ -52,7 +52,18 @@
    @size-change="getSorceList"
   :total="gridDatatotal">
 </el-pagination>
+
    </div>
+   <div class="page-box small">
+     <el-pagination
+     small
+ :page-size="onePageSize"
+  :current-page.sync="onePageIndex"
+  layout="prev, pager, next"
+   @size-change="getSorceList"
+  :total="gridDatatotal">
+</el-pagination>
+</div>
     </el-dialog>
       <el-dialog title="兑换记录" :visible.sync="duihuan" width="520px" class="small">
     <el-table :data="changeData" style="width:480px;" header-row-style="font-size:12px;color:#999;" row-class-name="table-line" class="small-table">
@@ -73,6 +84,16 @@
    </div>
    <div class="page-box">
      <el-pagination
+     @size-change="getXiaofei"
+  :page-size="twoPageSize"
+  :current-page.sync="twoPageIndex"
+  layout="prev, pager, next"
+  :total="changeDataTotal">
+</el-pagination>
+   </div>
+   <div class="page-box small">
+     <el-pagination
+     small
      @size-change="getXiaofei"
   :page-size="twoPageSize"
   :current-page.sync="twoPageIndex"
