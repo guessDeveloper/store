@@ -371,6 +371,17 @@ export default {
           }
           .middle {
             line-height: 50px;
+            &::after {
+              content: '→';
+              width: 25px;
+              height: 10px;
+              line-height: 10px;
+              position: absolute;
+              right: -30px;
+              top: 50%;
+              transform: translateY(-50%);
+              color: #eeeeee;
+            }
           }
           &:last-child{
             margin-right: 0;
