@@ -3,7 +3,7 @@
     <div class="brand-top-nav">
         <router-link tag="a" to="/">首页</router-link>
         <span class="iconfont iconjiantou"></span>
-        <span class="now-nav">美食广场</span>
+        <span class="now-nav">{{navName}}</span>
     </div>
     <div class="top">
        <div class="left">
@@ -96,6 +96,7 @@ export default {
       proudectData:{},
       promoteList:[],
       piclist:[],
+      navName:''
     }
   },
   components:{
@@ -104,6 +105,7 @@ export default {
   mounted(){
     if(this.$route.query.GoodType){
       this.GoodType = this.$route.query.GoodType
+      this.GoodType == 1?this.navName = '淘宝':this.navName = '拼多多'
     }
     if(this.$route.query.GoodID){
      this.GoodID = this.$route.query.GoodID

@@ -23,6 +23,7 @@ export default {
     GetThemeList: '/api/PDD/GetThemeList', //获取专题
     pddGetClassNoPic: '/api/PDD/GetClassNoPic', //获取拼多多全部分类
     pddGerPageList: '/api/PDD/GerPageList', //通过分类获取拼多多列表
+    GetThemeGoods: '/api/PDD/GetThemeGoods', //获取活动列表
     //详情页面
     GetMaterialGoodsById: '/api/Detail/GetGoodsinfo', //获取详情
     clickTobuy: '/api/Detail/clickTobuy', //购买
@@ -72,6 +73,7 @@ export default {
     MerchanteForgetPWDSendVerifyCode: '/api/LoginRegister/MerchanteForgetPWDSendVerifyCode', //商家找回密码获验证码
     //个人中心
     ScanQRcode: '/api/User/ScanQRcode', //扫码提交
+    UserEditUserInfo: '/api/User/UserEditUserInfo', //修改用户信息
     GetUserInfo: '/api/User/GetUserInfo', //获取用户登录状态
     GetVerificationNum: '/api/User/GetVerificationNum', //获取用户二维码
     UserIntegralRecordInfo: '/api/User/UserIntegralRecordInfo', //获取用户的积分
@@ -126,4 +128,5 @@ export default {
     CancelOrder: '/api/Merchant/CancelOrder', //取消订单
     confirmOrderPay: '/api/Merchant/confirmOrderPay', //确认首款
     confirmOrder: '/api/Merchant/confirmOrder', //确认返积分
+    UpOrDownProduct: '/api/Merchant/UpOrDownProduct', //上下架商品
 }

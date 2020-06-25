@@ -25,7 +25,7 @@
             <ul>
                 <li v-for="(item,index) in subjectList" :key="index"><subjectCard :data="item"></subjectCard></li>
             </ul>
-            <button class="more">查看更多</button>
+            <!-- <button class="more">查看更多</button> -->
         </div>
     </div>
 </template>

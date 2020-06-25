@@ -26,7 +26,7 @@
             <span class="name">联系方式：</span>{{detial.MertchntTel}}
          </div>
           <div class="icon-box adress">
-            <span class="name">商家地址：</span><a href="">{{detial.Mertchntsite}}</a>
+            <span class="name">商家地址：</span><a @click="toMap = true">{{detial.Mertchntsite}}</a>
          </div>
          <div class="icon-box">
             <span class="name">商家故事：</span>{{detial.MertchnStory}}
@@ -58,11 +58,15 @@
 
           </ul>
     </div>
+    <el-dialog title="商家位置" :visible.sync="toMap" custom-class="custom-dialog">
+       <shopMap  :defaultPoint="mapPorint"></shopMap>
+    </el-dialog>
   </div>
 </template>
 <script>
 import goodCard from '@/components/shop/shopGoodsCard'
 import commentCard from '@/components/common/commentCard'
+import shopMap from '@/components/shop/shopMap';
 export default {
   data(){
     return{
@@ -71,7 +75,9 @@ export default {
       goodsList:[],
       commentTotal:'',
       detial:'',
-      bannerList:[]
+      bannerList:[],
+      mapPorint:{},
+      toMap:false
     }
   },
   mounted(){
@@ -82,7 +88,8 @@ export default {
   },
   components:{
     goodCard:goodCard,
-    commentCard:commentCard
+    commentCard:commentCard,
+    shopMap:shopMap
   },
   methods:{
     //获取商家产品
@@ -96,6 +103,7 @@ export default {
           this.detial = res.data.Data.model
           this.commentList = res.data.Data.model.PinList
           this.goodsList = res.data.Data.model.GoodsList
+          this.mapPorint = res.data.Data.model
           this.getBanner();
         }
       })

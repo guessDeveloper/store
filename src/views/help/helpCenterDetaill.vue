@@ -5,24 +5,24 @@
         <span class="iconfont iconjiantou"></span>
         <router-link tag="a" to="/helpCenter">帮助中心</router-link>
         <span class="iconfont iconjiantou"></span>
-        <span class="now-nav"></span>
+        <span class="now-nav">{{list[activeIndex].ClassName}}</span>
     </div>
     <div class="box">
       <div class="select">
         <h3 class="">常见问题  <span class="arrow iconfont iconxiasanjiao"></span></h3>
       </div>
       <div class="box-left">
-         <h3>常见问题</h3>
+         <h3>{{list[activeIndex].ClassName}}</h3>
          <ul class="list">
-           <li class="active"><a >购物常见问题</a></li>
+           <li :class="{active:activeIndex == index}" v-for="(item,index) in list" :key="index"><a @click="changeInde(index)">{{item.Title}}</a></li>
          </ul>
       </div>
       <div class="box-right">
          <div class="title">
-           购物常见问题
+           {{list[activeIndex].Title}}
          </div>
-         <div class="content">
-           • 参与者资格：所有消费乐注册用户均可参与。活动期间每位用户分享邀请码均可获得总值120元的优惠券(有效期7天)，每日分享次数不设上限。 • 新用户领取优惠券并完成注册后，视作邀请新用户成功，新用户会获得总值为180元的优惠券，有效期为系统显示为准，同时邀请人获得60元优惠券；邀请的新用户完成首单后，邀请人可再获得60元优惠券(有效期7天)。 • 每成功邀请一位好友还可获得1积分的奖励，如果好友首次下单并完成付款还可获得奖励1积分的奖励。 • 为了杜绝刷单等妨碍正常用户的恶意行为，系统会在下单后进行核查，同一手机号、支付宝、消费乐帐号、设备号、订单收件人均视为同一用户。对于恶意刷单的用户，取消购买资格。 • 有任何疑问请在app内，咨询消费乐在线客服。 • 消费乐保留法律范围内的最终解释权，如有其它疑问请咨询官方客服。
+         <div class="content" v-html="list[activeIndex].Content">
+          
          </div>
       </div>
     </div>
@@ -33,7 +33,9 @@ export default {
   data(){
     return{
       nowName:'',
-      classId:''
+      classId:'',
+      activeIndex:0,
+      list:[],
     }
   },
   mounted(){
@@ -42,11 +44,14 @@ export default {
   },
   methods:{
     getQuestion(){
-      this.$http.post(this.$api.Q_A_ByClass,{classid:this.classId}).then(res=>{
+      this.$http.post(this.$api.Q_A_ByClass,{ID:this.classId}).then(res=>{
         if(res.data.Code == 1){
-           console.log(res.data.Data)
+           this.list = res.data.Data
         }
       })
+    },
+    changeInde(index){
+      this.activeIndex = index
     }
   }
 }

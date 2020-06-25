@@ -55,7 +55,7 @@
    </div>
 </template>
 <script>
-import goodCard from '@/components/taobao/goodCard'
+import goodCard from '@/components/taobao/pddCard'
 export default {
   data(){
     return{
