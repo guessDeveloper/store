@@ -248,6 +248,7 @@ export default {
           imgList.push(element.url)
         })
         this.$http.storePost(this.$api.EditProduct,{
+          ProductID:this.id,
           ProductName:this.productName,
           ProductImg:imgList[0],
           ProductPrice:this.price,

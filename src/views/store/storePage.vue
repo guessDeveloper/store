@@ -398,8 +398,9 @@ export default {
       }else if(this.infos.ReturnPercent == ''){
         this.$message.error('商家奖励比例：')
       }else{
-        this.desMp4.forEach(element => {
-            return element.url
+        let imgList = [];
+        this.desMp4.filter(element => {
+             imgList.push(element.url)
         });
         this.$http.storePost(this.$api.ChangeMyInfo,{
           MerchantName:this.infos.Name,
@@ -409,12 +410,13 @@ export default {
           PointY:this.lat,
           Remark:this.infos.describe,
           MerchantLogo:this.logoUrl,
-          ShowImgs:this.desMp4,
+          ShowImgs:imgList,
           Category:this.infos.Category,
           Email:'',
           BigworkTime:this.time[0],
           EndworkTime:this.time[1],
-          BdCityCode:this.addressCity
+          BdCityCode:this.addressCity,
+          ReturnPercent:this.infos.ReturnPercent
         }).then(res=>{
           if(res.data.Code == 1){
             this.$message.success('修改成功')
