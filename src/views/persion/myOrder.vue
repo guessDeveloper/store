@@ -13,47 +13,49 @@
                <router-link class="btn small-btn" tag="button" to="/orderGrievance">订单申诉</router-link>
                <div class="margin"></div>
                <div class="date-box">
-                   <el-date-picker
-                    v-model="value1"
-                    type="date"
-                    placeholder="开始日期">
-                    </el-date-picker>
+                   <div class="small-date-box">
                     <el-date-picker
-                    v-model="value1"
-                    type="date"
-                    placeholder="结束日期">
+                        v-model="onlieTime[0]"
+                        type="date"
+                        value-format="yyyy-MM-dd"
+                        placeholder="开始日期">
                     </el-date-picker>
+                   </div>
+                   <div class="date-middle"> -</div>
+                   <div class="small-date-box">
+                        <el-date-picker
+                        v-model="onlieTime[1]"
+                        type="date"
+                        value-format="yyyy-MM-dd"
+                        placeholder="结束日期">
+                        </el-date-picker>
+                    </div>
                </div>
                <div class="select-box">
                    <div class="">
                        <label for="">状态</label>
-                       <el-dropdown>
-                        <span class="select">
-                            全部<i class="iconfont iconxiasanjiao"></i>
-                        </span>
-                        <el-dropdown-menu slot="dropdown">
-                            <el-dropdown-item>黄金糕</el-dropdown-item>
-                            <el-dropdown-item>狮子头</el-dropdown-item>
-                            <el-dropdown-item>螺蛳粉</el-dropdown-item>
-                            <el-dropdown-item disabled>双皮奶</el-dropdown-item>
-
-                        </el-dropdown-menu>
-                    </el-dropdown>
+                      <el-select v-model="onlieStatus" placeholder="请选择"  class="select">
+                        <el-option
+                            v-for="item in statusOptions"
+                            :key="item.value"
+                            :label="item.label"
+                            :value="item.value">
+                        </el-option>
+                    </el-select>
+                   
                    </div>
                    <div class="last">
                        订单类型
-                        <el-dropdown>
-                            <span class="select">
-                                全部<i class="iconfont iconxiasanjiao"></i>
-                            </span>
-                            <el-dropdown-menu slot="dropdown">
-                                <el-dropdown-item>黄金糕</el-dropdown-item>
-                                <el-dropdown-item>狮子头</el-dropdown-item>
-                                <el-dropdown-item>螺蛳粉</el-dropdown-item>
-                                <el-dropdown-item disabled>双皮奶</el-dropdown-item>
-
-                            </el-dropdown-menu>
-                        </el-dropdown>
+                       
+                            <el-select v-model="onlineType" placeholder="请选择"  class="select">
+                                <el-option
+                                    v-for="item in orderType"
+                                    :key="item.value"
+                                    :label="item.label"
+                                    :value="item.value">
+                                </el-option>
+                        </el-select>
+                       
                    </div>
                </div>
                <div class="search-box">
@@ -124,32 +126,32 @@
                 </el-table>
 
                 <div class="table-small-box">
-                    <div class="item">
+                    <div class="item" v-for="(item,index) in listData" :key="index">
                         <div class="des">
                             <div class="item-img-wrap">
-                                <img src="https://b-ssl.duitang.com/uploads/item/201706/27/20170627012435_mJLiX.thumb.700_0.jpeg" alt="" class="item-img">
+                                <img :src="item.img" alt="" class="item-img">
                             </div>
                             <div>
-                                <div class="name">儿童网鞋男童透气网鞋男童透气…</div>
+                                <div class="name">{{item.Name}}</div>
                                 <div class="item-name">
-                                    订单号：<span class="item-value">20191212083520</span>
+                                    订单号：<span class="item-value">{{item.OrderNumber}}</span>
                                 </div>
                                 <div class="item-name">
-                                    消费时间：<span class="item-value">2020-05-05 06:30:30</span>
+                                    消费时间：<span class="item-value">{{item.CreateTime}}</span>
                                 </div>
                                 <div class="item-name">
-                                    订单类型：<span class="item-value">淘宝订单</span>
+                                    订单类型：<span class="item-value">{{item.OrderType}}</span>
                                 </div>
-                                <div class="item-name">消费金额(元)：<span class="item-value">8000</span>
+                                <div class="item-name">消费金额(元)：<span class="item-value">{{item.money}}</span>
 
                                 </div>
-                                <div class="item-name">奖励积分：<span class="item-value">60</span></div>
+                                <div class="item-name">奖励积分：<span class="item-value">{{item.fanli}}</span></div>
                             </div>
                             <div class="order-status-wrap">
-                                <div class="order-status-name">状态：<span>已付款</span></div>
+                                <div class="order-status-name">状态：<span>{{item.state}}</span></div>
                             </div>
                         </div>
-                        <div class="btn-detail">查看详情</div>
+                        <div class="btn-detail" @click="goDetail(item.OrderNumber)">查看详情</div>
                     </div>
                 </div>
              </div>
@@ -162,38 +164,51 @@
                     :total="onlineTotal">
                 </el-pagination>
              </div>
+             <div class="page-box small">
+                 <el-pagination
+                    small=""
+                    @current-change="getOnlineList"
+                    :current-page.sync="pageIndex"
+                    :page-size="pageSize"
+                    layout="prev, pager, next"
+                    :total="onlineTotal">
+                </el-pagination>
+             </div>
         </div>
         <!-- 线上订单 end -->
         <!-- 地面订单 start -->
        <div class="order-content" v-show="tab=='2'">
            <div class="choose-small-box choose-small-box-2">
                <div class="date-box">
-                   <el-date-picker
-                    v-model="value1"
-                    type="date"
-                    placeholder="开始日期">
-                    </el-date-picker>
+                   <div class="small-date-box">
                     <el-date-picker
-                    v-model="value1"
-                    type="date"
-                    placeholder="结束日期">
+                        v-model="unlineTime[0]"
+                        type="date"
+                        value-format="yyyy-MM-dd"
+                        placeholder="开始日期">
                     </el-date-picker>
+                   </div>
+                   <div class="date-middle"> -</div>
+                   <div class="small-date-box">
+                        <el-date-picker
+                        v-model="unlineTime[1]"
+                        type="date"
+                        value-format="yyyy-MM-dd"
+                        placeholder="结束日期">
+                        </el-date-picker>
+                    </div>
                </div>
                <div class="select-box">
                    <div class="status-wrap">
                        <label for="">状态</label>
-                       <el-dropdown>
-                        <span class="select">
-                            全部<i class="iconfont iconxiasanjiao"></i>
-                        </span>
-                        <el-dropdown-menu slot="dropdown">
-                            <el-dropdown-item>黄金糕</el-dropdown-item>
-                            <el-dropdown-item>狮子头</el-dropdown-item>
-                            <el-dropdown-item>螺蛳粉</el-dropdown-item>
-                            <el-dropdown-item disabled>双皮奶</el-dropdown-item>
-
-                        </el-dropdown-menu>
-                    </el-dropdown>
+                    <el-select v-model="unlineOrderType" placeholder="请选择"  class="select">
+                        <el-option
+                            v-for="item in unlineType"
+                            :key="item.value"
+                            :label="item.label"
+                            :value="item.value">
+                        </el-option>
+                    </el-select>
                    </div>
                </div>
                <div class="search-box">
@@ -259,34 +274,47 @@
                 </el-table>
 
                 <div class="table-small-box">
-                    <div class="item">
+                    <div class="item" v-for="(item,index) in unlineData" :key="index">
                         <div class="des">
                             <div class="item-img-wrap">
-                                <img src="https://b-ssl.duitang.com/uploads/item/201706/27/20170627012435_mJLiX.thumb.700_0.jpeg" alt="" class="item-img">
+                                <img :src="item.Phtoto" alt="" class="item-img">
                             </div>
                             <div>
-                                <div class="name">儿童网鞋男童透气网鞋男童透气…</div>
+                                <div class="name">{{item.MerchantName}}</div>
                                 <div class="item-name">
-                                    订单号：<span class="item-value">20191212083520</span>
+                                    消费时间：<span class="item-value">{{item.Money}}</span>
                                 </div>
-                                <div class="item-name">
-                                    消费时间：<span class="item-value">2020-05-05 06:30:30</span>
-                                </div>
-                                <div class="item-name">
-                                    订单类型：<span class="item-value">淘宝订单</span>
-                                </div>
-                                <div class="item-name">消费金额(元)：<span class="item-value">8000</span>
+                        
+                                <div class="item-name">消费金额(元)：<span class="item-value">{{item.Money}}</span>
 
                                 </div>
-                                <div class="item-name">奖励积分：<span class="item-value">60</span></div>
                             </div>
                             <div class="order-status-wrap">
-                                <div class="order-status-name">状态：<span>已付款</span></div>
+                                <div class="order-status-name">状态：<span>{{item.state}}</span></div>
                             </div>
                         </div>
                         <div class="btn-detail">查看详情</div>
                     </div>
                 </div>
+                <div class="page-box">
+                    <el-pagination
+                        @current-change="getUnderLineList"
+                        :current-page.sync="unlineIndex"
+                        :page-size="unlineSize"
+                        layout="prev, pager, next, jumper"
+                        :total="unlineTotal">
+                    </el-pagination>
+                </div>
+                <div class="page-box small">
+                    <el-pagination
+                        small=""
+                        @current-change="getUnderLineList"
+                        :current-page.sync="unlineIndex"
+                        :page-size="unlineSize"
+                        layout="prev, pager, next"
+                        :total="unlineTotal">
+                    </el-pagination>
+             </div>
                 <!-- 评价 -->
                 <el-dialog title="评价" :visible.sync="toRate" custom-class="custom-dialog">
                     <div class="rate-box">
@@ -583,6 +611,7 @@ export default {
     }
     .date-box{
         display: flex;
+        padding:15px 15px 0;
     }
     .select-box{
         display: flex;
@@ -842,6 +871,8 @@ export default {
                 position: relative;
                 display: flex;
                 .name {
+                    width:180px;
+                    .overTextOne();
                     font-size:12px;
                     font-family:PingFangSC-Semibold,PingFang SC;
                     font-weight:600;

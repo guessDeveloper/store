@@ -129,4 +129,6 @@ export default {
     confirmOrderPay: '/api/Merchant/confirmOrderPay', //确认首款
     confirmOrder: '/api/Merchant/confirmOrder', //确认返积分
     UpOrDownProduct: '/api/Merchant/UpOrDownProduct', //上下架商品
+    ShowProduct: '/api/Merchant/ShowProduct', //获取产品详情
+    EditProduct: '/api/Merchant/EditProduct', //编辑产品详情
 }

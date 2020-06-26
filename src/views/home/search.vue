@@ -5,7 +5,7 @@
             <span class="iconfont iconjiantou"></span>
             <span class="now-nav">搜索结果</span>
       </div>
-      <div class="list-box">
+      <div class="list-box" v-show="total>0">
           <ul class="good-list" v-if="searchType == 'taobao'|| searchType == 'pdd'">
             <li v-for='(item,index) in list' :key="index"><goodCard :data="item"></goodCard></li>
           </ul> 
@@ -31,6 +31,10 @@
                 </el-pagination>
           </div>
       </div>
+      <div class="empty" v-show="total == 0">
+            <span class="iconfont iconspzw"></span>
+            <div class="tip">对不起，对应商品分类或筛选组合下没有商品</div>
+        </div>
     </div>
 </template>
 <script>
@@ -202,4 +206,25 @@ export default {
             margin:15px;
         }
     }
+.empty{
+    width:@max-width;
+    margin:20px auto 100px;
+    height:500px;
+    text-align: center;
+    background:#fff;
+    overflow: hidden;
+    .iconfont{
+        display: block;
+        margin-top:104px;
+        font-size:114px;
+        color:#C8C8C8;
+    }
+    .tip{
+        font-size:14px;
+        color:@subtitle_color;
+    }
+    @media screen and(max-width:@change_width) {
+        width:100%;
+    }
+}
 </style>

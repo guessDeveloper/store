@@ -14,8 +14,8 @@
           <div class="operate">
             <!-- <div class="leftSide">经度：{{curPoint.lng ? curPoint.lng: '无'}}&nbsp;&nbsp;&nbsp;&nbsp;纬度：{{curPoint.lat ?curPoint.lat: '无'}}</div> -->
             <div class="rightSide">
+              <button v-if="!unableSet" @click="confirm" type="primary" class="ok">确认</button>
               <button @click="hide">{{unableSet === true ? '关闭' : '取消'}}</button>
-              <button v-if="!unableSet" @click="confirm" type="primary">确认</button>
             </div>
           </div>
       
@@ -185,31 +185,32 @@ export default {
       if (this.scrollTop !== null && this.scrollLeft !== null) {
         window.scrollTo(this.scrollLeft, this.scrollTop)
       }
-      if (!this.resultObj.lng && !this.resultObj.lat) {
-        this.map.clearOverlays()
-        if (
-          this.defaultPoint &&
-          this.defaultPoint.lng &&
-          this.defaultPoint.lat
-        ) {
-          this.drawDefaultPoint()
-        } else {
+      // if (!this.resultObj.lng && !this.resultObj.lat) {
+      //   this.map.clearOverlays()
+      //   if (
+      //     this.defaultPoint &&
+      //     this.defaultPoint.lng &&
+      //     this.defaultPoint.lat
+      //   ) {
+      //     this.drawDefaultPoint()
+      //   } else {
      
-          var geolocation = new BMap.Geolocation();
-          let _this  = this
-              geolocation.getCurrentPosition(function(r){
-              if(this.getStatus() == 0){
-                    let center = new BMap.Point(r.point.lng,r.point.lat)
-                    _this.map.centerAndZoom(center, 12)
-                }
-                else {
-                  console.log('failed'+this.getStatus());
-                }        
-              },{enableHighAccuracy: true})
+      //     var geolocation = new BMap.Geolocation();
+      //     let _this  = this
+      //         geolocation.getCurrentPosition(function(r){
+      //         if(this.getStatus() == 0){
+      //               let center = new BMap.Point(r.point.lng,r.point.lat)
+      //               _this.map.centerAndZoom(center, 12)
+      //           }
+      //           else {
+      //             console.log('failed'+this.getStatus());
+      //           }        
+      //         },{enableHighAccuracy: true})
      
           
-        }
-      }
+      //   }
+      // }
+      this.$emit('close')
     },
     confirm() {
       if (!this.curPoint.lng && !this.curPoint.lat) {
@@ -254,7 +255,7 @@ export default {
         this.defaultPoint.lng,
         this.defaultPoint.lat
       )
-      this.map.centerAndZoom(this.curPoint, 12)
+      this.map.centerAndZoom(this.curPoint, 18)
       let marker = new BMap.Marker(this.curPoint)
       this.map.addOverlay(marker)
     },
@@ -276,7 +277,7 @@ export default {
 <style lang="less" scoped>
 .map-box{
   width:100%;
-  height:500px;
+  height:440px;
   .confirm-content{
     width:100%;
     height:300px;
@@ -303,5 +304,24 @@ export default {
     background:@main;
     color:#fff;
   }
+}
+.rightSide{
+  .clear();
+    margin-top:40px;
+    button{
+      float: right;
+      width:65px;
+      height:30px;
+      font-size:14px;
+      margin-left:15px;
+      background:#fff;
+      border:1px solid @class_border;
+      border-radius: 4px;
+    }
+    .ok{
+      color:#fff;
+      background:@main;
+      border-color:@main;
+    }
 }
 </style>

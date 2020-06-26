@@ -38,18 +38,13 @@
             </div>
             <div class="table-box">
                   <el-table :data="listData"  header-row-style="font-size:12px;color:#999;" row-class-name="table-line" width="930">
-                    <el-table-column property="img" label="产品图片" width="50" align="left">
-                         <template slot-scope="scope">
-                            <img :src="scope.row.img" alt="" class="product-img">
-                        </template>
-                    </el-table-column>
-                    <el-table-column property="orderNumber" label="订单号" width="160" align="center"></el-table-column>
-                    <el-table-column property="productName" label="产品名称" width="108" align="left"></el-table-column>
-                    <el-table-column property="orderCreateTime" label="消费时间" width="195" align="center"></el-table-column>
-                    <el-table-column property="type" label="订单类型" width="69" align="center"></el-table-column>
-                    <el-table-column property="orderMoney" label="消费金额(元)" width="88" align="center"></el-table-column>
-                    <el-table-column property="score" label="奖励积分" width="70" align="center"></el-table-column>
-                     <el-table-column property="orderState" label="状态" width="88" align="center"></el-table-column>
+                    <el-table-column property="orderNumber" label="订单号" width="160" align="left"></el-table-column>
+                    <el-table-column property="UserName" label="用户名" width="108" align="center"></el-table-column>
+                    <el-table-column property="orderMoney" label="消费金额(元)" width="165" align="center"></el-table-column>
+                    <el-table-column property="orderCreateTime" label="下单时间" width="200" align="center"></el-table-column>
+                    <el-table-column property="orderMoney" label="返积分数" width="88" align="center"></el-table-column>
+                    <el-table-column property="orderState" label="订单状态" width="100" align="center"></el-table-column>
+                    
                     <el-table-column  label="操作" width="102" align="center">
                          <template slot-scope="scope">
                             <button :data="scope" class="action-btn" @click="goDetail(scope.row.orderNumber)">查看详情</button>
@@ -60,15 +55,13 @@
 
             <!-- 移动端分类列表 -->
             <div class="table-small-box">
-                <div class="item">
+                <div class="item" v-for="(item,index) in listData" :key="index">
                     <div class="des">
                         <div>
                             <div class="item-name">
-                                订单号：<span class="item-value">20191212083520</span>
+                                订单号：<span class="item-value">{{item.orderNumber}}</span>
                             </div>
-                            <div class="item-name">
-                                用户名：<span class="item-value">2020-05-05 06:30:30</span>
-                            </div>
+                           
                             <div class="item-name">
                                 消费金额(元)：<span class="item-value">淘宝订单</span>
                             </div>
@@ -242,7 +235,7 @@ export default {
     }
     .table-small-box {
         display: block;
-        padding: 0 15px;
+        // padding: 0 15px;
         .item {
             padding-top: 20px;
             .des{

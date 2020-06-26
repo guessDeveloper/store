@@ -93,6 +93,7 @@
            <el-time-picker
             is-range
             v-model="time"
+             value-format="yyyy-MM-dd HH:MM:SS"
             range-separator="-"
             start-placeholder="开始时间"
             end-placeholder="结束时间"
@@ -110,7 +111,7 @@
          <button class="submit" @click="submit">提交</button>
        </div>
        <el-dialog title="选择地址" :visible.sync="showMap" width="520px" class="small">
-         <Map @getLocation="addressClick"></Map>
+         <Map @getLocation="addressClick" :defaultPoint="defaultPoint" @close="showMap = false"></Map>
        </el-dialog>
     </div>
 
@@ -129,6 +130,12 @@ const beforeUrl = 'http://files.youledui.com';
 import '@/plugins/element-upload.js'
 import '@/plugins/element-dataPicker.js'
 import Map from '@/components/store/map'
+class Photo {
+  constructor(name, url) {
+    this.name = name;
+    this.url = url;
+  }
+}
 export default {
   data(){
    return {
@@ -157,6 +164,7 @@ export default {
         lng:'',//纬度
         address:'', //地址
         addressCity:'',
+        defaultPoint:{}, //初始化商家地址
         infos:{
           BeginWorkTime:"",
           Category: "",
@@ -255,6 +263,14 @@ export default {
         this.$http.storePost(this.$api.MerchanterMerchanter).then(res=>{
           if(res.data.Code == 1){
             this.infos = res.data.Data
+            if(this.infos.Logo){
+              this.fileList.push(new Photo(this.infos.Logo,this.infos.Logo))
+              this.logoUrl = this.infos.Logo
+            }
+            if(this.infos.PointX){
+              this.defaultPoint.lng =this.infos.PointX
+              this.defaultPoint.lat = this.infos.PointY
+            }
             if(this.infos.BeginWorkTime !== ''){
               this.time = [new Date(this.infos.BeginWorkTime),new Date(this.infos.EndWorkTime)]
             }
@@ -293,7 +309,7 @@ export default {
         return extension || extension2 && isLt2M
       },
       //logo 上传成功
-      logoSuccess(file){
+      logoSuccess(file,fileList){
         if(file.Code == 1){
           this.logoUrl = beforeUrl+file.Data
         }
@@ -301,7 +317,7 @@ export default {
       mp4Success(file,fileList){
          if(file.Code == 1){
           //  this.desMp4.push(beforeUrl+file.Data)
-          this.desMp4.push(fileList[0])
+          this.desMp4.push(fileList)
 
          }
          console.log(fileList,this.desMp4,'ttt')
@@ -385,8 +401,8 @@ export default {
           MerchantName:this.infos.Name,
           TelPhone:this.infos.TelPhone,
           Address:this.address,
-          PointX:this.lat,
-          PointY:this.lng,
+          PointX:this.lng,
+          PointY:this.lat,
           Remark:this.infos.describe,
           MerchantLogo:this.logoUrl,
           ShowImgs:this.desMp4,

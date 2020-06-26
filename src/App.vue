@@ -152,6 +152,20 @@ export default {
   border-radius: 0;
   border-color:@class_border;
 }
+.small-date-box{
+  .el-date-editor.el-input, .el-date-editor.el-input__inner{
+    width:100%!important;
+    border-radius: 0!important;
+    .el-input__inner{
+      border-radius: 0!important;
+      height:34px;
+    }
+  }
+}
+.date-middle{
+  line-height: 34px;
+  padding:0 5px;
+}
 .el-date-editor .el-range-separator{
   line-height: 14px!important;
 }

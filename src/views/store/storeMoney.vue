@@ -105,6 +105,8 @@ export default {
               this.fileList.push({url:this.infos.Logo})
             }
             this.options=res.data.Data.Recharge
+        }else{
+          this.$message.error(res.data.Msg)
         }
       })
     },
