@@ -55,7 +55,7 @@
         <div class="title">
           同类商品推荐
         </div>
-        <el-carousel trigger="click" height="411px">
+        <el-carousel trigger="click" :height="carouselHeight">
           <el-carousel-item v-for="(item,index) in promoteList" :key="index">
            <div class="goods-box">
              <div class="goods-item" v-for="(item2,index2) in item" :key="index2">
@@ -101,6 +101,17 @@ export default {
   },
   components:{
     goodCard:goodCard
+  },
+  computed: {
+    carouselHeight() {
+      let clientWidth = document.documentElement.clientWidth;
+      if (clientWidth < 765) {
+        return '610px';
+        // return '411px';
+      } else {
+        return '411px';
+      }
+    }
   },
   mounted(){
     if(this.$route.query.GoodType){
@@ -415,7 +426,20 @@ export default {
       }
     }
     .goods-box {
+      width: 100%;
       padding-top: 0;
+      .goods-item{
+        width: calc(50% - 20px);
+        margin: 0 10px;
+        box-sizing: border-box;
+        a {
+          width: 165px;
+          margin: 0 auto;
+          img {
+            width: 165px;
+          }
+        }
+      }
     }
   }
   .goods-detial {

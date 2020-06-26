@@ -464,6 +464,9 @@ export default {
               float: none;
               // width:60px;
               height: 65px;
+              .step-num {
+                position: absolute;
+              }
               .iconfont {
                 position: absolute;
               }
