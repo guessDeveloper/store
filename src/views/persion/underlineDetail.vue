@@ -464,6 +464,9 @@ export default {
               float: none;
               // width:60px;
               height: 65px;
+              .step-num {
+                position: absolute;
+              }
               .iconfont {
                 position: absolute;
               }
@@ -498,7 +501,8 @@ export default {
       .menager-box {
         .status-box {
           width: 92%;
-          height: 130px;
+          min-height: 130px;
+          height: auto;
           line-height: normal;
           margin: 15px auto 0;
           padding: 15px;
@@ -524,6 +528,11 @@ export default {
             position: absolute;
             left: 50%;
             top: 75px;
+          }
+          .btn {
+            width: 100%;
+            margin: 50px 0 0;
+            float: none;
           }
         }
         .content {
