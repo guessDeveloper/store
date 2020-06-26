@@ -1,7 +1,7 @@
 <template>
   <div class="menager-box">
     <div class="persion-title">
-      全部订单  <div class="score-box"><span>剩余积分：<b>239900</b></span><span>待返积分：<b>239900</b></span></div>
+      全部订单  <div class="score-box"><span>剩余积分：<b>{{SurplusIntegral}}</b></span><span>待返积分：<b>{{TobeReturnIntegral}}</b></span></div>
     </div>
      <div class="order-content" >
             <div class="choose-box">
@@ -14,8 +14,26 @@
                         start-placeholder="开始日期"
                         end-placeholder="结束日期">
                         </el-date-picker>
+                </div>
+                <div class="date-small-box">
+                    <div class="small-date-box">
+                    <el-date-picker
+                        v-model="dataValue[0]"
+                        type="date"
+                        value-format="yyyy-MM-dd"
+                        placeholder="开始日期">
+                    </el-date-picker>
+                   </div>
+                   <div class="date-middle"> -</div>
+                   <div class="small-date-box">
+                        <el-date-picker
+                        v-model="dataValue[1]"
+                        type="date"
+                        value-format="yyyy-MM-dd"
+                        placeholder="结束日期">
+                        </el-date-picker>
                     </div>
-
+                </div>
                 <div class="status-select">
                     订单状态
            
@@ -63,23 +81,41 @@
                             </div>
                            
                             <div class="item-name">
-                                消费金额(元)：<span class="item-value">淘宝订单</span>
+                                用户名：<span class="item-value">{{item.UserName}}</span>
                             </div>
                             <div class="item-name">
-                                下单时间：<span class="item-value">2020-05-05 06:30:30</span>
+                                下单时间：<span class="item-value">{{item.orderCreateTime}}</span>
                             </div>
                             <div class="item-name">
-                                返积分数：<span class="item-value">2020</span>
+                                返积分数：<span class="item-value">{{item.orderMoney}}</span>
                             </div>
                         </div>
                         <div class="order-status-wrap">
-                            <div class="order-status-name">状态：<span>已付款</span></div>
+                            <div class="order-status-name">状态：<span>{{item.orderState}}</span></div>
                         </div>
                     </div>
-                    <div class="btn-detail">查看详情</div>
+                    <div class="btn-detail" @click="goDetail(item.orderNumber)">查看详情</div>
                 </div>
             </div>
-
+             <div class="page-box">
+                <el-pagination
+                    @current-change="getList"
+                    :current-page.sync="pageIndex"
+                    :page-size="pageSize"
+                    layout="prev, pager, next, jumper"
+                    :total="total">
+                </el-pagination>
+            </div>
+            <div class="page-box small">
+                <el-pagination
+                    small
+                    @current-change="getList"
+                    :current-page.sync="pageIndex"
+                    :page-size="pageSize"
+                    layout="prev, pager, next"
+                    :total="total">
+                </el-pagination>
+            </div>
         </div>
   </div>
 </template>
@@ -111,11 +147,14 @@ export default {
         pageIndex:1,
         pageSize:20,
         total:0,
+        SurplusIntegral:'',
+        TobeReturnIntegral:''
     }
   },
   mounted(){
       this.dataValue = [this.$util.getNowDate()+' 00:00:00',this.$util.getNowDate()+' 24:00:00']
       this.getList();
+       this.getScore();
   },
   methods:{
       search(){
@@ -136,6 +175,17 @@ export default {
                 this.total = res.data.Data.count
             }
          })
+      },
+      //获取积分
+      getScore(){
+          this.$http.storeGet(this.$api.MerchantIntegr).then(res=>{
+              if(res.data.Code == 1){
+                  this.SurplusIntegral = res.data.Data.SurplusIntegral
+                  this.TobeReturnIntegral = res.data.Data.TobeReturnIntegral
+              }else{
+                  this.$message.error(res.data.Msg)
+              }
+          })
       },
       //产看订单详情
       goDetail(id){
@@ -177,6 +227,9 @@ export default {
 .date-box{
     display: inline-block;
     vertical-align: middle;
+}
+.date-small-box{
+        display: none;
 }
     .select{
         position: relative;
@@ -252,6 +305,7 @@ export default {
                     line-height: 26px;
                 }
                 .item-value {
+                    max-width:130px;
                     color: #333333;
                 }
                 .order-status-wrap {
@@ -302,10 +356,14 @@ export default {
         padding: 0 15px;
         .choose-box {
             padding: 90px 0 0;
-            .date-box {
-                display: block;
-                margin-bottom: 10px;
+           .date-box{
+                display: none;
             }
+            .date-small-box{
+                display: flex;
+                padding-bottom:10px;
+            }
+
             .status-select {
                 width: 50%;
                 margin-left: 0;
@@ -326,5 +384,9 @@ export default {
             }
         }
     }
+    
+}
+.page-box{
+    padding:30px 0;
 }
 </style>

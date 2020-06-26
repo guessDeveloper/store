@@ -24,7 +24,7 @@ export default {
       const baseUrl = process.env.NODE_ENV === 'production' ? 'https://api.youledui.com/' : '/Sev'
       this.$http.limitGet(this.$api.GetVerificationNum).then(res=>{
         if(res.data.Code == 1){
-          this.imgUrl = baseUrl+res.data.Data.QRcodeImagePath
+          this.imgUrl = res.data.Data.QRcodeImagePath
         }
       })
     }

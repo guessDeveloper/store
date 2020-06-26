@@ -2,7 +2,7 @@
   <div class="storeProduct-box">
       <div class="tab-box">
             <div class="tab-item" @click="toTab(1)" :class="{active:tab ==1}">产品列表</div>
-             <div class="tab-item" @click="toTab(2)" :class="{active:tab ==2}">添加产品</div>
+             <div class="tab-item" @click="toTab(2)" :class="{active:tab ==2}" v-show="classOption.length>0">添加产品</div>
       </div>
       <div class="order-content" v-show="tab == '1'">
          <div class="choose-box">
@@ -62,7 +62,7 @@
                     </span>
                 </div>
                 <div class="input-box">
-                    <input type="text" placeholder="输入订单号" v-model.trim="ProductName">
+                    <input type="text" placeholder="输入产品名称" v-model.trim="ProductName">
                     <span class="iconfont iconsousuo" @click="search"></span>
                 </div>
             </div>
@@ -155,6 +155,9 @@ export default {
        classNow:"",
        ProductName:'',
        statusOption:[{
+           label:'全部',
+           status:'',
+       },{
            label:'下架',
            status:0,
        },{
@@ -164,7 +167,7 @@ export default {
            label:'待审核',
            status:2
        }],
-       status:1, // 状态
+       status:'', // 状态
        classOption:[],
        pageIndex:1,
        pageSize:20,

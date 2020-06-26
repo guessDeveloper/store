@@ -64,6 +64,7 @@ export default {
            this.isLogin = true
            this.userName = res.data.Data.Name
            let userInfo = JSON.stringify(res.data.Data);
+           this.setStoreInfo(res.data.Data);
            sessionStorage.setItem('storeUserInfo',userInfo)
         }
       })

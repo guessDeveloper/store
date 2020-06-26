@@ -2,6 +2,9 @@
   <div class="register-box">
      <navBar type="register"></navBar>
      <div class="register">
+        <div class="tab-box">
+                 <span  :class="{active:isStore==0}" @click="tabchange(0)">用户</span><span :class="{active:isStore==1}" @click="tabchange(1)">商家</span>
+      </div>
        <div class="input-box">
          <input type="text" placeholder="请输入手机号码" v-model.trim="phone">
        </div>
@@ -56,6 +59,9 @@ export default {
     this.$route.query.isStore == 1?this.isStore = 1:''
   },
   methods:{
+    tabchange(num){
+      this.isStore = num
+    },
     //获取验证码
     getCode(){
       if(this.lock)return false;
@@ -120,7 +126,7 @@ export default {
       }else if(this.Code == ''){
         this.$message.error('请输入验证码');
         return false
-      }else if(this.password.length<6||this.password>20){
+      }else if(this.password.length<6||this.password.length>20){
         this.$message.error('请输入6至20位登录密码');
         return false
       }else if(this.password!=this.repetPass){
@@ -187,6 +193,42 @@ export default {
     height: auto;
     padding-bottom:50px;
   }
+}
+  .tab-box{
+        position: relative;
+        width:380px;
+        text-align: center;
+        margin:0 auto;
+        height:30px;
+        line-height: 30px;
+        font-size:24px;
+        color:@subtitle_color;
+        padding:0px 0 50px;
+        &::before{
+          content:'';
+          position: absolute;
+          top:0px;
+          left:190px;
+          display: block;
+          width:1px;
+          height:30px;
+          background:#F1F2FB;
+        }
+        span{
+          display: inline-block;
+          width:50%;
+          cursor: pointer;
+          &.active{
+            color:@main;
+          }
+        }
+    @media screen and(max-width:@change_width){
+      width:100%;
+      padding-bottom:20px;
+      &::before{
+        left:50%;
+      }
+    }
 }
 .input-box{
   width:380px;
