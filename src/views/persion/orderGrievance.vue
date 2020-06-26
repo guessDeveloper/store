@@ -15,20 +15,26 @@
                       end-placeholder="结束日期">
                       </el-date-picker>
                 </div>
-                <div class="mobile-app-data">
-                   <el-date-picker
-                      v-model="dataValue[0]"
-                      type="date"
-                      value-format="yyyy-MM-dd"
-                      placeholder="开始日期">
-                      </el-date-picker>
+               
+               <div class="date-small-box">
+                    <div class="small-date-box">
                     <el-date-picker
-                      v-model="dataValue[2]"
-                      type="date"
-                      value-format="yyyy-MM-dd"
-                      placeholder="结束日期">
+                        v-model="dataValue[0]"
+                        type="date"
+                        value-format="yyyy-MM-dd"
+                        placeholder="开始日期">
                     </el-date-picker>
-               </div>
+                   </div>
+                   <div class="date-middle"> -</div>
+                   <div class="small-date-box">
+                        <el-date-picker
+                        v-model="dataValue[1]"
+                        type="date"
+                        value-format="yyyy-MM-dd"
+                        placeholder="结束日期">
+                        </el-date-picker>
+                    </div>
+                </div>
                 <div class="status-select">
                     状态
           
@@ -236,7 +242,7 @@ export default {
       .date-box {
         display: none;
       }
-      .mobile-app-data {
+      .date-small-box {
         display: flex;
       }
       .status-select {
@@ -290,7 +296,7 @@ export default {
         display: inline-block;
         vertical-align: middle;
     }
-    .mobile-app-data {
+    .date-small-box {
       display: none;
     }
     .status-select{

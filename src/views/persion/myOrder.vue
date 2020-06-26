@@ -293,7 +293,10 @@
                                 <div class="order-status-name">状态：<span>{{item.state}}</span></div>
                             </div>
                         </div>
-                        <div class="btn-detail">查看详情</div>
+                        <div class="btn-detail-box">
+                           <div class="btn-detail"  @click="unlineDetail(item.OrderNumber)">查看详情</div>
+                           <div class="btn-detail" v-if='item.state=="待奖励"||item.state=="已奖励"' @click="goToComment(item)">评价</div>
+                        </div>
                     </div>
                 </div>
                 <div class="page-box">
@@ -893,6 +896,25 @@ export default {
                     background-color: #ffffff;
                     .order-status-name {
                         color: #999999;
+                    }
+                }
+            }
+            .btn-detail-box{
+                display: flex;
+                justify-content: center;
+                 padding: 15px 0;
+                margin-top: 20px;
+                 border-top: 1px solid #eeeeee;
+                
+                border-bottom: 1px solid #eeeeee;
+                .btn-detail{
+                    width:50%;
+                    padding:0;
+                    margin:0;
+                    border:0;
+                     border-right:1px solid #eeeeee;
+                    &:nth-last-child(1){
+                        border-right:0;
                     }
                 }
             }
