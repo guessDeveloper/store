@@ -58,17 +58,18 @@ export default {
         iconSize:'15px'
       },
       {
-        title:"产品管理",
-        to:'/storeProduct',
-        icon:'iconcpgl',
-        iconSize:'12px'
-      },
-      {
         title:"分类管理",
         to:'/storeClassify',
         icon:'iconflgl',
         iconSize:'17px'
       },
+      {
+        title:"产品管理",
+        to:'/storeProduct',
+        icon:'iconcpgl',
+        iconSize:'12px'
+      },
+      
       {
         title:"二维码管理",
         to:'/storeErweima',

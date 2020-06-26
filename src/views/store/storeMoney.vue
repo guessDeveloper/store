@@ -30,16 +30,17 @@
             <el-upload
               class="upload-demo"
               :action="uploadImgUrl()"
-              :file-list="fileList"
+              
               accept=".jpg,.png"
-              :limit="1"
               :beforeUpload="beforeLogoUpload"
-              list-type="picture-card"
               name="FileContent"
+              :on-success="logoSuccess"
+              :show-file-list="false"
               >
-               <i class="el-icon-plus" v-if="fileList.length == 0"></i>
+                <img :src="fileList" alt=""  class="upload-img" v-show="fileList !== ''">
+               <i class="el-icon-plus" v-if="fileList == ''"></i>
               <!-- <button size="small" type="primary" class="upload-btn" v-show="fileList.length == 0">选择上传文件</button> -->
-              <span slot="tip" class="tip" v-show="fileList.length == 0">只能上传jpg/png文件，且不超过1M</span>
+              <span slot="tip" class="tip" >只能上传jpg/png文件，且不超过1M</span>
             </el-upload>
           </div>
        </div>
@@ -74,12 +75,13 @@
   </div>
 </template>
 <script>
+const beforeUrl = 'https://files.youledui.com';
 import '@/plugins/element-upload.js'
 export default {
   data(){
     return{
        options: [],
-        fileList:[],
+        fileList:'',
         bannerUrl:'',
         value: '',
         time:'',
@@ -102,7 +104,7 @@ export default {
               this.time = [new Date(this.infos.BeginWorkTime),new Date(this.infos.EndWorkTime)]
             }
             if(this.infos.Logo){
-              this.fileList.push({url:this.infos.Logo})
+              this.fileList = this.infos.Logo
             }
             this.options=res.data.Data.Recharge
         }else{
@@ -110,6 +112,30 @@ export default {
         }
       })
     },
+    logoSuccess(file){
+      if(file.Code == 1){
+          this.fileList = beforeUrl+file.Data
+        }
+    },
+     beforeLogoUpload(file){
+         var testmsg=file.name.substring(file.name.lastIndexOf('.')+1)
+        const extension = testmsg === 'jpg'
+        const extension2 = testmsg === 'png'
+        const isLt2M = file.size / 1024 / 1024 <= 1
+        if(!extension && !extension2) {
+            this.$message({
+                message: '上传文件只能是 jpn、png格式!',
+                type: 'error'
+            });
+        }
+        if(!isLt2M) {
+            this.$message({
+                message: '上传文件大小不能超过 1MB!',
+                type: 'error'
+            });
+        }
+        return extension || extension2 && isLt2M
+      },
     //充值
     Recharge(){
       this.$http.storePost(this.$api.Recharge,{
@@ -117,7 +143,7 @@ export default {
         type:0,
         Name: this.infos.Name,
         describe: this.infos.describe,
-        Logo: this.fileList[0].url,
+        Logo: this.fileList,
         site: this.infos.Site,
         TelPhone: this.infos.TelPhpne,
         BeginWorkTime: this.time[0],
@@ -128,7 +154,7 @@ export default {
       })
     },
     uploadImgUrl(){
-        return process.env.NODE_ENV === 'production' ? 'http://files.youledui.com/create?dir=image' : '/up/create?dir=image'
+        return process.env.NODE_ENV === 'production' ? 'https://files.youledui.com/create?dir=image' : '/up/create?dir=image'
     },
   }
 }
@@ -144,6 +170,27 @@ export default {
     width:100%;
   }
 }
+.upload-demo{
+  .upload-img{
+    vertical-align: baseline;
+    display: inline-block;
+    width:100px;
+    height:100px;
+  }
+  .el-icon-plus{
+    width:100px;
+    height:100px;
+    line-height: 100px;
+    border:1px solid @class_border;
+  }
+  .tip{
+    display: block;
+    line-height: 20px;
+
+  }
+}
+
+
  .input-line-box{
     position: relative;
     width:380px;

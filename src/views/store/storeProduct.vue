@@ -2,7 +2,7 @@
   <div class="storeProduct-box">
       <div class="tab-box">
             <div class="tab-item" @click="toTab(1)" :class="{active:tab ==1}">产品列表</div>
-             <div class="tab-item" @click="toTab(2)" :class="{active:tab ==2}">添加产品</div>
+             <div class="tab-item" @click="toTab(2)" :class="{active:tab ==2}" v-show="classOption.length>0">添加产品</div>
       </div>
       <div class="order-content" v-show="tab == '1'">
          <div class="choose-box">

@@ -126,7 +126,7 @@
   </div>
 </template>
 <script>
-const beforeUrl = 'http://files.youledui.com';
+const beforeUrl = 'https://files.youledui.com';
 import '@/plugins/element-upload.js'
 import '@/plugins/element-dataPicker.js'
 import Map from '@/components/store/map'
@@ -257,7 +257,7 @@ export default {
         console.log(file);
       },
       uploadImgUrl(){
-        return process.env.NODE_ENV === 'production' ? 'http://files.youledui.com/create?dir=image' : '/up/create?dir=image'
+        return process.env.NODE_ENV === 'production' ? 'https://files.youledui.com/create?dir=image' : '/up/create?dir=image'
       },
       getStoreInfo(){
         this.$http.storePost(this.$api.MerchanterMerchanter).then(res=>{
@@ -317,6 +317,7 @@ export default {
       mp4Success(file,fileList){
          if(file.Code == 1){
           //  this.desMp4.push(beforeUrl+file.Data)
+          fileList.url = beforeUrl + file.Data
           this.desMp4.push(fileList)
 
          }
@@ -333,10 +334,10 @@ export default {
         const extension2 = testmsg === 'png'
         const extension3 = testmsg === 'mp4'
         if(extension || extension2){
-          this.changeUrl= process.env.NODE_ENV === 'production' ? 'http://files.youledui.com/create?dir=image' : '/up/create?dir=image'
+          this.changeUrl= process.env.NODE_ENV === 'production' ? 'https://files.youledui.com/create?dir=image' : '/up/create?dir=image'
         }
         if(extension3){
-          this.changeUrl= process.env.NODE_ENV === 'production' ? 'http://files.youledui.com/create?dir=media' : '/up/create?dir=media'
+          this.changeUrl= process.env.NODE_ENV === 'production' ? 'https://files.youledui.com/create?dir=media' : '/up/create?dir=media'
         }
         setTimeout(()=>{
           this.$refs.mp4Uploader.submit()
@@ -397,6 +398,9 @@ export default {
       }else if(this.infos.ReturnPercent == ''){
         this.$message.error('商家奖励比例：')
       }else{
+        this.desMp4.forEach(element => {
+            return element.url
+        });
         this.$http.storePost(this.$api.ChangeMyInfo,{
           MerchantName:this.infos.Name,
           TelPhone:this.infos.TelPhone,

@@ -73,6 +73,10 @@
                 </el-select> -->
                 <input type="text" placeholder="请输入1至60的整数" class="percent" v-model.trim="NewClassRate"><span class="per">%</span>
               </div>
+               <div class="btn-box">
+                    <button class="ok" @click="addClass">提交</button>
+                    <button class="no" @click="toNew = false">取消</button>
+             </div>
           </div>
         </div>
       </el-dialog>
@@ -161,7 +165,7 @@ export default {
      }else if(this.NewClassRate>60||this.NewClassRate<1){
        this.$message.error('请输入1-60的正整数')
      }else{
-       this.$http.storePost(this.$api.AddProcoteClass,{Rate:parseInt(this.NewClassRate/100),RateName:this.NewClassName}).then(res=>{
+       this.$http.storePost(this.$api.AddProcoteClass,{Rate:parseFloat(this.NewClassRate/100),RateName:this.NewClassName}).then(res=>{
          if(res.data.Code == 1){
            this.$message.success('添加成功')
            this.toNew = false;

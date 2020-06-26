@@ -111,7 +111,7 @@ class Photo {
     this.url = url;
   }
 }
-const beforeUrl = 'http://files.youledui.com';
+const beforeUrl = 'https://files.youledui.com';
 import '@/plugins/element-upload.js'
 export default {
   data(){
@@ -181,7 +181,7 @@ export default {
       })
     },
      uploadImgUrl(){
-        return process.env.NODE_ENV === 'production' ? 'http://files.youledui.com/create?dir=image' : '/up/create?dir=image'
+        return process.env.NODE_ENV === 'production' ? 'https://files.youledui.com/create?dir=image' : '/up/create?dir=image'
       },
     beforeLogoUpload(file){
         var testmsg=file.name.substring(file.name.lastIndexOf('.')+1)
