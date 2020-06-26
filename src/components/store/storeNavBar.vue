@@ -36,11 +36,14 @@
                 <span class="iconfont iconsousuo"></span><span class="name">搜索</span>
             </a> -->
         <!-- </div> -->
+        <div class="store-name"><span class="icon"></span><span class="tip">商家名称：</span><span  class="name">{{storeInfo.Name}}</span></div>
+        <router-link class="iconfont iconyd_saoyisao sao" tag="div" to="/sao"></router-link>
         <button class="loginOut" @click="loginOut">退出登录</button>
     </div>
  </div>
 </template>
 <script>
+import { mapState, mapMutations} from 'vuex' //注册 action 和 state
 export default {
     data(){
         return{
@@ -70,7 +73,10 @@ export default {
         // 是否是商家页面
         isStore() {
             return this.$route.path.indexOf('store') > -1;
-        }
+        },
+        ...mapState([
+            'storeInfo'
+        ])
     },
     mounted(){
         this.nowPath = this.$route.path
@@ -205,6 +211,9 @@ export default {
             }
         }
     }
+    .store-name{
+        display: none;
+    }
 }
 .loginOut{
   float: right;
@@ -242,7 +251,7 @@ export default {
         display: block;
         position: absolute;
         top:22px;
-        right:35px;
+        right:0px;
         width:16px;
         height:16px;
         line-height: 16px;
@@ -251,6 +260,30 @@ export default {
         .iconfont{
             font-size:16px;
         color:@main;
+        }
+    }
+    .store-name{
+        display: block;
+        position: absolute;
+        top:22px;
+        right:30px;
+        height:16px;
+        line-height: 16px;
+        color:@placeholder_color;
+        font-size:12px;
+        .icon{
+            display: inline-block;
+            width:2px;
+            height:10px;
+            background:@main;
+            margin-right:5px;
+        }
+        .name{
+            display: inline-block;
+            max-width: 100px;
+            color:@font_color;
+            .overTextOne();
+            vertical-align: middle;
         }
     }
     .menu{

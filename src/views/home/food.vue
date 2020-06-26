@@ -41,27 +41,30 @@
         <div class="filter-small-box">
             <div>
                 地址：
-                <el-dropdown trigger="click" class="select" @command="changeCity">
+                <el-dropdown trigger="click" class="select" @command="phoneChangeCity">
                     <span class="el-dropdown-link">
-                    <span class="el-dropdown-label">全部</span><span class="iconfont icon-arrow-downYellow"></span>
+                    <span class="el-dropdown-label">{{phoneCity}}</span><span class="iconfont icon-arrow-downYellow"></span>
                     </span>
                     <el-dropdown-menu slot="dropdown">
-                        <el-dropdown-item :command="''">全部</el-dropdown-item>
-                        <el-dropdown-item v-for="(item,index) in cityList" :key="index" :command="item.CityId">{{item.CityName}}</el-dropdown-item>
+                        <el-dropdown-item :command="{ CityId:'',CityName:'全部'}">全部</el-dropdown-item>
+                        <el-dropdown-item v-for="(item,index) in cityList" :key="index" :command="item">{{item.CityName}}</el-dropdown-item>
                     </el-dropdown-menu>
                 </el-dropdown>
             </div>
             <div>
                 排序：
-                <el-dropdown trigger="click" class="select" >
+                <el-dropdown trigger="click" class="select" @command="phoneChangeSort">
                     <span class="el-dropdown-link">
-                    <span class="el-dropdown-label">默认</span><span class="iconfont icon-arrow-downYellow"></span>
+                    <span class="el-dropdown-label">{{phoneSort}}</span><span class="iconfont icon-arrow-downYellow"></span>
                     </span>
                     <el-dropdown-menu slot="dropdown">
-                        <el-dropdown-item>默认</el-dropdown-item>
-                        <el-dropdown-item >任务奖励</el-dropdown-item>
-                        <el-dropdown-item >商家诚信(倒序)</el-dropdown-item>
-                        <el-dropdown-item >商家积分</el-dropdown-item>
+                        <el-dropdown-item :command="{id:0,name:'默认'}">默认</el-dropdown-item>
+                        <el-dropdown-item :command="{id:1,name:'任务奖励(正序)'}">任务奖励(正序)</el-dropdown-item>
+                        <el-dropdown-item :command="{id:2,name:'任务奖励(倒序)'}">任务奖励(倒序)</el-dropdown-item>
+                        <el-dropdown-item :command="{id:3,name:'商家诚信(正序)'}">商家诚信(正序)</el-dropdown-item>
+                        <el-dropdown-item :command="{id:4,name:'商家诚信(倒序)'}">商家诚信(倒序)</el-dropdown-item>
+                        <el-dropdown-item :command="{id:5,name:'商家积分(正序)'}">商家积分(正序)</el-dropdown-item>
+                        <el-dropdown-item :command="{id:6,name:'商家积分(倒序)'}">商家积分(倒序)</el-dropdown-item>
                     </el-dropdown-menu>
                 </el-dropdown>
             </div>
@@ -102,6 +105,8 @@ export default {
             pageIndex:1,
             pageSize:20,
             total:0,
+            phoneCity:'全部',
+            phoneSort:'默认',
             list:[]
         }
     },
@@ -129,6 +134,16 @@ export default {
         },
         changeCity(id){
             this.cityId = id
+            this.getList();
+        },
+         phoneChangeCity(item){
+            this.cityId = item.CityId
+            this.phoneCity = item.CityName
+            this.getList();
+        },
+        phoneChangeSort(item){
+            this.phoneSort = item.name
+            this.sort = item.id;
             this.getList();
         },
         changeSort(id){
