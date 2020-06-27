@@ -14,10 +14,11 @@
            <span v-show="isLogin">
              <router-link to="/persion" class="userName">{{userName}}</router-link>
              <router-link to='/myOrder' tag='a'>我的订单</router-link>
+             <a @click="loginOut">退出登录</a>
            </span>
           <router-link to="/helpCenter" class="help" tag="a">帮助中心</router-link>
        </div>
-      <a  class="loginout" v-show="isLogin">退出登录</a>
+      <a  class="loginout" v-show="isLogin" @click="loginOut">退出登录</a>
       <router-link tag="a" to="/persion" class="logined" v-show="isLogin"><span class="iconfont iconzh"></span>个人中心</router-link>
       <router-link href="" class="regester" to="/register" tag="a" v-show="!isLogin"> 注册</router-link>
       <router-link class="login" tag="a" to="/login" v-show="!isLogin">登录</router-link>
@@ -145,6 +146,18 @@ export default {
                 //timeout: 5000,            //获取位置允许的最长时间
                 //maximumAge: 1000          //多久更新获取一次位置
             });
+     },
+     //退出登录
+     loginOut(){
+       this.$http.limitGet(this.$api.LoginOut).then(res=>{
+         if(res.data.Code == 1){
+           this.setLogin(false);
+            localStorage.setItem('token','')
+            this.$router.push('/')
+         }else{
+           this.$message.error(res.data.Msg)
+         }
+       })
      }
   },
   beforeDestroy(){

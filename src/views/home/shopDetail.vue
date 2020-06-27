@@ -26,13 +26,13 @@
             <span class="name">联系方式：</span>{{detial.MertchntTel}}
          </div>
           <div class="icon-box adress">
-            <span class="name">商家地址：</span><a @click="toMap = true">{{detial.Mertchntsite}}</a>
+            <span class="name">商家地址：</span><a @click="toMap = true"  class="pc">{{detial.Mertchntsite}}</a> <a :href="mapUrl" class="phone">{{detial.Mertchntsite}}</a>
          </div>
          <div class="icon-box">
             <span class="name">商家故事：</span>{{detial.MertchnStory}}
          </div>
          <div class="score-box">
-           <div class="line">奖励比例：<span class="num red">{{detial.MertchntMaxFanli}}</span></div>
+           <div class="line">奖励比例：<span class="num red">{{detial.MertchntMaxFanli}}%</span></div>
            <div class="line">商家诚信积分：<span class="num blue">{{detial.MertchntReputationIntegral}}</span></div>
            <div class="line">商家剩余积分：<span class="num yellow">{{detial.MertchntResidueIntegral}}</span></div>
          </div>
@@ -40,7 +40,9 @@
     </div>
     <div class="goods-about">
       <h3 class="title">
-            相关商品 <span>100</span><router-link  class="more" tag="a" :to="'/goodsList?id='+MerchanterId"> 查看全部<span class="iconfont iconjiantou"></span></router-link>
+            相关商品 
+            <!-- <span>100</span> -->
+            <router-link  class="more" tag="a" :to="'/goodsList?id='+MerchanterId"> 查看全部<span class="iconfont iconjiantou"></span></router-link>
       </h3>
       <ul class="good-list">
              <li v-for="(item,index) in goodsList" :key="index"><goodCard :data="item"></goodCard></li>
@@ -90,6 +92,11 @@ export default {
     goodCard:goodCard,
     commentCard:commentCard,
     shopMap:shopMap
+  },
+  computed:{
+     mapUrl(){
+      return `http://api.map.baidu.com/marker?location=${this.mapPorint.MertchntY},${this.mapPorint.MertchntX}&title=商家地址&content=${this.detial.Mertchntname}&output=html&src=webapp.baidu.openAPIdemo`
+    },
   },
   methods:{
     //获取商家产品
@@ -205,6 +212,9 @@ export default {
       a{
         color:@font_color;
         text-decoration: underline;
+         &.phone{
+          display:none;
+        }
       }
     }
 
@@ -302,6 +312,14 @@ export default {
       }
       .icon-box {
         padding-left: 0;
+        a{
+          &.pc{
+            display: none;
+          }
+          &.phone{
+           display:inline-block;
+          }
+        }
       }
       .score-box {
         // position: static;

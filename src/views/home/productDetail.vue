@@ -8,7 +8,7 @@
     <div class="top">
        <div class="left">
           <div class="big-img-box">
-            <img :src="piclist[nowActiveIndex]" alt="">
+            <img :src="piclist&&piclist[nowActiveIndex]" alt="">
           </div>
           <div class="imgs-box">
             <div class="img-box">
@@ -16,6 +16,14 @@
                 <img :src="item" alt="" @click="selecting(index)">
               </div>
             </div>
+          </div>
+          <div class="small-banner">
+             <img src="../../assets/img/1-1.jpg" alt="" class="zhanwei">
+             <el-carousel trigger="click" height="100%" class="banner-box">
+              <el-carousel-item v-for="(item,index) in piclist" :key="item">
+                <img :src="item" alt="" class="banner-img" >
+              </el-carousel-item>
+            </el-carousel>
           </div>
        </div>
        <div class="right">
@@ -68,8 +76,8 @@
     <div class="goods-detial">
        <div class="left">
          <div class="title">商品详情</div>
-         <div>
-
+         <div class="box">
+           <iframe :src="proudectData.imglist" frameborder="0"></iframe>
          </div>
        </div>
        <div class="right">
@@ -111,6 +119,11 @@ export default {
       } else {
         return '411px';
       }
+    }
+  },
+  watch: {
+    '$route'(to, from) {
+        this.getDetail()
     }
   },
   mounted(){
@@ -196,6 +209,9 @@ export default {
         width:100%;
         height:100%;
       }
+    }
+    .small-banner{
+      display: none;
     }
     .imgs-box{
       float:right;
@@ -314,6 +330,13 @@ export default {
     float:left;
     width:900px;
     background:#fff;
+    .box{
+      width:100%;
+      iframe{
+        width:100%;
+        height:1500px;
+      }
+    }
   }
   .right{
     float:right;
@@ -333,9 +356,28 @@ export default {
       width: 100%;
       padding: 0;
       .big-img-box {
+        display:none;
         float: none;
         width: 100%;
         box-sizing: border-box;
+      }
+      .small-banner{
+        display: block;
+        position: relative;
+        .zhanwei{
+          width:100%;
+          opacity: 0;
+        }
+        .banner-box{
+          position: absolute;
+          top:0;
+          width:100%;
+          height:100%;
+        }
+        .banner-img{
+          width:100%;
+          height:100%;
+        }
       }
       .imgs-box {
         display: none;

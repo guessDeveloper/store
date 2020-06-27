@@ -14,9 +14,10 @@
             <span class="el-icon-close"></span>
         </a>
         <div class="nav-box" >
-            <router-link :to="item.path" v-for="(item,index) in navList" :key="index" tag="a" :class="{active:nowPath == item.path||nowName == item.name}" @click.native="goRouter(item.path)" target="_blank">{{item.name}}</router-link>
+            <router-link :to="item.path" v-for="(item,index) in navList" :key="index" tag="a" :class="{active:nowPath == item.path||nowName == item.name}" @click.native="goRouter(item.path)" >{{item.name}}</router-link>
         </div>
         <div class="search-box" v-show="!navIsOpen" :class="{'has-car':showCar&&isLogin}">
+             <!-- <div class="search-box has-car" v-show="!navIsOpen" :class="{'has-car':showCar&&isLogin}"> -->
             <div class="input-box">
              <el-dropdown trigger="click" class="select" @command="chengeSelect">
                 <span class="el-dropdown-link">
@@ -35,12 +36,13 @@
                 <span class="iconfont iconsousuo"></span><span class="name">搜索</span>
             </a>
         </div>
-        <router-link class="shop-car" :class="{show:showCar&&isLogin}" tag="div" to="/shopCar">
+        <router-link class="shop-car" :class="{show:showCar&&isLogin}" tag="div" to="/shopCar" v-show="!navIsOpen">
             <span class="iconfont icongwc"></span>美食订单 <span class="num" v-show="charNowNum>0||charNum>0">{{charNum>0?charNum:charNowNum}}</span>
         </router-link>
+        
     </div>
      <div class="nav-list" :class='{open:navIsOpen}'>
-            <router-link :to="item.path" v-for="(item,index) in navList" :key="index" tag="a" :class="{active:nowPath == item.path||nowName == item.name}" @click.native="goRouter(item.path)" target="_blank">{{item.name}}</router-link>
+            <router-link :to="item.path" v-for="(item,index) in navList" :key="index" tag="a" :class="{active:nowPath == item.path||nowName == item.name}" @click.native="goRouter(item.path)" >{{item.name}}</router-link>
      </div>
      <div class="back" :class="{show:navIsOpen}"></div>
  </div>
@@ -129,11 +131,57 @@ export default {
     watch:{
      $route: {
         handler() {
-           this.showCarList.forEach(item=>{
-               if(item == this.$route.path){
-                   this.showCar = true
-               }
-           })
+        //    this.showCarList.forEach(item=>{
+        //        if(item == this.$route.path){
+        //            this.showCar = true
+        //        }
+        //    })
+            this.closeNav();
+            this.nowPath = this.$route.path
+            this.navList.forEach((item)=>{
+                if(item.path == this.nowPath){
+                    this.nowName = item.name
+                }
+            item.child&&item.child.forEach(item2=>{
+                if(item2.path == this.nowPath){
+                    this.nowName = item.name
+                }
+            })
+            })
+            console.log(this.charNowNum,'eeee')
+            if(this.$route.query.type){
+                this.option.forEach((item)=>{
+                    if(item.type ==this.$route.query.type){
+                        this.nowSelect = item.name
+                        this.nowSearchUrl = item.query
+                        this.searchType = item.type
+                    }
+                })
+            }else{
+                
+                this.option.forEach((item)=>{
+                    item.path.forEach((item2)=>{
+                    if(item2 == this.nowPath){
+                        this.nowSelect = item.name
+                        this.nowSearchUrl = item.query
+                        this.searchType = item.type
+                    }
+                    })
+                })
+                if(this.nowSelect == ''){
+                    this.nowSelect = this.option[0].name
+                    this.nowSearchUrl = this.option[0].query
+                        this.searchType = this.option[0].type
+                }
+            }
+            if(this.$route.query.content){
+                this.searchContent = this.$route.query.content
+            }
+            this.showCarList.forEach(item=>{
+                if(item == this.$route.path){
+                    this.showCar = true
+                }
+            })
         },
         deep: true,
     },

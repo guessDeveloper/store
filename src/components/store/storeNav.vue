@@ -64,20 +64,21 @@ export default {
            this.isLogin = true
            this.userName = res.data.Data.Name
            let userInfo = JSON.stringify(res.data.Data);
-           this.setStoreInfo(res.data.Data);
+           this.setStoreInfo(res.data.Data)
            sessionStorage.setItem('storeUserInfo',userInfo)
         }
       })
     },
-        loginOut(){
-            this.$http.storeGet(this.$api.MerchanterLoginOut).then(res=>{
-                if(res.data.Code == 1){
-                    this.$router.push('/login')
-                }else{
-                    this.$message.error(res.data.Msg)
-                }
-            })
-        }
+    loginOut(){
+        this.$http.storeGet(this.$api.MerchanterLoginOut).then(res=>{
+            if(res.data.Code == 1){
+                localStorage.setItem('storeToken','')
+                this.$router.push('/login')
+            }else{
+                this.$message.error(res.data.Msg)
+            }
+        })
+    }
   },
   beforeDestroy(){
     clearInterval(this.timer)

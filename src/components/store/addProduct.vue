@@ -84,7 +84,8 @@
   </div>
 </template>
 <script>
-const beforeUrl = 'https://files.youledui.com';
+// const beforeUrl = 'https://files.youledui.com';
+const beforeUrl = '';
 import '@/plugins/element-upload.js'
 export default {
   data(){

@@ -112,6 +112,9 @@ export default {
         }
     },
     mounted(){
+        this.$route.query.BdCityCode?this.BdCityCode = this.$route.query.BdCityCode:''
+        this.$route.query.CityName?this.phoneCity = this.$route.query.CityName:''
+        // this.$route.query.ClassId?this.nowClassId = this.$route.query.ClassId:''
         this.getClass()
         this.getCity()
         setTimeout(()=>{

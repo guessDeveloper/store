@@ -150,6 +150,10 @@ export default {
       })
     },
     duhuan(){
+      if(this.UserIntegral == ''|| this.UserIntegral == '0'){
+         this.$message.error('您还没有赚到积分，您现在需要努力赚积分哟，加油！')
+         return false
+      }
       this.$http.limitPost(this.$api.IntegralExchange,{
         IntegralExchangeDTO:this.UserIntegral
       }).then(res=>{

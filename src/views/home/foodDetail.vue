@@ -23,7 +23,7 @@
             </div>
          </div>
          <div class="score-box">
-           <div class="line">奖励比例：<span class="num red">{{detial.MertchntMaxFanli}}</span></div>
+           <div class="line">奖励比例：<span class="num red">{{detial.MertchntMaxFanli}}%</span></div>
            <div class="line">商家诚信积分：<span class="num blue">{{detial.MertchntReputationIntegral}}</span></div>
            <div class="line">商家剩余积分：<span class="num yellow">{{detial.MertchntResidueIntegral}}</span></div>
          </div>
@@ -31,7 +31,7 @@
             <span class="name">联系方式：</span>{{detial.MertchntTel}}
          </div>
           <div class="icon-box adress">
-            <span class="name">商家地址：</span><a @click="toMap = true">{{detial.Mertchntsite}}</a>
+            <span class="name">商家地址：</span><a @click="toMap = true"  class="pc">{{detial.Mertchntsite}}</a> <a :href="mapUrl" class="phone">{{detial.Mertchntsite}}</a>
          </div>
          <div class="icon-box">
             <span class="name">商家故事：</span>{{detial.MertchnStory}}
@@ -41,7 +41,9 @@
     </div>
     <div class="goods-about">
       <h3 class="title">
-            全部商品 <span>100</span>  <router-link  class="more" tag="a" :to="'/foodList?id='+MerchanterId"> 查看全部<span class="iconfont iconjiantou"></span></router-link>
+            全部商品 
+            <!-- <span>100</span>  -->
+             <router-link  class="more" tag="a" :to="'/foodList?id='+MerchanterId"> 查看全部<span class="iconfont iconjiantou"></span></router-link>
       </h3>
       <ul class="good-list">
              <li v-for="(item,index) in goodsList" :key="index"><goodCard :data="item"></goodCard></li>
@@ -89,6 +91,11 @@ export default {
     }
     this.getDetail();
   },
+  computed:{
+     mapUrl(){
+      return `http://api.map.baidu.com/marker?location=${this.mapPorint.MertchntY},${this.mapPorint.MertchntX}&title=商家地址&content=${this.detial.Mertchntname}&output=html&src=webapp.baidu.openAPIdemo`
+    },
+  },
   components:{
     goodCard:goodCard,
     commentCard:commentCard,
@@ -124,6 +131,7 @@ export default {
       this.bannerList = JSON.parse(this.detial.MertchntImge);
       
     },
+   
     //判断是否是mp4
     isMp4(url){
       let reg = /.mp4/;
@@ -220,6 +228,9 @@ export default {
       a{
         color:@font_color;
         text-decoration: underline;
+        &.phone{
+          display:none;
+        }
       }
     }
     
@@ -245,6 +256,14 @@ export default {
       }
       .icon-box{
         padding-left:0;
+        a{
+          &.pc{
+            display: none;
+          }
+          &.phone{
+           display:inline-block;
+          }
+        }
       }
     }
   }

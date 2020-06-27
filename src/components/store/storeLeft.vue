@@ -1,7 +1,7 @@
 <template>
   <div class="content">
-     <ul>
-       <li v-for="(item,index) in navList" :key="index" :class="{active:item.to == nowPath}"> 
+     <ul :class="{isfood:storeInfo.BigCatgroup == '1'}">
+       <li v-for="(item,index) in navList" :key="index" :class="{active:item.to == nowPath,erwima:item.contor == true}" > 
         <router-link tag="a" :to="item.to" @click.native="routerChange(item.to)"><span class="iconfont" :class="item.icon" :style="'font-size:'+item.iconSize+';'"></span>{{item.title}}</router-link>
        </li>
      </ul>
@@ -20,6 +20,9 @@
       line-height: 44px;
       font-size:14px;
       text-align: left;
+      &.erwima{
+        display: none;
+      }
       .iconfont{
         margin-right:10px;
         color:@placeholder_color;
@@ -41,6 +44,7 @@
 }
 </style>
 <script>
+import {mapState,mapMutations} from 'vuex'
 export default {
   data(){
     return{
@@ -74,7 +78,8 @@ export default {
         title:"二维码管理",
         to:'/storeErweima',
         icon:'iconewmgl',
-        iconSize:'16px'
+        iconSize:'16px',
+        contor:true
       },
       {
         title:"订单管理",
@@ -97,8 +102,15 @@ export default {
       ]
     }
   },
+  computed:{
+     ...mapState([
+       'storeInfo',
+       'isLogin'
+     ])
+  },
   mounted(){
     this.nowPath = this.$route.path;
+    console.log(this.storeInfo)
   },
   methods:{
     routerChange(to){

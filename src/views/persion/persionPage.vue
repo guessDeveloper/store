@@ -27,7 +27,7 @@
 
         </div>
          <div class="set">
-            <span class="iconfont iconzhushi"></span> 请完善您的信息：您的手机号尚未绑定！<a href="">立即设置</a>
+            <!-- <span class="iconfont iconzhushi"></span> 请完善您的信息：您的手机号尚未绑定！<a href="">立即设置</a> -->
            </div>
           <div class="small-nav-list">
              <div class="margin"></div>
@@ -76,7 +76,8 @@
   </div>
 </template>
 <script>
-const beforeUrl = 'http://files.youledui.com';
+// const beforeUrl = 'http://files.youledui.com';
+const beforeUrl = '';
 import '@/plugins/element-upload.js'
 export default {
   data(){
@@ -231,7 +232,8 @@ export default {
 }
 .set{
   text-align: left;
-  height:30px;
+  opacity: 0;
+  height:0px;
   border:1px solid #F38A1D;
   background:rgba(243,138,29,0.1);
   font-size:12px;

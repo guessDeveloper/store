@@ -22,7 +22,7 @@
          
        </div>
     </div>
-    <div class="store-des">
+    <!-- <div class="store-des">
       <div class="persion-title">
           商品详情
       </div>
@@ -39,7 +39,7 @@
             <img src="" alt="">
          </div>
       </div>
-    </div>
+    </div> -->
   </div>
 </template>
 <script>

@@ -17,10 +17,10 @@
                     <div class="name">{{item.titleA}}</div>
                     <div class="score">{{item.titleB}}</div>
                     <div class="price">¥{{item.price}}</div>
-                     <div class="commend">
+                     <!-- <div class="commend">
                         <div class="commend-content">快递收到了，下单发货挺快的，快递也挺好的快递收到了，下单发货挺快的，快递也挺好的</div>
                         <div class="commend-from">— 来自于 Windir 的评论</div>
-                    </div>
+                    </div> -->
                 </a>
             </div>
         </div>

@@ -111,7 +111,8 @@ class Photo {
     this.url = url;
   }
 }
-const beforeUrl = 'https://files.youledui.com';
+// const beforeUrl = 'https://files.youledui.com';
+const beforeUrl = '';
 import '@/plugins/element-upload.js'
 export default {
   data(){
@@ -260,7 +261,7 @@ export default {
         }).then(res=>{
           if(res.data.Code == 1){
             this.$message.success('修改成功')
-            
+            this.$router.push('/storeProduct')
           }else{
             this.$message.error(res.data.Msg)
           }

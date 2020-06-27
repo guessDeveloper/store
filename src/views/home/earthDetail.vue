@@ -16,15 +16,15 @@
        <div class="detail-des">
           <h2>{{detail.Name}}</h2>
           <p>{{detail.Describe}}</p>
-          <div class="price"><span class="one">¥</span><span class="num">{{detail.price}}</span><span class="danwei">/串</span></div>
-          <div class="score">积分约：50</div>
+          <div class="price"><span class="one">¥</span><span class="num">{{detail.price}}</span><span class="danwei">/份</span></div>
+          <div class="score">积分约：50/份</div>
           <div style="height:40px;">
           <el-input-number v-model="num" @change="handleChange" :min="1" :max="10" label="描述文字"></el-input-number>
           </div>
-          <button  class="buy-btn" :disabled="!isLogin|| IsQRcode != 1" @click=""><i class="iconfont icongwc"></i>加入购物车</button>
+          <button  class="buy-btn" :disabled="!isLogin|| IsQRcode != 1" @click="addCar"><i class="iconfont icongwc"></i>加入购物车</button>
        </div>
     </div>
-    <div class="store-des">
+    <!-- <div class="store-des">
       <div class="persion-title">
           商品详情
       </div>
@@ -40,7 +40,7 @@
          <div class="img-box">
             <img src="" alt="">
          </div>
-      </div>
+      </div> -->
     </div>
   </div>
 </template>
@@ -55,6 +55,21 @@ export default {
        detail:'',
        IsQRcode:'',
        allData:'',
+       carModel:{
+         ClikUrl: "https://testnet.youledui.com/kapai/#/earthDetail?ProductId=f53150df-d9b0-410e-b88b-c1c3af6975d1",
+          GoodsId: "f53150df-d9b0-410e-b88b-c1c3af6975d1",
+          GoodsImg: "https://files.youledui.comhttps://files.youledui.com/Uploadfiles/image/20200626/b4ed36da-62ea-42be-b95c-00c7992359fb.jpg",
+          GoodsMoneny: "18.00",
+          GoodsName: "干煸豆角",
+          Goodsfanbi: "0.036",
+          Goodsfanli: "64.800000",
+          IsQRcode: 1,
+          MertchntID: "713d2936-e759-4ae7-a488-16b9647afbe4",
+          Mertchntname: "分米鸡1",
+          checked: false,
+          num: 1,
+          tablenumber: "1",
+       },
     }
   },
   computed:{
@@ -85,12 +100,20 @@ export default {
            this.allData = res.data.Data
            this.IsQRcode = res.data.Data.IsQRcode
            this.detail = res.data.Data.Model
+           this.carModel.GoodsId = this.detail.Goodid;
+           this.carModel.GoodsImg = this.detail.GoodImage;
+           this.carModel.GoodsMoneny = this.detail.price;
+           this.carModel.GoodsName = this.detail.Name;
+           this.carModel.Goodsfanbi =this.detail.Fanbi;
+           this.carModel.MertchntID = res.data.Data.MerchantId;
+           this.carModel.tablenumber = res.data.Data.tablenumber
          }
        })
      },
      //加入购物车
      addCar(){
-        this.carAddStore([{id:this.allData.MerchantId,name:this.allData.MerchantName,tablenumber:this.allData.tablenumber},{...this.detail,num:1,checked:false}])
+        this.carAddStore([{id:this.allData.MerchantId,name:this.allData.MerchantName,tablenumber:this.allData.tablenumber},{...this.carModel,num:1,checked:false}])
+         this.$message.success('加入购物车成功')
      }
   }
 }
@@ -102,6 +125,7 @@ export default {
   margin:0 auto;
   background:#fff;
   padding:30px;
+  margin-bottom:20px;
   .clear();
   .banner{
     float:left;

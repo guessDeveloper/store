@@ -138,6 +138,7 @@ export default {
       }).then(res=>{
         if(res.data.Code == 1){
           this.$message.success('收款成功')
+          window.location.reload();
         }else{
           this.$message.error(res.data.Msg)
         }
@@ -150,6 +151,7 @@ export default {
       }).then(res=>{
         if(res.data.Code == 1){
           this.$message.success('积分奖励成功')
+          window.location.reload();
         }else{
           this.$message.error(res.data.Msg)
         }
@@ -414,6 +416,9 @@ export default {
         width: 100%;
         margin: 50px 0 0;
         float: none;
+        &.ok{
+          margin-top:20px;
+        }
       }
     }
     .content {

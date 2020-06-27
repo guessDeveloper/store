@@ -75,7 +75,8 @@
   </div>
 </template>
 <script>
-const beforeUrl = 'https://files.youledui.com';
+// const beforeUrl = 'https://files.youledui.com';
+const beforeUrl = '';
 import '@/plugins/element-upload.js'
 export default {
   data(){
@@ -150,7 +151,11 @@ export default {
         EndWorkTime: this.time[1],
         URl: this.infos.URl
       }).then(res=>{
-        console.log(res)
+        if(res.data.Code == 1){
+           window.open(res.data.Data.Url,'_blank')
+        }else{
+          this.$message.error(res.data.Msg)
+        }
       })
     },
     uploadImgUrl(){

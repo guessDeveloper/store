@@ -219,8 +219,8 @@ export default {
     //清除修改输入
     clearReset(){
       this.changeCode = ''
-      this.resetPa = ''
-      this.NewPwd = ''
+      this.newPas = ''
+      this.reNewpas = ''
       this.oldPas = ''
       this.changePas = false
     },

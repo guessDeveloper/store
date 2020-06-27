@@ -191,6 +191,10 @@ export default {
           this.$http.storeGet(this.$api.GetProductCategory).then(res=>{
               if(res.data.Code == 1){
                   this.classOption = res.data.Data;
+                  if(this.classOption.length == 0){
+                      this.$message.error('您还没有设置分类请先添加分类')
+                      this.$router.push('/storeClassify')
+                  }
               }
           })
       },
