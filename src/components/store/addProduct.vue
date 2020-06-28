@@ -85,7 +85,7 @@
 </template>
 <script>
 // const beforeUrl = 'https://files.youledui.com';
-const beforeUrl = '';
+let beforeUrl = '';
 import '@/plugins/element-upload.js'
 export default {
   data(){
@@ -105,6 +105,7 @@ export default {
     }
   },
   mounted(){
+    beforeUrl = this.$util.beforeUrl;
     this.getClass();
   },
   computed:{
@@ -189,7 +190,7 @@ export default {
       }else{
         let imgList = [];
         this.detialFileList.forEach(element=>{
-          imgList.push(beforeUrl+element.response.Data)
+          imgList.push(element.response.Data)
         })
         this.$http.storePost(this.$api.AddProduct,{
           ProductName:this.productName,

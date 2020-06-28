@@ -77,7 +77,7 @@
 </template>
 <script>
 // const beforeUrl = 'http://files.youledui.com';
-const beforeUrl = '';
+let beforeUrl = '';
 import '@/plugins/element-upload.js'
 export default {
   data(){
@@ -138,6 +138,7 @@ export default {
     }
   },
   mounted(){
+    beforeUrl = this.$util.beforeUrl
     this.getUserInfo();
   },
   methods:{
@@ -198,13 +199,15 @@ export default {
       },
       //修改信息
       changeMsg(){
-        if(this.PersionImg){
+        if(!this.PersionImg){
           this.$message.error('请上传头像')
         }else if(this.name == ''){
           this.$message.error('请输入昵称')
         }else{
+          let img = this.PersionImg.replace(this.$util.testBeforeUrl,'');
+          console.log(img,this.$util.testBeforeUrl)
           this.$http.limitPost(this.$api.UserEditUserInfo,{
-            UserImg:this.PersionImg,
+            UserImg:img,
             NickName:this.name
           }).then(res=>{
             if(res.data.Code == 1){

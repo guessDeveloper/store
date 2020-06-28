@@ -14,6 +14,11 @@
   ul{
     display: block;
     padding:14px 0;
+    &.isfood{
+      .erwima{
+        display: block;
+      }
+    }
     li{
       height:44px;
       padding-left:35px;

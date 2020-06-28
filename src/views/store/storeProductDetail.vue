@@ -112,7 +112,7 @@ class Photo {
   }
 }
 // const beforeUrl = 'https://files.youledui.com';
-const beforeUrl = '';
+let beforeUrl = '';
 import '@/plugins/element-upload.js'
 export default {
   data(){
@@ -133,6 +133,7 @@ export default {
     }
   },
   mounted(){
+    beforeUrl = this.$util.beforeUrl;
     this.getClass();
     if(this.$route.query.id){
       this.id = this.$route.query.id
@@ -246,7 +247,7 @@ export default {
       }else{
         let imgList = [];
         this.detialFileList.forEach(element=>{
-          imgList.push(element.url)
+          imgList.push(element.url.replace(this.$util.testBeforeUrl,''))
         })
         this.$http.storePost(this.$api.EditProduct,{
           ProductID:this.id,

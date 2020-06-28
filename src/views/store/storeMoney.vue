@@ -76,7 +76,7 @@
 </template>
 <script>
 // const beforeUrl = 'https://files.youledui.com';
-const beforeUrl = '';
+let beforeUrl = '';
 import '@/plugins/element-upload.js'
 export default {
   data(){
@@ -93,6 +93,7 @@ export default {
     }
   },
   mounted(){
+    beforeUrl = this.$util.beforeUrl;
     this.getConfig();
   },
   methods:{
@@ -139,12 +140,13 @@ export default {
       },
     //充值
     Recharge(){
+      let logo = this.fileList.replace(this.$util.testBeforeUrl,'')
       this.$http.storePost(this.$api.Recharge,{
         price:this.value,
         type:0,
         Name: this.infos.Name,
         describe: this.infos.describe,
-        Logo: this.fileList,
+        Logo: logo,
         site: this.infos.Site,
         TelPhone: this.infos.TelPhpne,
         BeginWorkTime: this.time[0],

@@ -127,7 +127,7 @@
 </template>
 <script>
 // const beforeUrl = 'https://files.youledui.com';
-const beforeUrl = '';
+let beforeUrl = '';
 import '@/plugins/clipboard.js'
 import '@/plugins/element-upload.js'
 import '@/plugins/element-dataPicker.js'
@@ -250,6 +250,7 @@ export default {
     Map:Map
   },
   mounted(){
+    beforeUrl = this.$util.beforeUrl;
     const _this = this;
     this.Clipboard = new this.clipboard('.copy');
     this.Clipboard.on('success', function(e) {
@@ -429,9 +430,10 @@ export default {
       }else if(this.infos.ReturnPercent == ''||this.infos.ReturnPercent>60||this.infos.ReturnPercent<0){
         this.$message.error('请输入0-60商家奖励比例')
       }else{
+        let logo = this.logoUrl.replace(this.$util.testBeforeUrl,'');
         let imgList = [];
         this.desMp4.filter(element => {
-             imgList.push(element.url)
+             imgList.push(element.url.replace(this.$util.testBeforeUrl,''))
         });
         this.$http.storePost(this.$api.ChangeMyInfo,{
           MerchantName:this.infos.Name,
@@ -440,7 +442,7 @@ export default {
           PointX:this.lng,
           PointY:this.lat,
           Remark:this.infos.describe,
-          MerchantLogo:this.logoUrl,
+          MerchantLogo:logo,
           ShowImgs:imgList,
           Category:this.infos.Category,
           Email:'',

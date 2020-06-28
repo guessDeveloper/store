@@ -18,6 +18,8 @@ const util = {
         if (sec < 10) sec = "0" + sec;
         var time = "";
         return time = year + "-" + month + "-" + date;
-    }
+    },
+    beforeUrl: 'https://files.youledui.com',
+    testBeforeUrl: /^https:\/\/files.youledui.com/,
 }
 export default util
