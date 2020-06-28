@@ -1,5 +1,5 @@
 <template>
-  <a class="subject-card" :href="data.ClickURl" target="_blank"> 
+  <a class="subject-card" :href="data.ClickURl" > 
       <img :src="data.picurl" alt="">
       <div class="des">
          <h4><span class="title">{{data.title}}</span><span class="price">249元起</span></h4>

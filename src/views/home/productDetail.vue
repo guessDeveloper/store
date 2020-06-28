@@ -13,7 +13,7 @@
           <div class="imgs-box">
             <div class="img-box">
               <div class="item" v-for="(item,index) in piclist" :key="index">
-                <img :src="item" alt="" @click="selecting(index)">
+                <img :src="item" alt="" @mouseenter="selecting(index)">
               </div>
             </div>
           </div>
@@ -123,7 +123,14 @@ export default {
   },
   watch: {
     '$route'(to, from) {
-        this.getDetail()
+        if(this.$route.query.GoodType){
+          this.GoodType = this.$route.query.GoodType
+          this.GoodType == 1?this.navName = '淘宝':this.navName = '拼多多'
+        }
+        if(this.$route.query.GoodID){
+          this.GoodID = this.$route.query.GoodID
+        }
+        this.getDetail();
     }
   },
   mounted(){
@@ -144,6 +151,7 @@ export default {
         GoodID:this.GoodID
       }).then(res=>{
           if(res.data.Code == 1){
+         
             this.proudectData = res.data.Data
             this.piclist = res.data.Data.piclist
             this.promoteList = this.changeArray(res.data.Data.SameClassproducts)
@@ -488,6 +496,7 @@ export default {
     width: 100%;
     .left {
       float: none;
+      width:100%;
       .title {
         line-height: 58px;
         // padding-left: 15px;

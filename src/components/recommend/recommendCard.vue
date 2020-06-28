@@ -1,5 +1,5 @@
 <template>
-    <a class="item" :href="item.ClickUrl" target="_blank">
+    <a class="item" :href="item.ClickUrl" >
         <img :src="item.picurl" alt="">
         <h4>{{item.titleA}}</h4>
         <p>{{item.Fanli}}</p>

@@ -1,7 +1,7 @@
 <template>
   <div class="card-box" >
      <img :src="item.MertchatImage" alt="" @click="goDetail">
-     <div class="card-des">
+     <div class="card-des" @click="goDetail">
         <h4>
           {{item.MertchatName}}  <div class="work">任务奖励：<span>5%-{{item.MertchntMaxFanli}}%</span></div>
         </h4>
