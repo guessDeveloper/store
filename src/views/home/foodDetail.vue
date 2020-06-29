@@ -9,7 +9,9 @@
        <div class="detail-left">
          <el-carousel trigger="click" height="320px">
           <el-carousel-item v-for="item in bannerList" :key="item">
-            <video :src="item" v-if="isMp4(item)" class="banner-video"></video>
+            <div class="banner-video" v-if="isMp4(item)" >
+              <video :src="item"  controls></video>
+            </div>
             <img :src="item" alt="" class="banner-img" v-else>
           </el-carousel-item>
         </el-carousel>
@@ -156,6 +158,15 @@ export default {
       width:100%;
       height:100%;
     }
+    .banner-video{
+      width: 100%;
+      height:100%;
+      background:#000;
+      video{
+        width:100%;
+        height:100%;
+      }
+    }
   }
   .detail-right{
     position: relative;
@@ -277,7 +288,7 @@ export default {
   padding-bottom:60px;
   .title{
     padding:40px 30px 0;
-    font-size:28px;
+    font-size:22px;
     text-align: left;
     line-height:24px;
     span{
@@ -340,7 +351,7 @@ export default {
   background:#fff;
   .title{
     padding:40px 30px 0;
-    font-size:28px;
+    font-size:22px;
     text-align: left;
     line-height:24px;
     span{

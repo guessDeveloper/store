@@ -146,6 +146,11 @@ const routes = [{
                 name: 'shopGoodsDetail',
                 component: () =>
                     import ( /* webpackChunkName: "shopGoodsDetail" */ '../views/home/shopGoodsDetail.vue')
+            }, {
+                path: '/jump', //跳转页面
+                name: 'jump',
+                component: () =>
+                    import ( /* webpackChunkName: "jump" */ '../views/home/jump.vue')
             }
         ]
     },

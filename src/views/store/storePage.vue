@@ -42,17 +42,30 @@
               :on-remove="handleRemove"
               :on-change="uploadChane"
               :data="sendData"
+              :on-preview="handlePictureCardPreview"
               name="FileContent"
               accept=".jpg,.png,.mp4"
               :beforeUpload="beforeBannerUpload"
               multiple
               :file-list="desMp4"
               ref="mp4Uploader"
-            :auto-upload="false"
+              :auto-upload="false"
              >
               <button size="small" type="primary" class="upload-btn">选择上传文件</button>
               <span slot="tip" class="tip">可以上传多个图片和短视频</span>
             </el-upload>
+            <el-dialog :visible.sync="dialogVisible">
+              <div class="dialog-content-wrap">
+              <img width="100%" :src="dialogImageUrl" alt="">
+              </div>
+            </el-dialog>
+             <el-dialog :visible.sync="dialogVideo" :before-close="videoClose" :custom-class="'dilog'">
+              <div class="dialog-content-wrap" style="margin-top:20px;" >
+                <div class="video-box">
+                <video width="100%" :src="VideoRul" alt="" height="350px" controls ref="video"></video>
+                </div>
+              </div>
+            </el-dialog>
           </div>
        </div>
         <div class="input-line">
@@ -105,7 +118,7 @@
          <label for="">商家网址：</label><div class="input-box"><input type="text" placeholder="请输入商家网址" v-model.trim="netWork"></div>
        </div>
         <div class="input-line">
-         <label for="">商家奖励比例：</label><div class="input-box percent"><input type="text" placeholder="商家默认奖励比例" v-model.trim="infos.ReturnPercent"><div class="danwei">%</div></div>
+         <label for="">商家奖励比例：</label><div class="input-box percent"><input type="text" placeholder="请输入1至60整数" v-model.trim="infos.ReturnPercent"><div class="danwei">%</div></div>
        </div>
        <div class="input-line">
          <button class="submit" @click="submit">提交</button>
@@ -132,6 +145,7 @@ import '@/plugins/clipboard.js'
 import '@/plugins/element-upload.js'
 import '@/plugins/element-dataPicker.js'
 import Map from '@/components/store/map'
+import { mapState, mapMutations} from 'vuex' //注册 action 和 state
 class Photo {
   constructor(name, url) {
     this.name = name;
@@ -235,6 +249,11 @@ export default {
         ],
         time:'',
         Clipboard:'',
+        dialogImageUrl:'',
+        dialogVisible:false,
+        dialogVideo:false,
+        VideoRul:'',
+
       }
   },
   computed:{
@@ -265,11 +284,49 @@ export default {
     this.getStoreInfo();
   },
    methods: {
+      ...mapMutations([
+      'setStoreInfo'
+    ]),
+    //获取用户登录信息
+     getStoreInfo(){
+      this.$http.storePost(this.$api.MerchanterMerchanter).then(res=>{
+        if(res.data.Code == 1){
+         
+           let userInfo = JSON.stringify(res.data.Data);
+           this.setStoreInfo(res.data.Data)
+           sessionStorage.setItem('storeUserInfo',userInfo)
+        }
+      })
+    },
       handleRemove(file, fileList) {
-        console.log(file, fileList,'ss');
+       
+        let index = 0;
+        this.desMp4.forEach((element,t)=>{
+           if(element.uid == file.uid){
+             index = t
+           }
+        })
+        this.desMp4.splice(index,1)
+        console.log(this.desMp4)
       },
-      handlePreview(file) {
-        console.log(file);
+      videoClose(){
+        document.querySelector('video').pause();
+        this.VideoRul = '';
+        this.dialogVideo = false
+
+      },
+      handlePreview(){
+
+      },
+      handlePictureCardPreview(file) {
+        if(/.mp4/.test(file.url)){
+          this.dialogVideo = true
+          this.VideoRul = file.url
+        }else{
+          this.dialogImageUrl = file.url;
+           this.dialogVisible = true;
+        }
+        
       },
       uploadImgUrl(){
         return process.env.NODE_ENV === 'production' ? 'https://files.youledui.com/create?dir=image' : '/up/create?dir=image'
@@ -290,6 +347,8 @@ export default {
             if(this.infos.PointX){
               this.defaultPoint.lng =this.infos.PointX
               this.defaultPoint.lat = this.infos.PointY
+              this.lng = this.infos.PointX
+              this.lat = this.infos.PointY
             }
             if(this.infos.BeginWorkTime !== ''){
               this.time = [new Date(this.infos.BeginWorkTime),new Date(this.infos.EndWorkTime)]
@@ -301,6 +360,8 @@ export default {
             if(this.infos.Category){
               this.secondOptionValue = this.infos.Category
             }
+            this.infos.URl?this.netWork = this.infos.URl:''
+            this.infos.Address?this.address = this.infos.Address:''
           }
         })
       },
@@ -445,7 +506,7 @@ export default {
           MerchantLogo:logo,
           ShowImgs:imgList,
           Category:this.infos.Category,
-          Email:'',
+          Email:this.netWork,
           BigworkTime:this.time[0],
           EndworkTime:this.time[1],
           BdCityName:this.addressCity,
@@ -453,6 +514,7 @@ export default {
         }).then(res=>{
           if(res.data.Code == 1){
             this.$message.success('修改成功')
+            this.getStoreInfo();
           }else{
             this.$message.error(res.data.Msg)
           }
@@ -464,6 +526,7 @@ export default {
 }
 </script>
 <style lang="less" scoped>
+
 .store-page{
   min-height: @persion_height;
   background:#fff;
@@ -638,5 +701,8 @@ export default {
       }
     }
   }
+}
+.video-box{
+  background:#000;
 }
 </style>

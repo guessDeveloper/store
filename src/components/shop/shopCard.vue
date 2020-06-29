@@ -3,13 +3,13 @@
      <div class="img-box" @click="goDetail">
         <img :src="item.MertchatLogo" alt="">
      </div>
-     <div class="des-box">
-       <div class="title">
+     <div class="des-box"  >
+       <div class="title" @click="goDetail" >
           <img src="../../assets/img/brand.png" alt="" class="icon">
           <h3>{{item.titleName}}</h3>
        </div>
        <div class="score-box">
-         <span>商家诚信积分：<strong class="blue">100</strong></span><span style="margin-left:20px;">剩余积分：<strong class="red">100</strong></span>
+         <span>商家诚信积分：<strong class="blue">{{item.ReputationIntegral}}</strong></span><span style="margin-left:20px;">剩余积分：<strong class="red">{{item.ResidueIntegral}}</strong></span>
        </div>
        <div class="score-box" style="margin-top:18px;">
          任务奖励：<strong class="red">{{item.Fanli}}%</strong>
@@ -17,7 +17,7 @@
        <div class="score-box" style="margin-top:18px;">
          距离：<strong class="bad">{{item.distance}}</strong>
          <div class="position">
-            <span class="iconfont iconweizhixuanze"></span><a href="">北京</a>
+            <span class="iconfont iconweizhixuanze"></span><a >{{item.CityName}}</a>
          </div>
        </div>
      </div>
@@ -71,9 +71,11 @@ export default {
     padding-right:20px;
     text-align: left;
     height:100%;
+    
     .title{
       line-height: 30px;
       margin-top:20px;
+      cursor: pointer;
       img{
         float:left;
         width:30px;

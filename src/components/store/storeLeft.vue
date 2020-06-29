@@ -90,13 +90,15 @@ export default {
         title:"订单管理",
         to:'/storeOrder',
         icon:'iconddgl',
-        iconSize:'15px'
+        iconSize:'15px',
+        contor:true
       },
       {
         title:"积分管理",
         to:'/storeScore',
         icon:'iconjfgl',
-        iconSize:'15px'
+        iconSize:'15px',
+        
       },
        {
         title:"扫码返奖励积分",

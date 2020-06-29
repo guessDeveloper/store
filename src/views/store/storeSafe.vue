@@ -2,7 +2,7 @@
   <div class="safe-box">
     <div class="persion-title">安全设置</div>
     <div class="safe-content" v-show="!isChangingPhone">
-       <div class="user">您当前的帐号：<span>{{userInfo.Name}}</span></div>
+       <div class="user">您当前的帐号：<span>{{storeInfo.Name}}</span></div>
        <div class="item">
          <span class="iconfont iconxgmm"></span>
          <div class="des">
@@ -14,7 +14,7 @@
        <div class="item">
          <span class="iconfont iconbdsj"></span>
          <div class="des">
-           <div class="name">安全手机 {{userPhone}}</div>
+           <div class="name">安全手机 {{phoneLimit(storeInfo.phone)}}</div>
            <div class="con">安全手机可以用于登录帐号，重置密码或其他安全验证</div>
          </div>
          <button class="btn" @click="isChangingPhone = true">修改</button>
@@ -23,7 +23,7 @@
     </div>
     <el-dialog title="修改密码" :visible.sync="changePas" width="520px" class="small">
       <div class="change-box">
-       <div class="phone">已绑定的手机：{{userPhone}}</div>
+       <div class="phone">已绑定的手机：{{phoneLimit(storeInfo.phone)}}</div>
        <div class="tip">若该手机号已无法使用请联系客服</div>
         <div class="input-line">
            <label for="">短信验证码：</label><div class="input-box"><input type="text" placeholder="输入短信验证码" v-model.trim="changeCode"><button class="btn" @click="getCode">{{codeBtn}}</button></div>
@@ -64,7 +64,7 @@
             </div>
         </div>
         <div class="stepOne" v-show="step == 1">
-            <div class="now-phone">已绑定的手机：{{userPhone}}</div>
+            <div class="now-phone">已绑定的手机：{{phoneLimit(storeInfo.phone)}}</div>
             <div class="tip">若该手机号已无法使用请联系客服</div>
             <div class="big-box">
               <div class="input-line-box">
@@ -111,6 +111,7 @@
 </template>
 <script>
 import '../../plugins/element-table.js'
+import { mapState, mapMutations} from 'vuex' //注册 action 和 state
 export default {
   data(){
     return{
@@ -141,7 +142,26 @@ export default {
     this.userInfo = userInfo
 
   },
+  computed:{
+    ...mapState([
+      'storeInfo'
+    ])
+  },
   methods:{
+    ...mapMutations([
+      'setStoreInfo'
+    ]),
+    //获取用户登录信息
+     getStoreInfo(){
+      this.$http.storePost(this.$api.MerchanterMerchanter).then(res=>{
+        if(res.data.Code == 1){
+         
+           let userInfo = JSON.stringify(res.data.Data);
+           this.setStoreInfo(res.data.Data)
+           sessionStorage.setItem('storeUserInfo',userInfo)
+        }
+      })
+    },
     //获取验证码
     getCode(){
       if(this.lock)return false
@@ -154,6 +174,10 @@ export default {
           this.$message.error(res.data.Msg)
         }
       })
+    },
+     //手机好脱敏
+    phoneLimit(phone){
+       return this.$util.phoneLimit(phone)
     },
       //验证码倒计时
     setCode(){
@@ -281,6 +305,8 @@ export default {
           VerifyCode:this.newPhoneCode
         }).then(res=>{
           if(res.data.Code == 1){
+            this.storeInfo.phone = this.newPhone
+            this.getStoreInfo();
             this.step = 3
           }else{
             this.$message.error(res.data.Msg)

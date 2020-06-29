@@ -44,7 +44,7 @@
      <div class="nav-list" :class='{open:navIsOpen}'>
             <router-link :to="item.path" v-for="(item,index) in navList" :key="index" tag="a" :class="{active:nowPath == item.path||nowName == item.name}" @click.native="goRouter(item.path)" >{{item.name}}</router-link>
      </div>
-     <div class="back" :class="{show:navIsOpen}"></div>
+     <div class="back" :class="{show:navIsOpen}" @click="closeNav"></div>
  </div>
 </template>
 <script>
@@ -86,7 +86,7 @@ export default {
                   query:this.$api.GetGoodsByKey,
                   type:'taobao'
                },{
-                  path:['/Pdd'],
+                  path:['/Pdd','/productDetail'],
                   name:'拼多多',
                   query:this.$api.pddGetGoodsByKey,
                   type:'pdd' 
@@ -121,7 +121,8 @@ export default {
      ...mapState([
        'isLogin',
        'charNum',
-       'myCar'
+       'myCar',
+       'userInfo'
        
      ]),
      ...mapGetters([
@@ -182,6 +183,16 @@ export default {
                     this.showCar = true
                 }
             })
+            if(this.$route.path == '/productDetail'&&this.$route.query.GoodType == 1){
+                this.nowPath = '/taobao',
+                this.searchType = 'taobao'
+                this.nowName = '淘宝'
+            }
+             if(this.$route.path == '/productDetail'&&this.$route.query.GoodType == 2){
+                this.nowPath = '/Pdd',
+                this.searchType = 'pdd'
+                this.nowName = '拼多多'
+            }
         },
         deep: true,
     },
@@ -248,10 +259,21 @@ export default {
                 this.showCar = true
             }
         })
+        if(this.$route.path == '/productDetail'&&this.$route.query.GoodType == 1){
+                this.nowPath = '/taobao',
+                this.searchType = 'taobao'
+                this.nowName = '淘宝'
+        }
+        if(this.$route.path == '/productDetail'&&this.$route.query.GoodType == 2){
+            this.nowPath = '/Pdd',
+            this.searchType = 'pdd'
+            this.nowName = '拼多多'
+        }
     },
     methods:{
         ...mapMutations([
-            'changeNum'
+            'changeNum',
+            'setUserInfo'
         ]),
         goRouter(){
             this.nowPath = this.$route.path;

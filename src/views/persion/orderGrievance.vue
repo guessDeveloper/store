@@ -117,7 +117,7 @@
 
                 </div>
                 <div class="input-line">
-                    <label for="">申诉说明：</label><div class="input-box"><div class="textarea-box"><textarea name="" id="" cols="30" rows="10" placeholder="请输入申诉说明" v-model.trim="newOrderDes"></textarea><span class="input-limit">还可输入500字</span></div></div>
+                    <label for="">申诉说明：</label><div class="input-box"><div class="textarea-box"><textarea name="" id="" cols="30" rows="10" placeholder="请输入申诉说明" v-model.trim="newOrderDes" maxlength="500"></textarea><span class="input-limit">还可输入{{Number(500-newOrderDes.length)}}字</span></div></div>
                 </div>
                 <div class="btn-box">
                   <button class="ok" @click="addOrder">确认</button>
@@ -175,7 +175,7 @@ export default {
     }
   },
   mounted(){
-    this.dataValue = [this.$util.getNowDate()+' 00:00:00',this.$util.getNowDate()+' 24:00:00']
+    this.dataValue = [this.$util.getNowDate(),this.$util.getNowDate()]
     this.getList()
   },
   methods:{
@@ -206,8 +206,8 @@ export default {
     //获取申诉列表
     getList(){
       this.$http.limitPost(this.$api.GetOrderAppealList,{
-        StartTime:this.dataValue[0],
-        EndTime:this.dataValue[1],
+        StartTime:this.dataValue[0] +" 00:00:00",
+        EndTime:this.dataValue[1]+' 23:59:59',
         State:this.status,
         pageIndex:this.pageIndex,
         pageSize:this.pageSize
@@ -443,13 +443,16 @@ export default {
        .textarea-box{
          position: relative;
          width:411px;
+         box-sizing: border-box;
+         padding:12px 12px 30px 12px;
+        border:1px solid @class_border;
          textarea{
            display: block;
-           box-sizing: border-box;
+           
            width:100%;
            height:134px;
-           border:1px solid @class_border;
-           padding:12px 12px;
+          resize: none;
+           border:0;
            font-size:12px;
            line-height: 18px;
            outline: none;
@@ -460,6 +463,7 @@ export default {
            bottom:12px;
            font-size:12px;
            color:@persion_left;
+           background:#fff;
 
          }
        }

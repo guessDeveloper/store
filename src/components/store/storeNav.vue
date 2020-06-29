@@ -9,7 +9,7 @@
           <!-- <a class=""></a> -->
 
            <span v-show="isLogin" class="">
-             <router-link to="/store" class="userName login-btn">{{userName}}</router-link>
+             <router-link to="/store" class="userName login-btn">{{storeInfo.Name}}</router-link>
 
            </span>
           <a href="" class="help">帮助中心</a>
@@ -22,7 +22,7 @@
   </div>
 </template>
 <script>
-import {mapMutations} from 'vuex' //注册 action 和 state
+import { mapState, mapMutations} from 'vuex' //注册 action 和 state
 export default {
   data(){
     return{
@@ -39,14 +39,21 @@ export default {
   },
   mounted(){
     this.loop();
+    this.RmbExchangeRate();
     setTimeout(()=>{
       this.getStoreInfo();
     },500)
 
   },
+  computed:{
+    ...mapState([
+      'storeInfo'
+    ])
+  },
   methods:{
     ...mapMutations([
-      'setStoreInfo'
+      'setStoreInfo',
+      'setRate'
     ]),
     loop(){
       clearInterval(this.timer);
@@ -66,6 +73,14 @@ export default {
            let userInfo = JSON.stringify(res.data.Data);
            this.setStoreInfo(res.data.Data)
            sessionStorage.setItem('storeUserInfo',userInfo)
+        }
+      })
+    },
+    //获取huilv
+    RmbExchangeRate(){
+      this.$http.storeGet(this.$api.RmbExchangeRate).then(res=>{
+        if(res.data.Code == 1){
+          this.setRate(res.data.Data)
         }
       })
     },

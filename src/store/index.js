@@ -13,6 +13,8 @@ let store = new Vuex.Store({
         storeInfo: '', //商家信息
         searchItem: '', //搜索页面
         isLogin: false,
+        userInfo: '',
+        ScoreRate: 1,
         charNum: JSON.parse(localStorage.getItem("carNum")) || 0, // 购物车数量
         myCar: JSON.parse(localStorage.getItem("carObject")) || {}, //购物车对象
     },
@@ -30,6 +32,10 @@ let store = new Vuex.Store({
         },
     },
     mutations: {
+        //设置汇率
+        setRate(state, num) {
+            state.ScoreRate = num
+        },
         changeNum(state, num) {
             state.charNum = num
         },
@@ -38,6 +44,9 @@ let store = new Vuex.Store({
         },
         setLogin(state, num) {
             state.isLogin = num
+        },
+        setUserInfo(state, num) {
+            state.userInfo = num
         },
         setPositionX(state, num) {
             state.positionX = num

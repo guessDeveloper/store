@@ -17,7 +17,7 @@
           <h2>{{detail.Name}}</h2>
           <p>{{detail.Describe}}</p>
           <div class="price"><span class="one">¥</span><span class="num">{{detail.price}}</span><span class="danwei">/份</span></div>
-          <div class="score">积分约：50/份</div>
+          <div class="score">积分约：{{detail.Integral}}/份</div>
           <div style="height:40px;">
           <el-input-number v-model="num" @change="handleChange" :min="1" :max="10" label="描述文字"></el-input-number>
           </div>

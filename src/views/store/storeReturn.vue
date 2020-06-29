@@ -24,6 +24,7 @@
 </template>
 <script>
 import '../../plugins/element-table.js'
+import { mapState, mapMutations} from 'vuex' //注册 action 和 state
 export default {
   data(){
     return{
@@ -34,12 +35,21 @@ export default {
     }
   },
   computed:{
+    ...mapState([
+      'ScoreRate'
+    ]),
     backNum(){
        if(this.money !== ''&this.rate !== ''){
-         return this.money*this.rate/100
+         return this.money*this.rate/100*this.ScoreRate
        }else{
          return '自动计算用户返积分数量'
        }
+    }
+  },
+  mounted(){
+    console.log(this.ScoreRate)
+    if(this.$route.query.phone){
+      this.userPhone = this.$route.query.phone
     }
   },
   methods:{
@@ -50,8 +60,8 @@ export default {
         this.$message.error('请输入消费金额')
       }else if(!/^[0-9]+(.[0-9]{2})?$/.test(this.money)){
         this.$message.error('请输入正确的金额')
-      }else if(!this.$util.testNum.test(this.rate)){
-        this.$message.error('请输入正确的比例')
+      }else if(this.rate<0||this.rate>60){
+        this.$message.error('请输入正确1%-60%的比例')
       }else{
         if(this.lock){
           return false
@@ -60,7 +70,7 @@ export default {
         this.$http.storePost(this.$api.ReturnUserIntegrals,{
           Mobile:this.userPhone,
           SpendMoney:this.money,
-          Rate:this.rate/100
+          Rate:this.rate
         }).then(res=>{
           if(res.data.Code == 1){
             this.clear();

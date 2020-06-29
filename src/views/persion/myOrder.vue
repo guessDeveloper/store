@@ -395,7 +395,7 @@ export default {
     },
     mounted(){
        this.tab = this.$route.query.tab?this.$route.query.tab:'1';
-       this.onlieTime = this.unlineTime = [this.$util.getNowDate()+' 00:00:00',this.$util.getNowDate()+' 24:00:00']
+       this.onlieTime = this.unlineTime = [this.$util.getNowDate(),this.$util.getNowDate()]
        if(this.tab == '1'){
            this.getOnlineList();
        }else{
@@ -420,7 +420,7 @@ export default {
         getOnlineList(){
             this.$http.limitPost(this.$api.UserOnlineOrderList,{
                 StartTime:this.onlieTime[0] +' 00:00:00',
-                EndTime:this.onlieTime[1] +' 24:00:00',
+                EndTime:this.onlieTime[1] +' 23:59:59',
                 State:this.onlieStatus,
                 OrderNo:this.onlineSearch,
                 OrderType:this.onlineType,
@@ -437,7 +437,7 @@ export default {
         getUnderLineList(){
             this.$http.limitPost(this.$api.UserGroundOrderList,{
                 StartTime:this.unlineTime[0]+' 00:00:00',
-                EndTime:this.unlineTime[1]+ ' 24:00:00',
+                EndTime:this.unlineTime[1]+ ' 23:59:59',
                 State:this.unlineOrderType,
                 OrderNoOrMerchantName:this.unlineSearch,
                 pageIndex:this.unlineIndex,

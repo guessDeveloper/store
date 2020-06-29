@@ -13,11 +13,13 @@
     </div>
     <div class="input-line-box">
           <label for="">产品名称：</label>
-          <input type="text" maxlength="50" v-model.trim="productName">
+          <input type="text" maxlength="50" v-model="productName" style="padding-right:50px;">
+          <span class="limit">{{productName.length}}/50</span>
     </div>
     <div class="input-line-box">
           <label for="">产品描述：</label>
-          <input type="text" maxlength="1000" v-model.trim="des">
+          <input type="text" maxlength="1000" v-model="des" style="padding-right:70px;">
+          <span class="limit">{{des.length}}/1000</span>
     </div>
     <!-- <div class="input-line-box" style="height:auto;">
       <label for="">产品详情图：</label><div class="input-box" >
@@ -87,6 +89,7 @@
 // const beforeUrl = 'https://files.youledui.com';
 let beforeUrl = '';
 import '@/plugins/element-upload.js'
+import { mapState, mapMutations} from 'vuex' //注册 action 和 state
 export default {
   data(){
     return{
@@ -109,9 +112,12 @@ export default {
     this.getClass();
   },
   computed:{
+    ...mapState([
+      'ScoreRate'
+    ]),
     backScore(){
       if(this.price!==''&&this.rate!==''){
-       return this.price*this.rate/100
+       return this.price*this.rate/100*this.ScoreRate
       }else{
         return '自动计算用户返积分数量'
       }
@@ -183,6 +189,8 @@ export default {
         this.$message.error('请输入产品描述')
       }else if(this.price == ''){
         this.$message.error('请输入价格')
+      }else if(this.price<0.1){
+        this.$message.error('价格不能小于0.1')
       }else if(this.detialFileList.length==0){
         this.$message.error('上传产品详情图')
       }else if(this.rate == ''){
@@ -193,10 +201,10 @@ export default {
           imgList.push(element.response.Data)
         })
         this.$http.storePost(this.$api.AddProduct,{
-          ProductName:this.productName,
+          ProductName:this.productName.trim(),
           ProductImg:imgList[0],
           ProductPrice:this.price,
-          ProductDescribe:this.des,
+          ProductDescribe:this.des.trim(),
           CatID:this.value,
           OnShelves:this.online,
           picList:imgList,
@@ -229,6 +237,11 @@ export default {
     &.textarea{
       width:500px;
       height:auto;
+    }
+    .limit{
+      position: absolute;
+      right:12px;
+      bottom:0;
     }
     label{
       position: absolute;
@@ -304,6 +317,7 @@ export default {
        color:@subtitle_color;
        line-height: 50px;
     }
+    
 
   }
     .upload-btn{

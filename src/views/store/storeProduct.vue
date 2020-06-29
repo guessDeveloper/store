@@ -175,7 +175,7 @@ export default {
     }
   },
   mounted(){
-        this.dataValue = [this.$util.getNowDate()+' 00:00:00',this.$util.getNowDate()+' 24:00:00']
+        this.dataValue = [this.$util.getNowDate(),this.$util.getNowDate()]
       this.getClass();
       this.getList();
   },
@@ -201,6 +201,8 @@ export default {
       //添加成功
       addSuccess(){
           this.tab =1;
+          this.pageIndex = 1;
+          this.getList();
       },
       //获取产品列表
       getList(){
@@ -208,7 +210,7 @@ export default {
             State:this.status,
             ProductName:this.ProductName,
             OnShelevesTimeBegin: this.dataValue[0] +' 00:00:00',
-            OnShelevesTimeEnd: this.dataValue[1]+' 24:00:00' ,
+            OnShelevesTimeEnd: this.dataValue[1]+' 23:59:59' ,
             Catid:this.classNow,
             pageIndex: this.pageIndex ,
             pageSize:this.pageSize

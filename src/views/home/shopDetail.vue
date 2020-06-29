@@ -48,7 +48,7 @@
              <li v-for="(item,index) in goodsList" :key="index"><goodCard :data="item"></goodCard></li>
         </ul>
     </div>
-    <div class="comment-list-box">
+    <!-- <div class="comment-list-box">
       <h3 class="title">
               全部评价 <span>{{commentTotal}}</span><router-link  class="more" tag="a" :to="'/commentList?id='+MerchanterId+'&type=1'"> 查看全部<span class="iconfont iconjiantou"></span></router-link>
           </h3>
@@ -59,7 +59,7 @@
               </li>
 
           </ul>
-    </div>
+    </div> -->
     <el-dialog title="商家位置" :visible.sync="toMap" custom-class="custom-dialog">
        <shopMap  :defaultPoint="mapPorint"></shopMap>
     </el-dialog>

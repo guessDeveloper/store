@@ -7,8 +7,8 @@
 
            </div>
            <div class="user-msg">
-              <div class="line top"><span class="name">昵称：</span>{{userName}}<span class="change" @click="showChangeBox">修改昵称</span></div>
-              <div class="line bottom"><span class="name">手机号：</span>{{userTel}}</div>
+              <div class="line top"><span class="name">昵称：</span>{{userInfo.nickName}}<span class="change" @click="showChangeBox">修改昵称</span></div>
+              <div class="line bottom"><span class="name">手机号：</span>{{phoneLimit(userInfo.UserTel)}}</div>
            </div>
            <div class="score-box">
               <div class="first item">
@@ -79,6 +79,7 @@
 // const beforeUrl = 'http://files.youledui.com';
 let beforeUrl = '';
 import '@/plugins/element-upload.js'
+import { mapState, mapMutations} from 'vuex' //注册 action 和 state
 export default {
   data(){
     return{
@@ -141,12 +142,21 @@ export default {
     beforeUrl = this.$util.beforeUrl
     this.getUserInfo();
   },
+  computed:{
+    ...mapState([
+      'userInfo'
+    ])
+  },
   methods:{
+    ...mapMutations([
+      'setUserInfo'
+    ]),
      //获取用户登录信息
      getUserInfo(){
        this.$http.limitGet(this.$api.GetUserInfo).then(res=>{
          if(res.data.Code == 1){
            let data = res.data.Data
+           this.setUserInfo(res.data.Data);
            this.userName = data.nickName
            this.userTel = data.UserTel
            this.UserImg = data.UserImg
@@ -156,6 +166,10 @@ export default {
          }
        })
      },
+     //手机好脱敏
+    phoneLimit(phone){
+       return this.$util.phoneLimit(phone)
+    },
     uploadImgUrl(){
         return process.env.NODE_ENV === 'production' ? 'https://files.youledui.com/create?dir=image' : '/up/create?dir=image'
     },

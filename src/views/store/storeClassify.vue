@@ -8,7 +8,7 @@
         <div class="table-box">
           <el-table :data="listData"  header-row-style="font-size:12px;color:#999;" row-class-name="table-line" width="930">
             <el-table-column property="RateName" label="分类名称" width="268" align="left"></el-table-column>
-            <el-table-column property="Rate" label="奖励比例" width="160" align="center"></el-table-column>
+            <el-table-column property="Rate" label="奖励比例(%)" width="160" align="center"></el-table-column>
             <el-table-column property="CreateTime" label="添加时间" width="400" align="center"></el-table-column>
             <el-table-column  label="操作" width="102" align="center">
                 <template slot-scope="scope">
@@ -23,7 +23,7 @@
           <div v-for="(item, index) in listData" :key="index" class="list-item">
             <div class="list-item-left">
               <p>分类名称：<span>{{ item.RateName }}</span></p>
-              <p>奖励比例：<span>{{ item.Rate }}</span></p>
+              <p>奖励比例(%)：<span>{{ item.Rate }}</span></p>
               <p>添加时间：<span>{{ item.CreateTime }}</span></p>
             </div>
             <div class="list-item-right">
@@ -115,31 +115,15 @@ export default {
       listData:[],
       toNew:false,
       toEdit:false,
-      options: [{
-          value: '选项1',
-          label: '黄金糕'
-        }, {
-          value: '选项2',
-          label: '双皮奶'
-        }, {
-          value: '选项3',
-          label: '蚵仔煎'
-        }, {
-          value: '选项4',
-          label: '龙须面'
-        }, {
-          value: '选项5',
-          label: '北京烤鸭'
-        }],
-        value: '',
-        pageSize:20,
-        pageIndex:1,
-        total:0,
-        NewClassName:'',
-        NewClassRate:'',
-        editName:'',
-        editRate:'',
-        editId:''
+      value: '',
+      pageSize:20,
+      pageIndex:1,
+      total:0,
+      NewClassName:'',
+      NewClassRate:'',
+      editName:'',
+      editRate:'',
+      editId:''
     }
   },
   mounted(){
@@ -165,7 +149,7 @@ export default {
      }else if(this.NewClassRate>60||this.NewClassRate<1){
        this.$message.error('请输入1-60的正整数')
      }else{
-       this.$http.storePost(this.$api.AddProcoteClass,{Rate:parseFloat(this.NewClassRate/100),RateName:this.NewClassName}).then(res=>{
+       this.$http.storePost(this.$api.AddProcoteClass,{Rate:this.NewClassRate,RateName:this.NewClassName}).then(res=>{
          if(res.data.Code == 1){
            this.$message.success('添加成功')
            this.toNew = false;
@@ -195,7 +179,7 @@ export default {
      }else{
         this.$http.storePost(this.$api.UpProcoteClass,{
           ClassID:this.editId,
-          Rate:this.editRate/100,
+          Rate:this.editRate,
           ClassName:this.editName
         }).then(res=>{
           if(res.data.Code == 1){

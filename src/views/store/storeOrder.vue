@@ -152,7 +152,7 @@ export default {
     }
   },
   mounted(){
-      this.dataValue = [this.$util.getNowDate()+' 00:00:00',this.$util.getNowDate()+' 24:00:00']
+      this.dataValue = [this.$util.getNowDate(),this.$util.getNowDate()]
       this.getList();
        this.getScore();
   },
@@ -164,7 +164,7 @@ export default {
       getList(){
          this.$http.storePost(this.$api.GetOrderlist,{
              BingTime:this.dataValue[0] +' 00:00:00',
-             entTime:this.dataValue[1]+' 24:00:00',
+             entTime:this.dataValue[1]+' 23:59:59',
              state:this.value,
              UserName:this.orderNum,
              pageIndex:this.pageIndex,

@@ -114,6 +114,7 @@ class Photo {
 // const beforeUrl = 'https://files.youledui.com';
 let beforeUrl = '';
 import '@/plugins/element-upload.js'
+import { mapState, mapMutations} from 'vuex' //注册 action 和 state
 export default {
   data(){
     return{
@@ -141,9 +142,12 @@ export default {
     }
   },
   computed:{
+    ...mapState([
+      'ScoreRate'
+    ]),
     backScore(){
       if(this.price!==''&&this.rate!==''){
-       return this.price*this.rate/100
+       return this.price*this.rate/100*this.ScoreRate
       }else{
         return '自动计算用户返积分数量'
       }

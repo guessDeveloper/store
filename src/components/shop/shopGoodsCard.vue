@@ -3,7 +3,8 @@
     <img :src="data.GoodsImg" alt="" @click="goDetail">
     <div class="des">
       <h4 @click="goDetail">{{data.GoodsName}}</h4>
-      <p>{{data.GoodsTitle}}</p>
+      <!-- <p>{{data.GoodsTitle}}</p> -->
+      <p>积分约：{{data.Goodsfanli}}</p>
       <div class="price">¥{{data.GoodsMoneny}}</div>
     </div>
   </div>

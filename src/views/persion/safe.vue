@@ -14,7 +14,7 @@
        <div class="item">
          <span class="iconfont iconbdsj"></span>
          <div class="des">
-           <div class="name">安全手机 {{userPhone}}</div>
+           <div class="name">安全手机 {{phoneLimit(userInfo.UserTel)}}</div>
            <div class="con">安全手机可以用于登录帐号，重置密码或其他安全验证</div>
          </div>
          <button class="btn" @click="isChangingPhone = true">修改</button>
@@ -23,7 +23,7 @@
     </div>
     <el-dialog title="修改密码" :visible.sync="changePas" width="520px" class="small">
       <div class="change-box">
-       <div class="phone">已绑定的手机：{{userPhone}}</div>
+       <div class="phone">已绑定的手机：{{phoneLimit(userInfo.UserTel)}}</div>
        <div class="tip">若该手机号已无法使用请联系客服</div>
         <div class="input-line">
            <label for="">短信验证码：</label><div class="input-box"><input type="text" placeholder="输入短信验证码" v-model.trim="changeCode"><button class="btn" @click="getCode">{{codeBtn}}</button></div>
@@ -64,7 +64,7 @@
             </div>
         </div>
         <div class="stepOne" v-show="step == 1">
-            <div class="now-phone">已绑定的手机：{{userPhone}}</div>
+            <div class="now-phone">已绑定的手机：{{phoneLimit(userInfo.UserTel)}}</div>
             <div class="tip">若该手机号已无法使用请联系客服</div>
             <div class="big-box">
               <div class="input-line-box">
@@ -111,6 +111,7 @@
 </template>
 <script>
 import '../../plugins/element-table.js'
+import { mapState, mapMutations} from 'vuex' //注册 action 和 state
 export default {
   data(){
     return{
@@ -135,13 +136,28 @@ export default {
        newCount:60,
     }
   },
+  computed:{
+    ...mapState(['userInfo'])
+  },
   mounted(){
     let userInfo = sessionStorage.getItem('userInfo')?JSON.parse(sessionStorage.getItem('userInfo')):{};
     this.userPhone = userInfo.UserTel;
     this.userInfo = userInfo
-
   },
   methods:{
+    ...mapMutations([
+      'setUserInfo'
+    ]),
+       //获取用户登录信息
+     getUserInfo(){
+       this.$http.limitGet(this.$api.GetUserInfo).then(res=>{
+         if(res.data.Code == 1){
+           this.setUserInfo(res.data.Data)
+           let userInfo = JSON.stringify(res.data.Data);
+           sessionStorage.setItem('userInfo',userInfo)
+         }
+       })
+     },
     //获取验证码
     getCode(){
       if(this.lock)return false
@@ -154,6 +170,10 @@ export default {
           this.$message.error(res.data.Msg)
         }
       })
+    },
+    //手机好脱敏
+    phoneLimit(phone){
+       return this.$util.phoneLimit(phone)
     },
       //验证码倒计时
     setCode(){
@@ -281,6 +301,8 @@ export default {
           VerifyCode:this.newPhoneCode
         }).then(res=>{
           if(res.data.Code == 1){
+            this.userInfo.UserTel = this.newPhone
+            this.getUserInfo();
             this.step = 3
           }else{
             this.$message.error(res.data.Msg)

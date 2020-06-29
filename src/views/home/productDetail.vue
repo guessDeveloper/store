@@ -8,7 +8,8 @@
     <div class="top">
        <div class="left">
           <div class="big-img-box">
-            <img :src="piclist&&piclist[nowActiveIndex]" alt="">
+            <!-- <img :src="piclist&&piclist[nowActiveIndex]" alt=""> -->
+            <PicZoom :url="piclist&&piclist[nowActiveIndex]" :scale="3"></PicZoom>
           </div>
           <div class="imgs-box">
             <div class="img-box">
@@ -94,6 +95,7 @@
   </div>
 </template>
 <script>
+import PicZoom from 'vue-piczoom'
 import goodCard from '@/components/recommend/recommendCard'
 export default {
   data(){
@@ -108,7 +110,8 @@ export default {
     }
   },
   components:{
-    goodCard:goodCard
+    goodCard:goodCard,
+    PicZoom:PicZoom
   },
   computed: {
     carouselHeight() {

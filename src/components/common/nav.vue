@@ -12,7 +12,7 @@
             <router-link to="/register" tag='a' >免费注册</router-link>
            </span>
            <span v-show="isLogin">
-             <router-link to="/persion" class="userName">{{userName}}</router-link>
+             <router-link to="/persion" class="userName">{{userInfo.nickName}}</router-link>
              <router-link to='/myOrder' tag='a'>我的订单</router-link>
              <a @click="loginOut">退出登录</a>
            </span>
@@ -41,7 +41,8 @@ export default {
   computed:{
      ...mapState([
        'positionX',
-       'isLogin'
+       'isLogin',
+       'userInfo'
      ])
   },
   mounted(){
@@ -58,6 +59,7 @@ export default {
       'setPositionX',
       'setPositionY',
       'setLogin',
+      'setUserInfo'
     ]),
     loop(){
       clearInterval(this.timer);
@@ -84,6 +86,7 @@ export default {
          if(res.data.Code == 1){
            this.setLogin(true)
            this.userName = res.data.Data.nickName
+           this.setUserInfo(res.data.Data)
            let userInfo = JSON.stringify(res.data.Data);
            sessionStorage.setItem('userInfo',userInfo)
          }
@@ -149,15 +152,24 @@ export default {
      },
      //退出登录
      loginOut(){
-       this.$http.limitGet(this.$api.LoginOut).then(res=>{
-         if(res.data.Code == 1){
-           this.setLogin(false);
-            localStorage.setItem('token','')
-            this.$router.push('/')
-         }else{
-           this.$message.error(res.data.Msg)
-         }
-       })
+       this.$alert.confirm('是否退出当前登录', '提示', {
+          confirmButtonText: '确定',
+          cancelButtonText: '取消',
+          type: 'warning'
+        }).then(() => {
+          this.$http.limitGet(this.$api.LoginOut).then(res=>{
+            if(res.data.Code == 1){
+              this.setLogin(false);
+                localStorage.setItem('token','')
+                this.$router.push('/')
+            }else{
+              this.$message.error(res.data.Msg)
+            }
+          })
+        }).catch(() => {
+                    
+        });
+       
      }
   },
   beforeDestroy(){
