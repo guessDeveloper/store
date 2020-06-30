@@ -206,7 +206,13 @@ export default {
             width:555px;
             margin:15px;
         }
-    }
+      @media screen and(max-width:@change_width){
+          li{
+            width:100%;
+            margin:0;
+          }
+     }
+}
 .empty{
     width:@max-width;
     margin:20px auto 100px;

@@ -62,6 +62,8 @@
             is-range
             v-model="time"
             range-separator="-"
+             :editable="false"
+            :clearable="false"
             start-placeholder="开始时间"
             end-placeholder="结束时间"
             placeholder="选择时间范围">

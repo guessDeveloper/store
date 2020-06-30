@@ -211,7 +211,7 @@ export default {
 .home-class-box{
   display: none;
   width:100%;
-  height:200px;
+  // height:200px;
   background:#fff;
 }
  @media screen and(max-width:@change_width) {

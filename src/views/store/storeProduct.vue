@@ -12,6 +12,8 @@
                         type="daterange"
                          value-format="yyyy-MM-dd"
                         range-separator="-"
+                         :editable="false"
+                        :clearable="false"
                         start-placeholder="开始日期"
                         end-placeholder="结束日期">
                         </el-date-picker>
@@ -21,6 +23,8 @@
                     <el-date-picker
                         v-model="dataValue[0]"
                         type="date"
+                         :editable="false"
+                        :clearable="false"
                         value-format="yyyy-MM-dd"
                         placeholder="开始日期">
                     </el-date-picker>
@@ -30,6 +34,8 @@
                         <el-date-picker
                         v-model="dataValue[1]"
                         type="date"
+                         :editable="false"
+                        :clearable="false"
                         value-format="yyyy-MM-dd"
                         placeholder="结束日期">
                         </el-date-picker>

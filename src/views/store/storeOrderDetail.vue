@@ -45,8 +45,12 @@
                 <span>数量：<span class="list-item-value">￥{{ item.goodsNumber }}</span></span>
               </p>
               <p class="list-item-value-wrap">
-                <span>小计：<span class="list-item-value list-item-subtotal">￥{{ item.Subtotal }}</span></span>
-                <span>实付：<span class="list-item-value">￥{{ item.Subtotal }}</span></span>
+                <span>实付:<span class="list-item-value list-item-subtotal">￥{{ item.Subtotal }}</span></span>
+                <span>返比(%):<span class="list-item-value">{{ item.GoodsFanbi }}%</span></span>
+              </p>
+               <p class="list-item-value-wrap">
+                <span>返积分:<span class="list-item-value list-item-subtotal">{{ item.GoodsIntegralCount }}</span></span>
+               
               </p>
             </div>
           </li>
@@ -151,7 +155,7 @@ export default {
           }).then(res=>{
             if(res.data.Code == 1){
               this.$message.success('收款成功')
-              window.location.reload();
+               this.getDetail();
             }else{
               this.$message.error(res.data.Msg)
             }
@@ -172,7 +176,7 @@ export default {
           }).then(res=>{
             if(res.data.Code == 1){
               this.$message.success('积分奖励成功')
-              window.location.reload();
+              this.getDetail();
             }else{
               this.$message.error(res.data.Msg)
             }

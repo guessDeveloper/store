@@ -106,7 +106,8 @@
            <el-time-picker
             is-range
             v-model="time"
-            
+             :editable="false"
+              :clearable="false"
             range-separator="-"
             start-placeholder="开始时间"
             end-placeholder="结束时间"
