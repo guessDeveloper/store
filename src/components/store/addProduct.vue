@@ -2,7 +2,7 @@
   <div class="box">
     <div class="input-line-box">
           <label for="">请选择产品分类：</label>
-           <el-select v-model="value" placeholder="请选择">
+           <el-select v-model="value" placeholder="请选择" @change="selelction">
                <el-option
                 v-for="item in classOption"
                 :key="item.CategoryID"
@@ -90,6 +90,7 @@
 let beforeUrl = '';
 import '@/plugins/element-upload.js'
 import { mapState, mapMutations} from 'vuex' //注册 action 和 state
+import { Footer } from 'element-ui';
 export default {
   data(){
     return{
@@ -132,9 +133,18 @@ export default {
             }
         })
     },
-     uploadImgUrl(){
+    //分类选择
+    selelction(data){
+      console.log(data,'sss')
+      for(let i = 0;i<this.classOption.length;i++){
+        if(this.classOption[i].CategoryID == data){
+          this.rate = this.classOption[i].CategoryFanbi
+        }
+      }
+    },
+    uploadImgUrl(){
         return process.env.NODE_ENV === 'production' ? 'https://files.youledui.com/create?dir=image' : '/up/create?dir=image'
-      },
+    },
     beforeLogoUpload(file){
         var testmsg=file.name.substring(file.name.lastIndexOf('.')+1)
       const extension = testmsg === 'jpg'
@@ -164,6 +174,7 @@ export default {
     },
     mainRemove(){
       this.mainUrl = ''
+      
     },
     //详情图上传成功
     detailSuccess(file,fileList){
@@ -208,7 +219,7 @@ export default {
           CatID:this.value,
           OnShelves:this.online,
           picList:imgList,
-          Rate:this.rate/100
+          Rate:this.rate
         }).then(res=>{
           if(res.data.Code == 1){
             this.$message.success('添加成功')

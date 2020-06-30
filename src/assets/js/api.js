@@ -135,5 +135,6 @@ export default {
     EditProduct: '/api/Merchant/EditProduct', //编辑产品详情
     MerchantIntegr: '/api/Merchant/MerchantIntegr', //获取商家剩余积分
     MerchantIntegral: '/api/Merchant/MerchantIntegral', //获取商家充值总数
-    RmbExchangeRate: '/api/Merchant/RmbExchangeRate',
+    RmbExchangeRate: '/api/Merchant/RmbExchangeRate', //获取积分汇率
+    MerchantOrderListRealtime: '/api/Merchant/MerchantOrderListRealtime', //获取实时订单
 }

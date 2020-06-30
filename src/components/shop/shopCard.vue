@@ -21,13 +21,17 @@
          </div>
        </div>
      </div>
+    <el-dialog title="商家位置" :visible.sync="toMap" custom-class="custom-dialog">
+       <shopMap  :defaultPoint="mapPorint"></shopMap>
+    </el-dialog>
   </div>
 </template>
 <script>
+import shopMap from '@/components/shop/shopMap';
 export default {
   data(){
     return{
-
+      toMap:false
     }
   },
   props:{
@@ -35,6 +39,9 @@ export default {
       type:Object,
       default:null
     }
+  },
+  components:{
+    shopMap:shopMap
   },
   methods:{
      goDetail(){

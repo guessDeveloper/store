@@ -85,14 +85,22 @@ export default {
       })
     },
     loginOut(){
-        this.$http.storeGet(this.$api.MerchanterLoginOut).then(res=>{
-            if(res.data.Code == 1){
-                localStorage.setItem('storeToken','')
-                this.$router.push('/login')
-            }else{
-                this.$message.error(res.data.Msg)
-            }
-        })
+      this.$alert.confirm('是否退出当前登录', '提示', {
+        confirmButtonText: '确定',
+          cancelButtonText: '取消',
+          type: 'warning'
+        }).then(() => {
+          this.$http.storeGet(this.$api.MerchanterLoginOut).then(res=>{
+              if(res.data.Code == 1){
+                  localStorage.setItem('storeToken','')
+                  this.$router.push('/login')
+              }else{
+                  this.$message.error(res.data.Msg)
+              }
+          })
+        }).catch(() => {
+                    
+        });
     }
   },
   beforeDestroy(){
