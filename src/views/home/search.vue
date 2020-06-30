@@ -8,7 +8,7 @@
       <div class="list-box" v-show="total>0">
           <ul class="good-list" v-if="searchType == 'taobao'|| searchType == 'pdd'">
             <li v-for='(item,index) in list' :key="index"><goodCard :data="item"></goodCard></li>
-          </ul> 
+          </ul>
           <ul class="store-list" v-if="searchType == 'store'">
             <li v-for="(item,index) in list" :key="index" @click="jump(item.URL)">
                <storeCard :data="item"></storeCard>
@@ -19,7 +19,7 @@
             </ul>
              <ul class="shop-list" v-if="searchType == 'shop'">
                 <li v-for="(item,index) in list" :key="index"><shopCard :item="item"></shopCard></li>
-                
+
             </ul>
              <div class="page-box">
                 <el-pagination
@@ -55,22 +55,22 @@ export default {
                   path:['/Pdd'],
                   name:'拼多多',
                   query:this.$api.pddGetGoodsByKey,
-                  type:'pdd' 
+                  type:'pdd'
                },{
                   path:['/storeList'],
                   name:'商城返利',
                   query:this.$api.storeGJKeyWordSearch,
-                  type:'store' 
+                  type:'store'
                },{
                   path:['/shop'],
                   name:'逛街购物',
                   query:this.$api.GJKeyWordSearch,
-                  type:'shop' 
+                  type:'shop'
                },{
                   path:['/food'],
                   name:'美食广场',
                   query:this.$api.MSKeyWordSearch,
-                  type:'food' 
+                  type:'food'
                }
            ],
            searchType:'',
@@ -96,7 +96,7 @@ export default {
            this.searchUrl = element.query
          }
       });
-      
+
     }
     if(this.$route.query.content){
       this.searchContent = this.$route.query.content
@@ -113,7 +113,7 @@ export default {
                     this.searchUrl = element.query
                   }
                 });
-                
+
               }
               if(this.$route.query.content){
                 this.searchContent = this.$route.query.content
@@ -153,7 +153,7 @@ export default {
   @media screen and(max-width:@change_width){
     width:100%;
     margin:10/@p auto 0;
-    padding-top:15/@p;
+    // padding-top:15/@p;
   }
 }
 .good-list{
@@ -185,6 +185,11 @@ export default {
       border-bottom:1px solid @class_border;
       border-right:1px solid @class_border;
     }
+    @media screen and(max-width:@change_width){
+      li{
+        width:33.33%;
+      }
+    }
   }
   .food-list{
     display: block;
@@ -197,6 +202,21 @@ export default {
         margin:15px;
         cursor: pointer;
     }
+    @media screen and(max-width:@change_width){
+        width: 100%;
+        background-color: transparent;
+        padding: 0 15px 15px;
+        box-sizing: border-box;
+        li {
+            margin: 0;
+            width: 100%;
+            background-color: #ffffff;
+            margin-bottom: 15px;
+            .card-des {
+                padding: 0 15px 20px;
+            }
+        }
+    }
 }
 .shop-list{
         padding:15px;
@@ -206,13 +226,18 @@ export default {
             width:555px;
             margin:15px;
         }
-      @media screen and(max-width:@change_width){
-          li{
-            width:100%;
-            margin:0;
+        @media screen and(max-width:@change_width){
+          padding: 5px 15px 15px;
+          margin: 0;
+          background-color: #F8F8F8;
+          li {
+              width: 100%;
+              margin: 0 0 15px;
+              background-color: #ffffff;
+              border: 1px solid #eeeeee;
           }
-     }
-}
+        }
+    }
 .empty{
     width:@max-width;
     margin:20px auto 100px;
