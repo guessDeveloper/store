@@ -173,7 +173,8 @@
              </div>
              <div class="page-box small">
                  <el-pagination
-                    small=""
+                    small
+                    v-show="onlineTotal!=0"
                     @current-change="getOnlineList"
                     :current-page.sync="pageIndex"
                     :page-size="pageSize"
@@ -293,7 +294,7 @@
                             <div>
                                 <div class="name">{{item.MerchantName}}</div>
                                 <div class="item-name">
-                                    消费时间：<span class="item-value">{{item.Money}}</span>
+                                    消费时间：<span class="item-value">{{item.CreationTime}}</span>
                                 </div>
                         
                                 <div class="item-name">消费金额(元)：<span class="item-value">{{item.Money}}</span>
@@ -312,6 +313,7 @@
                 </div>
                 <div class="page-box">
                     <el-pagination
+                        v-show="unlineTotal!=0"
                         @current-change="getUnderLineList"
                         :current-page.sync="unlineIndex"
                         :page-size="unlineSize"
@@ -321,7 +323,8 @@
                 </div>
                 <div class="page-box small">
                     <el-pagination
-                        small=""
+                        small
+                        v-show="unlineTotal!=0"
                         @current-change="getUnderLineList"
                         :current-page.sync="unlineIndex"
                         :page-size="unlineSize"
