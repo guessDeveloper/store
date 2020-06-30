@@ -17,12 +17,13 @@
        <div class="score-box" style="margin-top:18px;">
          距离：<strong class="bad">{{item.distance}}</strong>
          <div class="position">
-            <span class="iconfont iconweizhixuanze"></span><a >{{item.CityName}}</a>
+            <span class="iconfont iconweizhixuanze"></span><a @click="toMap = true" class="pc">{{item.CityName}}</a> <a :href="mapUrl" class="phone">{{item.CityName}}</a>
+
          </div>
        </div>
      </div>
-    <el-dialog title="商家位置" :visible.sync="toMap" custom-class="custom-dialog">
-       <shopMap  :defaultPoint="mapPorint"></shopMap>
+    <el-dialog title="商家位置" :visible.sync="toMap" custom-class="custom-dialog" :before-close="close">
+       <shopMap  :defaultPoint="mapPorint" ref="map"></shopMap>
     </el-dialog>
   </div>
 </template>
@@ -31,7 +32,8 @@ import shopMap from '@/components/shop/shopMap';
 export default {
   data(){
     return{
-      toMap:false
+      toMap:false,
+      mapPorint:{},
     }
   },
   props:{
@@ -40,12 +42,29 @@ export default {
       default:null
     }
   },
+  computed:{
+     mapUrl(){
+      return `http://api.map.baidu.com/marker?location=${this.mapPorint.MertchntY},${this.mapPorint.MertchntX}&title=商家地址&content=${this.detial.Mertchntname}&output=html&src=webapp.baidu.openAPIdemo`
+    },
+  },
+  mounted(){
+     this.mapPorint.MertchntX = this.item.PointX
+     this.mapPorint.MertchntY = this.item.PointY
+  },
   components:{
     shopMap:shopMap
   },
   methods:{
      goDetail(){
       this.$router.push(`/shopDetail?id=${this.item.MertchatId}`);
+    },
+    showMap(){
+      this.toMap = true;
+      this.$refs.map.show();
+    },
+    close(){
+      this.$refs.map.destroy();
+      this.toMap = false;
     }
   }
 }
@@ -120,6 +139,12 @@ export default {
           margin-left:4px;
           color:@font_color;
           text-decoration: underline;
+          &.pc{
+            display: block;
+          }
+          &.phone{
+            display: none;
+          }
         }
       }
     }
@@ -137,6 +162,21 @@ export default {
     .des-box {
       padding: 0 15px 20px;
       height: auto;
+      .score-box{
+         .position{
+            a{
+          margin-left:4px;
+          color:@font_color;
+          text-decoration: underline;
+          &.pc{
+            display: none;
+          }
+          &.phone{
+            display: block;
+          }
+        }
+         }
+      }
     }
   }
 }

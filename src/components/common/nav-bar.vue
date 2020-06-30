@@ -96,7 +96,7 @@ export default {
                   query:this.$api.storeGJKeyWordSearch,
                   type:'store' 
                },{
-                  path:['/shop','/shopDetail'],
+                  path:['/shop','/shopDetail','/shopGoodsDetail'],
                   name:'逛街购物',
                   query:this.$api.GJKeyWordSearch,
                   type:'shop' 
