@@ -44,7 +44,7 @@ export default {
   },
   computed:{
      mapUrl(){
-      return `http://api.map.baidu.com/marker?location=${this.mapPorint.MertchntY},${this.mapPorint.MertchntX}&title=商家地址&content=${this.detial.Mertchntname}&output=html&src=webapp.baidu.openAPIdemo`
+      return `http://api.map.baidu.com/marker?location=${this.item.PointY},${this.item.PointX}&title=商家地址&content=${this.item.titleName}&output=html&src=webapp.baidu.openAPIdemo`
     },
   },
   mounted(){
@@ -140,7 +140,7 @@ export default {
           color:@font_color;
           text-decoration: underline;
           &.pc{
-            display: block;
+            display:inline-block;
           }
           &.phone{
             display: none;
@@ -172,7 +172,7 @@ export default {
             display: none;
           }
           &.phone{
-            display: block;
+            display:inline-block;
           }
         }
          }
