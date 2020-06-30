@@ -1,5 +1,5 @@
 <template>
-    <a class="card" :href="data.URL" target="_blank">
+    <a class="card"  target="_blank">
         <div class="img-box" :style='"background-image:url("+data.picurl+");"'>
             <!-- <img :src="data.picurl" alt=""> -->
         </div>

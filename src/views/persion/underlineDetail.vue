@@ -464,8 +464,14 @@ export default {
               float: none;
               // width:60px;
               height: 65px;
+              &.active{
+                &::before{
+                  background-color:@main;
+                }
+              }
               .step-num {
                 position: absolute;
+                box-sizing: border-box;
               }
               .iconfont {
                 position: absolute;
@@ -491,7 +497,7 @@ export default {
                 height: 30px;
                 left: 17px;
                 top: 38px;
-                background-color: #F38A1D;
+                background-color: #eee;
               }
             }
             .middle{

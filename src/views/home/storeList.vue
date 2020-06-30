@@ -9,7 +9,7 @@
         <div class="content-list">
           <!-- <div class="list-title">食品材料（54）</div> -->
            <ul>
-             <li v-for="(item,index) in list" :key="index" @click="jump(item.URL)">
+             <li v-for="(item,index) in list" :key="index" @click="jump(item.ID,item.picurl)">
                <Card :data="item"></Card>
              </li>
               
@@ -39,6 +39,7 @@
  </div>
 </template>
 <script>
+import { mapState, mapMutations} from 'vuex' //注册 action 和 state
 import Card from "@/components/common/storeListCard"
 export default {
   data(){
@@ -48,6 +49,11 @@ export default {
        list:[],
        total:0
     }
+  },
+  computed:{
+    ...mapState([
+      'isLogin'
+    ])
   },
   mounted(){
     this.$route.query.pageIndex?this.pageIndex = this.$route.query.pageIndex:''
@@ -79,8 +85,17 @@ export default {
     handleSizeChange(){
 
     },
-    jump(url){
-      this.$router.push(`/outLine?url=${url}`)
+    jump(id,img){
+      if(!this.isLogin){
+        this.$router.push('/login')
+      }else{
+         let routeUrl = this.$router.resolve({
+            path: "/jump",
+            query: {id:id,img:img}
+          });
+          window.open(routeUrl.href, '_blank');
+        // this.$router.push(`/jump?id=${id}&img=${img}`,'_blank')
+      }
     }
   }
 }

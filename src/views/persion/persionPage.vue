@@ -7,8 +7,8 @@
 
            </div>
            <div class="user-msg">
-              <div class="line top"><span class="name">昵称：</span>{{userName}}<span class="change" @click="showChangeBox">修改昵称</span></div>
-              <div class="line bottom"><span class="name">手机号：</span>{{userTel}}</div>
+              <div class="line top"><span class="name">昵称：</span>{{userInfo.nickName}}<span class="change" @click="showChangeBox">修改昵称</span></div>
+              <div class="line bottom"><span class="name">手机号：</span>{{phoneLimit(userInfo.UserTel)}}</div>
            </div>
            <div class="score-box">
               <div class="first item">
@@ -27,7 +27,7 @@
 
         </div>
          <div class="set">
-            <span class="iconfont iconzhushi"></span> 请完善您的信息：您的手机号尚未绑定！<a href="">立即设置</a>
+            <!-- <span class="iconfont iconzhushi"></span> 请完善您的信息：您的手机号尚未绑定！<a href="">立即设置</a> -->
            </div>
           <div class="small-nav-list">
              <div class="margin"></div>
@@ -76,8 +76,10 @@
   </div>
 </template>
 <script>
-const beforeUrl = 'http://files.youledui.com';
+// const beforeUrl = 'http://files.youledui.com';
+let beforeUrl = '';
 import '@/plugins/element-upload.js'
+import { mapState, mapMutations} from 'vuex' //注册 action 和 state
 export default {
   data(){
     return{
@@ -137,14 +139,24 @@ export default {
     }
   },
   mounted(){
+    beforeUrl = this.$util.beforeUrl
     this.getUserInfo();
   },
+  computed:{
+    ...mapState([
+      'userInfo'
+    ])
+  },
   methods:{
+    ...mapMutations([
+      'setUserInfo'
+    ]),
      //获取用户登录信息
      getUserInfo(){
        this.$http.limitGet(this.$api.GetUserInfo).then(res=>{
          if(res.data.Code == 1){
            let data = res.data.Data
+           this.setUserInfo(res.data.Data);
            this.userName = data.nickName
            this.userTel = data.UserTel
            this.UserImg = data.UserImg
@@ -154,8 +166,12 @@ export default {
          }
        })
      },
+     //手机好脱敏
+    phoneLimit(phone){
+       return this.$util.phoneLimit(phone)
+    },
     uploadImgUrl(){
-        return process.env.NODE_ENV === 'production' ? 'http://files.youledui.com/create?dir=image' : '/up/create?dir=image'
+        return process.env.NODE_ENV === 'production' ? 'https://files.youledui.com/create?dir=image' : '/up/create?dir=image'
     },
     beforeLogoUpload(file){
          var testmsg=file.name.substring(file.name.lastIndexOf('.')+1)
@@ -197,13 +213,15 @@ export default {
       },
       //修改信息
       changeMsg(){
-        if(this.PersionImg){
+        if(!this.PersionImg){
           this.$message.error('请上传头像')
         }else if(this.name == ''){
           this.$message.error('请输入昵称')
         }else{
+          let img = this.PersionImg.replace(this.$util.testBeforeUrl,'');
+          console.log(img,this.$util.testBeforeUrl)
           this.$http.limitPost(this.$api.UserEditUserInfo,{
-            UserImg:this.PersionImg,
+            UserImg:img,
             NickName:this.name
           }).then(res=>{
             if(res.data.Code == 1){
@@ -231,7 +249,8 @@ export default {
 }
 .set{
   text-align: left;
-  height:30px;
+  opacity: 0;
+  height:0px;
   border:1px solid #F38A1D;
   background:rgba(243,138,29,0.1);
   font-size:12px;

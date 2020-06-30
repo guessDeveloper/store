@@ -18,6 +18,13 @@ const util = {
         if (sec < 10) sec = "0" + sec;
         var time = "";
         return time = year + "-" + month + "-" + date;
-    }
+    },
+    beforeUrl: 'https://files.youledui.com',
+    testBeforeUrl: /^https:\/\/files.youledui.com/,
+    phoneLimit(phone) {
+        var reg = /^(\d{3})\d{4}(\d{4})$/
+        return phone.replace(reg, "$1****$2")
+    },
+
 }
 export default util

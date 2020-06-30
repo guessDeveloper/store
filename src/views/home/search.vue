@@ -131,7 +131,8 @@ export default {
     getList(){
       this.$http.post(this.searchUrl,{pageIndex:this.pageIndex,pageSize:this.pageSize,KeyValue:this.searchContent}).then(res=>{
         if(res.data.Code == 1){
-          this.list = res.data.Data.list
+          res.data.Data.List?this.list = res.data.Data.List:''
+          res.data.Data.list?this.list = res.data.Data.list:''
           this.total = res.data.Data.count
         }
       })

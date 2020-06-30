@@ -11,7 +11,7 @@
            <label for="">消费金额: </label><div class="input-box"><input type="text" placeholder="请输入消费金额" v-model.trim="money"></div>
          </div>
          <div class="input-line">
-           <label for="">请选择返还比例：</label><div class="input-box"><input type="text" placeholder="默认调取商家的奖励比例" v-model="rate"></div>
+           <label for="">请选择返还比例：</label><div class="input-box percent"><input type="text" placeholder="默认调取商家的奖励比例" v-model="rate"><div class="danwei">%</div></div>
          </div>
          <div class="input-line input-line-integral">
            <label for="">返积分数量：</label><div class="input-box"><span class="tip">{{backNum}}</span> </div>
@@ -24,21 +24,32 @@
 </template>
 <script>
 import '../../plugins/element-table.js'
+import { mapState, mapMutations} from 'vuex' //注册 action 和 state
 export default {
   data(){
     return{
       userPhone:'',
       money:'',
       rate:'',
+      lock:false,
     }
   },
   computed:{
+    ...mapState([
+      'ScoreRate'
+    ]),
     backNum(){
        if(this.money !== ''&this.rate !== ''){
-         return this.money*this.rate/100
+         return this.money*this.rate/100*this.ScoreRate
        }else{
          return '自动计算用户返积分数量'
        }
+    }
+  },
+  mounted(){
+    console.log(this.ScoreRate)
+    if(this.$route.query.phone){
+      this.userPhone = this.$route.query.phone
     }
   },
   methods:{
@@ -49,23 +60,34 @@ export default {
         this.$message.error('请输入消费金额')
       }else if(!/^[0-9]+(.[0-9]{2})?$/.test(this.money)){
         this.$message.error('请输入正确的金额')
-      }else if(!this.$util.testNum.test(this.rate)){
-        this.$message.error('请输入正确的比例')
+      }else if(this.rate<0||this.rate>60){
+        this.$message.error('请输入正确1%-60%的比例')
       }else{
+        if(this.lock){
+          return false
+        }
+        this.lock = true
         this.$http.storePost(this.$api.ReturnUserIntegrals,{
           Mobile:this.userPhone,
           SpendMoney:this.money,
-          Rate:this.rate/100
+          Rate:this.rate
         }).then(res=>{
           if(res.data.Code == 1){
+            this.clear();
             this.$message.success('返利成功')
           }else{
             this.$message.error(res.data.Msg)
           }
+          this.lock = false
         })
       }
     },
-
+    //清空
+    clear(){
+      this.userPhone = '';
+      this.money = '';
+      this.rate = '';
+    },
     //返利给用户
     backUser(){
       this.$http.storePost(this.$api.ReturnUserIntegrals,{
@@ -99,6 +121,17 @@ export default {
       padding-right:15px;
   }
   .input-box{
+    &.percent{
+      overflow: hidden;
+      input{
+        float:left;
+        width:350px;
+      }
+      .danwei{
+        float: right;
+        line-height: 50px;
+      }
+    }
     input{
       display: block;
       box-sizing: border-box;
@@ -137,6 +170,7 @@ export default {
     .input-line {
       width: 92%;
       margin-bottom: 46px;
+       
       label {
         left: 0;
         height: 38px;
@@ -145,6 +179,18 @@ export default {
         text-align: left;
       }
       .input-box {
+         &.percent{
+          display: flex;
+          input{
+            float:left;
+          }
+          .danwei{
+            float: right;
+            width:20px;
+            text-align: right;
+            line-height: 50px;
+          }
+        }
         input {
           width: 100%;
         }

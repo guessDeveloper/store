@@ -17,7 +17,7 @@
        <div class="title-box">
           <h2 class="title">商家联盟</h2>
           <span class="sub-title">积分直返消费者</span>
-          <router-link class="more" tag="a" to="/storeList" target="_blank"> 查看全部 <span class="iconfont iconjiantou"></span></router-link>
+          <router-link class="more" tag="a" to="/shop" target="_blank"> 查看全部 <span class="iconfont iconjiantou"></span></router-link>
           <div class="position-box" >
           <el-dropdown trigger="click" @command="chengeCity">
             <span class="el-dropdown-link box">
@@ -445,7 +445,7 @@ export default {
           font-size:14px;
           color:@placeholder_color;
           margin-top:15px;
-          line-height: 14px;
+          line-height: 16px;
           .overTextOne();
         }
         img{
@@ -470,7 +470,7 @@ export default {
               }
               .tip{
                 font-size:12px;
-                line-height: 10/@p;
+                line-height: 14/@p;
               }
               img{
                 width:100/@p;
@@ -557,7 +557,7 @@ export default {
               }
               h3{
                 font-size:12px;
-                line-height: 10px;
+                line-height: 14px;
               }
               p{
                 margin-top:10px;

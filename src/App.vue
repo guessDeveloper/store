@@ -225,6 +225,17 @@ export default {
 .select .el-input__icon{
   line-height: 34px;
 }
+//轮播图修改 start
+.el-carousel__indicator.is-active button{
+  opacity: 1;
+  background:@main;
+}
+//轮播图修改 end 
+.el-message-box{
+  @media screen and(max-width:@change_width){
+    width:330px!important;
+  }
+}
 //page-box
  .page-box{
     text-align: center;
@@ -247,6 +258,10 @@ export default {
   border-bottom:1px solid @class_border;
 }
 @media screen and(max-width:@change_width){
+
+  .el-carousel__button{
+    width:9px!important;
+  }
   .brand-top-nav{
     display: none;
    }
@@ -281,5 +296,11 @@ export default {
        width:325px!important;
      }
    }
+}
+.dilog{
+  width:500px!important;
+  @media screen and(max-width:@change_width){
+    width:80%!important;
+  }
 }
 </style>

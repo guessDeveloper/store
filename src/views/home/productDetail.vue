@@ -8,14 +8,23 @@
     <div class="top">
        <div class="left">
           <div class="big-img-box">
-            <img :src="piclist[nowActiveIndex]" alt="">
+            <!-- <img :src="piclist&&piclist[nowActiveIndex]" alt=""> -->
+            <PicZoom :url="piclist&&piclist[nowActiveIndex]" :scale="3"></PicZoom>
           </div>
           <div class="imgs-box">
             <div class="img-box">
               <div class="item" v-for="(item,index) in piclist" :key="index">
-                <img :src="item" alt="" @click="selecting(index)">
+                <img :src="item" alt="" @mouseenter="selecting(index)">
               </div>
             </div>
+          </div>
+          <div class="small-banner">
+             <img src="../../assets/img/1-1.jpg" alt="" class="zhanwei">
+             <el-carousel trigger="click" height="100%" class="banner-box">
+              <el-carousel-item v-for="(item,index) in piclist" :key="item">
+                <img :src="item" alt="" class="banner-img" >
+              </el-carousel-item>
+            </el-carousel>
           </div>
        </div>
        <div class="right">
@@ -68,8 +77,8 @@
     <div class="goods-detial">
        <div class="left">
          <div class="title">商品详情</div>
-         <div>
-
+         <div class="box">
+           <iframe :src="proudectData.imglist" frameborder="0"></iframe>
          </div>
        </div>
        <div class="right">
@@ -86,6 +95,7 @@
   </div>
 </template>
 <script>
+import PicZoom from 'vue-piczoom'
 import goodCard from '@/components/recommend/recommendCard'
 export default {
   data(){
@@ -100,7 +110,8 @@ export default {
     }
   },
   components:{
-    goodCard:goodCard
+    goodCard:goodCard,
+    PicZoom:PicZoom
   },
   computed: {
     carouselHeight() {
@@ -111,6 +122,18 @@ export default {
       } else {
         return '411px';
       }
+    }
+  },
+  watch: {
+    '$route'(to, from) {
+        if(this.$route.query.GoodType){
+          this.GoodType = this.$route.query.GoodType
+          this.GoodType == 1?this.navName = '淘宝':this.navName = '拼多多'
+        }
+        if(this.$route.query.GoodID){
+          this.GoodID = this.$route.query.GoodID
+        }
+        this.getDetail();
     }
   },
   mounted(){
@@ -131,6 +154,7 @@ export default {
         GoodID:this.GoodID
       }).then(res=>{
           if(res.data.Code == 1){
+         
             this.proudectData = res.data.Data
             this.piclist = res.data.Data.piclist
             this.promoteList = this.changeArray(res.data.Data.SameClassproducts)
@@ -196,6 +220,9 @@ export default {
         width:100%;
         height:100%;
       }
+    }
+    .small-banner{
+      display: none;
     }
     .imgs-box{
       float:right;
@@ -314,6 +341,13 @@ export default {
     float:left;
     width:900px;
     background:#fff;
+    .box{
+      width:100%;
+      iframe{
+        width:100%;
+        height:1500px;
+      }
+    }
   }
   .right{
     float:right;
@@ -333,9 +367,28 @@ export default {
       width: 100%;
       padding: 0;
       .big-img-box {
+        display:none;
         float: none;
         width: 100%;
         box-sizing: border-box;
+      }
+      .small-banner{
+        display: block;
+        position: relative;
+        .zhanwei{
+          width:100%;
+          opacity: 0;
+        }
+        .banner-box{
+          position: absolute;
+          top:0;
+          width:100%;
+          height:100%;
+        }
+        .banner-img{
+          width:100%;
+          height:100%;
+        }
       }
       .imgs-box {
         display: none;
@@ -446,6 +499,7 @@ export default {
     width: 100%;
     .left {
       float: none;
+      width:100%;
       .title {
         line-height: 58px;
         // padding-left: 15px;

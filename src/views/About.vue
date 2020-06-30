@@ -43,7 +43,8 @@ export default {
           inversionAttempts: 'dontInvert'
         });
         if(code){
-          window.location.replace = code.data
+          console.log(code)
+          window.location.href = code.data
         }
       },1000)
 

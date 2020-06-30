@@ -111,8 +111,10 @@ class Photo {
     this.url = url;
   }
 }
-const beforeUrl = 'https://files.youledui.com';
+// const beforeUrl = 'https://files.youledui.com';
+let beforeUrl = '';
 import '@/plugins/element-upload.js'
+import { mapState, mapMutations} from 'vuex' //注册 action 和 state
 export default {
   data(){
     return{
@@ -132,6 +134,7 @@ export default {
     }
   },
   mounted(){
+    beforeUrl = this.$util.beforeUrl;
     this.getClass();
     if(this.$route.query.id){
       this.id = this.$route.query.id
@@ -139,9 +142,12 @@ export default {
     }
   },
   computed:{
+    ...mapState([
+      'ScoreRate'
+    ]),
     backScore(){
       if(this.price!==''&&this.rate!==''){
-       return this.price*this.rate/100
+       return this.price*this.rate/100*this.ScoreRate
       }else{
         return '自动计算用户返积分数量'
       }
@@ -245,7 +251,7 @@ export default {
       }else{
         let imgList = [];
         this.detialFileList.forEach(element=>{
-          imgList.push(element.url)
+          imgList.push(element.url.replace(this.$util.testBeforeUrl,''))
         })
         this.$http.storePost(this.$api.EditProduct,{
           ProductID:this.id,
@@ -260,7 +266,7 @@ export default {
         }).then(res=>{
           if(res.data.Code == 1){
             this.$message.success('修改成功')
-            
+            this.$router.push('/storeProduct')
           }else{
             this.$message.error(res.data.Msg)
           }

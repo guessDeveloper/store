@@ -88,7 +88,8 @@ export default {
         loginOut(){
             this.$http.storeGet(this.$api.MerchanterLoginOut).then(res=>{
                 if(res.data.Code == 1){
-                    this.$router.push('/login')
+                    localStorage.setItem('storeToken','')
+                    this.$router.push('/')
                 }else{
                     this.$message.error(res.data.Msg)
                 }
@@ -184,6 +185,7 @@ export default {
                         // margin-top:18px;
                         margin-left:5px;
                         font-size:5px;
+                        
                         vertical-align: middle;
                     }
                 }
@@ -277,6 +279,7 @@ export default {
             height:10px;
             background:@main;
             margin-right:5px;
+            margin-top:2px;
         }
         .name{
             display: inline-block;

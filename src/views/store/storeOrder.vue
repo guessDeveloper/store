@@ -84,6 +84,9 @@
                                 用户名：<span class="item-value">{{item.UserName}}</span>
                             </div>
                             <div class="item-name">
+                                消费金额(元)：<span class="item-value">{{item.orderMoney}}</span>
+                            </div>
+                            <div class="item-name">
                                 下单时间：<span class="item-value">{{item.orderCreateTime}}</span>
                             </div>
                             <div class="item-name">
@@ -148,23 +151,41 @@ export default {
         pageSize:20,
         total:0,
         SurplusIntegral:'',
-        TobeReturnIntegral:''
+        TobeReturnIntegral:'',
+        newOrder:0,//新订单
+        timer:''
     }
   },
   mounted(){
-      this.dataValue = [this.$util.getNowDate()+' 00:00:00',this.$util.getNowDate()+' 24:00:00']
+      this.dataValue = [this.$util.getNowDate(),this.$util.getNowDate()]
       this.getList();
-       this.getScore();
+      this.getScore();
+      clearInterval(this.timer)
+      this.timer = setInterval(()=>{
+          this.getRealTime()
+      },14000)
+     
+  },
+  beforeDestroy(){
+      clearInterval(this.timer)
   },
   methods:{
       search(){
          this.pageIndex = 1;
          this.getList();
       },
+      //获取实时订单
+      getRealTime(){
+          this.$http.storePost(this.$api.MerchantOrderListRealtime).then(res=>{
+              if(res.data.Code == 1){
+                 this.newOrder = res.data.Data
+              }
+          })
+      },
       getList(){
          this.$http.storePost(this.$api.GetOrderlist,{
              BingTime:this.dataValue[0] +' 00:00:00',
-             entTime:this.dataValue[1]+' 24:00:00',
+             entTime:this.dataValue[1]+' 23:59:59',
              state:this.value,
              UserName:this.orderNum,
              pageIndex:this.pageIndex,

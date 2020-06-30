@@ -7,7 +7,23 @@
       </div>
      <div class="tab-content" v-show="tab==1">
         <div class="btn-box">
-           <router-link class="chong-btn" tag="button" to="/storeMoney">立即充值</router-link>
+          <span class="score">我的剩余积分：<span class="">{{Integral.RechargeIntegral}}</span>累计积分：<span>{{Integral.SurplusIntegral}}</span> 已赠送积分：<span>{{Integral.SendIntegral}}</span></span> <router-link class="chong-btn" tag="button" to="/storeMoney">立即充值</router-link>
+        </div>
+        <div class="score-box">
+           <div class="score-item">
+              <div >我的剩余积分</div>
+              <div class="score-name">{{Integral.RechargeIntegral}}</div>
+           </div>
+           <div class="score-item">
+             <div >累计积分</div>
+             <div class="score-name">{{Integral.SurplusIntegral}}</div>
+           </div>
+           <div class="score-item">
+             <div >已赠送积分</div>
+             <div class="score-name">
+                {{Integral.SendIntegral}}
+             </div>
+           </div>
         </div>
         <div class="table-box">
           <el-table :data="chongList"  header-row-style="font-size:12px;color:#999;" row-class-name="table-line" width="930">
@@ -107,12 +123,14 @@ export default {
       jinagIndex:1,
       jiangPagesize:20,
       jiangTotal:0,
-      jiangList:[]
+      jiangList:[],
+      Integral:{},
     }
   },
   mounted(){
     this.getChongList();
     this.getJiangList();
+    this.getTotal();
   },
   methods:{
     toTab(num){
@@ -140,6 +158,14 @@ export default {
           this.$message.error(res.data.Msg)
         }
 
+      })
+    },
+    //获取商家充值总数
+    getTotal(){
+      this.$http.storePost(this.$api.MerchantIntegral).then(res=>{
+        if(res.data.Code == 1){
+          this.Integral = res.data.Data.Integral
+        }
       })
     }
   }
@@ -192,9 +218,20 @@ export default {
   padding:0 30px;
   .btn-box{
     padding:30px 0;
-    text-align: right;
+    overflow: hidden;
+    text-align: left;
+    .score{
+      line-height: 40px;
+      font-size:16px;
+      span{
+        color:@main;
+        font-weight: bold;
+        margin-right: 30px;
+      }
+    }
   }
   .chong-btn{
+    float:right;
     width:136px;
     height:40px;
     font-size:14px;
@@ -220,6 +257,24 @@ export default {
     }
     .list-item-b {
       color: #999999;
+    }
+  }
+}
+.score-box{
+  display: none;
+  @media screen and(max-width:@change_width) {
+    display: flex;
+    padding:14px 0;
+    margin:0 -15px;
+    border-bottom: 10px solid @body_color;
+    .score-item{
+      width:33.33%;
+      text-align: center;
+      font-size:14px;
+      .score-name{
+        color:@main;
+        font-weight: bold;
+      }
     }
   }
 }
@@ -253,8 +308,12 @@ export default {
       }
     }
   }
+  .score{
+    display: none;
+  }
 }
 .page-box{
   padding:30px 0;
 }
+
 </style>

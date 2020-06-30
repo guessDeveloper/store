@@ -12,12 +12,13 @@
             <router-link to="/register" tag='a' >免费注册</router-link>
            </span>
            <span v-show="isLogin">
-             <router-link to="/persion" class="userName">{{userName}}</router-link>
+             <router-link to="/persion" class="userName">{{userInfo.nickName}}</router-link>
              <router-link to='/myOrder' tag='a'>我的订单</router-link>
+             <a @click="loginOut">退出登录</a>
            </span>
           <router-link to="/helpCenter" class="help" tag="a">帮助中心</router-link>
        </div>
-      <a  class="loginout" v-show="isLogin">退出登录</a>
+      <a  class="loginout" v-show="isLogin" @click="loginOut">退出登录</a>
       <router-link tag="a" to="/persion" class="logined" v-show="isLogin"><span class="iconfont iconzh"></span>个人中心</router-link>
       <router-link href="" class="regester" to="/register" tag="a" v-show="!isLogin"> 注册</router-link>
       <router-link class="login" tag="a" to="/login" v-show="!isLogin">登录</router-link>
@@ -40,7 +41,8 @@ export default {
   computed:{
      ...mapState([
        'positionX',
-       'isLogin'
+       'isLogin',
+       'userInfo'
      ])
   },
   mounted(){
@@ -57,6 +59,7 @@ export default {
       'setPositionX',
       'setPositionY',
       'setLogin',
+      'setUserInfo'
     ]),
     loop(){
       clearInterval(this.timer);
@@ -83,6 +86,7 @@ export default {
          if(res.data.Code == 1){
            this.setLogin(true)
            this.userName = res.data.Data.nickName
+           this.setUserInfo(res.data.Data)
            let userInfo = JSON.stringify(res.data.Data);
            sessionStorage.setItem('userInfo',userInfo)
          }
@@ -145,6 +149,27 @@ export default {
                 //timeout: 5000,            //获取位置允许的最长时间
                 //maximumAge: 1000          //多久更新获取一次位置
             });
+     },
+     //退出登录
+     loginOut(){
+       this.$alert.confirm('是否退出当前登录', '提示', {
+          confirmButtonText: '确定',
+          cancelButtonText: '取消',
+          type: 'warning'
+        }).then(() => {
+          this.$http.limitGet(this.$api.LoginOut).then(res=>{
+            if(res.data.Code == 1){
+              this.setLogin(false);
+                localStorage.setItem('token','')
+                this.$router.push('/')
+            }else{
+              this.$message.error(res.data.Msg)
+            }
+          })
+        }).catch(() => {
+                    
+        });
+       
      }
   },
   beforeDestroy(){

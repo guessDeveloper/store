@@ -2,9 +2,9 @@
   <div class="item" >
      <img :src="data.GoodsImg" alt="" @click="goDetail">
      <h4>{{data.GoodsName}}</h4>
-     <p>积分约：</p>
+     <p>积分约：{{data.Goodsfanli}}</p>
      <div class="price">¥{{data.GoodsMoneny}}</div>
-     <button class="add" @click="addCar" v-if="data.IsQRcode==1&&data.tablenumber">加入购物车</button>
+     <button class="add" @click="addCar" v-if="isLogin&&data.IsQRcode==1&&data.tablenumber">加入购物车</button>
   </div>
 </template>
 <script>
@@ -42,6 +42,7 @@ export default {
    //添加购物车
    addCar(){
      this.carAddStore([{id:this.data.MertchntID,name:this.data.Mertchntname,tablenumber:this.data.tablenumber},{...this.data,num:1,checked:false}])
+     this.$message('加入购物车成功')
    }
   }
 }

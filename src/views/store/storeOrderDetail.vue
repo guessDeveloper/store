@@ -120,40 +120,66 @@ export default {
     },
     //取消订单
     cancleOrder(){
-      this.$http.storePost(this.$api.CancelOrder,{
-        OrderNo:this.id
-      }).then(res=>{
-        if(res.data.Code == 1){
-          this.$message.success('取消成功')
-          this.$router.push('/storeOrder')
-        }else{
-          this.$message.error(res.data.Msg)
-        }
-      })
+      his.$alert.confirm('是否取消订单', '提示', {
+          confirmButtonText: '确定',
+          cancelButtonText: '取消',
+          type: 'warning'
+        }).then(() => {
+          this.$http.storePost(this.$api.CancelOrder,{
+            OrderNo:this.id
+          }).then(res=>{
+            if(res.data.Code == 1){
+              this.$message.success('取消成功')
+              this.$router.push('/storeOrder')
+            }else{
+              this.$message.error(res.data.Msg)
+            }
+          })
+        }).catch(() => {
+                    
+        });
     },
     //确认收款
     getMoney(){
-      this.$http.storePost(this.$api.confirmOrderPay,{
-        OrderNo:this.id
-      }).then(res=>{
-        if(res.data.Code == 1){
-          this.$message.success('收款成功')
-        }else{
-          this.$message.error(res.data.Msg)
-        }
-      })
+      this.$alert.confirm('是否确认已经收款', '提示', {
+          confirmButtonText: '确定',
+          cancelButtonText: '取消',
+          type: 'warning'
+        }).then(() => {
+          this.$http.storePost(this.$api.confirmOrderPay,{
+            OrderNo:this.id
+          }).then(res=>{
+            if(res.data.Code == 1){
+              this.$message.success('收款成功')
+              window.location.reload();
+            }else{
+              this.$message.error(res.data.Msg)
+            }
+          })
+         }).catch(() => {
+                    
+        });
     },
     //确认返积分
     backScore(){
-      this.$http.storePost(this.$api.confirmOrder,{
-        OrderNo:this.id
-      }).then(res=>{
-        if(res.data.Code == 1){
-          this.$message.success('积分奖励成功')
-        }else{
-          this.$message.error(res.data.Msg)
-        }
-      })
+      this.$alert.confirm('是否确认返积分', '提示', {
+          confirmButtonText: '确定',
+          cancelButtonText: '取消',
+          type: 'warning'
+        }).then(() => {
+          this.$http.storePost(this.$api.confirmOrder,{
+            OrderNo:this.id
+          }).then(res=>{
+            if(res.data.Code == 1){
+              this.$message.success('积分奖励成功')
+              window.location.reload();
+            }else{
+              this.$message.error(res.data.Msg)
+            }
+          })
+         }).catch(() => {
+                    
+        });  
     }
   }
 }
@@ -414,6 +440,9 @@ export default {
         width: 100%;
         margin: 50px 0 0;
         float: none;
+        &.ok{
+          margin-top:20px;
+        }
       }
     }
     .content {

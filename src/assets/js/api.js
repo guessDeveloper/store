@@ -29,6 +29,7 @@ export default {
     clickTobuy: '/api/Detail/clickTobuy', //购买
     //商家列表
     GetMerchaterClass: '/api/YiQiFa/GetMerchaterClass', //获取商家列表
+    jumpClickToBuy: '/api/YiQiFa/ClickToBuy', //跳转商城
     //逛街购物
     shopCitys: '/api/shopping/Citys', //获取城市分类
     shopCategorys: '/api/shopping/Categorys', //商家类型
@@ -97,6 +98,7 @@ export default {
     UserGroundOrderModel: '/api/User/UserGroundOrderModel', //获取订单详情
     CollectionConfirmation: '/api/User/CollectionConfirmation', //取消订单
     AddComment: '/api/User/AddComment', //评价
+    LoginOut: '/api/LoginRegister/LoginOut', //退出登录
     //商家中心
     MerchanterMerchanter: '/api/Merchant/MerchanterMerchanter', //获取商家信息
     MerchanterLoginOut: '/api/LoginRegister/MerchanterLoginOut', //退出登录
@@ -132,4 +134,7 @@ export default {
     ShowProduct: '/api/Merchant/ShowProduct', //获取产品详情
     EditProduct: '/api/Merchant/EditProduct', //编辑产品详情
     MerchantIntegr: '/api/Merchant/MerchantIntegr', //获取商家剩余积分
+    MerchantIntegral: '/api/Merchant/MerchantIntegral', //获取商家充值总数
+    RmbExchangeRate: '/api/Merchant/RmbExchangeRate', //获取积分汇率
+    MerchantOrderListRealtime: '/api/Merchant/MerchantOrderListRealtime', //获取实时订单
 }

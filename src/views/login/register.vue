@@ -21,9 +21,9 @@
          <input type="text" placeholder="请输入商家名称" v-model.trim="storeName">
        </div>
         <div class="input-box">
-         <input type="text" placeholder="请输入邀请人" v-model.trim="promote">
+         <input type="text" placeholder="请输入邀请人" v-model.trim="promote" :readonly="promoteReady" :class="{readonly:promoteReady}">
        </div>
-       <div class="agreement"><el-checkbox v-model="checked" class="check-box"></el-checkbox>已阅读并同意<a  @click="agreement">《用户服务协议》</a></div>
+       <div class="agreement"><el-checkbox v-model="checked" class="check-box"></el-checkbox>已阅读并同意<a  @click="agreement" v-show="isStore == 0">《用户服务协议》</a><a  @click="agreement" v-show="isStore == 1">《商家注册协议》</a></div>
        <button class="btn" @click="register">立即注册</button>
      </div>
      <footerBar :isLogin="true"></footerBar>
@@ -47,7 +47,8 @@ export default {
         promote:'',
         storeName:'',
         isStore:0, //0 用户注册 1 商家注册
-        checked:false
+        checked:false,
+        promoteReady:false
     }
   },
   components:{
@@ -57,6 +58,8 @@ export default {
   },
   mounted(){
     this.$route.query.isStore == 1?this.isStore = 1:''
+    this.$route.query.invitecode?this.promote = this.$route.query.invitecode:''
+    this.$route.query.invitecode?this.promoteReady = true:''
   },
   methods:{
     tabchange(num){
@@ -259,6 +262,9 @@ export default {
     padding-left:15px;
     font-size:14px;
     border:1px solid @class_border;
+    &.readonly{
+        background:@readOnly;   
+    }
   }
   @media screen and(max-width:@change_width){
     width:auto;

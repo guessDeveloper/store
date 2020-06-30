@@ -19,7 +19,8 @@
               <button class="btn login-btn" @click="login">登录</button>
               <div class="other">
                 <a  class="forget-btn" @click="reset">忘记密码？</a>
-                <a class="regeter-btn" @click="register">新用户注册</a>
+                <a class="regeter-btn" @click="register" v-show="type == 1">新用户注册</a>
+                <a class="regeter-btn" @click="register" v-show="type == 2">新商家注册</a>
               </div>
            </div>
         </div>

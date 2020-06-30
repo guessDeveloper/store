@@ -114,6 +114,9 @@ export default {
       let marker = new BMap.Marker(this.curPoint)
       this.map.addOverlay(marker)
     },
+    destroy(){
+      this.map = ''
+    }
   }
 }
 </script>

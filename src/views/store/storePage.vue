@@ -4,8 +4,8 @@
        基本信息
     </div>
     <div class="content">
-       <div class="input-line">
-          <label for="">邀请链接：</label><div class="input-box"><input type="text" :value="infos.Invitelink" readonly class="readonly"></div>
+       <div class="input-line link">
+          <label for="">邀请链接：</label><div class="input-box"><input type="text" :value="infos.Invitelink" readonly class="readonly"><button class="copy" :data-clipboard-text="infos.Invitelink">复制</button></div>
        </div>
        <div class="input-line">
          <label for="">商家名称：</label><div class="input-box"><input type="text" placeholder="请输入商家名称" v-model.trim="infos.Name"></div>
@@ -42,17 +42,30 @@
               :on-remove="handleRemove"
               :on-change="uploadChane"
               :data="sendData"
+              :on-preview="handlePictureCardPreview"
               name="FileContent"
               accept=".jpg,.png,.mp4"
               :beforeUpload="beforeBannerUpload"
               multiple
-              :file-list="mp4List"
+              :file-list="desMp4"
               ref="mp4Uploader"
-            :auto-upload="false"
+              :auto-upload="false"
              >
               <button size="small" type="primary" class="upload-btn">选择上传文件</button>
               <span slot="tip" class="tip">可以上传多个图片和短视频</span>
             </el-upload>
+            <el-dialog :visible.sync="dialogVisible">
+              <div class="dialog-content-wrap">
+              <img width="100%" :src="dialogImageUrl" alt="">
+              </div>
+            </el-dialog>
+             <el-dialog :visible.sync="dialogVideo" :before-close="videoClose" :custom-class="'dilog'">
+              <div class="dialog-content-wrap" style="margin-top:20px;" >
+                <div class="video-box">
+                <video width="100%" :src="VideoRul" alt="" height="350px" controls ref="video"></video>
+                </div>
+              </div>
+            </el-dialog>
           </div>
        </div>
         <div class="input-line">
@@ -62,7 +75,7 @@
        </div>
         <div class="input-line">
          <label for="">请选择商家分类：</label><div class="input-box" style="height:50px;">
-              <el-select v-model="value" placeholder="请选择"  @change="getStoreClass">
+              <el-select v-model="value" placeholder="请选择"  @change="changeClass">
                 <el-option
                   v-for="item in options"
                   :key="item.value"
@@ -93,7 +106,7 @@
            <el-time-picker
             is-range
             v-model="time"
-             value-format="yyyy-MM-dd HH:MM:SS"
+            
             range-separator="-"
             start-placeholder="开始时间"
             end-placeholder="结束时间"
@@ -105,7 +118,7 @@
          <label for="">商家网址：</label><div class="input-box"><input type="text" placeholder="请输入商家网址" v-model.trim="netWork"></div>
        </div>
         <div class="input-line">
-         <label for="">商家奖励比例：</label><div class="input-box"><input type="text" placeholder="商家默认奖励比例" v-model.trim="infos.ReturnPercent"></div>
+         <label for="">商家奖励比例：</label><div class="input-box percent"><input type="text" placeholder="请输入1至60整数" v-model.trim="infos.ReturnPercent"><div class="danwei">%</div></div>
        </div>
        <div class="input-line">
          <button class="submit" @click="submit">提交</button>
@@ -126,10 +139,13 @@
   </div>
 </template>
 <script>
-const beforeUrl = 'https://files.youledui.com';
+// const beforeUrl = 'https://files.youledui.com';
+let beforeUrl = '';
+import '@/plugins/clipboard.js'
 import '@/plugins/element-upload.js'
 import '@/plugins/element-dataPicker.js'
 import Map from '@/components/store/map'
+import { mapState, mapMutations} from 'vuex' //注册 action 和 state
 class Photo {
   constructor(name, url) {
     this.name = name;
@@ -231,7 +247,13 @@ export default {
             iconSize:'15px'
           }
         ],
-        time:''
+        time:'',
+        Clipboard:'',
+        dialogImageUrl:'',
+        dialogVisible:false,
+        dialogVideo:false,
+        VideoRul:'',
+
       }
   },
   computed:{
@@ -247,14 +269,64 @@ export default {
     Map:Map
   },
   mounted(){
-      this.getStoreInfo();
+    beforeUrl = this.$util.beforeUrl;
+    const _this = this;
+    this.Clipboard = new this.clipboard('.copy');
+    this.Clipboard.on('success', function(e) {
+
+      _this.$message.success('复制成功')
+    e.clearSelection();
+    });
+
+    this.Clipboard.on('error', function() {
+        _this.$message.error('复制失败')
+    });
+    this.getStoreInfo();
   },
    methods: {
+      ...mapMutations([
+      'setStoreInfo'
+    ]),
+    //获取用户登录信息
+     getStoreInfo(){
+      this.$http.storePost(this.$api.MerchanterMerchanter).then(res=>{
+        if(res.data.Code == 1){
+         
+           let userInfo = JSON.stringify(res.data.Data);
+           this.setStoreInfo(res.data.Data)
+           sessionStorage.setItem('storeUserInfo',userInfo)
+        }
+      })
+    },
       handleRemove(file, fileList) {
-        console.log(file, fileList,'ss');
+       
+        let index = 0;
+        this.desMp4.forEach((element,t)=>{
+           if(element.uid == file.uid){
+             index = t
+           }
+        })
+        this.desMp4.splice(index,1)
+        console.log(this.desMp4)
       },
-      handlePreview(file) {
-        console.log(file);
+      videoClose(){
+        document.querySelector('video').pause();
+        this.VideoRul = '';
+        this.dialogVideo = false
+
+      },
+      handlePreview(){
+
+      },
+      handlePictureCardPreview(file) {
+        if(/.mp4/.test(file.url)){
+          this.dialogVideo = true
+          this.VideoRul = file.url
+        }else{
+          this.dialogImageUrl = file.url;
+           this.dialogVisible = true;
+        }
+        
       },
       uploadImgUrl(){
         return process.env.NODE_ENV === 'production' ? 'https://files.youledui.com/create?dir=image' : '/up/create?dir=image'
@@ -267,24 +339,45 @@ export default {
               this.fileList.push(new Photo(this.infos.Logo,this.infos.Logo))
               this.logoUrl = this.infos.Logo
             }
+            if(this.infos.introduce){
+              this.infos.introduce.forEach(element => {
+                  this.desMp4.push(new Photo(element,element))
+              })
+            }
             if(this.infos.PointX){
               this.defaultPoint.lng =this.infos.PointX
               this.defaultPoint.lat = this.infos.PointY
+              this.lng = this.infos.PointX
+              this.lat = this.infos.PointY
             }
             if(this.infos.BeginWorkTime !== ''){
               this.time = [new Date(this.infos.BeginWorkTime),new Date(this.infos.EndWorkTime)]
             }
+            if(this.infos.BigCatgroup){
+              this.value = this.infos.BigCatgroup
+              this.getStoreClass();
+            }
+            if(this.infos.Category){
+              this.secondOptionValue = this.infos.Category
+            }
+            this.infos.URl?this.netWork = this.infos.URl:''
+            this.infos.Address?this.address = this.infos.Address:''
           }
         })
       },
       getStoreClass(){
         this.$http.storePost(this.$api.GetMerchantCategory,{
-          BigCatgroup:this.value
+          BigCatgroup:this.value,
+          // token:localStorage.getItem('storeToken') ? localStorage.getItem('storeToken') : ''
         }).then(res=>{
           if(res.data.Code == 1){
             this.secondOption = res.data.Data
           }
         })
+      },
+      changeClass(){
+         this.secondOptionValue = ''
+         this.getStoreClass();
       },
       setCat(value){
         this.infos.Category = value
@@ -395,12 +488,13 @@ export default {
         this.$message.error('请输入联系方式')
       }else if(this.time == ''){
         this.$message.error('请选择营业时间')
-      }else if(this.infos.ReturnPercent == ''){
-        this.$message.error('商家奖励比例：')
+      }else if(this.infos.ReturnPercent == ''||this.infos.ReturnPercent>60||this.infos.ReturnPercent<0){
+        this.$message.error('请输入0-60商家奖励比例')
       }else{
+        let logo = this.logoUrl.replace(this.$util.testBeforeUrl,'');
         let imgList = [];
         this.desMp4.filter(element => {
-             imgList.push(element.url)
+             imgList.push(element.url.replace(this.$util.testBeforeUrl,''))
         });
         this.$http.storePost(this.$api.ChangeMyInfo,{
           MerchantName:this.infos.Name,
@@ -409,17 +503,18 @@ export default {
           PointX:this.lng,
           PointY:this.lat,
           Remark:this.infos.describe,
-          MerchantLogo:this.logoUrl,
+          MerchantLogo:logo,
           ShowImgs:imgList,
           Category:this.infos.Category,
-          Email:'',
+          Email:this.netWork,
           BigworkTime:this.time[0],
           EndworkTime:this.time[1],
-          BdCityCode:this.addressCity,
+          BdCityName:this.addressCity,
           ReturnPercent:this.infos.ReturnPercent
         }).then(res=>{
           if(res.data.Code == 1){
             this.$message.success('修改成功')
+            this.getStoreInfo();
           }else{
             this.$message.error(res.data.Msg)
           }
@@ -431,6 +526,7 @@ export default {
 }
 </script>
 <style lang="less" scoped>
+
 .store-page{
   min-height: @persion_height;
   background:#fff;
@@ -442,6 +538,7 @@ export default {
   position: relative;
   width:380px;
   margin:0 auto 20px;
+ 
   label{
       position: absolute;
       top:0;
@@ -454,6 +551,17 @@ export default {
       padding-right:15px;
   }
   .input-box{
+    &.percent{
+      overflow: hidden;
+      input{
+        float:left;
+        width:350px;
+      }
+      .danwei{
+        float: right;
+        line-height: 50px;
+      }
+    }
     input{
       display: block;
       box-sizing: border-box;
@@ -479,6 +587,19 @@ export default {
       color:@subtitle_color;
       padding-left:20px;
     }
+
+  }
+  .copy{
+    position:absolute;
+    right:-80px;
+    top:8px;
+    width:70px;
+    height:34px;
+    margin-left:30px;
+    color:@main;
+    font-size:12px;
+    border:1px solid @main;
+    border-radius: 34px;
   }
 }
 .submit{
@@ -539,6 +660,17 @@ export default {
       .input-line {
         width: 92%;
         margin-bottom: 46px;
+        &.link{
+          .input-box{
+            
+            input{
+              width:calc(100% - 80px);
+            }
+            .copy{
+              right:0;
+            }
+          }
+        }
         label {
           left: 0;
           right: auto;
@@ -547,6 +679,18 @@ export default {
           line-height: 38px;
         }
         .input-box {
+          &.percent{
+              display: flex;
+              input{
+                float:left;
+              }
+              .danwei{
+                float: right;
+                width:20px;
+                text-align: right;
+                line-height: 50px;
+              }
+            }
           input {
             width: 100%;
           }
@@ -557,5 +701,8 @@ export default {
       }
     }
   }
+}
+.video-box{
+  background:#000;
 }
 </style>

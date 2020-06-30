@@ -29,6 +29,7 @@ export default {
 }
 </script>
 <style lang="less" scoped>
-
-
+.home{
+  min-height: 100vh;
+}
 </style>

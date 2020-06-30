@@ -17,12 +17,12 @@
           <h2>{{detail.Name}}</h2>
           <p>{{detail.Describe}}</p>
           <div class="price"><span class="one">¥</span><span class="num">{{detail.price}}</span><span class="danwei"></span></div>
-          <div class="score">积分约：50</div>
+          <div class="score">积分约：{{detail.Integral}}</div>
        
          
        </div>
     </div>
-    <div class="store-des">
+    <!-- <div class="store-des">
       <div class="persion-title">
           商品详情
       </div>
@@ -39,7 +39,7 @@
             <img src="" alt="">
          </div>
       </div>
-    </div>
+    </div> -->
   </div>
 </template>
 <script>
