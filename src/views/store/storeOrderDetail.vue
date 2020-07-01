@@ -176,7 +176,7 @@ export default {
           }).then(res=>{
             if(res.data.Code == 1){
               this.$message.success('积分奖励成功')
-              this.getDetail();
+              this.$router.push('/storeOrder')
             }else{
               this.$message.error(res.data.Msg)
             }

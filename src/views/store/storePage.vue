@@ -507,7 +507,7 @@ export default {
           MerchantLogo:logo,
           ShowImgs:imgList,
           Category:this.infos.Category,
-          Email:this.netWork,
+          URl:this.netWork,
           BigworkTime:this.time[0],
           EndworkTime:this.time[1],
           BdCityName:this.addressCity,
