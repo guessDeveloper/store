@@ -7,11 +7,38 @@
 
 <script>
 // import fixRight from '@/components/common/custoer-service'
+import { mapState, mapMutations} from 'vuex' //注册 action 和 state
 export default {
   name: 'app',
   // components: {
   //   fixRight:fixRight,
   // }
+  data(){
+    return{
+
+    }
+  },
+  computed:{
+    ...mapState([
+      'config'
+    ])
+  },
+  mounted(){
+    this.getConfig();
+  },
+  methods:{
+    ...mapMutations([
+      'setConfig'
+    ]),
+    getConfig(){
+      this.$http.get(this.$api.GetWebconfig).then(res=>{
+        if(res.data.Code ==1){
+          document.title = res.data.Data.title
+          this.setConfig(res.data.Data)
+        }
+      })
+    }
+  }
 }
 </script>
 

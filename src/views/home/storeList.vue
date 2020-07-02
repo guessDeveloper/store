@@ -9,7 +9,7 @@
         <div class="content-list">
           <!-- <div class="list-title">食品材料（54）</div> -->
            <ul>
-             <li v-for="(item,index) in list" :key="index" @click="jump(item.ID,item.picurl)">
+             <li v-for="(item,index) in list" :key="index" @click="jump(item.ID,item.picurl,item.title)">
                <Card :data="item"></Card>
              </li>
               
@@ -85,13 +85,13 @@ export default {
     handleSizeChange(){
 
     },
-    jump(id,img){
+    jump(id,img,title){
       if(!this.isLogin){
         this.$router.push('/login')
       }else{
          let routeUrl = this.$router.resolve({
             path: "/jump",
-            query: {id:id,img:img}
+            query: {id:id,img:img,title:title}
           });
           window.open(routeUrl.href, '_blank');
         // this.$router.push(`/jump?id=${id}&img=${img}`,'_blank')

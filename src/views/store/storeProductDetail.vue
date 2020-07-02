@@ -88,7 +88,7 @@
          <label>奖励比例：</label>
          <div class="input-box">{{rate}}%</div>
        </div>
-        <div class="input-line-box input-line-box-integral">
+        <div class="input-line-box input-line-box-shelf">
            <label for="">返积分数量：</label><div class="input-box">{{backScore}}<span class="tip"></span> </div>
          </div>
          <div class="input-line-box input-line-box-shelf">
@@ -260,7 +260,7 @@ export default {
           ProductPrice:this.price,
           ProductDescribe:this.des,
           CatID:this.value,
-          UpOrDown:this.online,
+          UpOrDown:this.online?1:0,
           picList:imgList,
           Rate:this.rate/100
         }).then(res=>{
@@ -399,6 +399,7 @@ export default {
           top: -38px;
           right: auto;
           left: 0;
+          text-align: left;
         }
         .percent {
           width: 4%;

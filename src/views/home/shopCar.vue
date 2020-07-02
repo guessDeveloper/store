@@ -91,7 +91,7 @@
            </div>
            <div class="content">
              <div class="name">{{goodItem.GoodsName}}</div>
-             <div class="price-box">单价：<i>{{goodItem.GoodsMoneny}}</i> <span class="score">积分约：<i>{{goodItem.num*goodItem.Goodsfanli}}</i></span></div>
+             <div class="price-box">单价：<i>{{goodItem.GoodsMoneny}}</i> <span class="score">积分约：<i>{{parseInt(goodItem.num*goodItem.Goodsfanli)}}</i></span></div>
              <div style="height:28px;">
                  <el-input-number size="mini" v-model="goodItem.num" :min="1" @change="choseGood"></el-input-number>
              </div>
@@ -109,7 +109,7 @@
            共<span>{{item.goodsNum}}</span>件商品，已选择<span>{{item.choseNum}}</span>件
          </div>
          <div>
-            总积分约：{{item.totalScore}}
+            总积分约：{{parseInt(item.totalScore)}}
          </div>
          <div>
            商品合计 :¥{{item.totoalMony}}

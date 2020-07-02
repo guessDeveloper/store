@@ -3,7 +3,7 @@
     <img :src="data.picurl" alt="" >
     <div class="des">
       <h4>{{data.titleA}}</h4>
-      <p>{{data.tieleB}}</p>
+      <p>{{data.titleB}}</p>
       <div class="price">¥{{data.price}}</div>
     </div>
   </a>

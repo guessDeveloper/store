@@ -131,9 +131,9 @@
 
     <!-- 移动端个人中心 -->
     <div class="small-nav-list">
-      <ul>
-        <li class="" v-for="(item,index) in smallNav" :key="index">
-            <router-link tag="a" :to="item.to" @click.native="routerChange(item.to)"><span class="iconfont" :class="item.icon" :style="'font-size:'+item.iconSize+';'"></span>{{item.title}}<span class="iconfont iconjiantou"></span></router-link>
+      <ul :class="{isfood:storeInfo.BigCatgroup == '1'}">
+        <li class="" v-for="(item,index) in smallNav" :key="index" :class="{erwima:item.contor == true}">
+            <router-link tag="a" :to="item.to" @click.native="routerChange(item.to)" ><span class="iconfont" :class="item.icon" :style="'font-size:'+item.iconSize+';'"></span>{{item.title}}<span class="iconfont iconjiantou"></span></router-link>
         </li>
       </ul>
     </div>
@@ -211,29 +211,32 @@ export default {
             icon:"iconaqsz",
             iconSize:'15px'
           },
-          {
-            title:"产品管理",
-            to:'/storeProduct',
-            icon:"iconcpgl",
-            iconSize:'15px'
-          },
-          {
+           {
             title:"分类管理",
             to:'/storeClassify',
             icon:"iconflgl",
             iconSize:'15px'
           },
           {
+            title:"产品管理",
+            to:'/storeProduct',
+            icon:"iconcpgl",
+            iconSize:'15px'
+          },
+         
+          {
             title:"二维码管理",
             to:'/storeErweima',
             icon:"iconewmgl",
-            iconSize:'15px'
+            iconSize:'15px',
+             contor:true
           },
           {
             title:"订单管理",
             to:'/storeOrder',
             icon:"iconddgl",
-            iconSize:'15px'
+            iconSize:'15px',
+             contor:true
           },
           {
             title:"积分管理",
@@ -258,6 +261,10 @@ export default {
       }
   },
   computed:{
+    ...mapState([
+       'storeInfo',
+       'isLogin'
+    ]),
     uploadMp4Url(){
       return this.changeUrl
     },
@@ -621,9 +628,19 @@ export default {
   }
   ul{
     padding: 0 15px;
+    &.isfood{
+      li{
+        &.erwima{
+          display: block;
+        }
+      }
+    }
     li{
       height:50/@p;
       line-height: 50/@p;
+      &.erwima{
+        display: none;
+      }
       a{
         display: block;
         font-size:14px;

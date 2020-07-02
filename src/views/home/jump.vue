@@ -12,10 +12,10 @@
            </div>
         </div>
         <div class="hello">
-          Hi，购物星期日
+           HI,{{userInfo.nickName}}
         </div>
         <div class="main">
-          返利网正带您进入“京东商城”，购物拿任务奖励
+          返利网正带您进入“{{title}}”，购物拿任务奖励
         </div>
         <div class="tip">(温馨提示：开具增值税发票的订单，暂无任务奖励。)</div>
         <div class="time"><span>{{second}}</span>秒后自动跳转</div>
@@ -24,6 +24,7 @@
   </div>
 </template>
 <script>
+import { mapState, mapMutations} from 'vuex' //注册 action 和 state
 export default {
   data(){
     return{
@@ -31,13 +32,20 @@ export default {
       imgUrl:'',
       jumpUrl:'',
       timer:'',
+      title:'',
       second:5,
     }
   },
   mounted(){
     this.id = this.$route.query.id
     this.imgUrl = this.$route.query.img
+    this.title = this.$route.query.title
     this.getUrl();
+  },
+  computed:{
+    ...mapState([
+      'userInfo'
+    ])
   },
   methods:{
     getUrl(){

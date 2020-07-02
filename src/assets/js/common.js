@@ -25,6 +25,11 @@ const util = {
         var reg = /^(\d{3})\d{4}(\d{4})$/
         return phone.replace(reg, "$1****$2")
     },
+    isAndorid(){
+        var u = navigator.userAgent;
+        var isAndroid = u.indexOf('Android') > -1 || u.indexOf('Adr') > -1; //android终端
+        return isAndroid
+    }
 
 }
 export default util

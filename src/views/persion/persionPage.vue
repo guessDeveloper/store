@@ -464,7 +464,7 @@ export default {
        background-repeat: no-repeat;
     background-position:center center;
     background-size:cover;
-      
+      cursor: pointer;
     }
     .avatar-uploader-icon{
       width:80px;
@@ -473,6 +473,7 @@ export default {
       border:1px solid @class_border;
       font-size: 30px;
       line-height: 80px;
+      cursor: pointer;
     }
     .el-upload{
       width:100px;

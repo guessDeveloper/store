@@ -36,6 +36,7 @@ export default {
     display: block;
     width:100%;
     height:265px;
+    cursor: pointer;
   }
   .des{
     padding:0 13px;
@@ -47,7 +48,8 @@ export default {
     line-height: 15px;
     margin-top:20px;
     margin-bottom:12px;
-    .overTextOne()
+    .overTextOne();
+    cursor: pointer;
   }
   p{
     font-size:12px;

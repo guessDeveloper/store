@@ -1,9 +1,9 @@
 <template>
   <div class="login">
      <navBar></navBar>
-     <div class="content">
+     <div class="content" :style="'background:url('+config.logourl+') no-repeat center center;'">
         <div class="middle">
-           <div class="login-box">
+           <div class="login-box" >
               <div class="tab-box">
                  <span  :class="{active:type==1}" @click="tabchange(1)">用户登录</span><span :class="{active:type==2}" @click="tabchange(2)">商家登录</span>
               </div>
@@ -29,6 +29,7 @@
   </div>
 </template>
 <script>
+import { mapState} from 'vuex' //注册 action 和 state
 import navBar from '@/components/login/login-nav'
 import footerBar from '@/components/common/footer'
 export default {
@@ -48,6 +49,11 @@ export default {
   components:{
     footerBar:footerBar,
     navBar:navBar
+  },
+  computed:{
+    ...mapState([
+      'config'
+    ])
   },
   methods:{
     tabchange(type){
@@ -163,6 +169,7 @@ export default {
           localStorage.setItem('token',res.data.Data)
           this.$router.push('/persion')
         }else{
+          this.isLoginCode();
           this.$message.error(res.data.Msg)
         }
       })
@@ -179,6 +186,7 @@ export default {
           localStorage.setItem('storeToken',res.data.Data)
           this.$router.push('/store')
         }else{
+           this.isLoginCode();
           this.$message.error(res.data.Msg)
         }
       })
@@ -197,7 +205,7 @@ export default {
   height:680px;
   text-align: center;
   background:url(../../assets/img/logon-bc.png) no-repeat center center;
-  background-size:auto 100%;
+  background-size:auto 100%!important;
   .middle{
     width:@max-width;
     margin:0 auto;
@@ -303,6 +311,7 @@ export default {
     padding-left:60px;
     font-size:14px;
     border:1px solid @class_border;
+     -webkit-appearance: none;
   }
 }
 .login-btn{

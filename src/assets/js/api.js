@@ -1,4 +1,6 @@
 export default {
+    //全局配置
+    GetWebconfig:'/api/Webconfig/GetWebconfig',
     //搜索
     GetGoodsByKey: '/api/Taobao/GetGoodsByKey', // 搜索淘宝
     GJKeyWordSearch: "/api/shopping/GJKeyWordSearch", //逛街购物搜索

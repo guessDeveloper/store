@@ -83,6 +83,7 @@ export default {
     height:100%;
     overflow: hidden;
     position: relative;
+    cursor: pointer;
     img{
       position: absolute;;
       top:0;

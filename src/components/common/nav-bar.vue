@@ -9,6 +9,7 @@
         </a>
         <a class="menu" @click="openNav" v-show="!navIsOpen">
             <span class="iconfont iconyd_gengduo"></span>
+            <canvas id="qrcanvas" style="display:none;"> </canvas>
         </a>
         <a class="menu" v-show="navIsOpen" @click="closeNav">
             <span class="el-icon-close"></span>
@@ -48,6 +49,8 @@
  </div>
 </template>
 <script>
+import jsQR from 'jsqr';
+import Quagga from 'quagga';
 import { mapState, mapGetters,mapMutations} from 'vuex' //注册 action 和 state
 export default {
     data(){
@@ -280,6 +283,7 @@ export default {
            
         },
         openNav(){
+            console.log(1)
             this.navIsOpen = true
             document.querySelector('body').style.height = '100%';
             document.querySelector('body').style.overflow = 'hidden';
@@ -304,10 +308,74 @@ export default {
         },
         //点击扫一扫
         sao(){
+            let _this = this;
             if(this.isLogin){
-                this.$router.push('/sao')
+                // // this.$router.push('/sao')
+                // if(this.$util.isAndorid()){
+                //      this.$router.push('/sao')
+                // }else{
+                //     let inputUploadObj = document.createElement('input')
+                // inputUploadObj.setAttribute('id', 'input_upload_ID');
+                // inputUploadObj.setAttribute('type', 'file');
+                // // 添加这个属性，就可以唤起相机的功能
+                // inputUploadObj.setAttribute('capture', 'camera');
+                // // 这里如果不加属性 accept 是 "image/*" 或者 "video/*"，就默认打开摄像头，既可以拍照也可以录像
+                // inputUploadObj.setAttribute('accept', 'image/*');
+                // inputUploadObj.setAttribute("style", 'visibility:hidden');
+                // // 这里将创建的隐式input控件拼接到body的最后面，会增加页面的长度，所以要在适当的时候，移除掉这个隐式创建的input控件
+                // document.body.appendChild(inputUploadObj);
+                // // 这里是模拟点击了input控件
+                // inputUploadObj.click();
+                // var c = document.getElementById("qrcanvas");
+                // var ctx = c.getContext("2d");
+                // inputUploadObj.addEventListener('change',function(evt){
+                    
+                //     var file = evt.target.files[0];
+			    //     let reader = new FileReader();
+                //     reader.readAsDataURL(file);
+                //     reader.onloadend = function() {
+                //         alert(1)
+                //         var img = new Image();
+                //         img.src = reader.result;
+                //         alert(reader.result,'sss')
+                //         img.onload = function(){
+                //             alert('2')
+                //             c.width = img.width;
+                //             c.height = img.height;
+                //             ctx.drawImage(img, 0, 0, img.width, img.height);
+                //             var imageData = ctx.getImageData(0, 0, img.width, img.height).data;
+                            
+                //             var loading = _this.$loading({
+                //                 lock: true,
+                //                 text: '正在识别中',
+                //                 spinner: 'el-icon-loading',
+                //                 background: 'rgba(0, 0, 0, 0.7)'
+                //             });
+                //             var code = jsQR(imageData, img.width, img.height, {
+                //                 inversionAttempts: 'dontInvert'
+                //             });
+                            
+                //             if(code){
+                //                 loading.close()
+                //                 // window.location.href = code.data
+                //             }else{
+                //                 loading.close()
+                //                 _this.$message.error('识别失败请重试')
+                //                 inputUploadObj.value = ''
+                //             }
+                //         }
+                        
+                        
+                //     }
+
+                // },false)
+                // }
+                
+                window.location.href = './static/que/index.html'
             }else{
+                
                 this.$router.push('/login')
+                
             }
         }
     },

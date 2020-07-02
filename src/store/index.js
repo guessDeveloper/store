@@ -8,6 +8,7 @@ Vue.use(Vuex)
 
 let store = new Vuex.Store({
     state: {
+        config:'',
         positionX: '', // 经度
         positionY: '', //纬度
         storeInfo: '', //商家信息
@@ -32,6 +33,9 @@ let store = new Vuex.Store({
         },
     },
     mutations: {
+        setConfig(state,num){
+            state.config = num
+        },
         //设置汇率
         setRate(state, num) {
             state.ScoreRate = num

@@ -217,7 +217,7 @@ export default {
           ProductPrice:this.price,
           ProductDescribe:this.des.trim(),
           CatID:this.value,
-          OnShelves:this.online,
+          OnShelves:this.online?1:0,
           picList:imgList,
           Rate:this.rate
         }).then(res=>{
