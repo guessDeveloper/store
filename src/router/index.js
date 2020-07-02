@@ -79,10 +79,10 @@ const routes = [{
                 component: () =>
                     import ( /* webpackChunkName: "foodList" */ '../views/home/foodList.vue')
             }, {
-                path: '/fooddetail', //美食详情
-                name: 'fooddetail',
+                path: '/foodDetail', //美食详情
+                name: 'foodDetail',
                 component: () =>
-                    import ( /* webpackChunkName: "fooddetail" */ '../views/home/fooddetail.vue')
+                    import ( /* webpackChunkName: "foodDetail" */ '../views/home/foodDetail.vue')
             },
             {
                 path: '/goodsDetail', //商品列表

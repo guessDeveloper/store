@@ -17,6 +17,8 @@
                     <el-date-picker
                         v-model="onlieTime[0]"
                         type="date"
+                        :editable="false"
+                        :clearable="false"
                         value-format="yyyy-MM-dd"
                         placeholder="开始日期">
                     </el-date-picker>
@@ -25,7 +27,10 @@
                    <div class="small-date-box">
                         <el-date-picker
                         v-model="onlieTime[1]"
+                        
                         type="date"
+                        :editable="false"
+                        :clearable="false"
                         value-format="yyyy-MM-dd"
                         placeholder="结束日期">
                         </el-date-picker>
@@ -69,6 +74,8 @@
                 <div class="date-box">
                     <el-date-picker
                         v-model="onlieTime"
+                        :editable="false"
+                        :clearable="false"
                         type="daterange"
                         range-separator="-"
                         value-format="yyyy-MM-dd"
@@ -166,7 +173,8 @@
              </div>
              <div class="page-box small">
                  <el-pagination
-                    small=""
+                    small
+                    v-show="onlineTotal!=0"
                     @current-change="getOnlineList"
                     :current-page.sync="pageIndex"
                     :page-size="pageSize"
@@ -184,6 +192,8 @@
                     <el-date-picker
                         v-model="unlineTime[0]"
                         type="date"
+                         :editable="false"
+                        :clearable="false"
                         value-format="yyyy-MM-dd"
                         placeholder="开始日期">
                     </el-date-picker>
@@ -193,6 +203,8 @@
                         <el-date-picker
                         v-model="unlineTime[1]"
                         type="date"
+                         :editable="false"
+                        :clearable="false"
                         value-format="yyyy-MM-dd"
                         placeholder="结束日期">
                         </el-date-picker>
@@ -214,7 +226,7 @@
                <div class="search-box">
                    <div class="input-box">
                     <input type="text" placeholder="输入订单号">
-                    <span class="iconfont iconsousuo"></span>
+                    <span class="iconfont iconsousuo"  @click="foodSearch"></span>
                   </div>
                </div>
             </div>
@@ -268,7 +280,7 @@
                      <el-table-column property="state" label="状态" width="88" align="center"></el-table-column>
                     <el-table-column  label="操作" width="102" align="center">
                          <template slot-scope="scope">
-                            <button :data="scope" class="action-btn" @click="unlineDetail(scope.row.OrderNumber)">查看详情</button><button class="action-btn comment-btn" @click="goToComment(scope.row)" v-if='scope.row.state=="待奖励"||scope.row.state=="已奖励"'>评价</button>
+                            <button :data="scope" class="action-btn" @click="unlineDetail(scope.row.OrderNumber)">查看详情</button><button class="action-btn comment-btn" @click="goToComment(scope.row)" v-if='(scope.row.state=="待奖励"&&scope.row.IsComment == false)||(scope.row.state=="已奖励"&&scope.row.IsComment== false)'>评价</button>
                         </template>
                     </el-table-column>
                 </el-table>
@@ -282,7 +294,7 @@
                             <div>
                                 <div class="name">{{item.MerchantName}}</div>
                                 <div class="item-name">
-                                    消费时间：<span class="item-value">{{item.Money}}</span>
+                                    消费时间：<span class="item-value">{{item.CreationTime}}</span>
                                 </div>
                         
                                 <div class="item-name">消费金额(元)：<span class="item-value">{{item.Money}}</span>
@@ -295,12 +307,13 @@
                         </div>
                         <div class="btn-detail-box">
                            <div class="btn-detail"  @click="unlineDetail(item.OrderNumber)">查看详情</div>
-                           <div class="btn-detail" v-if='item.state=="待奖励"||item.state=="已奖励"' @click="goToComment(item)">评价</div>
+                           <div class="btn-detail" v-if='(item.state=="待奖励"&&item.IsComment == false)||(item.state=="已奖励"&&item.IsComment == false)' @click="goToComment(item)">评价</div>
                         </div>
                     </div>
                 </div>
                 <div class="page-box">
                     <el-pagination
+                        v-show="unlineTotal!=0"
                         @current-change="getUnderLineList"
                         :current-page.sync="unlineIndex"
                         :page-size="unlineSize"
@@ -310,7 +323,8 @@
                 </div>
                 <div class="page-box small">
                     <el-pagination
-                        small=""
+                        small
+                        v-show="unlineTotal!=0"
                         @current-change="getUnderLineList"
                         :current-page.sync="unlineIndex"
                         :page-size="unlineSize"

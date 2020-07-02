@@ -20,10 +20,10 @@
             <span class="iconfont iconweizhixuanze"></span><a @click="toMap = true" class="pc">{{item.CityName}}</a> <a :href="mapUrl" class="phone">{{item.CityName}}</a>
 
          </div>
-       </div>
+       </div>  
      </div>
     <el-dialog title="商家位置" :visible.sync="toMap" custom-class="custom-dialog" :before-close="close">
-       <shopMap  :defaultPoint="mapPorint" ref="map"></shopMap>
+       <shopMap  :defaultPoint="mapPorint" ref="map" v-if="toMap"></shopMap>
     </el-dialog>
   </div>
 </template>

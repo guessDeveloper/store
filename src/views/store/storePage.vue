@@ -106,7 +106,8 @@
            <el-time-picker
             is-range
             v-model="time"
-            
+             :editable="false"
+              :clearable="false"
             range-separator="-"
             start-placeholder="开始时间"
             end-placeholder="结束时间"
@@ -506,7 +507,7 @@ export default {
           MerchantLogo:logo,
           ShowImgs:imgList,
           Category:this.infos.Category,
-          Email:this.netWork,
+          URl:this.netWork,
           BigworkTime:this.time[0],
           EndworkTime:this.time[1],
           BdCityName:this.addressCity,

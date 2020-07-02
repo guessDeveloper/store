@@ -9,6 +9,8 @@
                     <el-date-picker
                         v-model="dataValue"
                         type="daterange"
+                         :editable="false"
+                        :clearable="false"
                         range-separator="-"
                         value-format="yyyy-MM-dd"
                         start-placeholder="开始日期"
@@ -20,6 +22,8 @@
                     <el-date-picker
                         v-model="dataValue[0]"
                         type="date"
+                         :editable="false"
+                        :clearable="false"
                         value-format="yyyy-MM-dd"
                         placeholder="开始日期">
                     </el-date-picker>
@@ -28,6 +32,8 @@
                    <div class="small-date-box">
                         <el-date-picker
                         v-model="dataValue[1]"
+                         :editable="false"
+                        :clearable="false"
                         type="date"
                         value-format="yyyy-MM-dd"
                         placeholder="结束日期">
@@ -194,6 +200,9 @@ export default {
             if(res.data.Code == 1){
                 this.listData = res.data.Data.list;
                 this.total = res.data.Data.count
+            }else{
+                this.listData = [];
+                this.total = 0;
             }
          })
       },
