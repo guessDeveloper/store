@@ -46,7 +46,7 @@
                 </div>
                 <div class="status-select">
                     订单状态
-           
+
                     <span class="select">
                         <el-select v-model="value" placeholder="请选择"  >
                             <el-option
@@ -73,7 +73,7 @@
                     <el-table-column property="orderCreateTime" label="下单时间" width="200" align="center"></el-table-column>
                     <el-table-column property="orderMoney" label="返积分数" width="88" align="center"></el-table-column>
                     <el-table-column property="orderState" label="订单状态" width="100" align="center"></el-table-column>
-                    
+
                     <el-table-column  label="操作" width="102" align="center">
                          <template slot-scope="scope">
                             <button :data="scope" class="action-btn" @click="goDetail(scope.row.orderNumber)">查看详情</button>
@@ -90,7 +90,7 @@
                             <div class="item-name">
                                 订单号：<span class="item-value">{{item.orderNumber}}</span>
                             </div>
-                           
+
                             <div class="item-name">
                                 用户名：<span class="item-value">{{item.UserName}}</span>
                             </div>
@@ -175,7 +175,7 @@ export default {
       this.timer = setInterval(()=>{
           this.getRealTime()
       },14000)
-     
+
   },
   beforeDestroy(){
       clearInterval(this.timer)
@@ -348,6 +348,7 @@ export default {
                     top: 0;
                     right: 0;
                     z-index: 1;
+                    line-height: 26px;
                     background-color: #ffffff;
                     .order-status-name {
                         color: #999999;
@@ -419,7 +420,7 @@ export default {
             }
         }
     }
-    
+
 }
 .page-box{
     padding:30px 0;
