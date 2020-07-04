@@ -1,9 +1,9 @@
 <template>
   <div class="item" >
      <img :src="data.GoodsImg" alt="" @click="goDetail">
-     <h4>{{data.GoodsName}}</h4>
-     <p>积分约：{{data.Goodsfanli}}</p>
-     <div class="price">¥{{data.GoodsMoneny}}</div>
+     <h4 @click="goDetail">{{data.GoodsName}}</h4>
+     <p @click="goDetail">积分约：{{data.Goodsfanli}}</p>
+     <div class="price" @click="goDetail">¥{{data.GoodsMoneny}}</div>
      <button class="add" @click="addCar" v-if="isLogin&&data.IsQRcode==1&&data.tablenumber">加入购物车</button>
   </div>
 </template>

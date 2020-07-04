@@ -133,7 +133,7 @@ import '../../plugins/element-dataPicker.js'
 export default {
   data(){
     return{
-        dataValue:[new Date(),new Date()],
+        dataValue:['',''],
         value:'',
         options:[{
             label:"全部",
@@ -163,7 +163,7 @@ export default {
     }
   },
   mounted(){
-      this.dataValue = [this.$util.getNowDate(),this.$util.getNowDate()]
+    //   this.dataValue = [this.$util.getNowDate(),this.$util.getNowDate()]
       this.getList();
       this.getScore();
       clearInterval(this.timer)
@@ -190,8 +190,8 @@ export default {
       },
       getList(){
          this.$http.storePost(this.$api.GetOrderlist,{
-             BingTime:this.dataValue[0] +' 00:00:00',
-             entTime:this.dataValue[1]+' 23:59:59',
+             BingTime:this.dataValue[0]?this.dataValue[0] +' 00:00:00':'',
+             entTime:this.dataValue[1]?this.dataValue[1]+' 23:59:59':'',
              state:this.value,
              UserName:this.orderNum,
              pageIndex:this.pageIndex,

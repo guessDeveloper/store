@@ -112,7 +112,7 @@
                 <router-link class="btn" tag="button" to="/orderGrievance">订单申诉</router-link>
             </div>
             <div class="table-box">
-                  <el-table :data="listData"  header-row-style="font-size:12px;color:#999;" row-class-name="table-line" width="930" class="table-big">
+                  <el-table :data="listData"  header-row-style="font-size:12px;color:#999;" row-class-name="table-line" width="930" class="table-big" >
                     <el-table-column property="img" label="产品图片" width="50" align="left">
                          <template slot-scope="scope">
                             <img :src="scope.row.img" alt="" class="product-img">
@@ -358,7 +358,7 @@ export default {
     data(){
         return{
            //线上订单
-           onlieTime:[new Date(),new Date()],
+           onlieTime:['',''],
            pageIndex:1,
            pageSize:20,
            onlineTotal:0,
@@ -370,6 +370,7 @@ export default {
                {value:'3',label:'等待订单'},
                {value:'-1',label:'订单关闭'},
            ],
+           onlineLoading:true,
            orderType:[{ //2-淘宝 3-拼多多 4-亿起发 ,
                 label:'淘宝',
                 value:2
@@ -385,7 +386,7 @@ export default {
            listData:[],
            tab:1,
            //地面订单
-           unlineTime:[new Date(),new Date()],
+           unlineTime:['',''],
            unlineType:[
                {value:'',label:'全部'},
                 {value:'0',label:'待付款'},
@@ -409,7 +410,7 @@ export default {
     },
     mounted(){
        this.tab = this.$route.query.tab?this.$route.query.tab:'1';
-       this.onlieTime = this.unlineTime = [this.$util.getNowDate(),this.$util.getNowDate()]
+    //    this.onlieTime = this.unlineTime = [this.$util.getNowDate(),this.$util.getNowDate()]
        if(this.tab == '1'){
            this.getOnlineList();
        }else{
@@ -433,8 +434,8 @@ export default {
         //获取线上订单列表
         getOnlineList(){
             this.$http.limitPost(this.$api.UserOnlineOrderList,{
-                StartTime:this.onlieTime[0] +' 00:00:00',
-                EndTime:this.onlieTime[1] +' 23:59:59',
+                StartTime:this.onlieTime[0]?this.onlieTime[0] +' 00:00:00':'',
+                EndTime:this.onlieTime[1]?this.onlieTime[1] +' 23:59:59':'',
                 State:this.onlieStatus,
                 OrderNo:this.onlineSearch,
                 OrderType:this.onlineType,
@@ -450,8 +451,8 @@ export default {
         //获取地面订单列表
         getUnderLineList(){
             this.$http.limitPost(this.$api.UserGroundOrderList,{
-                StartTime:this.unlineTime[0]+' 00:00:00',
-                EndTime:this.unlineTime[1]+ ' 23:59:59',
+                StartTime:this.unlineTime[0]?this.unlineTime[0]+' 00:00:00':'',
+                EndTime:this.unlineTime[1]?this.unlineTime[1]+ ' 23:59:59':'',
                 State:this.unlineOrderType,
                 OrderNoOrMerchantName:this.unlineSearch,
                 pageIndex:this.unlineIndex,

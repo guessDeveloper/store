@@ -7,10 +7,11 @@
     </div>
     <div class="detail">
        <div class="detail-left">
-         <el-carousel trigger="click" height="320px">
+         <img src="../../assets/img/video-default.png" alt="" class="img-port">
+         <el-carousel trigger="click" height="100%" class="img-box" :autoplay="autoplay" @change="videoPause">
           <el-carousel-item v-for="item in bannerList" :key="item">
             <div class="banner-video" v-if="isMp4(item)" >
-              <video :src="item"  controls></video>
+              <video :src="item"  controls class="video"></video>
             </div>
             <img :src="item" alt="" class="banner-img" v-else>
           </el-carousel-item>
@@ -84,14 +85,22 @@ export default {
       IsQRcode:0,
       tablenumber:'',
       mapPorint:{},
-      toMap:false
+      toMap:false,
+      autoplay:true
     }
   },
   mounted(){
+    let _this = this;
     if(this.$route.query.id){
       this.MerchanterId = this.$route.query.id;
     }
     this.getDetail();
+    window.videoPlay = function(){
+      _this.autoplay = false
+    }
+    window.videoPasue = function(){
+      _this.autoplay = true
+    }
   },
   computed:{
      mapUrl(){
@@ -104,6 +113,12 @@ export default {
     shopMap:shopMap
   },
   methods:{
+    videoPause(){
+       var elevideo = document.querySelectorAll(".video");
+       elevideo.forEach(element=>{
+         element.pause()
+       })
+    },
     //获取商家产品
     getDetail(){
       let _this = this;
@@ -130,7 +145,15 @@ export default {
     },
     //获取商家banner
     getBanner(){
+      let _this = this;
       this.bannerList = JSON.parse(this.detial.MertchntImge);
+      this.$nextTick(()=>{
+          var elevideo = document.querySelectorAll(".video");
+          elevideo.forEach(element=>{
+             element.addEventListener('playing', window.videoPlay,false);
+          })
+         
+      })
       
     },
    
@@ -157,6 +180,11 @@ export default {
     img{
       width:100%;
       height:100%;
+      // margin-left: 50%;
+      // transform: translateX(-50%);
+    }
+    .img-port{
+      display: none;
     }
     .banner-video{
       width: 100%;
@@ -253,7 +281,19 @@ export default {
     .detail-left{
       float:none;
       width:100%;
-      height:320px;
+      position: relative;
+      height:auto;
+      .img-port{
+        display: block;
+        width: 100%;
+      }
+
+      .img-box{
+        position: absolute;
+        top:0;
+        width: 100%;
+        height:100%;
+      }
     }
     .detail-right{
       width:100%;

@@ -575,6 +575,7 @@ export default {
 
    }
    @media screen and(max-width:@change_width){
+     padding:0 15px;
      .stepOne {
        padding-bottom: 30px;
        .tip {

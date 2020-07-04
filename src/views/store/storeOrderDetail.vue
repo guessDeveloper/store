@@ -26,9 +26,9 @@
                             <img :src="scope.row.Photo" alt="" class="product-img"><span class="goods-name">{{scope.row.goodsName}}</span>
                         </template>
                     </el-table-column>
-                    <el-table-column property="goodsPrice" label="单价" width="144" align="center"></el-table-column>
+                    <el-table-column property="goodsPrice" label="单价(元)" width="144" align="center"></el-table-column>
                     <el-table-column property="goodsNumber" label="数量" width="84" align="center"></el-table-column>
-                    <el-table-column property="Subtotal" label="实付" width="84" align="center"></el-table-column>
+                    <el-table-column property="Subtotal" label="实付(元)" width="84" align="center"></el-table-column>
                     <el-table-column property="GoodsFanbi" label="返比(%)" width="60" align="center"></el-table-column>
                     <el-table-column property="GoodsIntegralCount" label="返积分" width="84" align="center"></el-table-column>
                 </el-table>
@@ -41,12 +41,12 @@
               <p class="list-item-title">{{ item.goodsName }}</p>
               <!-- <p>颜色：黑色 尺码：M</p> -->
               <p class="list-item-value-wrap">
-                <span>单价：<span class="list-item-value">￥{{ item.goodsPrice }}</span></span>
-                <span>数量：<span class="list-item-value">￥{{ item.goodsNumber }}</span></span>
+                <span>单价(元)：<span class="list-item-value">￥{{ item.goodsPrice }}</span></span>
+                <span>数量：<span class="list-item-value">{{ item.goodsNumber }}</span></span>
               </p>
               <p class="list-item-value-wrap">
-                <span>实付:<span class="list-item-value list-item-subtotal">￥{{ item.Subtotal }}</span></span>
-                <span>返比(%):<span class="list-item-value">{{ item.GoodsFanbi }}%</span></span>
+                <span>实付(元):<span class="list-item-value list-item-subtotal">￥{{ item.Subtotal }}</span></span>
+                <span>返比:<span class="list-item-value">{{ item.GoodsFanbi }}%</span></span>
               </p>
                <p class="list-item-value-wrap">
                 <span>返积分:<span class="list-item-value list-item-subtotal">{{ item.GoodsIntegralCount }}</span></span>

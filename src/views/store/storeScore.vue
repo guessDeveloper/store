@@ -69,10 +69,17 @@
      <div class="tab-content"  v-show="tab==2">
         <div class="table-box jiangli">
           <el-table :data="jiangList"  header-row-style="font-size:12px;color:#999;" row-class-name="table-line" width="930">
-            <el-table-column property="time" label="时间" width="219" align="center">
+            <el-table-column property="time" label="时间" width="170" align="center">
             </el-table-column>
-            <el-table-column property="Type" label="状态" width="563" align="center"></el-table-column>
-            <el-table-column property="Number" label="积分数量" width="148" align="center"></el-table-column>
+             <el-table-column property="UserName" label="用户名" width="180" align="center">
+            </el-table-column>
+             <el-table-column property="Amount" label="消费金额(元)" width="180" align="center">
+            </el-table-column>
+              <el-table-column property="RebateRatio" label="返利比例(%)" width="180" align="center">
+            </el-table-column>
+             <el-table-column property="Number" label="积分数量" width="140" align="center"></el-table-column>
+            <el-table-column property="Type" label="状态" width="80" align="center"></el-table-column>
+           
           </el-table>
         </div>
         <div class="table-small-box">
@@ -81,8 +88,16 @@
               <p>时间：<span>{{item.time}}</span></p>
               <p>积分数量：<span>{{item.Number}}</span></p>
             </div>
-            <div class="list-item-b">
+            <div class="list-item-p">
+              <p>用户名：<span>{{item.UserName}}</span></p>
               <p>状态：<span>{{item.Type}}</span></p>
+              
+            </div>
+            <div class="list-item-p">
+              <p>消费金额：<span>{{item.Amount}}</span></p>
+            </div>
+            <div class="list-item-b">
+              <p>返利比例：<span>{{item.RebateRatio}}%</span></p>
             </div>
           </div>
         </div>

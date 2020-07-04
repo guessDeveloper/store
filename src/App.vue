@@ -7,11 +7,38 @@
 
 <script>
 // import fixRight from '@/components/common/custoer-service'
+import { mapState, mapMutations} from 'vuex' //注册 action 和 state
 export default {
   name: 'app',
   // components: {
   //   fixRight:fixRight,
   // }
+  data(){
+    return{
+
+    }
+  },
+  computed:{
+    ...mapState([
+      'config'
+    ])
+  },
+  mounted(){
+    this.getConfig();
+  },
+  methods:{
+    ...mapMutations([
+      'setConfig'
+    ]),
+    getConfig(){
+      this.$http.get(this.$api.GetWebconfig).then(res=>{
+        if(res.data.Code ==1){
+          document.title = res.data.Data.title
+          this.setConfig(res.data.Data)
+        }
+      })
+    }
+  }
 }
 </script>
 
@@ -230,11 +257,31 @@ export default {
   opacity: 1;
   background:@main;
 }
+.el-carousel--horizontal{
+  height:100%;
+}
 //轮播图修改 end 
 .el-message-box{
   @media screen and(max-width:@change_width){
     width:330px!important;
   }
+}
+.el-carousel__arrow{
+  @media screen and(max-width:@change_width){
+    background-color:rgba(0,0,0,.5)!important;
+  }
+}
+.el-carousel__arrow--left{
+   @media screen and(max-width:@change_width){
+     display: block!important;
+     left:16px!important;
+   }
+}
+.el-carousel__arrow--right{
+   @media screen and(max-width:@change_width){
+     display: block!important;
+     right:16px!important;
+   }
 }
 //page-box
  .page-box{
@@ -260,6 +307,7 @@ export default {
 @media screen and(max-width:@change_width){
 
   .el-carousel__button{
+    display:none!important;
     width:9px!important;
   }
   .brand-top-nav{

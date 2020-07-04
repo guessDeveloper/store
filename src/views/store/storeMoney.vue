@@ -12,7 +12,7 @@
           <el-option
             v-for="item in options"
             :key="item.price"
-            :label="item.price"
+            :label="item.label"
             :value="item.price">
           </el-option>
           </el-select>
@@ -110,6 +110,9 @@ export default {
             if(this.infos.Logo){
               this.fileList = this.infos.Logo
             }
+            res.data.Data.Recharge.filter(item=>{
+              item.label = item.price+'元'
+            })
             this.options=res.data.Data.Recharge
         }else{
           this.$message.error(res.data.Msg)

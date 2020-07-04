@@ -1,6 +1,6 @@
 <template>
   <div class="footer" :class="{login:isLogin}">
-    <div class="footer-top">
+    <!-- <div class="footer-top">
        <div class="link-box">
          <div class="top"> 
          <a href="">关于我们</a>
@@ -24,17 +24,23 @@
          <a href="">友情链接</a>
          </div>
        </div>
-    </div>
-    <div class="footer-bottom"><div class="box"><a >CopyRight © 消费乐2015</a></div></div>
+    </div> -->
+    <div class="footer-bottom"><div class="box"><a >{{config.ICP}}</a></div></div>
   </div>
 </template>
 <script>
+import { mapState, mapMutations} from 'vuex' //注册 action 和 state
 export default {
   props:{
     isLogin:{
       type:Boolean,
       default:false
     }
+  },
+  computed:{
+    ...mapState([
+      'config'
+    ])
   }
 }
 </script>

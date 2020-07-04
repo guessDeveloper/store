@@ -181,7 +181,8 @@ export default {
     }
   },
   mounted(){
-        this.dataValue = [this.$util.getNowDate(),this.$util.getNowDate()]
+    //   this.dataValue = [this.$util.getNowDate(),this.$util.getNowDate()]
+      this.dataValue = ['',""]
       this.getClass();
       this.getList();
   },
@@ -215,8 +216,8 @@ export default {
          this.$http.storePost(this.$api.Products,{
             State:this.status,
             ProductName:this.ProductName,
-            OnShelevesTimeBegin: this.dataValue[0] +' 00:00:00',
-            OnShelevesTimeEnd: this.dataValue[1]+' 23:59:59' ,
+            OnShelevesTimeBegin: this.dataValue[0]?this.dataValue[0] +' 00:00:00':'',
+            OnShelevesTimeEnd: this.dataValue[1]?this.dataValue[1]+' 23:59:59':'' ,
             Catid:this.classNow,
             pageIndex: this.pageIndex ,
             pageSize:this.pageSize

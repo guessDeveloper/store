@@ -1,5 +1,6 @@
 const util = {
-    testPhone: /^[1]([3-9])[0-9]{9}$/,
+    // testPhone: /^[1]([3-9])[0-9]{9}$/,
+    testPhone: /\d/,
     testNum: /^\d+$/,
     getNowDate() {
         var now = new Date();
@@ -19,12 +20,17 @@ const util = {
         var time = "";
         return time = year + "-" + month + "-" + date;
     },
-    beforeUrl: 'https://files.youledui.com',
-    testBeforeUrl: /^https:\/\/files.youledui.com/,
+    beforeUrl: '//files.youledui.com',
+    testBeforeUrl: /^\/\/files.youledui.com/,
     phoneLimit(phone) {
         var reg = /^(\d{3})\d{4}(\d{4})$/
         return phone.replace(reg, "$1****$2")
     },
+    isAndorid(){
+        var u = navigator.userAgent;
+        var isAndroid = u.indexOf('Android') > -1 || u.indexOf('Adr') > -1; //android终端
+        return isAndroid
+    }
 
 }
 export default util

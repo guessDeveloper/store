@@ -1,6 +1,6 @@
 <template>
   <div class="box">
-    <a href="" v-for="(item,index) in Class" :key="index">
+    <a :href="item.URL" v-for="(item,index) in Class" :key="index">
         <span class="iconfont" :style="'background:url('+item.PhonePic+') no-repeat center center;'"></span>
         <div class="name">{{item.PhoneClassName}}</div>
     </a>
