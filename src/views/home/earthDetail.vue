@@ -104,7 +104,7 @@ export default {
            this.carModel.GoodsImg = this.detail.GoodImage;
            this.carModel.GoodsMoneny = this.detail.price;
            this.carModel.GoodsName = this.detail.Name;
-           this.carModel.Goodsfanbi =this.detail.Fanbi;
+           this.carModel.Goodsfanbi =this.detail.Integral;
            this.carModel.MertchntID = res.data.Data.MerchantId;
            this.carModel.tablenumber = res.data.Data.tablenumber
          }

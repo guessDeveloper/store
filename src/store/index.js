@@ -98,15 +98,22 @@ let store = new Vuex.Store({
             for (let item in state.myCar) {
                 let checkNum = 0; //选择数
                 let totoalMony = 0; //总计金额
+                let totalScore = 0; // 总返利积分
+                let isChooseAll = true;
                 let goodsList = state.myCar[item].goodsList;
                 for (let element in state.myCar[item].goodsList) {
                     if (goodsList[element].check == true) {
                         checkNum++
                         totoalMony += goodsList[element].GoodsMoneny * goodsList[element].num
+                        totalScore += goodsList[element].Goodsfanli * goodsList[element].num
                     }
+                    isChooseAll = isChooseAll && goodsList[element].check
                 }
                 state.myCar[item].choseNum = checkNum
                 state.myCar[item].totoalMony = totoalMony
+                state.myCar[item].totalScore = totalScore
+                state.myCar[item].check = isChooseAll
+
             }
             state.myCar = Object.assign({}, state.myCar)
         },

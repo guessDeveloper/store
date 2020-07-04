@@ -344,10 +344,12 @@ export default {
           if(res.data.Code == 1){
             this.infos = res.data.Data
             if(this.infos.Logo){
+              this.fileList=[];
               this.fileList.push(new Photo(this.infos.Logo,this.infos.Logo))
               this.logoUrl = this.infos.Logo
             }
             if(this.infos.introduce){
+              this.desMp4 = [];
               this.infos.introduce.forEach(element => {
                   this.desMp4.push(new Photo(element,element))
               })

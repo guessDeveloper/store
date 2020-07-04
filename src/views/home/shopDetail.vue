@@ -7,9 +7,10 @@
     </div>
     <div class="detail">
        <div class="detail-left">
-         <el-carousel trigger="click" height="320px">
+         <img src="../../assets/img/video-default.png" alt="" class="img-port">
+         <el-carousel trigger="click" height="100%" class="img-box" >
           <el-carousel-item v-for="item in bannerList" :key="item">
-            <video :src="item" v-if="isMp4(item)" class="banner-video"></video>
+            <video :src="item" v-if="isMp4(item)" class="banner-video" ></video>
             <img :src="item" alt="" class="banner-img" v-else>
           </el-carousel-item>
         </el-carousel>
@@ -138,8 +139,18 @@ export default {
   .detail-left{
     float: left;
     width:568px;
-    height:100%;
+    height:320px;
     background:#ccc;
+    .img-port{
+      display: none;
+    }
+    .banner-img{
+      width:100%;
+    }
+    .banner-video{
+      width:100%;
+      height:100%;
+    }
   }
   .detail-right{
     position: relative;
@@ -301,6 +312,18 @@ export default {
     .detail-left {
       float: none;
       width: 100%;
+      height: auto;
+      position: relative;
+      .img-port{
+        display: block;
+        width:100%;
+      }
+      .img-box{
+        position:absolute;
+        top:0;
+        width:100%;
+        height:100%;
+      }
       // height: 212px;
     }
     .detail-right {

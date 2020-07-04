@@ -71,15 +71,33 @@ export default {
            },{
                name:'拼多多',
                path:'/Pdd',
+               child:[
+                   {
+                       path:'/special',
+                       name:'活动页面'
+                   }
+               ]
            },{
                name:'商城返利',
                path:'/storeList'
            },{
                name:'逛街购物',
-               path:'/shop'
+               path:'/shop',
+               child:[
+                   {
+                       path:'/shopDetail',
+                       name:'淘宝列表'
+                   }
+               ]
            },{
                name:'美食广场',
-               path:'/food'
+               path:'/food',
+               child:[
+                   {
+                       path:'/fooddetail',
+                       name:'美食详情'
+                   }
+               ]
            }],
            searchContent:'',
            option:[

@@ -54,7 +54,9 @@ export default {
           this.list = res.data.Data?res.data.Data.list:[]
         }else{
           this.list = []
+          this.$message.error(res.data.Msg)
         }
+        
       })
     },
     //添加二维码
