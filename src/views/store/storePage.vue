@@ -291,6 +291,10 @@ export default {
     });
     this.getStoreInfo();
   },
+  beforeDestroy(){
+    this.Clipboard.destroy();
+    this.clipboard = ''
+  },
    methods: {
       ...mapMutations([
       'setStoreInfo'
