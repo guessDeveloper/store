@@ -20,14 +20,15 @@
                         :editable="false"
                         :clearable="false"
                         value-format="yyyy-MM-dd"
-                        placeholder="开始日期">
+                        placeholder="开始日期"
+                        @change="getOnlineList">
                     </el-date-picker>
                    </div>
                    <div class="date-middle"> -</div>
                    <div class="small-date-box">
                         <el-date-picker
                         v-model="onlieTime[1]"
-                        
+                        @change="getOnlineList"
                         type="date"
                         :editable="false"
                         :clearable="false"
@@ -39,7 +40,7 @@
                <div class="select-box">
                    <div class="">
                        <label for="">状态</label>
-                      <el-select v-model="onlieStatus" placeholder="请选择"  class="select">
+                      <el-select v-model="onlieStatus" placeholder="请选择"  class="select" @change="getOnlineList">
                         <el-option
                             v-for="item in statusOptions"
                             :key="item.value"
@@ -52,7 +53,7 @@
                    <div class="last">
                        订单类型
                        
-                            <el-select v-model="onlineType" placeholder="请选择"  class="select">
+                            <el-select v-model="onlineType" placeholder="请选择"  class="select" @change="getOnlineList">
                                 <el-option
                                     v-for="item in orderType"
                                     :key="item.value"
@@ -80,12 +81,13 @@
                         range-separator="-"
                         value-format="yyyy-MM-dd"
                         start-placeholder="开始日期"
+                        @change="getOnlineList"
                         end-placeholder="结束日期">
                         </el-date-picker>
                     </div>
                 <div class="status-select">
                     状态
-                    <el-select v-model="onlieStatus" placeholder="请选择"  class="select">
+                    <el-select v-model="onlieStatus" placeholder="请选择"  class="select" @change="getOnlineList">
                         <el-option
                             v-for="item in statusOptions"
                             :key="item.value"
@@ -96,7 +98,7 @@
                 </div>
                 <div class="status-select">
                     订单类型
-                    <el-select v-model="onlineType" placeholder="请选择"  class="select">
+                    <el-select v-model="onlineType" placeholder="请选择"  class="select" @change="getOnlineList">
                         <el-option
                             v-for="item in orderType"
                             :key="item.value"
@@ -194,6 +196,7 @@
                         type="date"
                          :editable="false"
                         :clearable="false"
+                        @change="getUnderLineList"
                         value-format="yyyy-MM-dd"
                         placeholder="开始日期">
                     </el-date-picker>
@@ -205,6 +208,7 @@
                         type="date"
                          :editable="false"
                         :clearable="false"
+                        @change="getUnderLineList"
                         value-format="yyyy-MM-dd"
                         placeholder="结束日期">
                         </el-date-picker>
@@ -213,7 +217,7 @@
                <div class="select-box">
                    <div class="status-wrap">
                        <label for="">状态</label>
-                    <el-select v-model="unlineOrderType" placeholder="请选择"  class="select">
+                    <el-select v-model="unlineOrderType" placeholder="请选择"  class="select" @change="getUnderLineList">
                         <el-option
                             v-for="item in unlineType"
                             :key="item.value"
@@ -239,6 +243,7 @@
                         range-separator="-"
                         start-placeholder="开始日期"
                         end-placeholder="结束日期" 
+                        @change="getUnderLineList"
                         default-time="">
                         </el-date-picker>
                     </div>
@@ -249,6 +254,7 @@
                             v-for="item in unlineType"
                             :key="item.value"
                             :label="item.label"
+                            @change="getUnderLineList"
                             :value="item.value">
                         </el-option>
                     </el-select>

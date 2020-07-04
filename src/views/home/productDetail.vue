@@ -117,10 +117,10 @@ export default {
     carouselHeight() {
       let clientWidth = document.documentElement.clientWidth;
       if (clientWidth < 765) {
-        return '610px';
+        return '644px';
         // return '411px';
       } else {
-        return '411px';
+        return '420px';
       }
     }
   },

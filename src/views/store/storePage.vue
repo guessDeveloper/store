@@ -311,15 +311,15 @@ export default {
       })
     },
       handleRemove(file, fileList) {
-       
-        let index = 0;
+        console.log(file,fileList,'remove') 
+        let index = '';
         this.desMp4.forEach((element,t)=>{
            if(element.uid == file.uid){
              index = t
            }
         })
-        this.desMp4.splice(index,1)
-        console.log(this.desMp4)
+        index&&this.desMp4.splice(index,1)
+        console.log(this.desMp4,'remove')
       },
       videoClose(){
         document.querySelector('video').pause();
@@ -376,6 +376,7 @@ export default {
             }
             this.infos.URl?this.netWork = this.infos.URl:''
             this.infos.Address?this.address = this.infos.Address:''
+            this.addressCity = this.infos.CityName
           }
         })
       },
@@ -456,7 +457,7 @@ export default {
         const extension = testmsg === 'jpg'
         const extension2 = testmsg === 'png'
         const extension3 = testmsg === 'mp4'
-        const isLt2M = file.size / 1024 / 1024 <= 1
+        const isLt2M = file.size / 1024 / 1024 <= 10
         // if(extension || extension2){
         //   this.uploadMp4Url= '/up/create?dir=image'
         // }
@@ -468,12 +469,14 @@ export default {
                 message: '上传文件只能是 jpn、png、mp4格式!',
                 type: 'error'
             });
+            return false
         }
         if(!isLt2M) {
             this.$message({
                 message: '上传文件大小不能超过 10MB!',
                 type: 'error'
             });
+            return false
         }
         return extension || extension2 || extension3&& isLt2M
       },
@@ -493,7 +496,7 @@ export default {
       }else if(this.logoUrl == ''){
         this.$message('请上传logo')
       }else if(this.desMp4.length == 0){
-        this.$message.error('请上传商家简介')
+        this.$message.error('请上传商家介绍图')
       }else if(this.address==''){
         this.$message.error('请选择商家地址')
       }else if(this.infos.Category == ''){
@@ -527,7 +530,7 @@ export default {
           ReturnPercent:this.infos.ReturnPercent
         }).then(res=>{
           if(res.data.Code == 1){
-            this.$message.success('修改成功')
+            this.$message.success('修改信息成功，正在审核中请稍后！！')
             this.getStoreInfo();
           }else{
             this.$message.error(res.data.Msg)

@@ -2,7 +2,7 @@
     <a class="item" :href="item.ClickUrl" >
         <img :src="item.picurl" alt="">
         <h4>{{item.titleA}}</h4>
-        <p>{{item.Fanli}}</p>
+        <p>{{item.titleB}}</p>
         <span class="price">¥{{item.price}}</span>
     </a>
 </template>
@@ -41,6 +41,7 @@ export default {
         font-size:14px;
         line-height: 14px;
         margin-bottom: 14px;
+        .overTextOne();
     }
     p{
         font-size:12px;

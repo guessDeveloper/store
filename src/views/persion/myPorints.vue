@@ -65,7 +65,7 @@
 </el-pagination>
 </div>
     </el-dialog>
-      <el-dialog title="兑换记录" :visible.sync="duihuan" width="520px" class="small">
+      <el-dialog title="兑换记录" :visible.sync="duihuan" width="520px" class="small" @opened="duihuanSuccess = false">
     <el-table :data="changeData" style="width:480px;" header-row-style="font-size:12px;color:#999;" row-class-name="table-line" class="small-table">
     <el-table-column property="time" label="时间" width="154" align="center"></el-table-column>
     <el-table-column property="state" label="状态" width="258" align="center"></el-table-column>
@@ -102,12 +102,13 @@
 </el-pagination>
    </div>
     </el-dialog>
-     <el-dialog title="" :visible.sync="duihuanSuccess" width="320px" class="small" :show-close="false">
+     <el-dialog title="" :visible.sync="duihuanSuccess" width="320px" class="small" :show-close="true">
        
        <div class="duihuan-success">
           <span class="iconfont iconqrwc"></span>
           <h3>积分兑换申请成功</h3>
           <p>请耐心等待处理</p>
+          <div class="btn" @click="chakan">查看兑换记录</div>
        </div>
      </el-dialog> 
   </div>
@@ -149,13 +150,17 @@ export default {
          }
       })
     },
+    chakan(){
+      // this.duihuanSuccess = false;
+      this.duihuan = true
+    },
     duhuan(){
       if(this.UserIntegral == ''|| this.UserIntegral == '0'){
          this.$message.error('您还没有赚到积分，您现在需要努力赚积分哟，加油！')
          return false
       }
       this.$http.limitPost(this.$api.IntegralExchange,{
-        IntegralExchangeDTO:this.UserIntegral
+        IntegralNum:this.UserIntegral
       }).then(res=>{
         this.duihuanSuccess = true
         if(res.data.Code == 1){
@@ -326,7 +331,12 @@ export default {
     color:@persion_left;
     margin-top:15px;
   }
-
+  .btn{
+    font-size:12px;
+    float: right;
+    margin-top:20px;
+    cursor: pointer;
+  }
 }
 .small-box{
   display: none;

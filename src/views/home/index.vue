@@ -65,6 +65,7 @@
                   <img :src="item2.picurl" alt="">
                   <h3 class="">{{item2.titleA}}</h3>
                   <p>{{item2.titleB}}</p>
+                  <p>{{item2.fanli}}</p>
                   <div class="price">¥{{item2.price}}</div>
               </a>
           
@@ -506,7 +507,7 @@ export default {
       .goods-box{
         float: left;
         width:239px;
-        height:324px;
+        height:348px;
         overflow: hidden;
         cursor: pointer;
         border-right: 1px solid @class_border;

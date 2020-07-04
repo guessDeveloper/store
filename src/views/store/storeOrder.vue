@@ -14,7 +14,8 @@
                         range-separator="-"
                         value-format="yyyy-MM-dd"
                         start-placeholder="开始日期"
-                        end-placeholder="结束日期">
+                        end-placeholder="结束日期"
+                        @change="getList">
                         </el-date-picker>
                 </div>
                 <div class="date-small-box">
@@ -25,7 +26,9 @@
                          :editable="false"
                         :clearable="false"
                         value-format="yyyy-MM-dd"
+                        @change="getList"
                         placeholder="开始日期">
+
                     </el-date-picker>
                    </div>
                    <div class="date-middle"> -</div>
@@ -36,6 +39,7 @@
                         :clearable="false"
                         type="date"
                         value-format="yyyy-MM-dd"
+                        @change="getList"
                         placeholder="结束日期">
                         </el-date-picker>
                     </div>
@@ -49,6 +53,7 @@
                                 v-for="item in options"
                                 :key="item.value"
                                 :label="item.label"
+                                @change="getList"
                                 :value="item.value">
                                 </el-option>
                         </el-select>

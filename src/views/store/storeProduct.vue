@@ -15,7 +15,8 @@
                          :editable="false"
                         :clearable="false"
                         start-placeholder="开始日期"
-                        end-placeholder="结束日期">
+                        end-placeholder="结束日期"
+                        @change="getList">
                         </el-date-picker>
                 </div>
                 <div class="date-small-box">
@@ -26,7 +27,8 @@
                          :editable="false"
                         :clearable="false"
                         value-format="yyyy-MM-dd"
-                        placeholder="开始日期">
+                        placeholder="开始日期"
+                        @change="getList">
                     </el-date-picker>
                    </div>
                    <div class="date-middle"> -</div>
@@ -37,14 +39,15 @@
                          :editable="false"
                         :clearable="false"
                         value-format="yyyy-MM-dd"
-                        placeholder="结束日期">
+                        placeholder="结束日期"
+                        @change="getList">
                         </el-date-picker>
                     </div>
                 </div>
                 <div class="status-select status-select-wrap">
                     状态
                     <span class="select">
-                        <el-select v-model="status" placeholder="请选择"  >
+                        <el-select v-model="status" placeholder="请选择"  @change="getList">
                             <el-option
                                 v-for="item in statusOption"
                                 :key="item.status"
@@ -57,7 +60,7 @@
                 <div class="status-select">
                     产品分类
                     <span class="select">
-                        <el-select v-model="classNow" placeholder="请选择"  >
+                        <el-select v-model="classNow" placeholder="请选择"  @change="getList">
                             <el-option
                                 v-for="item in classOption"
                                 :key="item.CategoryID"
