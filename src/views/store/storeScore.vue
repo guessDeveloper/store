@@ -7,7 +7,7 @@
       </div>
      <div class="tab-content" v-show="tab==1">
         <div class="btn-box">
-          <span class="score">我的剩余积分：<span class="">{{Integral.RechargeIntegral}}</span>累计积分：<span>{{Integral.SurplusIntegral}}</span> 已赠送积分：<span>{{Integral.SendIntegral}}</span></span> <router-link class="chong-btn" tag="button" to="/storeMoney">立即充值</router-link>
+          <span class="score">我的剩余积分：<span class="">{{Integral.SurplusIntegral}}</span>累计积分：<span>{{Integral.RechargeIntegral}}</span> 已赠送积分：<span>{{Integral.SendIntegral}}</span></span> <router-link class="chong-btn" tag="button" to="/storeMoney">立即充值</router-link>
         </div>
         <div class="score-box">
            <div class="score-item">

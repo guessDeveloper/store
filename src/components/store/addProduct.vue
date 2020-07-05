@@ -13,13 +13,13 @@
     </div>
     <div class="input-line-box">
           <label for="">产品名称：</label>
-          <input type="text" maxlength="50" v-model="productName" style="padding-right:50px;">
-          <span class="limit">{{productName.length}}/50</span>
+          <input type="text" maxlength="20" v-model="productName" style="padding-right:50px;">
+          <span class="limit">{{productName.length}}/20</span>
     </div>
     <div class="input-line-box">
           <label for="">产品描述：</label>
-          <input type="text" maxlength="1000" v-model="des" style="padding-right:70px;">
-          <span class="limit">{{des.length}}/1000</span>
+          <input type="text" maxlength="500" v-model="des" style="padding-right:70px;">
+          <span class="limit">{{des.length}}/500</span>
     </div>
     <!-- <div class="input-line-box" style="height:auto;">
       <label for="">产品详情图：</label><div class="input-box" >
@@ -183,13 +183,13 @@ export default {
       }
     },
     detailRemove(file){
-       let Index = 0;
+       let Index = '';
        this.detialFileList.forEach((element,index) => {
          if(element.uid == file.uid){
            Index = index
          }
        });
-       this.detialFileList.splice(Index,1)
+       Index !== ''?this.detialFileList.splice(Index,1):''
     },
     btnCheck(){
       if(this.value == ''){

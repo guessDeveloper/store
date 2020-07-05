@@ -1,16 +1,16 @@
 <template>
-  <div class="invite-box">
+  <div class="invite-box" >
     <div class="persion-title">
       邀请有礼
     </div>
-    <div class="invite">
+    <div class="invite" v-loading="loading">
       <div class="user-link">
          <span class="iconfont iconyqyl"></span><span class="name">我的邀请链接：</span><span class="link" id="foo">{{url}}</span><button class="copy" :data-clipboard-text="url">复制</button>
       </div>
       <div class="invite-list-title">
         邀请记录
       </div>
-      <div class="invite-list">
+      <div class="invite-list" >
         <div class="item" v-for="(item,index) in list" :key="index">
            <div class="user"><span class="header"><img src="" alt=""></span>{{item.NickNamep}}</div><div class="phone">{{item.Tel}}</div><div class="time">{{item.CreateTime}}</div>
         </div>
@@ -66,7 +66,8 @@ export default {
        pageSize:20,
        list:[],
        Clipboard:'',
-       total:0
+       total:0,
+       loading:false
     }
   },
   mounted(){
@@ -97,14 +98,19 @@ export default {
     },
     //获取邀请链接
     getList(){
+      this.loading = true
       this.$http.limitPost(this.$api.UserInviterList,{
         pageIndex:this.pageIndex,
         pageSize:this.pageSize
       }).then(res=>{
+        
         if(res.data.Code == 1){
           this.list = res.data.Data.list
           this.total = res.data.Data.count
         }
+        setTimeout(()=>{
+          this.loading = false
+        },500)
       })
     }
   }
@@ -272,7 +278,7 @@ export default {
 }
 .empty{
   text-align: center;
-  padding-top:120px;
+  // padding-top:120px;
   .iconfont{
     display: block;
     margin:0 auto;

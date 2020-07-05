@@ -1,5 +1,5 @@
 <template>
-  <div class="home tc">
+  <div class="home tc" v-loading="loading">
     <div class="banner">
       <div class="banner-left">
          <classify></classify>
@@ -38,8 +38,8 @@
                 <!-- 返比：<span>20%</span> -->
                 {{item.title2}}
               </div>
-              <div class="img-box">
-                <img :src="item.picurl" alt="">
+              <div class="img-box" :style="'background:url('+item.picurl+') no-repeat center center'">
+                <img src="../../assets/img/1-1.jpg" alt="">
               </div>
           </a>
         
@@ -55,14 +55,24 @@
           <a class="recomend-box" tag="div" to="/special" v-for="(item2,index2) in item.CategorysItems"  :href="item2.cickurl">
               <div class="recomend-title">{{item2.titleA}}</div>
               <div class="tip">{{item2.titleB}}</div>
-              <img :src="item2.picurl" alt="">
+              <!-- <img :src="item2.picurl" alt=""> -->
+              <el-image :src="item2.picurl" lazy class="img" fit="contain">
+                <div slot="placeholder" class="image-slot">
+                  加载中<span class="dot">...</span>
+                </div>
+              </el-image>
           </a>
        </div>
        <div class="class-box goods-class-box" v-if="item.CatType == 5">
          <div class="goods-big-box">
             <div class="goods">
               <a class="goods-box" v-for="(item2,index2) in item.CategorysItems" :href="item2.cickurl">
-                  <img :src="item2.picurl" alt="">
+                  <!-- <img :src="item2.picurl" alt=""> -->
+                   <el-image :src="item2.picurl" lazy class="img" fit="contain">
+                    <div slot="placeholder" class="image-slot">
+                      加载中<span class="dot">...</span>
+                    </div>
+                  </el-image>
                   <h3 class="">{{item2.titleA}}</h3>
                   <p>{{item2.titleB}}</p>
                   <p>{{item2.fanli}}</p>
@@ -117,6 +127,7 @@ export default {
         type:4
       },],
       nowCity:'',
+      loading:false,
       storeActiveIndex:0,
       cityList:[],
       storeList:[],
@@ -131,6 +142,7 @@ export default {
   methods:{
      //获取城市商家联盟
      getCityAndStore(){
+       this.loading = true
        this.$http.post(this.$api.GetMerchanters,{CityID:''}).then(res=>{
          if(res.data.Code == 1){
           //  let _this = this;
@@ -139,6 +151,7 @@ export default {
            this.nowCity = alldata.length>0?alldata[0].currentcity.CityName:'';
            this.cityList = alldata.length>0?alldata[0].city:[];
          }
+         this.loading = false
        })
      },
      chengeCity(item){
@@ -155,6 +168,7 @@ export default {
      },
      //获取分类
      getClass(){
+       this.loading = true
        this.$http.get(this.$api.GetCat).then(res=>{
          if(res.data.Code == 1){
              let SysCategorysVoB = res.data.Data.SysCategorysVoB;
@@ -167,6 +181,7 @@ export default {
              this.classNav[0].active = 1;
              this.promotlist = res.data.Data.SysCategorysVoA
          }
+         this.loading = false
        })
      },
      //激活分裂
@@ -212,6 +227,7 @@ export default {
 .home-class-box{
   display: none;
   width:100%;
+  // min-height: 100vh;
   // height:200px;
   background:#fff;
 }
@@ -354,7 +370,7 @@ export default {
       }
        @media screen and(max-width:@change_width) {
           &.goods-class-box{
-            height:224/@p;
+            height:244/@p;
             margin-bottom:0;
           }
           
@@ -370,14 +386,17 @@ export default {
           border-color:#FFF;
         }
         .img-box{
-          height:220px;
-          line-height:220px;
+          width: 195px;
+          height:195px;
+          margin:15px auto 0;
+          line-height:195px;
           vertical-align:middle;
+          background-size: contain!important;
         }
         img{
-          display:inline-block;
-          width:250px;
-          height:108px;
+          display:none;
+          width:80%;
+          // height:108px;
           max-height:100%;
           margin:0 auto;
           vertical-align:middle;
@@ -401,8 +420,9 @@ export default {
             &{
               box-sizing: border-box;
               width: 50%;
-              height:187/@p;
+              height:auto;
               border-bottom:1px solid @body_color ;
+              padding-bottom:15px;
             }
             &:nth-last-child(1){
               border-color:@body_color;
@@ -417,10 +437,20 @@ export default {
                font-size:12px;
                line-height: 10px;
              }
-             img{
-               width:168px;
-               margin-top:-20px;
-             }
+             .img-box{
+               display: inline-block;
+               width:80%;
+               height:auto;
+               margin:15px auto 0;
+                // line-height:195px;
+                vertical-align:middle;
+              }
+              img{
+                display: block;
+                width:100%;
+                opacity: 0;
+                margin-bottom:10px;
+              }
         }
       }
       //推荐
@@ -449,7 +479,7 @@ export default {
           line-height: 16px;
           .overTextOne();
         }
-        img{
+        .img{
           display: block;
           width:190px;
           height:190px;
@@ -473,7 +503,7 @@ export default {
                 font-size:12px;
                 line-height: 14/@p;
               }
-              img{
+              .img{
                 width:100/@p;
                 height:90/@p;
               }
@@ -496,7 +526,7 @@ export default {
             }
             .goods{
               width:165*4/@p;
-              height:230/@p;
+              height:234/@p;
             }
           
         }
@@ -514,7 +544,7 @@ export default {
         &:nth-last-child(1){
           border-color:#FFF;
         }
-        img{
+        .img{
           display: block;
           width:146px;
           height:146px;
@@ -549,8 +579,8 @@ export default {
             &{
               box-sizing: border-box;
               width:165/@p;
-              height:224/@p;
-              img{
+              height:234/@p;
+              .img{
                 width:130/@p;
                 height:130/@p;
                 margin-top:15px;

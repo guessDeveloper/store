@@ -9,7 +9,12 @@
        <div class="banner">
          <el-carousel trigger="click" height="420px">
           <el-carousel-item v-for="item in detail.GoodInfoPic" :key="item">
-            <img :src="item" alt="" class="banner-img" >
+            <!-- <img :src="item" alt="" class="banner-img" > -->
+             <el-image :src="item" class="show-img" fit="contain">
+                <div slot="placeholder" class="image-slot">
+                  加载中<span class="dot">...</span>
+                </div>
+             </el-image>
           </el-carousel-item>
          </el-carousel>
        </div>
@@ -107,6 +112,7 @@ export default {
            this.carModel.Goodsfanbi =this.detail.Integral;
            this.carModel.MertchntID = res.data.Data.MerchantId;
            this.carModel.tablenumber = res.data.Data.tablenumber
+           this.carModel.ClikUrl = this.detail.ClickUrl
          }
        })
      },
@@ -131,9 +137,13 @@ export default {
     float:left;
     width:420px;
     height:420px;
-    background:#ccc;
-    img{
-      width: 100%;
+    background:#fff;
+    // img{
+    //   width: 100%;
+    //   height:100%;
+    // }
+    .show-img{
+      width:100%;
       height:100%;
     }
   }

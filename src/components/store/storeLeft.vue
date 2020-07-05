@@ -1,8 +1,8 @@
 <template>
   <div class="content">
      <ul :class="{isfood:storeInfo.BigCatgroup == '1'}">
-       <li v-for="(item,index) in navList" :key="index" :class="{active:item.to == nowPath,erwima:item.contor == true}" > 
-        <router-link tag="a" :to="item.to" @click.native="routerChange(item.to)"><span class="iconfont" :class="item.icon" :style="'font-size:'+item.iconSize+';'"></span>{{item.title}}</router-link>
+       <li v-for="(item,index) in navList" :key="index" :class="{active:item.to == nowPath,erwima:item.contor == true}"  > 
+        <router-link tag="a" :to="item.to" @click.native="routerChange(item.to,item.title)"><span class="iconfont" :class="item.icon" :style="'font-size:'+item.iconSize+';'"></span>{{item.title}}</router-link>
        </li>
      </ul>
   </div>
@@ -117,12 +117,34 @@ export default {
   },
   mounted(){
     this.nowPath = this.$route.path;
-    console.log(this.storeInfo)
+    this.navList.forEach(Element=>{
+      if(this.nowPath == Element.to){
+         this.$emit('title',Element.title)
+      }
+    })
   },
   methods:{
-    routerChange(to){
+    routerChange(to,title){
       this.nowPath = to;
+      // console.log(title)
+      this.$emit('title',title)
+    },
+    change(){
+
     }
+  },
+   watch:{
+      $route: {
+          handler() {
+              this.nowPath = this.$route.path;
+              this.navList.forEach(Element=>{
+                if(this.nowPath == Element.to){
+                  this.$emit('title',Element.title)
+                }
+              })
+          },
+          deep: true,
+      },
   }
 }
 </script>

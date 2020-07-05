@@ -6,13 +6,13 @@
          <span class="msg" v-for="(item,index) in tip" :key="index" :class="{active:tipActive == index}">{{item.Message}}</span>
       </div>
        <div class="nav-right">
-          <a class="iconfont iconyd_saoyisao login-btn"></a>
+          <!-- <a class="iconfont iconyd_saoyisao login-btn"></a> -->
           <span v-show="!isLogin">
-            <router-link to="/login" tag='a' >请先登录</router-link>
+            <router-link to="/login" tag='a' class="login-btn">请先登录</router-link>
             <router-link to="/register" tag='a' >免费注册</router-link>
            </span>
            <span v-show="isLogin">
-             <router-link to="/persion" class="userName">{{userInfo.nickName}}</router-link>
+             <router-link to="/persion" class="userName login-btn">{{userInfo.nickName}}</router-link>
              <router-link to='/myOrder' tag='a'>我的订单</router-link>
              <a @click="loginOut">退出登录</a>
            </span>

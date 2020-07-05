@@ -1,5 +1,5 @@
 <template>
-    <div class="food-box">
+    <div class="food-box"  v-loading.fullscreen.lock="loading">
         <div class="brand-top-nav">
             <router-link tag="a" to="/">首页</router-link>
             <span class="iconfont iconjiantou"></span>
@@ -107,7 +107,8 @@ export default {
             total:0,
             phoneCity:'全部',
             phoneSort:'默认',
-            list:[]
+            list:[],
+            loading:false
         }
     },
     mounted(){
@@ -166,6 +167,7 @@ export default {
             })
         },
         getList(){
+            this.loading = true
             this.$http.post(this.$api.foodNearBy,{PointX:this.positionX,PointY:this.positionY,Category:this.ClasssId,BdCityCode:this.cityId,Sort:this.sort,pageIndex:this.pageIndex,pageSize:this.pageSize}).then(res=>{
                 if(res.data.Code == 1){
                   this.list = res.data.Data.List;
@@ -173,6 +175,13 @@ export default {
                 }else{
                     this.$message.error(res.data.Msg)
                 }
+                 setTimeout(()=>{
+                    this.loading = false
+                },this.$util.loadingTime)
+            }).catch(()=>{
+                 setTimeout(()=>{
+                    this.loading = false
+                },this.$util.loadingTime)
             })
         }
     },

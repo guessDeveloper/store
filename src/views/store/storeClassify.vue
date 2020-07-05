@@ -58,7 +58,11 @@
       <el-dialog title="添加新产品分类" :visible.sync="toNew" custom-class="custom-dialog">
         <div class="dialog-content-wrap">
           <div class="input-line">
-              <label for="">产品分类名称：</label><input type="text" placeholder="请输入分类名称" v-model.trim="NewClassName">
+              <label for="">产品分类名称：</label>
+             
+                <input type="text" placeholder="请输入分类名称" v-model="NewClassName" maxlength="20">
+                <span class="limit">{{NewClassName.length}}/20</span>
+             
           </div>
           <div class="input-line">
               <label for="">奖励比例：</label>
@@ -83,7 +87,7 @@
       <el-dialog title="编辑分类" :visible.sync="toEdit" custom-class="custom-dialog">
         <div class="dialog-content-wrap">
           <div class="input-line">
-              <label for="">产品分类名称：</label><input type="text" placeholder="请输入分类名称" v-model.trim="editName">
+              <label for="">产品分类名称：</label><input type="text" placeholder="请输入分类名称" v-model="editName" maxlength="20"><span class="limit">{{editName.length}}/20</span>
           </div>
           <div class="input-line">
               <label for="">奖励比例：</label>
@@ -166,7 +170,7 @@ export default {
    editClass(item){
      this.toEdit = true;
      this.editName = item.RateName
-     this.editRate = parseInt(item.Rate*100)
+     this.editRate = item.Rate
      this.editId = item.Id
    },
    sendEdit(){
@@ -234,7 +238,17 @@ export default {
     margin-left:8px;
   }
   .input-line{
+    position: relative;
   margin-top:30px;
+  .limit{
+      position: absolute;
+      line-height: 32px;
+      top:1px;
+      right:3px;
+      padding-right:10px;
+      padding-left:15px;
+      background:#fff;
+    }
   label{
     display: inline-block;
     width:84px;
@@ -257,12 +271,14 @@ export default {
   }
   .input-box{
     display: inline-block;
+    position: relative;
     width:387px;
     height:34px;
     .per{
       float: right;
       line-height: 34px;
     }
+    
   }
 }
   .btn-box{

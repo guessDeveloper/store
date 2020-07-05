@@ -1,5 +1,5 @@
 <template>
-    <div class="myOrder-box">
+    <div class="myOrder-box" >
         <div class="tab-box">
             <div class="tab-item" @click="toTab(1)" :class="{active:tab ==1}">线上购物订单</div>
              <div class="tab-item second" @click="toTab(2)" :class="{active:tab ==2}">地面消费订单</div>
@@ -8,7 +8,7 @@
              </div>
         </div>
         <!-- 线上订单 start -->
-        <div class="order-content" v-show="tab == '1'">
+        <div class="order-content" v-show="tab == '1'" v-loading="loading">
             <div class="choose-small-box">
                <router-link class="btn small-btn" tag="button" to="/orderGrievance">订单申诉</router-link>
                <div class="margin"></div>
@@ -187,7 +187,7 @@
         </div>
         <!-- 线上订单 end -->
         <!-- 地面订单 start -->
-       <div class="order-content" v-show="tab=='2'">
+       <div class="order-content" v-show="tab=='2'" v-loading="underlineLoading">
            <div class="choose-small-box choose-small-box-2">
                <div class="date-box">
                    <div class="small-date-box">
@@ -249,12 +249,12 @@
                     </div>
                 <div class="status-select">
                     状态
-                    <el-select v-model="unlineOrderType" placeholder="请选择"  class="select">
+                    <el-select v-model="unlineOrderType" placeholder="请选择"  class="select" @change="getUnderLineList">
                         <el-option
                             v-for="item in unlineType"
                             :key="item.value"
                             :label="item.label"
-                            @change="getUnderLineList"
+                            
                             :value="item.value">
                         </el-option>
                     </el-select>
@@ -390,6 +390,8 @@ export default {
             onlineType:'',
             onlineSearch:'',
            listData:[],
+           loading:false,
+           underlineLoading:false,
            tab:1,
            //地面订单
            unlineTime:['',''],
@@ -439,6 +441,7 @@ export default {
         },
         //获取线上订单列表
         getOnlineList(){
+            this.loading = true
             this.$http.limitPost(this.$api.UserOnlineOrderList,{
                 StartTime:this.onlieTime[0]?this.onlieTime[0] +' 00:00:00':'',
                 EndTime:this.onlieTime[1]?this.onlieTime[1] +' 23:59:59':'',
@@ -452,10 +455,14 @@ export default {
                     this.listData = res.data.Data.list,
                     this.onlineTotal = res.data.Data.count
                 }
+                setTimeout(()=>{
+                this.loading = false
+                },500)
             })
         },
         //获取地面订单列表
         getUnderLineList(){
+            this.underlineLoading = true
             this.$http.limitPost(this.$api.UserGroundOrderList,{
                 StartTime:this.unlineTime[0]?this.unlineTime[0]+' 00:00:00':'',
                 EndTime:this.unlineTime[1]?this.unlineTime[1]+ ' 23:59:59':'',
@@ -468,6 +475,10 @@ export default {
                     this.unlineData = res.data.Data.list
                     this.unlineTotal = res.data.Data.count
                 }
+               
+                 setTimeout(()=>{
+                   this.underlineLoading = false
+                 },500)
             })
         },
         //

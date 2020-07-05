@@ -21,7 +21,7 @@
         <div class="item thrid-item">
            <div class="name">累计兑换</div>
            <div class="score">{{UserIntegralUsed?UserIntegralUsed:'0'}}</div>
-           <a  class="check-btn" @click="duihuan = true">查看记录</a>
+           <a  class="check-btn" @click="chakan">查看记录</a>
         </div>
       </div>
     </div>
@@ -65,8 +65,8 @@
 </el-pagination>
 </div>
     </el-dialog>
-      <el-dialog title="兑换记录" :visible.sync="duihuan" width="520px" class="small" @opened="duihuanSuccess = false">
-    <el-table :data="changeData" style="width:480px;" header-row-style="font-size:12px;color:#999;" row-class-name="table-line" class="small-table">
+      <el-dialog title="兑换记录" :visible.sync="duihuan" width="520px" class="small" @opened="duihuanSuccess = false" >
+    <el-table :data="changeData" style="width:480px;" header-row-style="font-size:12px;color:#999;" row-class-name="table-line" class="small-table" v-loading="duihuanLoading">
     <el-table-column property="time" label="时间" width="154" align="center"></el-table-column>
     <el-table-column property="state" label="状态" width="258" align="center"></el-table-column>
     <el-table-column property="number" label="积分数量" width="68" align="center"></el-table-column>
@@ -131,7 +131,9 @@ export default {
         twoPageIndex:1,
         twoPageSize:10,
         gridDatatotal:0,
-        changeDataTotal:0
+        changeDataTotal:0,
+        duihuanLoading:false,
+
     }
   },
   mounted(){
@@ -153,6 +155,7 @@ export default {
     chakan(){
       // this.duihuanSuccess = false;
       this.duihuan = true
+      this.getXiaofei();
     },
     duhuan(){
       if(this.UserIntegral == ''|| this.UserIntegral == '0'){
@@ -164,6 +167,7 @@ export default {
       }).then(res=>{
         this.duihuanSuccess = true
         if(res.data.Code == 1){
+          this.getCode();
           this.gridData = res.data.Data.list
           this.gridDatatotal = res.data.Data.count
         }
@@ -180,11 +184,16 @@ export default {
     },
     //获取用户消费记录
     getXiaofei(){
+      this.duihuanLoading = true
       this.$http.limitPost(this.$api.UserUsedIntegralRecords,{pageIndex:this.twoPageIndex,pageSize:this.twoPageSize}).then(res=>{
         if(res.data.Code == 1){
           this.changeData = res.data.Data.list
           this.changeDataTotal = res.data.Data.count
+
         }
+        this.duihuanLoading = false
+      }).catch(()=>{
+        this.duihuanLoading = false
       })
     }
   }

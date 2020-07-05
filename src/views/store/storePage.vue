@@ -8,10 +8,10 @@
           <label for="">邀请链接：</label><div class="input-box"><input type="text" :value="infos.Invitelink" readonly class="readonly"><button class="copy" :data-clipboard-text="infos.Invitelink">复制</button></div>
        </div>
        <div class="input-line">
-         <label for="">商家名称：</label><div class="input-box"><input type="text" placeholder="请输入商家名称" v-model.trim="infos.Name"></div>
+         <label for="">商家名称：</label><div class="input-box"><input type="text" placeholder="请输入商家名称" v-model="infos.Name" maxlength="20" ><span class="limit">{{infos.Name.length}}/20</span></div>
        </div>
        <div class="input-line">
-         <label for="">商家描述：</label><div class="input-box"><input type="text" placeholder="请输入商家描述" v-model.trim="infos.describe"></div>
+         <label for="">商家描述：</label><div class="input-box"><input type="text" placeholder="请输入商家描述" v-model.trim="infos.describe" maxlength="300"><span class="limit">{{infos.describe.length}}/300</span></div>
        </div>
        <div class="input-line">
          <label for="">商家LOGO：</label><div class="input-box">
@@ -25,7 +25,7 @@
               :file-list="fileList"
               :beforeUpload="beforeLogoUpload"
               name="FileContent"
-              :limit="1"
+             
               list-type="picture">
 
               <button size="small" type="primary" class="upload-btn">选择上传文件</button>
@@ -70,7 +70,7 @@
        </div>
         <div class="input-line">
          <label for="">商家地址：</label><div class="input-box">
-            <input type="text"  @click="showMap = true" v-model="address">
+            <input type="text"  @click="showMap = true" v-model="address" maxlength="50"><span class="limit">{{address.length}}/50</span>
           </div>
        </div>
         <div class="input-line">
@@ -116,7 +116,7 @@
           </div>
        </div>
         <div class="input-line">
-         <label for="">商家网址：</label><div class="input-box"><input type="text" placeholder="请输入商家网址" v-model.trim="netWork"></div>
+         <label for="">商家网址：</label><div class="input-box"><input type="text" placeholder="请输入商家网址" v-model="netWork" maxlength="50"><span class="limit">{{netWork.length}}/50</span></div>
        </div>
         <div class="input-line">
          <label for="">商家奖励比例：</label><div class="input-box percent"><input type="text" placeholder="请输入1至60整数" v-model.trim="infos.ReturnPercent"><div class="danwei">%</div></div>
@@ -282,7 +282,7 @@ export default {
     this.Clipboard = new this.clipboard('.copy');
     this.Clipboard.on('success', function(e) {
 
-      _this.$message.success('复制成功')
+    _this.$message.success('复制成功')
     e.clearSelection();
     });
 
@@ -318,7 +318,8 @@ export default {
              index = t
            }
         })
-        index&&this.desMp4.splice(index,1)
+        console.log(index)
+        index!==''?this.desMp4.splice(index,1):''
         console.log(this.desMp4,'remove')
       },
       videoClose(){
@@ -419,7 +420,9 @@ export default {
       //logo 上传成功
       logoSuccess(file,fileList){
         if(file.Code == 1){
-          this.logoUrl = beforeUrl+file.Data
+          this.logoUrl = beforeUrl+file.Data;
+          this.fileList = [];
+          this.fileList.push(fileList)
         }
       },
       mp4Success(file,fileList){
@@ -568,6 +571,7 @@ export default {
       padding-right:15px;
   }
   .input-box{
+    position: relative;
     &.percent{
       overflow: hidden;
       input{
@@ -579,6 +583,7 @@ export default {
         line-height: 50px;
       }
     }
+    
     input{
       display: block;
       box-sizing: border-box;
@@ -603,6 +608,16 @@ export default {
       font-size:12px;
       color:@subtitle_color;
       padding-left:20px;
+    }
+    .limit{
+      position:absolute;
+      right:1px;
+      top:1px;
+      background:#fff;
+      padding-left:20px;
+      padding-right:10px;
+      line-height: 48px;
+
     }
 
   }

@@ -1,5 +1,5 @@
 <template>
-   <div class="taobao">
+   <div class="taobao" v-loading.fullscreen.lock="loading">
       <div class="brand-top-nav">
             <router-link tag="a" to="/">首页</router-link>
             <span class="iconfont iconjiantou"></span>
@@ -80,7 +80,8 @@ export default {
         pageIndex:1,
         pageSize:20,
         total:100,
-        list:[]
+        list:[],
+        loading:false
     }
   },
   mounted(){
@@ -124,11 +125,19 @@ export default {
          pageIndex:this.pageIndex,
          pageSize:this.pageSize
        }
+       this.loading = true;
        this.$http.post(this.$api.optimusByPager,sendData).then(res=>{
           if(res.data.Code == 1){
              this.list = res.data.Data.List,
              this.total = res.data.Data.count
           }
+          setTimeout(()=>{
+            this.loading = false
+          },this.$util.loadingTime)
+       }).catch(()=>{
+         setTimeout(()=>{
+            this.loading = false
+          },this.$util.loadingTime)
        })
     },
     //分页数据
@@ -144,7 +153,9 @@ export default {
 }
 </script>
 <style lang="less" scoped>
-
+.taobao{
+  min-height: 100vh;
+}
 .list-box{
   width:@max-width;
   margin:20px auto 100px;

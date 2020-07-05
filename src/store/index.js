@@ -74,6 +74,7 @@ let store = new Vuex.Store({
                 }
 
             } else {
+                state.myCar = {};
                 state.myCar[storeObject.id] = {
                     MertchntID: storeObject.id,
                     Mertchntname: storeObject.name,

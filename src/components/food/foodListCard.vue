@@ -1,6 +1,11 @@
 <template>
   <div class="item" >
-     <img :src="data.GoodsImg" alt="" @click="goDetail">
+     <!-- <img :src="data.GoodsImg" alt="" @click="goDetail"> -->
+      <el-image :src="data.GoodsImg" class="show-img" fit="contain" @click="goDetail">
+                <!-- <div slot="placeholder" class="image-slot">
+                  加载中<span class="dot">...</span>
+                </div> -->
+      </el-image>
      <h4 @click="goDetail">{{data.GoodsName}}</h4>
      <p @click="goDetail">积分约：{{data.Goodsfanli}}</p>
      <div class="price" @click="goDetail">¥{{data.GoodsMoneny}}</div>
@@ -42,7 +47,7 @@ export default {
    //添加购物车
    addCar(){
      this.carAddStore([{id:this.data.MertchntID,name:this.data.Mertchntname,tablenumber:this.data.tablenumber},{...this.data,num:1,checked:false}])
-     this.$message('加入购物车成功')
+     this.$message.success('加入购物车成功')
    }
   }
 }
@@ -52,7 +57,13 @@ export default {
   width:100%;
   text-align: center;
   padding-bottom:50px;
-  img{
+  // img{
+  //   display:block;
+  //   width:265px;
+  //   height:265px;
+  //   margin:0 auto 20px;
+  // }
+  .show-img{
     display:block;
     width:265px;
     height:265px;
@@ -87,7 +98,7 @@ export default {
   }
   @media screen and(max-width:@change_width){
     padding-bottom:15px;
-    img{
+    .show-img{
       width:100%;
       height:auto;
     }

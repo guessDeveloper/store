@@ -60,7 +60,9 @@
        <el-table :data="detail.OrderGoodsList"  header-row-style="font-size:12px;color:#999;" row-class-name="table-line" width="930" header-row-class-name="table-header-color" class="goods-table">
                     <el-table-column property="img" label="商品信息" width="390" align="left" cell-class-name="order">
                          <template slot-scope="scope">
+                           <a :href="scope.row.ClickUrl" target="_blank" class="goods-link">
                             <img :src="scope.row.Photo" alt="" class="product-img"><span class="goods-name">{{scope.row.goodsName}}</span>
+                            </a>
                         </template>
                     </el-table-column>
                     <el-table-column property="goodsPrice" label="单价(元)" width="144" align="center"></el-table-column>
@@ -75,7 +77,7 @@
       <div class="goods-list-small">
         <ul>
           <li v-for="(item, index) in detail.OrderGoodsList" :key="index">
-            <img :src="item.Photo">
+            <a :href="item.ClickUrl" target="_blank"><img :src="item.Photo"></a>
             <div class="list-item-right">
               <p class="list-item-title">{{ item.goodsName }}</p>
               <!-- <p>颜色：黑色 尺码：M</p> -->
@@ -354,6 +356,9 @@ export default {
 .goods-name{
   display:inline-block;
   line-height: 50px;
+}
+.goods-link{
+  color:@font_color;
 }
 //步骤
 .step{

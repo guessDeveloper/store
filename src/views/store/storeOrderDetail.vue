@@ -82,8 +82,8 @@
           <label for="">用户手机号：</label><span class="content">{{detail.Userphone}}</span>
           <!-- <label for="">返还比例：</label><span >10%</span> -->
         </div>
-        <div class="jifen-line">
-          <label for="">消费金额：</label><span class="content">{{detail.orderGoodRealMoney}}</span> <label for="">返积分数量：</label><span >{{detail.Integral}}</span>
+        <div class="jifen-line flex">
+          <label for="">消费金额(元)：</label><span class="content">{{detail.orderGoodRealMoney}}</span> <label for="">返积分数量：</label><span >{{detail.Integral}}</span>
         </div>
         <div class="btn-box">
               <button class="ok" @click="backScore">确认</button>
@@ -333,6 +333,20 @@ export default {
   .content{
     display: inline-block;
     width:200px;
+  }
+  @media screen and(max-width:@change_width){
+    &.flex{
+      display: flex;
+      label{
+        width: auto;
+      }
+      .content{
+        width:auto;
+      }
+    }
+    .content{
+      width: auto;
+    }
   }
 }
 .btn-box{

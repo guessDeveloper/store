@@ -1,5 +1,5 @@
 <template>
- <div class="store-box">
+ <div class="store-box" v-loading.fullscreen.lock="loading">
    <div class="brand-top-nav">
         <router-link tag="a" to="/">首页</router-link>
         <span class="iconfont iconjiantou"></span>
@@ -47,7 +47,8 @@ export default {
        pageIndex:1,
        pageSize:50,
        list:[],
-       total:0
+       total:0,
+       loading:false
     }
   },
   computed:{
@@ -65,7 +66,7 @@ export default {
   },
   methods:{
     getList(){
-      
+      this.loading = true
       this.$http.post(this.$api.GetMerchaterClass,{
         pageIndex:this.pageIndex,
         pageSize:this.pageSize
@@ -74,6 +75,13 @@ export default {
           this.list = res.data.Data.List
           this.total = res.data.Data.count
         }
+        setTimeout(()=>{
+            this.loading = false
+          },this.$util.loadingTime)
+      }).catch(()=>{
+        setTimeout(()=>{
+            this.loading = false
+          },this.$util.loadingTime)
       })
     },
     handleCurrentChange(){

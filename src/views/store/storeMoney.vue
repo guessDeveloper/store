@@ -19,11 +19,14 @@
        </div>
        <div class="input-line-box">
          <label>商家名称：</label>
-         <input type="text" v-model.trim="infos.Name">
+         <input type="text" v-model="infos.Name" maxlength="20">
+         <span class="limit">{{infos.Name.length}}/50</span>
+
        </div>
        <div class="input-line-box">
           <label>商家描述：</label>
-         <input type="text" v-model.trim="infos.describe">
+         <input type="text" v-model="infos.describe" maxlength="300">
+         <span class="limit">{{infos.describe.length}}/300</span>
        </div>
        <div class="input-line-box" style="height:auto;">
          <label for="">商家LOGO：</label><div class="input-box">
@@ -46,11 +49,13 @@
        </div>
        <div class="input-line-box">
          <label>商家网址：</label>
-         <input type="text" v-model.trim="infos.URl">
+         <input type="text" v-model="infos.URl" maxlength="50">
+         <span class="limit">{{infos.URl.length}}/50</span>
        </div>
       <div class="input-line-box">
          <label>商家地址：</label>
-         <input type="text" v-model.trim="infos.Site">
+         <input type="text" v-model="infos.Site" maxlength="50">
+          <span class="limit">{{infos.Site.length}}/50</span>
        </div>
         <div class="input-line-box">
          <label>联系方式：</label>
@@ -209,6 +214,17 @@ export default {
     height:50px;
     margin:0 auto;
     margin-bottom:20px;
+     .limit{
+      position:absolute;
+      right:1px;
+      top:1px;
+      background:#fff;
+      padding-left:20px;
+      padding-right:10px;
+      line-height: 48px;
+
+    }
+
     label{
       position: absolute;
       right:100%;

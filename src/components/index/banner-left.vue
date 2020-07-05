@@ -14,7 +14,8 @@
                                     <div  class="des">
                                         <div class="name">{{item2.title1}}</div>
                                         <div class="subtitle">{{item2.title2}}</div>
-                                        <div class="price">¥{{item2.price}}</div>
+                                        <div class="price">¥{{item2.price}}<span>{{item2.fanli}}</span>
+                                        </div>
                                     </div>
                                 </a>
                             </li>
@@ -195,6 +196,12 @@ export default {
                         font-weight: bold;
                         line-height: 14px;
                         color:@percent_color;
+                        span{
+                            float: right;
+                            font-size:12px;
+                            line-height: 14px;
+                            
+                        }
                     }
                 }
             }

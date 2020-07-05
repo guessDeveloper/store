@@ -62,6 +62,7 @@ export default {
 .box{
   width:100%;
   overflow: hidden;
+  padding-bottom: 10px;
   a{
     float: left;
     width:20%;

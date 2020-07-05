@@ -1,7 +1,7 @@
 <template>
   <div class="login">
      <navBar></navBar>
-     <div class="content" :style="'background:url('+config.logourl+') no-repeat center center;'">
+     <div class="content" :style="'background:url('+config.LoginBackgroundImage+') no-repeat center center;'">
         <div class="middle">
            <div class="login-box" >
               <div class="tab-box">

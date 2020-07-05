@@ -3,7 +3,7 @@
     <div class="persion-title">
       全部订单  <div class="score-box"><span>剩余积分：<b>{{SurplusIntegral}}</b></span><span>待返积分：<b>{{TobeReturnIntegral}}</b></span></div>
     </div>
-     <div class="order-content" >
+     <div class="order-content"  v-loading="loading">
             <div class="choose-box">
                 <div class="date-box">
                     <el-date-picker
@@ -48,12 +48,11 @@
                     订单状态
 
                     <span class="select">
-                        <el-select v-model="value" placeholder="请选择"  >
+                        <el-select v-model="value" placeholder="请选择"   @change="getList">
                             <el-option
                                 v-for="item in options"
                                 :key="item.value"
                                 :label="item.label"
-                                @change="getList"
                                 :value="item.value">
                                 </el-option>
                         </el-select>
@@ -71,7 +70,7 @@
                     <el-table-column property="UserName" label="用户名" width="108" align="center"></el-table-column>
                     <el-table-column property="orderMoney" label="消费金额(元)" width="165" align="center"></el-table-column>
                     <el-table-column property="orderCreateTime" label="下单时间" width="200" align="center"></el-table-column>
-                    <el-table-column property="orderMoney" label="返积分数" width="88" align="center"></el-table-column>
+                    <el-table-column property="orderIntgralCount" label="返积分数" width="88" align="center"></el-table-column>
                     <el-table-column property="orderState" label="订单状态" width="100" align="center"></el-table-column>
 
                     <el-table-column  label="操作" width="102" align="center">
@@ -101,7 +100,7 @@
                                 下单时间：<span class="item-value">{{item.orderCreateTime}}</span>
                             </div>
                             <div class="item-name">
-                                返积分数：<span class="item-value">{{item.orderMoney}}</span>
+                                返积分数：<span class="item-value">{{item.orderIntgralCount}}</span>
                             </div>
                         </div>
                         <div class="order-status-wrap">
@@ -164,7 +163,8 @@ export default {
         SurplusIntegral:'',
         TobeReturnIntegral:'',
         newOrder:0,//新订单
-        timer:''
+        timer:'',
+        loading:false
     }
   },
   mounted(){
@@ -194,6 +194,7 @@ export default {
           })
       },
       getList(){
+         this.loading = true
          this.$http.storePost(this.$api.GetOrderlist,{
              BingTime:this.dataValue[0]?this.dataValue[0] +' 00:00:00':'',
              entTime:this.dataValue[1]?this.dataValue[1]+' 23:59:59':'',
@@ -209,6 +210,9 @@ export default {
                 this.listData = [];
                 this.total = 0;
             }
+            setTimeout(()=>{
+                    this.loading = false
+           },this.$util.loadingTime)
          })
       },
       //获取积分
