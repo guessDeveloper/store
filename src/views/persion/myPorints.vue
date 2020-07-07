@@ -155,7 +155,7 @@ export default {
          return false
       }
       this.$http.limitPost(this.$api.IntegralExchange,{
-        IntegralExchangeDTO:this.UserIntegral
+        IntegralNum:this.UserIntegral
       }).then(res=>{
         this.duihuanSuccess = true
         if(res.data.Code == 1){
