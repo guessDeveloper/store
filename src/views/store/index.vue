@@ -3,13 +3,13 @@
     <navBar></navBar>
     <navBottom></navBottom>
     <div class="brand-top-nav">
-        <router-link tag="a" to="/">首页</router-link>
+        <router-link tag="a" to="/store">商家中心</router-link>
         <span class="iconfont iconjiantou"></span>
-        <span class="now-nav">优选推荐</span>
+        <span class="now-nav">{{title}}</span>
       </div>
     <div class="box">
       <div class="box-left">
-          <left></left>
+          <left @title="changeTitle"></left>
       </div>
       <div class="box-right">
         <router-view></router-view>
@@ -29,17 +29,23 @@ export default {
   name: 'Home',
   data(){
     return{
-
+        title:"商家中心"
     }
   },
   mounted(){
-
+    
   },
   components: {
     navBar:navBar,
     navBottom:navBottom,
     footerBar:footerBar,
     left:left
+  },
+  methods:{
+    changeTitle(title){
+      
+      this.title = title
+    }
   }
 }
 </script>

@@ -64,7 +64,7 @@
           </div>
           <div class="input-line">
           <label for="">昵称：</label><div class="input-box">
-            <input type="text"  v-model.trim="name">
+            <input type="text"  v-model="name" maxlength="10"><span class="limit" :class="{over:name.length>10}">{{name.length}}/10</span>
           </div>
           </div>
            <div class="btn-box">
@@ -444,10 +444,21 @@ export default {
     }
     .input-box{
       float:left;
+      position: relative;
       box-sizing: border-box;
       width:83.33%;
       height:34px;
       border:1px solid @class_border;
+      .limit{
+        position:absolute;
+        right:10px;
+        font-size:12px;
+        line-height:34px;
+        top:0px;
+        &.over{
+          color:red;
+        }
+      }
       .upload-btn{
       width:126px;
       height:40px;
@@ -455,6 +466,7 @@ export default {
       color:#fff;
       background:@main;
       border:0;
+      
     }
     .avatar{
       display: inline-block;

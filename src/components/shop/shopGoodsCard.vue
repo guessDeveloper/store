@@ -1,6 +1,13 @@
 <template>
   <div class="card-box">
-    <img :src="data.GoodsImg" alt="" @click="goDetail">
+    <!-- <img :src="data.GoodsImg" alt="" @click="goDetail"> -->
+   <div class="ima-box">
+     <el-image :src="data.GoodsImg" class="show-img" fit="contain" @click="goDetail">
+                <!-- <div slot="placeholder" class="image-slot">
+                  加载中<span class="dot">...</span>
+                </div> -->
+      </el-image>
+    </div>
     <div class="des">
       <h4 @click="goDetail">{{data.GoodsName}}</h4>
       <!-- <p>{{data.GoodsTitle}}</p> -->
@@ -32,7 +39,7 @@ export default {
 .card-box{
   width:100%;
   text-align: center;
-  img{
+  .show-img{
     display: block;
     width:100%;
     height:265px;
@@ -66,8 +73,9 @@ export default {
 }
 @media screen and(max-width:@change_width){
   .card-box{
-    img{
-      height:auto;
+    .show-img{
+      width:100%;
+      height:165/@p;
     }
   }
   h4{

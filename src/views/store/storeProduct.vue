@@ -3,8 +3,9 @@
       <div class="tab-box">
             <div class="tab-item" @click="toTab(1)" :class="{active:tab ==1}">产品列表</div>
              <div class="tab-item" @click="toTab(2)" :class="{active:tab ==2}" v-show="classOption.length>0">添加产品</div>
+            <a :href="storeInfo.GoodsUrl" target="_blanck" class="privew">产品预览</a>
       </div>
-      <div class="order-content" v-show="tab == '1'">
+      <div class="order-content" v-show="tab == '1'" v-loading="loading">
          <div class="choose-box">
                 <div class="date-box">
                     <el-date-picker
@@ -15,7 +16,8 @@
                          :editable="false"
                         :clearable="false"
                         start-placeholder="开始日期"
-                        end-placeholder="结束日期">
+                        end-placeholder="结束日期"
+                        @change="getList">
                         </el-date-picker>
                 </div>
                 <div class="date-small-box">
@@ -26,7 +28,8 @@
                          :editable="false"
                         :clearable="false"
                         value-format="yyyy-MM-dd"
-                        placeholder="开始日期">
+                        placeholder="开始日期"
+                        @change="getList">
                     </el-date-picker>
                    </div>
                    <div class="date-middle"> -</div>
@@ -37,14 +40,15 @@
                          :editable="false"
                         :clearable="false"
                         value-format="yyyy-MM-dd"
-                        placeholder="结束日期">
+                        placeholder="结束日期"
+                        @change="getList">
                         </el-date-picker>
                     </div>
                 </div>
                 <div class="status-select status-select-wrap">
                     状态
                     <span class="select">
-                        <el-select v-model="status" placeholder="请选择"  >
+                        <el-select v-model="status" placeholder="请选择"  @change="getList">
                             <el-option
                                 v-for="item in statusOption"
                                 :key="item.status"
@@ -57,7 +61,7 @@
                 <div class="status-select">
                     产品分类
                     <span class="select">
-                        <el-select v-model="classNow" placeholder="请选择"  >
+                        <el-select v-model="classNow" placeholder="请选择"  @change="getList">
                             <el-option
                                 v-for="item in classOption"
                                 :key="item.CategoryID"
@@ -150,6 +154,7 @@
 <script>
 import addProduct from '@/components/store/addProduct'
 import '../../plugins/element-dataPicker.js'
+import { mapState, mapMutations} from 'vuex' //注册 action 和 state
 export default {
   data(){
     return{
@@ -178,7 +183,13 @@ export default {
        pageIndex:1,
        pageSize:20,
        total:0,
+       loading:false
     }
+  },
+  computed:{
+      ...mapState([
+          'storeInfo'
+      ])
   },
   mounted(){
     //   this.dataValue = [this.$util.getNowDate(),this.$util.getNowDate()]
@@ -213,6 +224,7 @@ export default {
       },
       //获取产品列表
       getList(){
+         this.loading = true
          this.$http.storePost(this.$api.Products,{
             State:this.status,
             ProductName:this.ProductName,
@@ -226,6 +238,9 @@ export default {
                  this.listData = res.data.Data.list
                  this.total = res.data.Data.count
              }
+              setTimeout(()=>{
+                    this.loading = false
+            },this.$util.loadingTime)
          })
       },
       //产品修改
@@ -267,6 +282,9 @@ export default {
        line-height:60px;
        margin-right:60px;
        cursor: pointer;
+       &:nth-of-type(2){
+           margin-right:0;
+       }
        &.active{
            color:@main;
            font-weight: bold;
@@ -282,6 +300,13 @@ export default {
                background:@main;
            }
        }
+       
+   }
+   .privew{
+       float: right;
+       color:@font_color;
+       margin-top:20px;
+       text-decoration: underline;
    }
 }
 .choose-box{

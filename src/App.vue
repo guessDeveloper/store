@@ -89,9 +89,12 @@ export default {
           border:0;
         }
         ul{
+            position: relative;
             display:block;
             width:100%;
             .clear();
+            padding-left: 46px;
+
             li{
                 float: left;
                 font-size:14px;
@@ -102,7 +105,10 @@ export default {
                     }
                 }
                 &.name{
+                    position: absolute;
                     margin-right:6px;
+                    left:0;
+                    top:0;
                 }
                 a{
                     color:@font_color;

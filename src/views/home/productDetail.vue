@@ -117,10 +117,10 @@ export default {
     carouselHeight() {
       let clientWidth = document.documentElement.clientWidth;
       if (clientWidth < 765) {
-        return '610px';
+        return '644px';
         // return '411px';
       } else {
-        return '411px';
+        return '420px';
       }
     }
   },
@@ -128,7 +128,7 @@ export default {
     '$route'(to, from) {
         if(this.$route.query.GoodType){
           this.GoodType = this.$route.query.GoodType
-          this.GoodType == 1?this.navName = '淘宝':this.navName = '拼多多'
+          this.GoodType == 1?this.navName = '拼多多':this.navName = '淘宝'
         }
         if(this.$route.query.GoodID){
           this.GoodID = this.$route.query.GoodID
@@ -139,7 +139,7 @@ export default {
   mounted(){
     if(this.$route.query.GoodType){
       this.GoodType = this.$route.query.GoodType
-      this.GoodType == 1?this.navName = '淘宝':this.navName = '拼多多'
+      this.GoodType == 1?this.navName = '拼多多':this.navName = '淘宝'
     }
     if(this.$route.query.GoodID){
      this.GoodID = this.$route.query.GoodID

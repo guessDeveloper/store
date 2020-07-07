@@ -86,9 +86,9 @@
            <div class="car-check">
              <el-checkbox v-model="goodItem.check" class="check-box" @change="choseGood"></el-checkbox>
            </div>
-           <div class="img-box">
+           <a class="img-box" :href="goodItem.ClickUrl" target="_blanck">
               <img :src="goodItem.GoodsImg" alt="">
-           </div>
+           </a>
            <div class="content">
              <div class="name">{{goodItem.GoodsName}}</div>
              <div class="price-box">单价：<i>{{goodItem.GoodsMoneny}}</i> <span class="score">积分约：<i>{{parseInt(goodItem.num*goodItem.Goodsfanli)}}</i></span></div>
@@ -316,6 +316,7 @@ export default {
         }
       }
       .img-box{
+        display: block;
         width:40px;
         padding-top:15px;
         img{

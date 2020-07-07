@@ -61,6 +61,11 @@ let store = new Vuex.Store({
         setStoreInfo(state, object) {
             state.storeInfo = object
         },
+        //情况购物车
+        setClearCar(state){
+            state.myCar = {};
+            state.charNum = 0;
+        },
         //购物车增加商品
         carAddStore(state, object) {
             let storeObject = object[0]
@@ -74,6 +79,7 @@ let store = new Vuex.Store({
                 }
 
             } else {
+                state.myCar = {};
                 state.myCar[storeObject.id] = {
                     MertchntID: storeObject.id,
                     Mertchntname: storeObject.name,

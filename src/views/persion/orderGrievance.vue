@@ -12,7 +12,9 @@
                       value-format="yyyy-MM-dd"
                       range-separator="-"
                       start-placeholder="开始日期"
+                      @change="getList"
                       end-placeholder="结束日期">
+
                       </el-date-picker>
                 </div>
                
@@ -22,6 +24,7 @@
                         v-model="dataValue[0]"
                         type="date"
                         value-format="yyyy-MM-dd"
+                        @change="getList"
                         placeholder="开始日期">
                     </el-date-picker>
                    </div>
@@ -31,6 +34,7 @@
                         v-model="dataValue[1]"
                         type="date"
                         value-format="yyyy-MM-dd"
+                        @change="getList"
                         placeholder="结束日期">
                         </el-date-picker>
                     </div>
@@ -39,7 +43,7 @@
                     状态
           
                       <span class="select">
-                        <el-select v-model="status" placeholder="请选择"  >
+                        <el-select v-model="status" placeholder="请选择" @change="getList" >
                             <el-option
                                 v-for="item in statusOptions"
                                 :key="item.value"

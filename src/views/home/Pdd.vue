@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div v-loading.fullscreen.lock="loading" class="home">
         <div class="brand-top-nav">
             <router-link tag="a" to="/">首页</router-link>
             <span class="iconfont iconjiantou"></span>
@@ -38,6 +38,7 @@ export default {
            classList:[],
            goodsList:[],
            subjectList:[],
+           loading:false,
         }
     },
     mounted(){
@@ -62,23 +63,18 @@ export default {
         },
         //获取精选分类
         getGoods(){
-            const loading = this.$loading({
-                lock: true,
-                text: 'Loading',
-                spinner: 'el-icon-loading',
-                background: 'rgba(255, 255, 255, 0.5)'
-            });
+            this.loading = true;
             this.$http.get(this.$api.GetrecommendCatGoods).then(res=>{
               if(res.data.Code == 1){
                   this.goodsList = res.data.Data.list
                  
               }
                setTimeout(()=>{
-                 loading.close()
+                 this.loading = false
                },1000)
             }).catch(()=>{
                 setTimeout(()=>{
-                 loading.close()
+                 this.loading = false
                },1000)
             })
         },
@@ -94,6 +90,9 @@ export default {
 }
 </script>
 <style lang="less" scoped>
+.home{
+    min-height: 100vh;
+}
 .item-box{
     width:@max-width;
     box-sizing: border-box;

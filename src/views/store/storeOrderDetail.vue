@@ -50,7 +50,7 @@
               </p>
                <p class="list-item-value-wrap">
                 <span>返积分:<span class="list-item-value list-item-subtotal">{{ item.GoodsIntegralCount }}</span></span>
-               
+
               </p>
             </div>
           </li>
@@ -79,11 +79,11 @@
     <el-dialog title="确认返积分" :visible.sync="toNew" custom-class="custom-dialog">
       <div class="dialog-content-wrap">
         <div class="jifen-line">
-          <label for="">用户手机号：</label><span class="content">{{detail.Userphone}}</span> 
+          <label for="">用户手机号：</label><span class="content">{{detail.Userphone}}</span>
           <!-- <label for="">返还比例：</label><span >10%</span> -->
         </div>
-        <div class="jifen-line">
-          <label for="">消费金额：</label><span class="content">{{detail.orderGoodRealMoney}}</span> <label for="">返积分数量：</label><span >{{detail.Integral}}</span>
+        <div class="jifen-line flex">
+          <label for="">消费金额(元)：</label><span class="content">{{detail.orderGoodRealMoney}}</span> <label for="">返积分数量：</label><span >{{detail.Integral}}</span>
         </div>
         <div class="btn-box">
               <button class="ok" @click="backScore">确认</button>
@@ -140,7 +140,7 @@ export default {
             }
           })
         }).catch(() => {
-                    
+
         });
     },
     //确认收款
@@ -161,7 +161,7 @@ export default {
             }
           })
          }).catch(() => {
-                    
+
         });
     },
     //确认返积分
@@ -182,8 +182,8 @@ export default {
             }
           })
          }).catch(() => {
-                    
-        });  
+
+        });
     }
   }
 }
@@ -334,6 +334,20 @@ export default {
     display: inline-block;
     width:200px;
   }
+  @media screen and(max-width:@change_width){
+    &.flex{
+      display: flex;
+      label{
+        width: auto;
+      }
+      .content{
+        width:auto;
+      }
+    }
+    .content{
+      width: auto;
+    }
+  }
 }
 .btn-box{
       .clear();
@@ -426,26 +440,30 @@ export default {
         // float: left;
       }
       .order-num.one {
-        position: absolute;
-        left: 15px;
-        top: 75px;
+        display: block;
+        margin-top: 15px;
       }
       .order-num.two {
         position: absolute;
-        left: 50%;
-        top: 15px;
-      }
-      .order-num.three {
-        position: absolute;
-        left: 50%;
-        top: 75px;
+        right: 15px;
+        top: 86px;
+        width: auto;
       }
       .btn {
         width: 100%;
-        margin: 50px 0 0;
+        margin: 30px 0 0;
         float: none;
         &.ok{
           margin-top:20px;
+        }
+        &.cancle{
+          width: 48%;
+          margin-right: 4%;
+        }
+        &.ok{
+          width: 48%;
+          // margin: 0;
+          // margin-left: 4%;
         }
       }
     }

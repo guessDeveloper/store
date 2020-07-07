@@ -98,6 +98,7 @@ export default {
   },
   mounted(){
     this.nowPath = this.$route.path;
+    
   },
   methods:{
     routerChange(url){

@@ -36,7 +36,8 @@ export default {
   },
   computed:{
     ...mapState([
-      'ScoreRate'
+      'ScoreRate',
+      'storeInfo'
     ]),
     backNum(){
        if(this.money !== ''&this.rate !== ''){
@@ -51,6 +52,7 @@ export default {
     if(this.$route.query.phone){
       this.userPhone = this.$route.query.phone
     }
+    this.rate = this.storeInfo.ReturnPercent
   },
   methods:{
     btnCheck(){
@@ -60,6 +62,8 @@ export default {
         this.$message.error('请输入消费金额')
       }else if(!/^[0-9]+(.[0-9]{2})?$/.test(this.money)){
         this.$message.error('请输入正确的金额')
+      }else if(this.money>10000000){
+        this.$message.error('消费金额不能超过1000万')
       }else if(this.rate<0||this.rate>60){
         this.$message.error('请输入正确1%-60%的比例')
       }else{

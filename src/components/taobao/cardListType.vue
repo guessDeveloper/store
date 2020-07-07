@@ -77,6 +77,9 @@ export default {
      flex-wrap: wrap;
      justify-content:space-between;
      padding:15/@p;
+     &::after{
+       display: none;
+     }
      li{
        width:calc(50% - 7px);
        height:auto;

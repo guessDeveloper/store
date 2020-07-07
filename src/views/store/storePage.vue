@@ -8,10 +8,10 @@
           <label for="">邀请链接：</label><div class="input-box"><input type="text" :value="infos.Invitelink" readonly class="readonly"><button class="copy" :data-clipboard-text="infos.Invitelink">复制</button></div>
        </div>
        <div class="input-line">
-         <label for="">商家名称：</label><div class="input-box"><input type="text" placeholder="请输入商家名称" v-model.trim="infos.Name"></div>
+         <label for="">商家名称：</label><div class="input-box"><input type="text" placeholder="请输入商家名称" v-model="infos.Name" maxlength="20" ><span class="limit">{{infos.Name.length}}/20</span></div>
        </div>
        <div class="input-line">
-         <label for="">商家描述：</label><div class="input-box"><input type="text" placeholder="请输入商家描述" v-model.trim="infos.describe"></div>
+         <label for="">商家描述：</label><div class="input-box"><input type="text" placeholder="请输入商家描述" v-model.trim="infos.describe" maxlength="300"><span class="limit">{{infos.describe.length}}/300</span></div>
        </div>
        <div class="input-line">
          <label for="">商家LOGO：</label><div class="input-box">
@@ -25,7 +25,7 @@
               :file-list="fileList"
               :beforeUpload="beforeLogoUpload"
               name="FileContent"
-              :limit="1"
+             
               list-type="picture">
 
               <button size="small" type="primary" class="upload-btn">选择上传文件</button>
@@ -70,7 +70,7 @@
        </div>
         <div class="input-line">
          <label for="">商家地址：</label><div class="input-box">
-            <input type="text"  @click="showMap = true" v-model="address">
+            <input type="text"  @click="showMap = true" v-model="address" maxlength="50"><span class="limit">{{address.length}}/50</span>
           </div>
        </div>
         <div class="input-line">
@@ -116,7 +116,7 @@
           </div>
        </div>
         <div class="input-line">
-         <label for="">商家网址：</label><div class="input-box"><input type="text" placeholder="请输入商家网址" v-model.trim="netWork"></div>
+         <label for="">商家网址：</label><div class="input-box"><input type="text" placeholder="请输入商家网址" v-model="netWork" maxlength="50"><span class="limit">{{netWork.length}}/50</span></div>
        </div>
         <div class="input-line">
          <label for="">商家奖励比例：</label><div class="input-box percent"><input type="text" placeholder="请输入1至60整数" v-model.trim="infos.ReturnPercent"><div class="danwei">%</div></div>
@@ -282,7 +282,7 @@ export default {
     this.Clipboard = new this.clipboard('.copy');
     this.Clipboard.on('success', function(e) {
 
-      _this.$message.success('复制成功')
+    _this.$message.success('复制成功')
     e.clearSelection();
     });
 
@@ -311,15 +311,16 @@ export default {
       })
     },
       handleRemove(file, fileList) {
-       
-        let index = 0;
+        console.log(file,fileList,'remove') 
+        let index = '';
         this.desMp4.forEach((element,t)=>{
            if(element.uid == file.uid){
              index = t
            }
         })
-        this.desMp4.splice(index,1)
-        console.log(this.desMp4)
+        console.log(index)
+        index!==''?this.desMp4.splice(index,1):''
+        console.log(this.desMp4,'remove')
       },
       videoClose(){
         document.querySelector('video').pause();
@@ -376,6 +377,7 @@ export default {
             }
             this.infos.URl?this.netWork = this.infos.URl:''
             this.infos.Address?this.address = this.infos.Address:''
+            this.addressCity = this.infos.CityName
           }
         })
       },
@@ -418,7 +420,9 @@ export default {
       //logo 上传成功
       logoSuccess(file,fileList){
         if(file.Code == 1){
-          this.logoUrl = beforeUrl+file.Data
+          this.logoUrl = beforeUrl+file.Data;
+          this.fileList = [];
+          this.fileList.push(fileList)
         }
       },
       mp4Success(file,fileList){
@@ -456,7 +460,7 @@ export default {
         const extension = testmsg === 'jpg'
         const extension2 = testmsg === 'png'
         const extension3 = testmsg === 'mp4'
-        const isLt2M = file.size / 1024 / 1024 <= 1
+        const isLt2M = file.size / 1024 / 1024 <= 10
         // if(extension || extension2){
         //   this.uploadMp4Url= '/up/create?dir=image'
         // }
@@ -468,12 +472,14 @@ export default {
                 message: '上传文件只能是 jpn、png、mp4格式!',
                 type: 'error'
             });
+            return false
         }
         if(!isLt2M) {
             this.$message({
                 message: '上传文件大小不能超过 10MB!',
                 type: 'error'
             });
+            return false
         }
         return extension || extension2 || extension3&& isLt2M
       },
@@ -493,7 +499,7 @@ export default {
       }else if(this.logoUrl == ''){
         this.$message('请上传logo')
       }else if(this.desMp4.length == 0){
-        this.$message.error('请上传商家简介')
+        this.$message.error('请上传商家介绍图')
       }else if(this.address==''){
         this.$message.error('请选择商家地址')
       }else if(this.infos.Category == ''){
@@ -527,7 +533,7 @@ export default {
           ReturnPercent:this.infos.ReturnPercent
         }).then(res=>{
           if(res.data.Code == 1){
-            this.$message.success('修改成功')
+            this.$message.success('修改信息成功，正在审核中请稍后！！')
             this.getStoreInfo();
           }else{
             this.$message.error(res.data.Msg)
@@ -565,6 +571,7 @@ export default {
       padding-right:15px;
   }
   .input-box{
+    position: relative;
     &.percent{
       overflow: hidden;
       input{
@@ -576,6 +583,7 @@ export default {
         line-height: 50px;
       }
     }
+    
     input{
       display: block;
       box-sizing: border-box;
@@ -600,6 +608,16 @@ export default {
       font-size:12px;
       color:@subtitle_color;
       padding-left:20px;
+    }
+    .limit{
+      position:absolute;
+      right:1px;
+      top:1px;
+      background:#fff;
+      padding-left:20px;
+      padding-right:10px;
+      line-height: 48px;
+
     }
 
   }

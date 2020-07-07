@@ -1,14 +1,14 @@
 <template>
-    <div class="myOrder-box">
+    <div class="myOrder-box" >
         <div class="tab-box">
             <div class="tab-item" @click="toTab(1)" :class="{active:tab ==1}">线上购物订单</div>
              <div class="tab-item second" @click="toTab(2)" :class="{active:tab ==2}">地面消费订单</div>
              <div class="input-box" v-show="tab == 1">
-                <label>订单号</label> <input type="text" placeholder="输入订单号"><button>提交订单</button>
+                <label>订单号</label> <input type="text" placeholder="输入订单号" v-model="subOrder"><button @click="submitOrder">提交订单</button>
              </div>
         </div>
         <!-- 线上订单 start -->
-        <div class="order-content" v-show="tab == '1'">
+        <div class="order-content" v-show="tab == '1'" v-loading="loading">
             <div class="choose-small-box">
                <router-link class="btn small-btn" tag="button" to="/orderGrievance">订单申诉</router-link>
                <div class="margin"></div>
@@ -20,14 +20,15 @@
                         :editable="false"
                         :clearable="false"
                         value-format="yyyy-MM-dd"
-                        placeholder="开始日期">
+                        placeholder="开始日期"
+                        @change="getOnlineList">
                     </el-date-picker>
                    </div>
                    <div class="date-middle"> -</div>
                    <div class="small-date-box">
                         <el-date-picker
                         v-model="onlieTime[1]"
-                        
+                        @change="getOnlineList"
                         type="date"
                         :editable="false"
                         :clearable="false"
@@ -39,7 +40,7 @@
                <div class="select-box">
                    <div class="">
                        <label for="">状态</label>
-                      <el-select v-model="onlieStatus" placeholder="请选择"  class="select">
+                      <el-select v-model="onlieStatus" placeholder="请选择"  class="select" @change="getOnlineList">
                         <el-option
                             v-for="item in statusOptions"
                             :key="item.value"
@@ -52,7 +53,7 @@
                    <div class="last">
                        订单类型
                        
-                            <el-select v-model="onlineType" placeholder="请选择"  class="select">
+                            <el-select v-model="onlineType" placeholder="请选择"  class="select" @change="getOnlineList">
                                 <el-option
                                     v-for="item in orderType"
                                     :key="item.value"
@@ -80,12 +81,13 @@
                         range-separator="-"
                         value-format="yyyy-MM-dd"
                         start-placeholder="开始日期"
+                        @change="getOnlineList"
                         end-placeholder="结束日期">
                         </el-date-picker>
                     </div>
                 <div class="status-select">
                     状态
-                    <el-select v-model="onlieStatus" placeholder="请选择"  class="select">
+                    <el-select v-model="onlieStatus" placeholder="请选择"  class="select" @change="getOnlineList">
                         <el-option
                             v-for="item in statusOptions"
                             :key="item.value"
@@ -96,7 +98,7 @@
                 </div>
                 <div class="status-select">
                     订单类型
-                    <el-select v-model="onlineType" placeholder="请选择"  class="select">
+                    <el-select v-model="onlineType" placeholder="请选择"  class="select" @change="getOnlineList">
                         <el-option
                             v-for="item in orderType"
                             :key="item.value"
@@ -185,7 +187,7 @@
         </div>
         <!-- 线上订单 end -->
         <!-- 地面订单 start -->
-       <div class="order-content" v-show="tab=='2'">
+       <div class="order-content" v-show="tab=='2'" v-loading="underlineLoading">
            <div class="choose-small-box choose-small-box-2">
                <div class="date-box">
                    <div class="small-date-box">
@@ -194,6 +196,7 @@
                         type="date"
                          :editable="false"
                         :clearable="false"
+                        @change="getUnderLineList"
                         value-format="yyyy-MM-dd"
                         placeholder="开始日期">
                     </el-date-picker>
@@ -205,6 +208,7 @@
                         type="date"
                          :editable="false"
                         :clearable="false"
+                        @change="getUnderLineList"
                         value-format="yyyy-MM-dd"
                         placeholder="结束日期">
                         </el-date-picker>
@@ -213,7 +217,7 @@
                <div class="select-box">
                    <div class="status-wrap">
                        <label for="">状态</label>
-                    <el-select v-model="unlineOrderType" placeholder="请选择"  class="select">
+                    <el-select v-model="unlineOrderType" placeholder="请选择"  class="select" @change="getUnderLineList">
                         <el-option
                             v-for="item in unlineType"
                             :key="item.value"
@@ -239,16 +243,18 @@
                         range-separator="-"
                         start-placeholder="开始日期"
                         end-placeholder="结束日期" 
+                        @change="getUnderLineList"
                         default-time="">
                         </el-date-picker>
                     </div>
                 <div class="status-select">
                     状态
-                    <el-select v-model="unlineOrderType" placeholder="请选择"  class="select">
+                    <el-select v-model="unlineOrderType" placeholder="请选择"  class="select" @change="getUnderLineList">
                         <el-option
                             v-for="item in unlineType"
                             :key="item.value"
                             :label="item.label"
+                            
                             :value="item.value">
                         </el-option>
                     </el-select>
@@ -363,6 +369,7 @@ export default {
            pageSize:20,
            onlineTotal:0,
            onlieStatus:'',
+           subOrder:'',
            statusOptions:[
                {value:'',label:'全部'},
                {value:'1',label:'已返利'},
@@ -384,6 +391,8 @@ export default {
             onlineType:'',
             onlineSearch:'',
            listData:[],
+           loading:false,
+           underlineLoading:false,
            tab:1,
            //地面订单
            unlineTime:['',''],
@@ -431,8 +440,21 @@ export default {
         goDetail(id){
             this.$router.push('/orderDetail?id='+id)
         },
+        submitOrder(){
+            this.$http.limitPost(this.$api.submitOrder,{
+                ordersn:this.subOrder
+            }).then(res=>{
+                if(res.data.Code ==1){
+                    this.getOnlineList();
+                    this.$message.success(res.data.Data)
+                }else{
+                    this.$message.error(res.data.Msg)
+                }
+            })
+        },
         //获取线上订单列表
         getOnlineList(){
+            this.loading = true
             this.$http.limitPost(this.$api.UserOnlineOrderList,{
                 StartTime:this.onlieTime[0]?this.onlieTime[0] +' 00:00:00':'',
                 EndTime:this.onlieTime[1]?this.onlieTime[1] +' 23:59:59':'',
@@ -446,10 +468,14 @@ export default {
                     this.listData = res.data.Data.list,
                     this.onlineTotal = res.data.Data.count
                 }
+                setTimeout(()=>{
+                this.loading = false
+                },500)
             })
         },
         //获取地面订单列表
         getUnderLineList(){
+            this.underlineLoading = true
             this.$http.limitPost(this.$api.UserGroundOrderList,{
                 StartTime:this.unlineTime[0]?this.unlineTime[0]+' 00:00:00':'',
                 EndTime:this.unlineTime[1]?this.unlineTime[1]+ ' 23:59:59':'',
@@ -462,6 +488,10 @@ export default {
                     this.unlineData = res.data.Data.list
                     this.unlineTotal = res.data.Data.count
                 }
+               
+                 setTimeout(()=>{
+                   this.underlineLoading = false
+                 },500)
             })
         },
         //

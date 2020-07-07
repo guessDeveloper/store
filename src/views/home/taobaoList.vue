@@ -1,5 +1,5 @@
 <template>
-   <div class="taobao">
+   <div class="taobao" v-loading.fullscreen.lock="loading">
       <div class="brand-top-nav">
             <router-link tag="a" to="/">首页</router-link>
             <span class="iconfont iconjiantou"></span>
@@ -24,6 +24,22 @@
                 </ul>
             </div>
         </div>
+
+        <!-- 移动端筛选条件 -->
+        <div class="classify-list-small-box">
+            <ul>
+                <li  @click="changeClass('0','全部')" :class="{active:classId == 0}">全部</li>
+                <li v-for="(item, index) in classList" :key="index" :class="{active:classId == item.catid}" @click="changeClass(item.catid,item.titleA)">{{ item.titleA }}</li>
+            </ul>
+        </div>
+        <div class="filter-small-box">
+          <ul>
+            <li :class="{active:sort == 0}"><a @click="changeSort(0)">最新商品</a></li>
+            <li :class="{active:sort == 1}"><a @click="changeSort(1)">最高人气</a></li>
+            <li :class="{active:sort == 2||sort == 3,up:sort==2,down:sort==3}"><a @click="changeSort(sort==2?3:2)" class="sort" :class="{up:sort==2,down:sort==3}">价格</a></li>
+          </ul>
+        </div>
+
         <div class="list-box">
           <ul class="good-list">
              <li v-for='(item,index) in list' :key="index"><goodCard :data="item"></goodCard></li>
@@ -64,7 +80,8 @@ export default {
         pageIndex:1,
         pageSize:20,
         total:100,
-        list:[]
+        list:[],
+        loading:false
     }
   },
   mounted(){
@@ -108,11 +125,19 @@ export default {
          pageIndex:this.pageIndex,
          pageSize:this.pageSize
        }
+       this.loading = true;
        this.$http.post(this.$api.optimusByPager,sendData).then(res=>{
           if(res.data.Code == 1){
              this.list = res.data.Data.List,
              this.total = res.data.Data.count
           }
+          setTimeout(()=>{
+            this.loading = false
+          },this.$util.loadingTime)
+       }).catch(()=>{
+         setTimeout(()=>{
+            this.loading = false
+          },this.$util.loadingTime)
        })
     },
     //分页数据
@@ -128,7 +153,9 @@ export default {
 }
 </script>
 <style lang="less" scoped>
-
+.taobao{
+  min-height: 100vh;
+}
 .list-box{
   width:@max-width;
   margin:20px auto 100px;
@@ -153,6 +180,8 @@ export default {
     margin:13px;
   }
    @media screen and(max-width:@change_width){
+    display: flex;
+    flex-wrap: wrap;
     padding:0;
     margin:0px 0 0 15px;
     li{
@@ -188,5 +217,89 @@ export default {
     background:url(../../assets/img/icon-sort.png) no-repeat center center;
     background-size:100%;
   }
+}
+.classify-list-small-box {
+    display: none;
+}
+.filter-small-box {
+    display: none;
+}
+@media screen and(max-width:@change_width) {
+    .classify-list-small-box {
+        display: block;
+        border-top: 10px solid #F8F8F8;
+        border-bottom: 1px solid #F8F8F8;
+        padding: 0 15px;
+        overflow-x: auto;
+        overflow-y: hidden;
+        height: 58px;
+        box-sizing: border-box;
+        background-color: #ffffff;
+        ul {
+            // width: 100%;
+            overflow-x: auto;
+            overflow-y: hidden;
+            white-space: nowrap;
+            li {
+                position: relative;
+                display: inline-block;
+                margin-right: 20px;
+                height: 56px;
+                // line-height: 56px;
+                padding-top: 15px;
+                box-sizing: border-box;
+                font-size:12px;
+                color: #999999;
+            }
+            li.active {
+                color: #F38A1D;
+            }
+            li.active:after {
+                content: '';
+                position: absolute;
+                left: 50%;
+                bottom: 13px;
+                transform: translateX(-50%);
+                width: 50%;
+                height: 2px;
+                background-color: #F38A1D;
+            }
+        }
+    }
+    .filter-small-box {
+      display: block;
+      ul {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 0 45px;
+        color: #333333;
+        height: 47px;
+        .active {
+          a {
+            color: #F38A1D;
+          }
+        }
+      }
+
+      background-color: #ffffff;
+    }
+    .food-list-box {
+        width: 100%;
+        background-color: transparent;
+        .food-list {
+            padding: 0 15px 15px;
+            background-color: transparent;
+            li {
+                margin: 0;
+                width: 100%;
+                background-color: #ffffff;
+                margin-bottom: 15px;
+                .card-des {
+                    padding: 0 15px 20px;
+                }
+            }
+        }
+    }
 }
 </style>

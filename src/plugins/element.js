@@ -1,5 +1,5 @@
 import Vue from 'vue'
-import { Carousel, CarouselItem, Dropdown, DropdownItem, DropdownMenu, Pagination, Dialog, Select, Loading, MessageBox, Message, Option, Switch, TimePicker } from 'element-ui'
+import { Carousel, CarouselItem, Dropdown, DropdownItem, DropdownMenu, Pagination, Dialog, Select, Loading, MessageBox, Message, Option, Switch, TimePicker ,Image} from 'element-ui'
 Vue.use(Pagination)
 Vue.use(Dropdown)
 Vue.use(DropdownItem)
@@ -12,6 +12,7 @@ Vue.use(Option)
 Vue.use(Loading)
 Vue.use(Switch)
 Vue.use(TimePicker)
+Vue.use(Image)
     // Vue.component(MessageBox.name, MessageBox)
 Vue.prototype.$alert = MessageBox
 Vue.prototype.$message = Message

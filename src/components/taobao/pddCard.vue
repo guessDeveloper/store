@@ -1,6 +1,9 @@
 <template>
   <a class="card-box" :href="data.ClickUrl" >
-    <img :src="data.picurl" alt="" >
+    <div class="img-box">
+       <img src="../../assets/img/1-1.jpg" alt="" class="hidden-img">
+       <img :src="data.picurl" alt=""  class="show-img">
+    </div>
     <div class="des">
       <h4>{{data.titleA}}</h4>
       <p>{{data.titleB}}</p>
@@ -32,6 +35,23 @@ export default {
   width:100%;
   color:@font_color;
   text-align: center;
+  .img-box{
+    position: relative;
+    overflow: hidden;
+    width:100%;
+    .hidden-img{
+      width:100%;
+      opacity: 0;
+    }
+    .show-img{
+      position: absolute;
+      left:0;
+      top:50%;
+      transform: translateY(-50%);
+      width:100%;
+      height: auto;
+    }
+  }
   img{
     display: block;
     width:100%;

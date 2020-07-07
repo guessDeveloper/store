@@ -1,9 +1,9 @@
 <template>
-  <div class="message-box">
+  <div class="message-box" >
     <div class="persion-title">
       消息通知
     </div>
-    <div class="message-list">
+    <div class="message-list" v-loading="loading">
       <div class="item" v-for="(item,index) in list" :key="index">
          <div class="message-title">
              {{item.Title}}
@@ -49,6 +49,7 @@ export default {
       pageIndex:1,
       pageSize:10,
       total:0,
+      loading:false,
     }
   },
   mounted(){
@@ -56,15 +57,21 @@ export default {
   },
   methods:{
     getMessage(){
+      this.loading = true
       this.$http.limitPost(this.$api.UserMessageList,{
         IsLook:'[0,1]',
         pageIndex:this.pageIndex,
         pageSize:this.pageSize
       }).then(res=>{
+        
         if(res.data.Code == 1){
           this.list = res.data.Data.list
           this.total = res.data.Data.count
         }
+        setTimeout(()=>{
+           this.loading = false
+        },500)
+       
       })
     },
     handleSizeChange(){

@@ -4,12 +4,11 @@
         <a href="" class="logo">
             <img src="../../assets/img/logo.png" alt="">
         </a>
-        <a  class="sao" tag="a" to="/sao" @click="sao">
+        <a  class="sao" tag="a"  @click="sao">
             <span class="iconfont iconyd_saoyisao"></span>
         </a>
         <a class="menu" @click="openNav" v-show="!navIsOpen">
             <span class="iconfont iconyd_gengduo"></span>
-            <canvas id="qrcanvas" style="display:none;"> </canvas>
         </a>
         <a class="menu" v-show="navIsOpen" @click="closeNav">
             <span class="el-icon-close"></span>
@@ -87,6 +86,10 @@ export default {
                    {
                        path:'/shopDetail',
                        name:'淘宝列表'
+                   },
+                   {
+                       path:'/shopGoodsDetail',
+                       name:'淘宝列表'
                    }
                ]
            },{
@@ -95,6 +98,10 @@ export default {
                child:[
                    {
                        path:'/fooddetail',
+                       name:'美食详情'
+                   },
+                   {
+                       path:'/foodList',
                        name:'美食详情'
                    }
                ]
@@ -204,12 +211,12 @@ export default {
                     this.showCar = true
                 }
             })
-            if(this.$route.path == '/productDetail'&&this.$route.query.GoodType == 1){
+            if(this.$route.path == '/productDetail'&&this.$route.query.GoodType == 2){
                 this.nowPath = '/taobao',
                 this.searchType = 'taobao'
                 this.nowName = '淘宝'
             }
-             if(this.$route.path == '/productDetail'&&this.$route.query.GoodType == 2){
+             if(this.$route.path == '/productDetail'&&this.$route.query.GoodType == 1){
                 this.nowPath = '/Pdd',
                 this.searchType = 'pdd'
                 this.nowName = '拼多多'
@@ -280,12 +287,12 @@ export default {
                 this.showCar = true
             }
         })
-        if(this.$route.path == '/productDetail'&&this.$route.query.GoodType == 1){
+        if(this.$route.path == '/productDetail'&&this.$route.query.GoodType == 2){
                 this.nowPath = '/taobao',
                 this.searchType = 'taobao'
                 this.nowName = '淘宝'
         }
-        if(this.$route.path == '/productDetail'&&this.$route.query.GoodType == 2){
+        if(this.$route.path == '/productDetail'&&this.$route.query.GoodType == 1){
             this.nowPath = '/Pdd',
             this.searchType = 'pdd'
             this.nowName = '拼多多'

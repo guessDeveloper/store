@@ -10,7 +10,7 @@
             <li v-for='(item,index) in list' :key="index"><goodCard :data="item"></goodCard></li>
           </ul>
           <ul class="store-list" v-if="searchType == 'store'">
-            <li v-for="(item,index) in list" :key="index" @click="jump(item.URL)">
+            <li v-for="(item,index) in list" :key="index" @click="jump(item.ID,item.picurl,item.title)">
                <storeCard :data="item"></storeCard>
              </li>
           </ul>
@@ -38,6 +38,7 @@
     </div>
 </template>
 <script>
+import { mapState, mapMutations} from 'vuex' //注册 action 和 state
 import goodCard from '@/components/taobao/goodCard'
 import storeCard from "@/components/common/storeListCard"
 import foodCard from '@/components/food/foodCard'
@@ -88,6 +89,11 @@ export default {
     foodCard:foodCard,
     shopCard:shopCard
   },
+   computed:{
+    ...mapState([
+      'isLogin'
+    ])
+  },
   mounted(){
     if(this.$route.query.type){
       this.searchType = this.$route.query.type;
@@ -136,6 +142,18 @@ export default {
           this.total = res.data.Data.count
         }
       })
+    },
+    jump(id,img,title){
+      if(!this.isLogin){
+        this.$router.push('/login')
+      }else{
+         let routeUrl = this.$router.resolve({
+            path: "/jump",
+            query: {id:id,img:img,title:title}
+          });
+          window.open(routeUrl.href, '_blank');
+        // this.$router.push(`/jump?id=${id}&img=${img}`,'_blank')
+      }
     }
   }
 

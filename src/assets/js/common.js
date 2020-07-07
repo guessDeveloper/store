@@ -2,6 +2,7 @@ const util = {
     // testPhone: /^[1]([3-9])[0-9]{9}$/,
     testPhone: /\d/,
     testNum: /^\d+$/,
+    loadingTime:300,
     getNowDate() {
         var now = new Date();
         var year = now.getFullYear(); //得到年份

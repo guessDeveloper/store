@@ -3,7 +3,7 @@
     <div class="persion-title">
       全部订单  <div class="score-box"><span>剩余积分：<b>{{SurplusIntegral}}</b></span><span>待返积分：<b>{{TobeReturnIntegral}}</b></span></div>
     </div>
-     <div class="order-content" >
+     <div class="order-content"  v-loading="loading">
             <div class="choose-box">
                 <div class="date-box">
                     <el-date-picker
@@ -14,7 +14,8 @@
                         range-separator="-"
                         value-format="yyyy-MM-dd"
                         start-placeholder="开始日期"
-                        end-placeholder="结束日期">
+                        end-placeholder="结束日期"
+                        @change="getList">
                         </el-date-picker>
                 </div>
                 <div class="date-small-box">
@@ -25,7 +26,9 @@
                          :editable="false"
                         :clearable="false"
                         value-format="yyyy-MM-dd"
+                        @change="getList"
                         placeholder="开始日期">
+
                     </el-date-picker>
                    </div>
                    <div class="date-middle"> -</div>
@@ -36,15 +39,16 @@
                         :clearable="false"
                         type="date"
                         value-format="yyyy-MM-dd"
+                        @change="getList"
                         placeholder="结束日期">
                         </el-date-picker>
                     </div>
                 </div>
                 <div class="status-select">
                     订单状态
-           
+
                     <span class="select">
-                        <el-select v-model="value" placeholder="请选择"  >
+                        <el-select v-model="value" placeholder="请选择"   @change="getList">
                             <el-option
                                 v-for="item in options"
                                 :key="item.value"
@@ -66,9 +70,9 @@
                     <el-table-column property="UserName" label="用户名" width="108" align="center"></el-table-column>
                     <el-table-column property="orderMoney" label="消费金额(元)" width="165" align="center"></el-table-column>
                     <el-table-column property="orderCreateTime" label="下单时间" width="200" align="center"></el-table-column>
-                    <el-table-column property="orderMoney" label="返积分数" width="88" align="center"></el-table-column>
+                    <el-table-column property="orderIntgralCount" label="返积分数" width="88" align="center"></el-table-column>
                     <el-table-column property="orderState" label="订单状态" width="100" align="center"></el-table-column>
-                    
+
                     <el-table-column  label="操作" width="102" align="center">
                          <template slot-scope="scope">
                             <button :data="scope" class="action-btn" @click="goDetail(scope.row.orderNumber)">查看详情</button>
@@ -85,7 +89,7 @@
                             <div class="item-name">
                                 订单号：<span class="item-value">{{item.orderNumber}}</span>
                             </div>
-                           
+
                             <div class="item-name">
                                 用户名：<span class="item-value">{{item.UserName}}</span>
                             </div>
@@ -96,7 +100,7 @@
                                 下单时间：<span class="item-value">{{item.orderCreateTime}}</span>
                             </div>
                             <div class="item-name">
-                                返积分数：<span class="item-value">{{item.orderMoney}}</span>
+                                返积分数：<span class="item-value">{{item.orderIntgralCount}}</span>
                             </div>
                         </div>
                         <div class="order-status-wrap">
@@ -159,7 +163,8 @@ export default {
         SurplusIntegral:'',
         TobeReturnIntegral:'',
         newOrder:0,//新订单
-        timer:''
+        timer:'',
+        loading:false
     }
   },
   mounted(){
@@ -170,7 +175,7 @@ export default {
       this.timer = setInterval(()=>{
           this.getRealTime()
       },14000)
-     
+
   },
   beforeDestroy(){
       clearInterval(this.timer)
@@ -189,6 +194,7 @@ export default {
           })
       },
       getList(){
+         this.loading = true
          this.$http.storePost(this.$api.GetOrderlist,{
              BingTime:this.dataValue[0]?this.dataValue[0] +' 00:00:00':'',
              entTime:this.dataValue[1]?this.dataValue[1]+' 23:59:59':'',
@@ -204,6 +210,9 @@ export default {
                 this.listData = [];
                 this.total = 0;
             }
+            setTimeout(()=>{
+                    this.loading = false
+           },this.$util.loadingTime)
          })
       },
       //获取积分
@@ -343,6 +352,7 @@ export default {
                     top: 0;
                     right: 0;
                     z-index: 1;
+                    line-height: 26px;
                     background-color: #ffffff;
                     .order-status-name {
                         color: #999999;
@@ -414,7 +424,7 @@ export default {
             }
         }
     }
-    
+
 }
 .page-box{
     padding:30px 0;

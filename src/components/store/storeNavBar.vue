@@ -37,7 +37,7 @@
             </a> -->
         <!-- </div> -->
         <div class="store-name"><span class="icon"></span><span class="tip">商家名称：</span><span  class="name">{{storeInfo.Name}}</span></div>
-        <router-link class="iconfont iconyd_saoyisao sao" tag="div" to="/sao"></router-link>
+        <a class="iconfont iconyd_saoyisao sao" tag="div" to="/sao" href="./static/que/index.html"></a>
         <button class="loginOut" @click="loginOut">退出登录</button>
     </div>
  </div>
@@ -95,7 +95,8 @@ export default {
                 }
             })
         }
-    }
+    },
+    
 }
 </script>
 <style lang="less" scoped>

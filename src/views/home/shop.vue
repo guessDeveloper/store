@@ -1,5 +1,5 @@
 <template>
-  <div class="shop">
+  <div class="shop"  v-loading.fullscreen.lock="loading">
      <div class="brand-top-nav">
         <router-link tag="a" to="/">首页</router-link>
         <span class="iconfont iconjiantou"></span>
@@ -7,7 +7,7 @@
     </div>
     <div class="food-select-box">
         <div class="food-select-item">
-            <ul>
+            <ul class="top">
                 <li class="name" >分类：</li>
                 <li :class="{active:nowClassId == 0}" ><a  @click="changeClass(0)">全部</a></li>
                 <li v-for="(item,index) in classList" :key="index" :class="{active:nowClassId == item.ClasssId}"><a @click="changeClass(item.ClasssId)">{{item.Classname}}</a></li>
@@ -16,7 +16,7 @@
             <div class="food-select-item">
             <ul>
                 <li class="name">地址：</li>
-                <li :class="{active:BdCityCode == 0}"><a @click="BdCityCode = 0" >全部</a></li>
+                <li :class="{active:BdCityCode == ''}"><a @click="changeCity('')">全部</a></li>
                 <li v-for="(item) in citys" :key="item.CityId" :class="{active:BdCityCode == item.CityId}"><a @click="changeCity(item.CityId)" >{{item.CityName}}</a></li>
             </ul>
         </div>
@@ -109,6 +109,7 @@ export default {
             phoneCity:'全部',
             list:[],
             phoneSort:'默认',
+            loading:false,
         }
     },
     mounted(){
@@ -172,6 +173,7 @@ export default {
             })
         },
         getList(){
+            this.loading =true
             this.$http.post(this.$api.NearBy,{PointX:this.positionX,PointY:this.positionY,Category:this.nowClassId,BdCityCode:this.BdCityCode,Sort:this.sort,pageIndex:this.pageIndex,pageSize:this.pageSize}).then(res=>{
                 if(res.data.Code == 1){
                   this.list = res.data.Data.list;
@@ -179,6 +181,13 @@ export default {
                 }else{
                     this.$message.error(res.data.Msg)
                 }
+                setTimeout(()=>{
+                    this.loading = false
+                },this.$util.loadingTime)
+            }).catch(()=>{
+                setTimeout(()=>{
+                    this.loading = false
+                },this.$util.loadingTime)
             })
         }
 

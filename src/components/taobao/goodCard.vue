@@ -1,6 +1,15 @@
 <template>
   <a class="card-box" :href="data.ClickURL" >
-    <img :src="data.picurl" alt="" >
+    <div class="img-box">
+       <img src="../../assets/img/1-1.jpg" alt="" class="hidden-img">
+       <!-- <img :src="data.picurl" alt=""  class="show-img"> -->
+        <el-image :src="data.picurl" lazy class="show-img" fit="contain">
+                <div slot="placeholder" class="image-slot">
+                  加载中<span class="dot">...</span>
+                </div>
+        </el-image>
+    </div>
+    
     <div class="des">
       <h4>{{data.titleA}}</h4>
       <p>{{data.tieleB}}</p>
@@ -32,6 +41,23 @@ export default {
   width:100%;
   color:@font_color;
   text-align: center;
+  .img-box{
+    position: relative;
+    overflow: hidden;
+    width:100%;
+    .hidden-img{
+      width:100%;
+      opacity: 0;
+    }
+    .show-img{
+      position: absolute;
+      left:0;
+      top:50%;
+      transform: translateY(-50%);
+      width:100%;
+      height: 100%;
+    }
+  }
   img{
     display: block;
     width:100%;

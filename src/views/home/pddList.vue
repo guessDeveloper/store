@@ -1,5 +1,5 @@
 <template>
-   <div class="taobao">
+   <div class="taobao" v-loading.fullscreen.lock="loading">
       <div class="brand-top-nav">
             <router-link tag="a" to="/">首页</router-link>
             <span class="iconfont iconjiantou"></span>
@@ -11,7 +11,7 @@
             <div class="food-select-item">
                 <ul>
                     <li class="name">分类：</li>
-                    <li :class="{active:classId == 0}"><a @click="changeClass('0','全部')">全部</a></li>
+                    <li :class="{active:classId == ''}"><a @click="changeClass('','全部')">全部</a></li>
                     <li v-for="(item,index) in classList" :key="index" :class="{active:classId == item.catid}" ><a  @click="changeClass(item.catid,item.titleA)">{{item.titleA}}</a></li>
                 </ul>
             </div>
@@ -51,6 +51,17 @@
                     :total="total">
                 </el-pagination>
             </div>
+            <div class="page-box small">
+                <el-pagination
+                     small
+                    @size-change="handleSizeChange"
+                    @current-change="handleCurrentChange"
+                    :current-page.sync="pageIndex"
+                    :page-size="pageSize"
+                    layout="prev, pager, next"
+                    :total="total">
+                </el-pagination>
+            </div>
         </div>
    </div>
 </template>
@@ -66,7 +77,8 @@ export default {
         pageIndex:1,
         pageSize:20,
         total:0,
-        list:[]
+        list:[],
+        loading:false
     }
   },
   mounted(){
@@ -110,6 +122,7 @@ export default {
          pageIndex:this.pageIndex,
          pageSize:this.pageSize
        }
+       this.loading = true
        this.$http.post(this.$api.pddGerPageList,sendData).then(res=>{
           if(res.data.Code == 1){
              this.list = res.data.Data.list
@@ -117,6 +130,13 @@ export default {
              document.body.scrollTop = 0;
              document.documentElement.scrollTop = 0;
           }
+          setTimeout(()=>{
+            this.loading = false
+          },this.$util.loadingTime)
+       }).catch(()=>{
+          setTimeout(()=>{
+            this.loading = false
+          },this.$util.loadingTime)
        })
     },
     //分页数据
@@ -130,7 +150,9 @@ export default {
 }
 </script>
 <style lang="less" scoped>
-
+.taobao{
+  min-height: 100vh;
+}
 .list-box{
   width:@max-width;
   margin:20px auto 100px;
