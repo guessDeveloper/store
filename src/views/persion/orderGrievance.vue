@@ -166,7 +166,7 @@ export default {
          label:'拼多多',
          value:3
        },{
-         label:'亿起发',
+         label:'商城返利',
          value:4
        }],
        pingtaiSelect:2,

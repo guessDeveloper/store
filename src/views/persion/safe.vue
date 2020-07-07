@@ -2,7 +2,7 @@
   <div class="safe-box">
     <div class="persion-title">安全设置</div>
     <div class="safe-content" v-show="!isChangingPhone">
-       <div class="user">您当前的帐号：<span>{{userInfo.nickName}}</span></div>
+       <div class="user">您当前的用户名：<span>{{userInfo.nickName}}</span></div>
        <div class="item">
          <span class="iconfont iconxgmm"></span>
          <div class="des">
@@ -103,7 +103,7 @@
     <div class="safe-tip">
          <h4>安全服务提示</h4>
          <ul>
-           <li>· 确认您登录的是消费乐网址，注意防范进入钓鱼网站，不要轻信各种即时通讯工具发送的商品或支付链接，谨防网购诈骗</li>
+           <li>· 确认您登录的是优乐兑网址，注意防范进入钓鱼网站，不要轻信各种即时通讯工具发送的商品或支付链接，谨防网购诈骗</li>
            <li>· 建议您安装杀毒软件，并定期更新操作系统等软件补丁，确保帐号及交易安全</li>
          </ul>
        </div>
@@ -221,6 +221,8 @@ export default {
        }else if(this.newPas !== this.reNewpas){
          this.$message.error('两次输入密码不一致')
          return false
+       }else if(this.oldPas == this.newPas){
+         this.$message.error('新密码不能与原密码一致')
        }else{
          this.resetPa();
        }

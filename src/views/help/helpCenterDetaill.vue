@@ -9,7 +9,15 @@
     </div>
     <div class="box">
       <div class="select">
-        <h3 class="">常见问题  <span class="arrow iconfont iconxiasanjiao"></span></h3>
+           <h3 class="">{{list[activeIndex].ClassName}}  <span class="arrow iconfont iconxiasanjiao"></span></h3>
+           <el-select v-model="activeIndex" placeholder="请选择"  class="help-select">
+                <el-option
+                    v-for="item in list"
+                    :key="item.index"
+                    :label="item.Title"
+                    :value="item.index">
+                    </el-option>
+            </el-select>
       </div>
       <div class="box-left">
          <h3>{{list[activeIndex].ClassName}}</h3>
@@ -49,6 +57,9 @@ export default {
            this.list = res.data.Data
         }
       })
+    },
+    getList(index){
+       this.activeIndex = index
     },
     changeInde(index){
       this.activeIndex = index
@@ -117,6 +128,7 @@ export default {
     .select{
       display: block;
       height:58px;
+      position: relative;
       background:#fff;
       margin:10px auto;
       h3{
@@ -143,6 +155,15 @@ export default {
           font-size:12px;
 
         }
+      }
+      .help-select{
+        position: absolute;
+        width:calc(100% - 30px);
+        opacity:0;
+        top:0;
+        left:15px;
+        right:15px;
+        margin:0 auto;
       }
     }
     .box-left{

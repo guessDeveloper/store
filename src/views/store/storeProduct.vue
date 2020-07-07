@@ -3,7 +3,7 @@
       <div class="tab-box">
             <div class="tab-item" @click="toTab(1)" :class="{active:tab ==1}">产品列表</div>
              <div class="tab-item" @click="toTab(2)" :class="{active:tab ==2}" v-show="classOption.length>0">添加产品</div>
-            <a :href="storeInfo.GoodsUrl" target="_blanck" class="privew">产品预览</a>
+            <a :href="storeInfo.GoodsUrl" target="_blanck" class="privew">查看审核通过的产品</a>
       </div>
       <div class="order-content" v-show="tab == '1'" v-loading="loading">
          <div class="choose-box">

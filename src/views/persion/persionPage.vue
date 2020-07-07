@@ -3,7 +3,7 @@
      <div class="persion-title title">我的账户</div>
      <div class="content">
         <div class="persion-box">
-           <div class="head-img" :style="'background-image:url('+UserImg+')'">
+           <div class="head-img" :style="'background-image:url('+UserImg+')'"  @click="showChangeBox">
 
            </div>
            <div class="user-msg">
@@ -180,7 +180,7 @@ export default {
         const isLt2M = file.size / 1024 / 1024 <= 1
         if(!extension && !extension2) {
             this.$message({
-                message: '上传文件只能是 jpn、png格式!',
+                message: '上传文件只能是 jpg/png格式!',
                 type: 'error'
             });
         }

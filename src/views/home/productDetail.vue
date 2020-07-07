@@ -56,7 +56,7 @@
               </span>
             </div>
          </div>
-         <div class="notice">提醒：使用天猫红包和购物卷将无法返现</div>
+         <div class="notice">提醒：使用天猫红包和购物券将无法返现</div>
          <button  class="btn" @click="buy">立即购买</button>
        </div>
     </div>
