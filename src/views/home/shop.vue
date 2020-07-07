@@ -16,7 +16,7 @@
             <div class="food-select-item">
             <ul>
                 <li class="name">地址：</li>
-                <li :class="{active:BdCityCode == 0}"><a @click="BdCityCode = 0" >全部</a></li>
+                <li :class="{active:BdCityCode == ''}"><a @click="changeCity('')">全部</a></li>
                 <li v-for="(item) in citys" :key="item.CityId" :class="{active:BdCityCode == item.CityId}"><a @click="changeCity(item.CityId)" >{{item.CityName}}</a></li>
             </ul>
         </div>

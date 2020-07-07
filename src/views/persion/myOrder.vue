@@ -4,7 +4,7 @@
             <div class="tab-item" @click="toTab(1)" :class="{active:tab ==1}">线上购物订单</div>
              <div class="tab-item second" @click="toTab(2)" :class="{active:tab ==2}">地面消费订单</div>
              <div class="input-box" v-show="tab == 1">
-                <label>订单号</label> <input type="text" placeholder="输入订单号"><button>提交订单</button>
+                <label>订单号</label> <input type="text" placeholder="输入订单号" v-model="subOrder"><button @click="submitOrder">提交订单</button>
              </div>
         </div>
         <!-- 线上订单 start -->
@@ -369,6 +369,7 @@ export default {
            pageSize:20,
            onlineTotal:0,
            onlieStatus:'',
+           subOrder:'',
            statusOptions:[
                {value:'',label:'全部'},
                {value:'1',label:'已返利'},
@@ -438,6 +439,18 @@ export default {
         },
         goDetail(id){
             this.$router.push('/orderDetail?id='+id)
+        },
+        submitOrder(){
+            this.$http.limitPost(this.$api.submitOrder,{
+                ordersn:this.subOrder
+            }).then(res=>{
+                if(res.data.Code ==1){
+                    this.getOnlineList();
+                    this.$message.success(res.data.Data)
+                }else{
+                    this.$message.error(res.data.Msg)
+                }
+            })
         },
         //获取线上订单列表
         getOnlineList(){

@@ -7,9 +7,14 @@
     </div>
     <div class="detail-box">
        <div class="banner">
-         <el-carousel trigger="click" height="420px">
+         <img src="../../assets/img/1-1.jpg" alt="" class="hide-img">
+         <el-carousel trigger="click" height="100%" class="show-img">
           <el-carousel-item v-for="item in detail.GoodInfoPic" :key="item">
-            <img :src="item" alt="" class="banner-img" >
+           <el-image :src="item" class="banner-img" fit="contain">
+                <div slot="placeholder" class="image-slot">
+                  加载中<span class="dot">...</span>
+                </div>
+             </el-image>
           </el-carousel-item>
          </el-carousel>
        </div>
@@ -105,11 +110,15 @@ export default {
     float:left;
     width:420px;
     height:420px;
-    background:#ccc;
-    img{
-      width: 100%;
+    background:#fff;
+    .hide-img{
+      display: none;
+    }
+    .banner-img{
+      width:100%;
       height:100%;
     }
+   
   }
   .detail-des{
     float:left;
@@ -171,13 +180,26 @@ export default {
     width:100%;
     padding:0;
     .banner{
+      position: relative;
       float:none;
       width:100%;
+      height: auto;
+      .hide-img{
+        display: block;
+        width:100%;
+        opacity: 0;
+      }
+      .show-img{
+        position: absolute;
+        top:0;
+        left: 0;
+        width:100%;
+      }
     }
     .detail-des{
       margin:0;
       float: none;
-      padding:0 15px;
+      padding:0 15px 15px;
       width: 100%;
       box-sizing: border-box;
       .buy-btn {

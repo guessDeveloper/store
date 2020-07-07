@@ -20,7 +20,7 @@
        <div class="input-line-box">
          <label>商家名称：</label>
          <input type="text" v-model="infos.Name" maxlength="20">
-         <span class="limit">{{infos.Name.length}}/50</span>
+         <span class="limit">{{infos.Name.length}}/20</span>
 
        </div>
        <div class="input-line-box">

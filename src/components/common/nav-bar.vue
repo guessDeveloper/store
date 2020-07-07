@@ -86,6 +86,10 @@ export default {
                    {
                        path:'/shopDetail',
                        name:'淘宝列表'
+                   },
+                   {
+                       path:'/shopGoodsDetail',
+                       name:'淘宝列表'
                    }
                ]
            },{
@@ -94,6 +98,10 @@ export default {
                child:[
                    {
                        path:'/fooddetail',
+                       name:'美食详情'
+                   },
+                   {
+                       path:'/foodList',
                        name:'美食详情'
                    }
                ]

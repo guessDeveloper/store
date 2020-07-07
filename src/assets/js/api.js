@@ -101,6 +101,7 @@ export default {
     CollectionConfirmation: '/api/User/CollectionConfirmation', //取消订单
     AddComment: '/api/User/AddComment', //评价
     LoginOut: '/api/LoginRegister/LoginOut', //退出登录
+    submitOrder:'/api/User/submitOrder',//提交订单
     //商家中心
     MerchanterMerchanter: '/api/Merchant/MerchanterMerchanter', //获取商家信息
     MerchanterLoginOut: '/api/LoginRegister/MerchanterLoginOut', //退出登录

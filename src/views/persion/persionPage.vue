@@ -64,7 +64,7 @@
           </div>
           <div class="input-line">
           <label for="">昵称：</label><div class="input-box">
-            <input type="text"  v-model="name" maxlength="10"><span class="limit">{{name.length}}/10</span>
+            <input type="text"  v-model="name" maxlength="10"><span class="limit" :class="{over:name.length>10}">{{name.length}}/10</span>
           </div>
           </div>
            <div class="btn-box">
@@ -455,6 +455,9 @@ export default {
         font-size:12px;
         line-height:34px;
         top:0px;
+        &.over{
+          color:red;
+        }
       }
       .upload-btn{
       width:126px;

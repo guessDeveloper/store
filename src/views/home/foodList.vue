@@ -30,6 +30,7 @@
   </div>
 </template>
 <script>
+import { mapState, mapMutations} from 'vuex' //注册 action 和 state
 import foodCard from '@/components/food/foodListCard'
 export default {
   data(){
@@ -41,6 +42,11 @@ export default {
       id:'',
       zhuohao:''
     }
+  },
+  computed:{
+    ...mapState([
+      'myCar'
+    ])
   },
   mounted(){
      if(this.$route.query.id){
@@ -55,6 +61,9 @@ export default {
     }
   },
   methods:{
+    ...mapMutations([
+      'setClearCar'
+    ]),
     getList(){
       this.$http.post(this.$api.foodProducts,{
          'MerchantId':this.id,
@@ -68,6 +77,9 @@ export default {
               return {...item,MertchntID:res.data.Data.MerchantId,Mertchntname:res.data.Data.MerchantName,tablenumber:res.data.Data.tablenumber,IsQRcode:res.data.Data.IsQRcode}
           })
           console.log(this.list)
+           if(!this.myCar[res.data.Data.MerchantId]){
+             this.setClearCar();
+           }
           this.total = res.data.Data.Count
         }
       })

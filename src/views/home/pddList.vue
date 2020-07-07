@@ -11,7 +11,7 @@
             <div class="food-select-item">
                 <ul>
                     <li class="name">分类：</li>
-                    <li :class="{active:classId == 0}"><a @click="changeClass('0','全部')">全部</a></li>
+                    <li :class="{active:classId == ''}"><a @click="changeClass('','全部')">全部</a></li>
                     <li v-for="(item,index) in classList" :key="index" :class="{active:classId == item.catid}" ><a  @click="changeClass(item.catid,item.titleA)">{{item.titleA}}</a></li>
                 </ul>
             </div>
