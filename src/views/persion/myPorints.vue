@@ -49,7 +49,7 @@
  :page-size="onePageSize"
   :current-page.sync="onePageIndex"
   layout="prev, pager, next"
-   @size-change="getSorceList"
+   @current-change="getSorceList"
   :total="gridDatatotal">
 </el-pagination>
 
@@ -60,7 +60,7 @@
  :page-size="onePageSize"
   :current-page.sync="onePageIndex"
   layout="prev, pager, next"
-   @size-change="getSorceList"
+   @current-change="getSorceList"
   :total="gridDatatotal">
 </el-pagination>
 </div>
@@ -84,7 +84,7 @@
    </div>
    <div class="page-box">
      <el-pagination
-     @size-change="getXiaofei"
+     @current-change="getXiaofei"
   :page-size="twoPageSize"
   :current-page.sync="twoPageIndex"
   layout="prev, pager, next"
@@ -94,7 +94,7 @@
    <div class="page-box small">
      <el-pagination
      small
-     @size-change="getXiaofei"
+     @current-change="getXiaofei"
   :page-size="twoPageSize"
   :current-page.sync="twoPageIndex"
   layout="prev, pager, next"

@@ -8,10 +8,10 @@
           <label for="">邀请链接：</label><div class="input-box"><input type="text" :value="infos.Invitelink" readonly class="readonly"><button class="copy" :data-clipboard-text="infos.Invitelink">复制</button></div>
        </div>
        <div class="input-line">
-         <label for="">商家名称：</label><div class="input-box"><input type="text" placeholder="请输入商家名称" v-model="infos.Name" maxlength="20" ><span class="limit">{{infos.Name.length}}/20</span></div>
+         <label for="">商家名称：</label><div class="input-box"><input type="text" placeholder="请输入商家名称" v-model="infos.Name" maxlength="20" ><span class="limit">{{infos.Name?infos.Name.length:0}}/20</span></div>
        </div>
        <div class="input-line">
-         <label for="">商家描述：</label><div class="input-box"><input type="text" placeholder="请输入商家描述" v-model.trim="infos.describe" maxlength="300"><span class="limit">{{infos.describe.length}}/300</span></div>
+         <label for="">商家描述：</label><div class="input-box"><input type="text" placeholder="请输入商家描述" v-model.trim="infos.describe" maxlength="300"><span class="limit">{{infos.describe?infos.describe.length:0}}/300</span></div>
        </div>
        <div class="input-line">
          <label for="">商家LOGO：</label><div class="input-box">
@@ -70,7 +70,7 @@
        </div>
         <div class="input-line">
          <label for="">商家地址：</label><div class="input-box">
-            <input type="text"  @click="showMap = true" v-model="address" maxlength="50"><span class="limit">{{address.length}}/50</span>
+            <input type="text"  @click="showMap = true" v-model="address" maxlength="50"><span class="limit">{{address?address.length:0}}/50</span>
           </div>
        </div>
         <div class="input-line">
@@ -116,7 +116,7 @@
           </div>
        </div>
         <div class="input-line">
-         <label for="">商家网址：</label><div class="input-box"><input type="text" placeholder="请输入商家网址" v-model="netWork" maxlength="50"><span class="limit">{{netWork.length}}/50</span></div>
+         <label for="">商家网址：</label><div class="input-box"><input type="text" placeholder="请输入商家网址" v-model="netWork" maxlength="50"><span class="limit">{{netWork?netWork.length:0}}/50</span></div>
        </div>
         <div class="input-line">
          <label for="">商家奖励比例：</label><div class="input-box percent"><input type="text" placeholder="请输入1至60整数" v-model.trim="infos.ReturnPercent"><div class="danwei">%</div></div>
@@ -189,13 +189,13 @@ export default {
           Invitelink: "",
           Logo: "",
           Name: "",
-          PointX: null,
-          PointY: null,
+          PointX: '',
+          PointY: '',
           ReturnPercent: "",
           TelPhone: "",
-          URl: null,
-          describe: null,
-          introduce: null,
+          URl: '',
+          describe: '',
+          introduce: '',
           phone: "",
         },
         smallNav: [
@@ -407,13 +407,15 @@ export default {
             this.$message({
                 message: '上传文件只能是 jpn、png格式!',
                 type: 'error'
-            });
+            })
+            return false
         }
         if(!isLt2M) {
             this.$message({
                 message: '上传文件大小不能超过 1MB!',
                 type: 'error'
-            });
+            })
+            return false
         }
         return extension || extension2 && isLt2M
       },
@@ -533,8 +535,17 @@ export default {
           ReturnPercent:this.infos.ReturnPercent
         }).then(res=>{
           if(res.data.Code == 1){
-            this.$message.success('修改信息成功，正在审核中请稍后！！')
-            this.getStoreInfo();
+            // this.$message.success('修改信息成功，正在审核中请稍后！！')
+            this.$message({
+              type:'success',
+              message:res.data.Msg,
+              onClose:function(){
+                window.location.reload()
+                document.body.scrollTop = 0;
+                document.documentElement.scrollTop = 0;
+              }
+            })
+            // this.getStoreInfo();
           }else{
             this.$message.error(res.data.Msg)
           }

@@ -4,6 +4,7 @@ import router from '../../router'
 import store from '../../store/index'
 Axios.defaults.withCredentials = true;
 const baseUrl = process.env.NODE_ENV === 'production' ? 'https://api.youledui.com/' : '/Sev'
+// const baseUrl = process.env.NODE_ENV === 'production' ? 'https://api1.youledui.com/' : '/Sev'
 const baseData = {
         // timestamp: parseInt((+new Date()) / 1000),
         // platform: '3',

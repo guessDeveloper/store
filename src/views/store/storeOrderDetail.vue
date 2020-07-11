@@ -124,7 +124,7 @@ export default {
     },
     //取消订单
     cancleOrder(){
-      his.$alert.confirm('是否取消订单', '提示', {
+      this.$alert.confirm('是否取消订单', '提示', {
           confirmButtonText: '确定',
           cancelButtonText: '取消',
           type: 'warning'

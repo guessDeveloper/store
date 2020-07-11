@@ -5,15 +5,23 @@
         </h3>
         <div class="content">
             <div class="left" :class="{canchu:config.type==2,peijian:config.type==3,jujia:config.type ==4}"> 
-                <img :src="config.CateGorysItems[0].picurl" alt="">
-                <div class="name">{{config.CateGorysItems[0].titleA}}</div>
-                <div class="des">{{config.CateGorysItems[0].titleB}}</div>
-                <div class="price">¥{{config.CateGorysItems[0].price}}</div>
+                <img :src="config.CateGorysItems[0]?config.CateGorysItems[0].picurl:''" alt="">
+                <div class="name">{{config.CateGorysItems[0]?config.CateGorysItems[0].titleA:''}}</div>
+                <div class="des">{{config.CateGorysItems[0]?config.CateGorysItems[0].titleB:''}}</div>
+                <div class="price">¥{{config.CateGorysItems[0]?config.CateGorysItems[0].price:''}}</div>
                 <a :href="config.ClassUrl"  class="btn" target="_blank">查看全部服饰</a>
             </div>
             <div class="right">
                 <a class="item" v-for="(item,index) in config.CateGorysItems" :key="index" :class="{none:index == 0}" :href="item.Url" target="_blank">
-                    <img :src="item.picurl" alt="">
+                    <div class="img-box">
+                        <img src="../../assets/img/1-1.jpg" alt="" class="hide-img">
+                        <el-image :src="item.picurl" lazy class="img" fit="contain">
+                            <div slot="placeholder" class="image-slot">
+                            加载中<span class="dot">...</span>
+                            </div>
+                        </el-image>
+                    </div>
+                    <!-- <img :src="item.picurl" alt=""> -->
                     <div class="name">{{item.titleA}}</div>
                     <div class="score">{{item.titleB}}</div>
                     <div class="price">¥{{item.price}}</div>
@@ -187,11 +195,23 @@ export default {
                     bottom:0;
                 }
             }
-            img{
+            .img-box{
+                position: relative;
                 display: block;
                 width:173px;
                 margin:17px auto 19px;
                 cursor: pointer;
+                .hide-img{
+                    display: block;
+                    width:100%;
+                    opacity: 0;
+                }
+                .img{
+                    position: absolute;
+                    left:0;
+                    top:0;
+                    width:100%;
+                }
             }
             .name{
                 margin:0 20px;
@@ -242,6 +262,9 @@ export default {
             @media screen and(max-width:@change_width) {
                 box-sizing: border-box;
                 width: 50%;   
+                .img-box{
+                    width:80%;
+                }
             } 
         }
     }

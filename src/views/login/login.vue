@@ -8,7 +8,7 @@
                  <span  :class="{active:type==1}" @click="tabchange(1)">用户登录</span><span :class="{active:type==2}" @click="tabchange(2)">商家登录</span>
               </div>
               <div class="input-box">
-                 <span class="iconfont iconzh"></span><input type="text" placeholder="用户名称/手机号码" v-model.trim="userName" @blur="isLoginCode">
+                 <span class="iconfont iconzh"></span><input type="text" placeholder="手机号码" v-model.trim="userName" @blur="isLoginCode">
               </div>
               <div class="input-box">
                 <span class="iconfont iconmima"></span><input type="password" placeholder="密码" v-model.trim="password">

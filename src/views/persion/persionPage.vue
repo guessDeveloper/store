@@ -183,12 +183,14 @@ export default {
                 message: '上传文件只能是 jpg/png格式!',
                 type: 'error'
             });
+            return false
         }
         if(!isLt2M) {
             this.$message({
                 message: '上传文件大小不能超过 1MB!',
                 type: 'error'
             });
+            return false
         }
         return extension || extension2 && isLt2M
       },
@@ -288,6 +290,7 @@ export default {
     background-repeat: no-repeat;
     background-position:center center;
     background-size:cover;
+    cursor: pointer;
   }
   .user-msg{
     float: left;
@@ -296,6 +299,7 @@ export default {
       line-height: 12px;
       &.top{
         margin-top:22px;
+        cursor: pointer;
       }
       &.bottom{
         margin-top:15px;

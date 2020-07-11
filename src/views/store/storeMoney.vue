@@ -3,7 +3,7 @@
    <div class="persion-title">充值中心</div>
    <div class="money-box">
      <div class="banner">
-       <img :src="bannerUrl" alt="">
+       <img :src="bannerUrl" alt="" v-if="bannerUrl">
      </div>
      <div class="big-box">
        <div class="input-line-box">
@@ -20,13 +20,13 @@
        <div class="input-line-box">
          <label>商家名称：</label>
          <input type="text" v-model="infos.Name" maxlength="20">
-         <span class="limit">{{infos.Name.length}}/20</span>
+         <span class="limit">{{infos.Name?infos.Name.length:''}}/20</span>
 
        </div>
        <div class="input-line-box">
           <label>商家描述：</label>
          <input type="text" v-model="infos.describe" maxlength="300">
-         <span class="limit">{{infos.describe.length}}/300</span>
+         <span class="limit">{{infos.describe?infos.describe.length:0}}/300</span>
        </div>
        <div class="input-line-box" style="height:auto;">
          <label for="">商家LOGO：</label><div class="input-box">
@@ -85,6 +85,7 @@
 // const beforeUrl = 'https://files.youledui.com';
 let beforeUrl = '';
 import '@/plugins/element-upload.js'
+import { Alert } from 'element-ui';
 export default {
   data(){
     return{
@@ -138,19 +139,23 @@ export default {
             this.$message({
                 message: '上传文件只能是 jpn、png格式!',
                 type: 'error'
-            });
+            })
+            return false
         }
         if(!isLt2M) {
             this.$message({
                 message: '上传文件大小不能超过 1MB!',
                 type: 'error'
-            });
+            })
+            return false
         }
         return extension || extension2 && isLt2M
       },
     //充值
     Recharge(){
       let logo = this.fileList.replace(this.$util.testBeforeUrl,'')
+      // alert(logo)
+      //  let newTab = window.open('', '_blank');
       this.$http.storePost(this.$api.Recharge,{
         price:this.value,
         type:0,
@@ -164,10 +169,26 @@ export default {
         URl: this.infos.URl
       }).then(res=>{
         if(res.data.Code == 1){
-           window.open(res.data.Data.Url,'_blank')
+          // alert(res.data.Data.Url)
+          
+            // newTab.location = res.data.Data.Url;
+            	var IsAndroid = (/Android|HTC/i.test(navigator.userAgent) || (window.navigator['platform'] + '').match(/Linux/i)),
+              IsIPad = !IsAndroid && /iPad/i.test(navigator.userAgent),
+              IsIPhone = !IsAndroid && /iPod|iPhone/i.test(navigator.userAgent),
+              IsIOS =  IsIPad || IsIPhone;
+            // var isiOS = !!navigator.userAgent.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/);
+            if(IsIOS){
+              //  alert('122')
+               window.location.href = res.data.Data.Url
+            }else{
+                window.open(res.data.Data.Url,'_blank')
+            }
+          //  window.open(res.data.Data.Url,'_blank')
         }else{
           this.$message.error(res.data.Msg)
         }
+      }).catch(res=>{
+       
       })
     },
     uploadImgUrl(){

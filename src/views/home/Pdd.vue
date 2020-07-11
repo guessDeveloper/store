@@ -148,9 +148,11 @@ export default {
                     height:60/@p;
                 }
                 .name{
+                    width:80%;
+                    margin:8/@p auto 0;
                     font-size:12/@p;
-                    line-height: 12/@p;
-                    margin-top:10/@p;
+                    line-height: 15/@p;
+                    
                 }
               }
               

@@ -49,6 +49,14 @@ export default {
   mounted(){
     this.classId = this.$route.query.id;
     this.getQuestion();
+    document.querySelectorAll('.help-nav-top').forEach(item=>{
+      item.style.opacity = '0';
+    })
+  },
+  beforeDestroy(){
+    document.querySelectorAll('.help-nav-top').forEach(item=>{
+      item.style.opacity = '1';
+    })
   },
   methods:{
     getQuestion(){

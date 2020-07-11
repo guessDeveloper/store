@@ -3,7 +3,7 @@
      <div class="brand-top-nav">
         <router-link tag="a" to="/">首页</router-link>
         <span class="iconfont iconjiantou"></span>
-        <span class="now-nav">逛街购物</span>
+        <router-link tag="a" to="/shop">逛街购物</router-link>
     </div>
     <div class="detail-box">
        <div class="banner">

@@ -90,6 +90,9 @@ export default {
                    {
                        path:'/shopGoodsDetail',
                        name:'淘宝列表'
+                   },{
+                       path:'/goodsList',
+                       name:'商品列表'
                    }
                ]
            },{
@@ -141,7 +144,7 @@ export default {
            navIsOpen:false,
            searchType:'',
            showCar:false,
-           showCarList:['/fooddetail','/earthDetail','/shopCar','/foodList'],
+           showCarList:['/fooddetail','/earthDetail','/shopCar','/foodList','/food'],
         //    charNowNum:0,
         }
     },
@@ -206,6 +209,7 @@ export default {
             if(this.$route.query.content){
                 this.searchContent = this.$route.query.content
             }
+            this.showCar = false
             this.showCarList.forEach(item=>{
                 if(item == this.$route.path){
                     this.showCar = true
@@ -221,6 +225,8 @@ export default {
                 this.searchType = 'pdd'
                 this.nowName = '拼多多'
             }
+            document.querySelector('body').style.height = 'auto';
+            document.querySelector('body').style.overflow = 'auto';
         },
         deep: true,
     },

@@ -5,7 +5,7 @@
          <span class="iconfont iconguangbo"></span>
          <span class="msg" v-for="(item,index) in tip" :key="index" :class="{active:tipActive == index}">{{item.Message}}</span>
       </div>
-       <div class="nav-right">
+       <div class="nav-right help-nav-top">
           <!-- <a class="iconfont iconyd_saoyisao login-btn"></a> -->
           <span v-show="!isLogin">
             <router-link to="/login" tag='a' class="login-btn">请先登录</router-link>
@@ -18,10 +18,10 @@
            </span>
           <router-link to="/helpCenter" class="help" tag="a">帮助中心</router-link>
        </div>
-      <a  class="loginout" v-show="isLogin" @click="loginOut">退出登录</a>
-      <router-link tag="a" to="/persion" class="logined" v-show="isLogin"><span class="iconfont iconzh"></span>个人中心</router-link>
-      <router-link href="" class="regester" to="/register" tag="a" v-show="!isLogin"> 注册</router-link>
-      <router-link class="login" tag="a" to="/login" v-show="!isLogin">登录</router-link>
+      <a  class="loginout help-nav-top" v-show="isLogin" @click="loginOut">退出登录</a>
+      <router-link tag="a" to="/persion" class="logined help-nav-top" v-show="isLogin"><span class="iconfont iconzh"></span>个人中心</router-link>
+      <router-link href="" class="regester help-nav-top" to="/register" tag="a" v-show="!isLogin"> 注册</router-link>
+      <router-link class="login help-nav-top" tag="a" to="/login" v-show="!isLogin">登录</router-link>
     </div>
   </div>
 </template>
@@ -35,7 +35,8 @@ export default {
       tip:[],
       tipActive:0,
       timer:'',
-      userName:''
+      userName:'',
+      isHelp:false
     }
   },
   computed:{

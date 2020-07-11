@@ -3,7 +3,9 @@
      <div class="brand-top-nav">
         <router-link tag="a" to="/">首页</router-link>
         <span class="iconfont iconjiantou"></span>
-        <span class="now-nav">逛街购物</span>
+        <router-link tag="a" to="/shop">逛街购物</router-link>
+        <span class="iconfont iconjiantou"></span>
+        <span class="now-nav">{{detial.Mertchntname}}</span>
     </div>
     <div class="detail">
        <div class="detail-left">
@@ -30,7 +32,7 @@
             <span class="name">商家地址：</span><a @click="toMap = true"  class="pc">{{detial.Mertchntsite}}</a> <a :href="mapUrl" class="phone">{{detial.Mertchntsite}}</a>
          </div>
          <div class="icon-box">
-            <span class="name">商家故事：</span>{{detial.MertchnStory}}
+            <span class="name">商家简介：</span>{{detial.MertchnStory}}
          </div>
          <div class="score-box">
            <div class="line">奖励比例：<span class="num red">{{detial.MertchntMaxFanli}}%</span></div>

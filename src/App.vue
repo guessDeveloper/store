@@ -24,6 +24,16 @@ export default {
     ])
   },
   mounted(){
+   var IsAndroid = (/Android|HTC/i.test(navigator.userAgent) || (window.navigator['platform'] + '').match(/Linux/i)),
+    IsIPad = !IsAndroid && /iPad/i.test(navigator.userAgent),
+    IsIPhone = !IsAndroid && /iPod|iPhone/i.test(navigator.userAgent),
+    IsIOS =  IsIPad || IsIPhone;
+    if(IsIOS){
+      this.$alert.alert('推荐您使用手机自带浏览器', {
+        confirmButtonText: '知道了',    
+      })
+      // alert(111)
+    }
     this.getConfig();
   },
   methods:{
@@ -34,9 +44,26 @@ export default {
       this.$http.get(this.$api.GetWebconfig).then(res=>{
         if(res.data.Code ==1){
           document.title = res.data.Data.title
+          this.$nextTick(()=>{
+            this.setScript(res.data.Data.KF)
+          })
+         
           this.setConfig(res.data.Data)
         }
       })
+    },
+    setScript(url){
+      let script = document.createElement('script');
+      let head = document.getElementsByTagName('head')[0];
+      console.log(head);
+      let innderJs = url.replace('<script type="text/javascript">','');
+      let hello = innderJs.replace('<\/script>','');
+      // console.log(typeof(innderJs),'eeeeesss');
+      script.type = 'text/javascript';
+      script.text = hello;
+      head.appendChild(script)
+      // head.innerHTML = head.innerHTML+url
+      // document.write(url)
     }
   }
 }

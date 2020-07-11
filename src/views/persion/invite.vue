@@ -5,7 +5,10 @@
     </div>
     <div class="invite" v-loading="loading">
       <div class="user-link">
-         <span class="iconfont iconyqyl"></span><span class="name">我的邀请链接：</span><span class="link" id="foo">{{url}}</span><button class="copy" :data-clipboard-text="url">复制</button>
+         <span class="iconfont iconyqyl"></span><span class="name">我的邀请链接：</span>
+         <!-- <span class="link" id="foo">{{url}}</span> -->
+         <input type="text" readonly class="link" v-model="url">
+         <button class="copy" :data-clipboard-text="url">复制</button>
       </div>
       <div class="invite-list-title">
         邀请记录
@@ -29,7 +32,7 @@
         </div>
           <div class="page-box">
         <el-pagination
-                    @size-change="getList"
+                    @current-change="getList"
                     :current-page.sync="pageIndex"
                     :page-size="pageSize"
                     :hide-on-single-page="total == 0"
@@ -40,7 +43,7 @@
        <div class="page-box small">
         <el-pagination
                      small
-                    @size-change="getList"
+                    @current-change="getList"
                     :current-page.sync="pageIndex"
                     :page-size="pageSize"
                     :hide-on-single-page="total == 0"
@@ -155,6 +158,7 @@ export default {
       background:@class_border;
       border-radius: 4px;
       vertical-align:middle;
+      border:0;
     }
     .copy{
       width:70px;
@@ -229,7 +233,7 @@ export default {
       .link{
         float:left;
         box-sizing: border-box;
-        width:200px;
+        width:180px;
         height:34px;
         margin-top:12px;
         margin-left:18px;

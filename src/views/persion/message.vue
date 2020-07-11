@@ -19,7 +19,7 @@
       </div>
       <div class="page-box">
         <el-pagination
-                    @size-change="getMessage"
+                    @current-change="getMessage"
                     :current-page.sync="pageIndex"
                     :page-size="pageSize"
                     :hide-on-single-page="total == 0"
@@ -30,7 +30,7 @@
       <div class="page-box small">
         <el-pagination
                 small 
-                    @size-change="getMessage"
+                    @current-change="getMessage"
                     :current-page.sync="pageIndex"
                     :page-size="pageSize"
                     :hide-on-single-page="total == 0"
@@ -68,6 +68,8 @@ export default {
           this.list = res.data.Data.list
           this.total = res.data.Data.count
         }
+        document.body.scrollTop = 0;
+        document.documentElement.scrollTop = 0;
         setTimeout(()=>{
            this.loading = false
         },500)

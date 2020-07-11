@@ -136,6 +136,7 @@ export default {
     UpOrDownProduct: '/api/Merchant/UpOrDownProduct', //上下架商品
     ShowProduct: '/api/Merchant/ShowProduct', //获取产品详情
     EditProduct: '/api/Merchant/EditProduct', //编辑产品详情
+    deleteProduct:'/api/Merchant/deleteProduct',//删除产品
     MerchantIntegr: '/api/Merchant/MerchantIntegr', //获取商家剩余积分
     MerchantIntegral: '/api/Merchant/MerchantIntegral', //获取商家充值总数
     RmbExchangeRate: '/api/Merchant/RmbExchangeRate', //获取积分汇率

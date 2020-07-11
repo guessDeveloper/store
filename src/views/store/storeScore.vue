@@ -3,7 +3,7 @@
      <div class="tab-box">
             <div class="tab-item" @click="toTab(1)" :class="{active:tab ==1}">积分充值</div>
              <div class="tab-item" @click="toTab(2)" :class="{active:tab ==2}">积分奖励</div>
-         <div class="tip-box"><span class="iconfont iconcjwt"></span>积分使用常见问题</div>
+         <a class="tip-box" tag="div" :href="storeInfo.QAintegral" target="_blank"><span class="iconfont iconcjwt"></span>积分使用常见问题</a>
       </div>
      <div class="tab-content" v-show="tab==1">
         <div class="btn-box">
@@ -12,11 +12,11 @@
         <div class="score-box">
            <div class="score-item">
               <div >我的剩余积分</div>
-              <div class="score-name">{{Integral.RechargeIntegral}}</div>
+              <div class="score-name">{{Integral.SurplusIntegral}}</div>
            </div>
            <div class="score-item">
              <div >累计积分</div>
-             <div class="score-name">{{Integral.SurplusIntegral}}</div>
+             <div class="score-name">{{Integral.RechargeIntegral}}</div>
            </div>
            <div class="score-item">
              <div >已赠送积分</div>
@@ -127,6 +127,7 @@
 </template>
 <script>
 import '../../plugins/element-table'
+import { mapState, mapMutations} from 'vuex' //注册 action 和 state
 export default {
   data(){
     return{
@@ -141,6 +142,11 @@ export default {
       jiangList:[],
       Integral:{},
     }
+  },
+  computed:{
+    ...mapState([
+      'storeInfo'
+    ])
   },
   mounted(){
     this.getChongList();

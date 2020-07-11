@@ -9,7 +9,7 @@
           <h3>{{item.titleName}}</h3>
        </div>
        <div class="score-box">
-         <span>商家诚信积分：<strong class="blue">{{item.ReputationIntegral}}</strong></span><span style="margin-left:20px;">剩余积分：<strong class="red">{{item.ResidueIntegral}}</strong></span>
+         <span>商家诚信积分：<strong class="blue">{{item.ReputationIntegral}}</strong></span><span style="margin-left:10px;">剩余积分：<strong class="red">{{item.ResidueIntegral}}</strong></span>
        </div>
        <div class="score-box" style="margin-top:18px;">
          任务奖励：<strong class="red">{{item.Fanli}}%</strong>
@@ -95,13 +95,14 @@ export default {
   }
   .des-box{
     padding-left: 295px;
-    padding-right:20px;
+    // padding-right:20px;
     text-align: left;
     height:100%;
     
     .title{
       line-height: 30px;
       margin-top:20px;
+      height: 30px;
       cursor: pointer;
       img{
         float:left;
@@ -110,8 +111,11 @@ export default {
         margin-right:10px;
       }
       h3{
-        font-size:16px;
-        line-height: 30px;
+        display: inline-block;
+        width: 215px;
+        font-size:14px;
+        line-height: 16px;
+        vertical-align: middle;
       }
     }
     .score-box{
@@ -132,6 +136,7 @@ export default {
       .position{
         float:right;
         line-height: 14px;
+        margin-right:20px;
         .iconfont{
           font-size:14px;
           color:@percent_color;
@@ -163,6 +168,11 @@ export default {
     .des-box {
       padding: 0 15px 20px;
       height: auto;
+      .title{
+        h3{
+          width:calc(100% - 40px);
+        }
+      }
       .score-box{
          .position{
             a{

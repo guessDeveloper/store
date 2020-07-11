@@ -69,7 +69,8 @@
                     <el-table-column property="orderNumber" label="订单号" width="160" align="left"></el-table-column>
                     <el-table-column property="UserName" label="用户名" width="108" align="center"></el-table-column>
                     <el-table-column property="orderMoney" label="消费金额(元)" width="165" align="center"></el-table-column>
-                    <el-table-column property="orderCreateTime" label="下单时间" width="200" align="center"></el-table-column>
+                    <el-table-column property="orderCreateTime" label="下单时间" width="120" align="center"></el-table-column>
+                    <el-table-column property="table" label="桌号" width="80" align="center"></el-table-column>
                     <el-table-column property="orderIntgralCount" label="返积分数" width="88" align="center"></el-table-column>
                     <el-table-column property="orderState" label="订单状态" width="100" align="center"></el-table-column>
 
@@ -98,6 +99,9 @@
                             </div>
                             <div class="item-name">
                                 下单时间：<span class="item-value">{{item.orderCreateTime}}</span>
+                            </div>
+                             <div class="item-name">
+                                桌号：<span class="item-value">{{item.table}}</span>
                             </div>
                             <div class="item-name">
                                 返积分数：<span class="item-value">{{item.orderIntgralCount}}</span>

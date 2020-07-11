@@ -3,7 +3,7 @@
      <div class="brand-top-nav">
         <router-link tag="a" to="/">首页</router-link>
         <span class="iconfont iconjiantou"></span>
-        <router-link tag="a" to="/">美食广场</router-link>
+        <router-link tag="a" to="/food">美食广场</router-link>
         <span class="iconfont iconjiantou"></span>
 
       </div>
