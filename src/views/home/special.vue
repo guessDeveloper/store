@@ -3,12 +3,12 @@
      <div class="brand-top-nav">
         <router-link tag="a" to="/">首页</router-link>
         <span class="iconfont iconjiantou"></span>
-        <span class="now-nav">特惠推荐</span>
+        <span class="now-nav">{{titleA}}</span>
 
       </div>
       <div class="recomend-title">
-          <h2>特惠推荐</h2>
-          <p>给你贴心的日用好物</p>
+          <h2>{{titleA}}</h2>
+          <p>{{titleB}}</p>
       </div>
       <!-- <div class="solt-box">
          <span></span>
@@ -53,7 +53,9 @@ export default {
        pageSize:20,
        list:[],
        totatl:0,
-       ThemeID:''
+       ThemeID:'',
+       titleA:'',
+       titleB:'',
     }
   },
   mounted(){
@@ -70,6 +72,8 @@ export default {
         if(res.data.Code == 1){
           this.list = res.data.Data.List;
           this.totatl = res.data.Data.count;
+          this.titleA = res.data.Data.titleA;
+          this.titleB = res.data.Data.titleB?res.data.Data.titleB:''
         }
       })
     }

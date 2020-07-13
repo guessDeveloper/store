@@ -52,7 +52,7 @@ export default {
       })
     },
     goDetal(item){
-      this.$router.push(`/helpCenterDetail?id=${item.ID}`)
+      this.$router.push(`/helpCenterDetail?id=${item.ID}`,'_blank')
     }
   }
 }

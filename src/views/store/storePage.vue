@@ -405,7 +405,7 @@ export default {
         const isLt2M = file.size / 1024 / 1024 <= 1
         if(!extension && !extension2) {
             this.$message({
-                message: '上传文件只能是 jpn、png格式!',
+                message: '上传文件只能是 jpg、png格式!',
                 type: 'error'
             })
             return false
@@ -471,7 +471,7 @@ export default {
         // }
         if(!extension && !extension2 && !extension3) {
             this.$message({
-                message: '上传文件只能是 jpn、png、mp4格式!',
+                message: '上传文件只能是 jpg、png、mp4格式!',
                 type: 'error'
             });
             return false
@@ -538,7 +538,7 @@ export default {
             // this.$message.success('修改信息成功，正在审核中请稍后！！')
             this.$message({
               type:'success',
-              message:res.data.Msg,
+              message:res.data.Data,
               onClose:function(){
                 window.location.reload()
                 document.body.scrollTop = 0;

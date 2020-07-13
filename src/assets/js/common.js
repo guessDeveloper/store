@@ -31,6 +31,20 @@ const util = {
         var u = navigator.userAgent;
         var isAndroid = u.indexOf('Android') > -1 || u.indexOf('Adr') > -1; //android终端
         return isAndroid
+    },
+    setCookie(name,value,day){
+        var exp = new Date(); 
+        exp.setTime(exp.getTime() + day*60*60*1000); 
+        document.cookie = name + "="+ escape (value) + ";expires=" + exp.toGMTString(); 
+    },
+    getCookie(name){
+        var arr,reg=new RegExp("(^| )"+name+"=([^;]*)(;|$)");
+ 
+        if(arr=document.cookie.match(reg))
+     
+            return unescape(arr[2]); 
+        else 
+            return null;
     }
 
 }

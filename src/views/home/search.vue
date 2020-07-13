@@ -30,6 +30,16 @@
                     :total="total">
                 </el-pagination>
           </div>
+          <div class="page-box small">
+                <el-pagination
+                    small
+                    @current-change="getList"
+                    :current-page.sync="pageIndex"
+                    :page-size="pageSize"
+                    layout="prev, pager, next"
+                    :total="total">
+                </el-pagination>
+          </div>
       </div>
       <div class="empty" v-show="total == 0">
             <span class="iconfont iconspzw"></span>
@@ -140,6 +150,8 @@ export default {
           res.data.Data.List?this.list = res.data.Data.List:''
           res.data.Data.list?this.list = res.data.Data.list:''
           this.total = res.data.Data.count
+          document.body.scrollTop = 0;
+          document.documentElement.scrollTop = 0;
         }
       })
     },

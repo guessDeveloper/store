@@ -150,12 +150,15 @@ export default {
   },
   mounted(){
     this.getChongList();
-    this.getJiangList();
+    
     this.getTotal();
   },
   methods:{
     toTab(num){
       this.tab = num
+      if(num == 2){
+        this.getJiangList();
+      }
     },
     //获取充值记录
     getChongList(){

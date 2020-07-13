@@ -303,6 +303,8 @@ export default {
             this.searchType = 'pdd'
             this.nowName = '拼多多'
         }
+        document.querySelector('body').style.height = 'auto';
+        document.querySelector('body').style.overflow = 'auto';
     },
     methods:{
         ...mapMutations([

@@ -28,10 +28,12 @@ export default {
     IsIPad = !IsAndroid && /iPad/i.test(navigator.userAgent),
     IsIPhone = !IsAndroid && /iPod|iPhone/i.test(navigator.userAgent),
     IsIOS =  IsIPad || IsIPhone;
-    if(IsIOS){
+    var taget = this.$util.getCookie('tishi');
+    if(IsIOS&& taget!=='1'){
       this.$alert.alert('推荐您使用手机自带浏览器', {
         confirmButtonText: '知道了',    
       })
+      this.$util.setCookie('tishi','1',24)
       // alert(111)
     }
     this.getConfig();
@@ -261,6 +263,11 @@ export default {
 }
 .el-input-number .el-input{
   height:100%;
+}
+.el-rate__icon.hover{
+   @media screen and(max-width:@change_width){
+     transform: scale(1)!important;
+   }
 }
 .el-input__inner{
   height:100%!important;

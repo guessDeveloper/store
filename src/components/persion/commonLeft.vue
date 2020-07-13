@@ -2,7 +2,7 @@
   <div class="content">
      <ul>
        <li v-for="(item,index) in navList" :key="index" :class="{active:item.to == nowPath}"> 
-        <router-link tag="a" :to="item.to" @click.native="routerChange(item.to)"><span class="iconfont" :class="item.icon" :style="'font-size:'+item.iconSize+';'"></span>{{item.title}}</router-link>
+        <router-link tag="a" :to="item.to" @click.native="routerChange(item)"><span class="iconfont" :class="item.icon" :style="'font-size:'+item.iconSize+';'"></span>{{item.title}}</router-link>
        </li>
      </ul>
   </div>
@@ -54,7 +54,7 @@ export default {
       {
         title:"扫码获积分",
         to:'/erweima',
-        icon:"iconsmfjl",
+        icon:"iconewmgl",
         iconSize:'15px'
       },
       {
@@ -98,11 +98,16 @@ export default {
   },
   mounted(){
     this.nowPath = this.$route.path;
-    
+    this.navList.forEach(Element=>{
+      if(this.nowPath == Element.to){
+         this.$emit('navChange',Element.title)
+      }
+    })
   },
   methods:{
-    routerChange(url){
-      this.nowPath = url
+    routerChange(item){
+      this.nowPath = item.to
+      this.$emit('navChange',item.title)
     }
   }
 }

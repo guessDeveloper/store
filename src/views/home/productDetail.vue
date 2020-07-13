@@ -7,9 +7,9 @@
     </div>
     <div class="top">
        <div class="left">
-          <div class="big-img-box">
+          <div class="big-img-box magnifier-box">
             <!-- <img :src="piclist&&piclist[nowActiveIndex]" alt=""> -->
-            <PicZoom :url="piclist&&piclist[nowActiveIndex]" :scale="3"></PicZoom>
+            <PicZoom :url="piclist?piclist[nowActiveIndex]:''" :scale="3" v-if="piclist&&piclist[nowActiveIndex]"></PicZoom>
           </div>
           <div class="imgs-box">
             <div class="img-box">

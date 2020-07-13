@@ -204,7 +204,7 @@ export default {
   width:100%;
   min-height:@persion_height ;
   @media screen and(max-width:@change_width){
-     min-height: auto;
+     min-height: calc(100vh - 165px);
    }
 }
 .myPorint-content{
@@ -229,8 +229,8 @@ export default {
     .score{
       font-size:20px;
       font-weight: bold;
-      margin-top:15px;
-      line-height: 12px;
+      margin-top:11px;
+      line-height: 20px;
     }
     .check-btn{
       display:inline-block;

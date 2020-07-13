@@ -15,7 +15,9 @@
       </div>
       <div class="invite-list" >
         <div class="item" v-for="(item,index) in list" :key="index">
-           <div class="user"><span class="header"><img src="" alt=""></span>{{item.NickNamep}}</div><div class="phone">{{item.Tel}}</div><div class="time">{{item.CreateTime}}</div>
+           <div class="user"><span class="header" :style="'background:url('+item.UserImg+') no-repeat center center;'">
+             <!-- <img :src="item.UserImg" alt=""> -->
+             </span>{{item.NickNamep}}</div><div class="phone">{{item.Tel}}</div><div class="time">{{item.CreateTime}}</div>
         </div>
         <div class="small-item" v-for="(item,index) in list" :key="index">
           <div class="user-box">
@@ -201,6 +203,7 @@ export default {
           background:#ccc;
           border-radius: 30px;
           vertical-align: middle;
+          background-size: cover!important;
         }
 
       }

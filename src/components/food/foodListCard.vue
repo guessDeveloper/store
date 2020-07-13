@@ -1,15 +1,18 @@
 <template>
   <div class="item" >
      <!-- <img :src="data.GoodsImg" alt="" @click="goDetail"> -->
-      <el-image :src="data.GoodsImg" class="show-img" fit="contain" @click="goDetail">
-                <!-- <div slot="placeholder" class="image-slot">
-                  加载中<span class="dot">...</span>
-                </div> -->
-      </el-image>
+      <div class="img-box">
+        <img src="../../assets/img/1-1.jpg" alt="" class="hide-img">
+        <el-image :src="data.GoodsImg" class="show-img" fit="contain" @click="goDetail">
+                  <!-- <div slot="placeholder" class="image-slot">
+                    加载中<span class="dot">...</span>
+                  </div> -->
+        </el-image>
+      </div>
      <h4 @click="goDetail">{{data.GoodsName}}</h4>
      <p @click="goDetail">积分约：{{data.Goodsfanli}}</p>
      <div class="price" @click="goDetail">¥{{data.GoodsMoneny}}</div>
-     <button class="add" @click="addCar" v-if="isLogin&&data.IsQRcode==1&&data.tablenumber">加入购物车</button>
+     <button class="add" @click="addCar" v-if="isLogin&&data.IsQRcode==1&&data.tablenumber">下单</button>
   </div>
 </template>
 <script>
@@ -63,11 +66,18 @@ export default {
   //   height:265px;
   //   margin:0 auto 20px;
   // }
-  .show-img{
+  .img-box{
     display:block;
     width:265px;
     height:265px;
     margin:0 auto 20px;
+    .hide-img{
+      display: none;
+    }
+    .show-img{
+      width:100%;
+      height:100%;
+    }
   }
   h4{
     font-size:14px;
@@ -98,9 +108,22 @@ export default {
   }
   @media screen and(max-width:@change_width){
     padding-bottom:15px;
-    .show-img{
+    .img-box{
+      position: relative;
       width:100%;
       height:auto;
+      .hide-img{
+        display: block;
+        width:100%;
+        opacity: 0;
+      }
+      .show-img{
+        position: absolute;
+        top:0;
+        left:0;
+        width:100%;
+        height:100%;
+      }
     }
   }
 }

@@ -3,7 +3,7 @@
      <div class="brand-top-nav">
         <router-link tag="a" to="/">首页</router-link>
         <span class="iconfont iconjiantou"></span>
-        <span class="now-nav">逛街购物</span>
+        <span class="now-nav">美食广场</span>
     </div>
     <div class="detail-box">
        <div class="banner">
@@ -26,7 +26,7 @@
           <div style="height:40px;">
           <el-input-number v-model="num" @change="handleChange" :min="1" :max="10" label="描述文字"></el-input-number>
           </div>
-          <button  class="buy-btn" :disabled="!isLogin|| IsQRcode != 1" @click="addCar"><i class="iconfont icongwc"></i>加入购物车</button>
+          <button  class="buy-btn" :disabled="!isLogin|| IsQRcode != 1" @click="addCar"><i class="iconfont icongwc"></i>下单</button>
        </div>
     </div>
     <!-- <div class="store-des">

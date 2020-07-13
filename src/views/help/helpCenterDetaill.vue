@@ -1,11 +1,15 @@
 <template>
   <div>
-     <div class="brand-top-nav">
-        <router-link tag="a" to="/">首页</router-link>
+     <div class="brand-top-nav" >
+        <a href="javascript:history.go(-1);">返回上一页</a>
+        <!-- <router-link tag="a" to="/">首页</router-link>
         <span class="iconfont iconjiantou"></span>
         <router-link tag="a" to="/helpCenter">帮助中心</router-link>
         <span class="iconfont iconjiantou"></span>
-        <span class="now-nav">{{list[activeIndex].ClassName}}</span>
+        <span class="now-nav">{{list[activeIndex].ClassName}}</span> -->
+    </div>
+    <div class="brand-moblie-nav">
+         <a href="javascript:history.go(-1);">返回上一页</a>
     </div>
     <div class="box">
       <div class="select">
@@ -49,6 +53,7 @@ export default {
   mounted(){
     this.classId = this.$route.query.id;
     this.getQuestion();
+    document.querySelector('.nav-bar-box').style.display="none"
     document.querySelectorAll('.help-nav-top').forEach(item=>{
       item.style.opacity = '0';
     })
@@ -57,6 +62,7 @@ export default {
     document.querySelectorAll('.help-nav-top').forEach(item=>{
       item.style.opacity = '1';
     })
+    document.querySelector('.nav-bar-box').style.display="block"
   },
   methods:{
     getQuestion(){
@@ -76,8 +82,20 @@ export default {
 }
 </script>
 <style lang="less" scoped>
+.brand-moblie-nav{
+  display: none;
+  @media screen and(max-width:@change_width){
+    display: block;
+    padding:10px 15px;
+    background:#fff;
+    a{
+      color:@font_color;
+    }
+  }
+}
 .box{
   width:@max-width;
+  min-height: 100vh;
   margin:0 auto 100px;
   .clear();
   .select{

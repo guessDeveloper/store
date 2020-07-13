@@ -97,7 +97,7 @@ export default {
       {
         title:"扫码获积分",
         to:'/erweima',
-        icon:"iconsmfjl",
+        icon:"iconewmgl",
         iconSize:'15px'
       },
       {
