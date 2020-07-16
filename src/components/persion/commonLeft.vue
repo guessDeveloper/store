@@ -46,7 +46,7 @@ export default {
     return{
       nowPath:'/',
       navList:[{
-        title:"我的账号",
+        title:"我的账户",
         to:'/persion',
         icon:'icongrzx',
         iconSize:'14px'

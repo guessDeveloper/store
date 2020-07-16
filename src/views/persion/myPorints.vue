@@ -29,14 +29,14 @@
     <el-table :data="gridData" style="width:480px;" header-row-style="'font-size:12px;color:#999;'" row-class-name="table-line" class="small-table">
     <el-table-column property="OrderNumber" label="订单号" width="134" align="center" fontSize="12px" cell-style="font-size:12px;"></el-table-column>
     <el-table-column property="ConsumptionTime" label="时间" width="154" align="center"></el-table-column>
-    <el-table-column property="PlatformType" label="消费平台" width="124" align="center"></el-table-column>
+    <el-table-column property="PlatformType" label="消费板块" width="124" align="center"></el-table-column>
     <el-table-column property="ConsumptionNumber" label="积分数量" width="68" align="center"></el-table-column>
   </el-table>
    <div class="small-box-list">
     <div class="small-box" v-for="(item,index) in gridData" :key="index">
       <div>
         <div><span class="name">订单号：</span>{{item.OrderNumber}}</div>
-        <div><span class="name">消费来源：</span>{{item.PlatformType}}</div>
+        <div><span class="name">消费板块：</span>{{item.PlatformType}}</div>
       </div>
       <div class="right">
         <div>{{item.ConsumptionTime}}</div>
@@ -159,7 +159,7 @@ export default {
     },
     duhuan(){
       if(this.UserIntegral == ''|| this.UserIntegral == '0'){
-         this.$message.error('您还没有赚到积分，您现在需要努力赚积分哟，加油！')
+         this.$message.error('您目前还未赚取积分，请继续努力哟，加油！')
          return false
       }
       this.$http.limitPost(this.$api.IntegralExchange,{

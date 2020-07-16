@@ -1,11 +1,11 @@
 <template>
-  <div>
+  <div class="home">
+    <navBar></navBar>
+    <navBottom></navBottom>
      <div class="brand-top-nav">
-        <router-link tag="a" to="/">首页</router-link>
+        <router-link tag="a" to="/store">商家中心</router-link>
         <span class="iconfont iconjiantou"></span>
-        <router-link tag="a" to="/food">美食广场</router-link>
-        <!-- <span class="iconfont iconjiantou"></span> -->
-
+        <span class="now-nav">商家产品</span>
       </div>
         <div class="goods-box">
            <h2 class="title">
@@ -37,14 +37,21 @@
                 </el-pagination>
           </div>
         </div>
+    <footerBar></footerBar>
   </div>
 </template>
+
 <script>
-import { mapState, mapMutations} from 'vuex' //注册 action 和 state
-import foodCard from '@/components/food/foodListCard'
+import  navBar from '@/components/store/storeNav'
+import  navBottom from'@/components/store/storeNavBar'
+import footerBar from '@/components/common/footer'
+import left from '@/components/store/storeLeft'
+import foodCard from '@/components/store/storeFoodListCard'
 export default {
+  name: 'Home',
   data(){
     return{
+      title:"商家中心",
       list:[],
       pageIndex:1,
       pageSize:20,
@@ -53,13 +60,8 @@ export default {
       zhuohao:''
     }
   },
-  computed:{
-    ...mapState([
-      'myCar'
-    ])
-  },
   mounted(){
-     if(this.$route.query.id){
+      if(this.$route.query.id){
       this.id = this.$route.query.id
       if(this.$route.query.zhuohao){
         this.zhuohao = this.$route.query.zhuohao
@@ -68,13 +70,21 @@ export default {
         this.getList();
       }
 
-    }
+     }
+  },
+  components: {
+    navBar:navBar,
+    navBottom:navBottom,
+    footerBar:footerBar,
+    left:left,
+     foodCard:foodCard
   },
   methods:{
-    ...mapMutations([
-      'setClearCar'
-    ]),
-    getList(){
+    changeTitle(title){
+      
+      this.title = title
+    },
+     getList(){
       this.$http.post(this.$api.foodProducts,{
          'MerchantId':this.id,
          'token':localStorage.getItem('token')?localStorage.getItem('token'):'',
@@ -84,34 +94,31 @@ export default {
         if(res.data.Code == 1){
           let list = res.data.Data.List
           this.list = list.map((item)=>{
-              return {...item,MertchntID:res.data.Data.MerchantId,Mertchntname:res.data.Data.MerchantName,tablenumber:res.data.Data.tablenumber,IsQRcode:res.data.Data.IsQRcode}
+              return {...item,MertchntID:res.data.Data.MerchantId,Mertchntname:res.data.Data.MerchantName,tablenumber:'',IsQRcode:''}
           })
           console.log(this.list)
-           if(!this.myCar[res.data.Data.MerchantId]){
-             this.setClearCar();
-           }
+          
           this.total = res.data.Data.Count
         }
       })
     },
-    //扫码提交
-    ScanQRcode(){
-      this.$http.limitPost(this.$api.ScanQRcode,{
-          MerchanterId:this.id,
-          tablenumber:this.zhuohao
-      }).then(res=>{
-        if(res.data.Code == 1){
-           this.getList();
-        }
-      })
-    }
-  },
-  components:{
-    foodCard:foodCard
   }
 }
 </script>
 <style lang="less" scoped>
+.box{
+  width:@max-width;
+  margin:0 auto 100px;
+  .clear();
+ 
+}
+@media screen and(max-width:@change_width){
+  .box {
+    margin-bottom: 0;
+    width:100%;
+    
+  }
+}
 .goods-box{
   width:@max-width;
   margin:0 auto 100px;

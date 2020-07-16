@@ -161,8 +161,9 @@ export default {
           this.$http.limitGet(this.$api.LoginOut).then(res=>{
             if(res.data.Code == 1){
               this.setLogin(false);
-                localStorage.setItem('token','')
-                this.$router.push('/')
+              this.$router.push('/')
+              localStorage.setItem('token','')
+
             }else{
               this.$message.error(res.data.Msg)
             }

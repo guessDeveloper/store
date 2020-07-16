@@ -134,7 +134,7 @@ export default {
          var testmsg=file.name.substring(file.name.lastIndexOf('.')+1)
         const extension = testmsg === 'jpg'
         const extension2 = testmsg === 'png'
-        const isLt2M = file.size / 1024 / 1024 <= 1
+        const isLt2M = file.size / 1024 / 1024 <= 5
         if(!extension && !extension2) {
             this.$message({
                 message: '上传文件只能是 jpn、png格式!',
@@ -144,7 +144,7 @@ export default {
         }
         if(!isLt2M) {
             this.$message({
-                message: '上传文件大小不能超过 1MB!',
+                message: '上传文件大小不能超过 5MB!',
                 type: 'error'
             })
             return false

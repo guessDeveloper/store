@@ -2,7 +2,7 @@
   <div class="safe-box">
     <div class="persion-title">安全设置</div>
     <div class="safe-content" v-show="!isChangingPhone">
-       <div class="user">您当前的用户名：<span>{{storeInfo.Name}}</span></div>
+       <div class="user">您的当前昵称:<span>{{storeInfo.Name}}</span></div>
        <div class="item">
          <span class="iconfont iconxgmm"></span>
          <div class="des">
@@ -14,8 +14,8 @@
        <div class="item">
          <span class="iconfont iconbdsj"></span>
          <div class="des">
-           <div class="name">安全手机 {{phoneLimit(storeInfo.phone)}}</div>
-           <div class="con">安全手机可以用于登录帐号，重置密码或其他安全验证</div>
+           <div class="name">手机号: {{phoneLimit(storeInfo.phone)}}</div>
+           <div class="con"></div>
          </div>
          <button class="btn" @click="isChangingPhone = true">修改</button>
        </div>
@@ -24,7 +24,7 @@
     <el-dialog title="修改密码" :visible.sync="changePas" width="520px" class="small">
       <div class="change-box">
        <div class="phone">已绑定的手机：{{phoneLimit(storeInfo.phone)}}</div>
-       <div class="tip">若该手机号已无法使用请联系客服</div>
+       <div class="tip"></div>
         <div class="input-line">
            <label for="">短信验证码：</label><div class="input-box"><input type="text" placeholder="输入短信验证码" v-model.trim="changeCode"><button class="btn" @click="getCode">{{codeBtn}}</button></div>
         </div>

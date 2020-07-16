@@ -402,7 +402,7 @@ export default {
          var testmsg=file.name.substring(file.name.lastIndexOf('.')+1)
         const extension = testmsg === 'jpg'
         const extension2 = testmsg === 'png'
-        const isLt2M = file.size / 1024 / 1024 <= 1
+        const isLt2M = file.size / 1024 / 1024 <= 5
         if(!extension && !extension2) {
             this.$message({
                 message: '上传文件只能是 jpg、png格式!',
@@ -412,7 +412,7 @@ export default {
         }
         if(!isLt2M) {
             this.$message({
-                message: '上传文件大小不能超过 1MB!',
+                message: '上传文件大小不能超过 5MB!',
                 type: 'error'
             })
             return false
@@ -446,7 +446,8 @@ export default {
         const extension = testmsg === 'jpg'
         const extension2 = testmsg === 'png'
         const extension3 = testmsg === 'mp4'
-        if(extension || extension2){
+        const extension4 = testmsg === 'gif'
+        if(extension || extension2 || extension4){
           this.changeUrl= process.env.NODE_ENV === 'production' ? 'https://files.youledui.com/create?dir=image' : '/up/create?dir=image'
         }
         if(extension3){
@@ -462,6 +463,7 @@ export default {
         const extension = testmsg === 'jpg'
         const extension2 = testmsg === 'png'
         const extension3 = testmsg === 'mp4'
+        const extension4 = testmsg === 'gif'
         const isLt2M = file.size / 1024 / 1024 <= 10
         // if(extension || extension2){
         //   this.uploadMp4Url= '/up/create?dir=image'
@@ -469,9 +471,9 @@ export default {
         // if(extension3){
         //   this.uploadMp4Url= '/up/create?dir=media'
         // }
-        if(!extension && !extension2 && !extension3) {
+        if(!extension && !extension2 && !extension3 &&!extension4) {
             this.$message({
-                message: '上传文件只能是 jpg、png、mp4格式!',
+                message: '上传文件只能是 jpg、png、gif、mp4格式!',
                 type: 'error'
             });
             return false
@@ -483,7 +485,7 @@ export default {
             });
             return false
         }
-        return extension || extension2 || extension3&& isLt2M
+        return extension || extension2 || extension3 ||extension4&& isLt2M
       },
     addressClick(res){
       this.address = res.address.surroundingPois[0].address

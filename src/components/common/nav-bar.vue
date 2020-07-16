@@ -30,7 +30,7 @@
                 <!-- <div class="select" >
                     拼多多<span class="iconfont icon-arrow-downYellow"></span>
                 </div> -->
-                <input type="text" placeholder="输入商品关键词" v-model.trim="searchContent">
+                <input type="text" :placeholder="searchPlaceHolder" v-model.trim="searchContent">
             </div>
             <a  class="btn" @click="search">
                 <span class="iconfont iconsousuo"></span><span class="name">搜索</span>
@@ -125,7 +125,8 @@ export default {
                   path:['/storeList'],
                   name:'商城返利',
                   query:this.$api.storeGJKeyWordSearch,
-                  type:'store' 
+                  type:'store',
+                  placeHolder:'输入商家名称' 
                },{
                   path:['/shop','/shopDetail','/shopGoodsDetail'],
                   name:'逛街购物',
@@ -144,6 +145,7 @@ export default {
            navIsOpen:false,
            searchType:'',
            showCar:false,
+           searchPlaceHolder:'输入商品关键词',
            showCarList:['/fooddetail','/earthDetail','/shopCar','/foodList','/food'],
         //    charNowNum:0,
         }
@@ -187,6 +189,7 @@ export default {
                         this.nowSelect = item.name
                         this.nowSearchUrl = item.query
                         this.searchType = item.type
+                        item.placeHolder?this.searchPlaceHolder = item.placeHolder:this.searchPlaceHolder = '输入商品关键词'
                     }
                 })
             }else{
@@ -197,13 +200,15 @@ export default {
                         this.nowSelect = item.name
                         this.nowSearchUrl = item.query
                         this.searchType = item.type
+                        item.placeHolder?this.searchPlaceHolder = item.placeHolder:this.searchPlaceHolder = '输入商品关键词'
                     }
                     })
                 })
                 if(this.nowSelect == ''){
                     this.nowSelect = this.option[0].name
                     this.nowSearchUrl = this.option[0].query
-                        this.searchType = this.option[0].type
+                    this.searchType = this.option[0].type
+                    this.searchPlaceHolder = '输入商品关键词'
                 }
             }
             if(this.$route.query.content){
@@ -266,6 +271,7 @@ export default {
                     this.nowSelect = item.name
                     this.nowSearchUrl = item.query
                     this.searchType = item.type
+                    item.placeHolder?this.searchPlaceHolder = item.placeHolder:this.searchPlaceHolder = '输入商品关键词'
                 }
              })
         }else{
@@ -276,13 +282,15 @@ export default {
                     this.nowSelect = item.name
                     this.nowSearchUrl = item.query
                      this.searchType = item.type
+                     item.placeHolder?this.searchPlaceHolder = item.placeHolder:this.searchPlaceHolder = '输入商品关键词'
                 }
                 })
              })
              if(this.nowSelect == ''){
                  this.nowSelect = this.option[0].name
-                  this.nowSearchUrl = this.option[0].query
-                     this.searchType = this.option[0].type
+                 this.nowSearchUrl = this.option[0].query
+                 this.searchType = this.option[0].type
+                 this.searchPlaceHolder = '输入商品关键词'
              }
         }
         if(this.$route.query.content){
@@ -330,6 +338,7 @@ export default {
             this.nowSelect = item.name
             this.nowSearchUrl = item.query
             this.searchType = item.type
+            item.placeHolder?this.searchPlaceHolder = item.placeHolder:this.searchPlaceHolder = '输入商品关键词'
         },
         search(){
           if(this.searchContent == ''){

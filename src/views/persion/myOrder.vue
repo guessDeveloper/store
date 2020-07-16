@@ -122,7 +122,7 @@
                     </el-table-column>
                     <el-table-column property="OrderNumber" label="订单号" width="160" align="center"></el-table-column>
                     <el-table-column property="Name" label="产品名称" width="108" align="left"></el-table-column>
-                    <el-table-column property="CreateTime" label="消费时间" width="195" align="center"></el-table-column>
+                    <el-table-column property="CreateTime" label="消费日期" width="195" align="center"></el-table-column>
                     <el-table-column property="OrderType" label="订单类型" width="69" align="center"></el-table-column>
                     <el-table-column property="money" label="消费金额(元)" width="88" align="center"></el-table-column>
                     <el-table-column property="fanli" label="奖励积分" width="70" align="center"></el-table-column>
@@ -146,7 +146,7 @@
                                     订单号：<span class="item-value">{{item.OrderNumber}}</span>
                                 </div>
                                 <div class="item-name">
-                                    消费时间：<span class="item-value">{{item.CreateTime}}</span>
+                                    消费日期：<span class="item-value">{{item.CreateTime}}</span>
                                 </div>
                                 <div class="item-name">
                                     订单类型：<span class="item-value">{{item.OrderType}}</span>
@@ -281,7 +281,7 @@
                            <div class="store-name">{{scope.row.MerchantName}}</div>
                         </template>
                     </el-table-column>
-                    <el-table-column property="CreationTime" label="消费时间" width="195" align="center"></el-table-column>
+                    <el-table-column property="CreationTime" label="消费日期" width="195" align="center"></el-table-column>
                     <el-table-column property="Money" label="消费金额(元)" width="88" align="center"></el-table-column>
                      <el-table-column property="state" label="状态" width="88" align="center"></el-table-column>
                     <el-table-column  label="操作" width="102" align="center">
@@ -300,7 +300,7 @@
                             <div>
                                 <div class="name">{{item.MerchantName}}</div>
                                 <div class="item-name">
-                                    消费时间：<span class="item-value">{{item.CreationTime}}</span>
+                                    消费日期：<span class="item-value">{{item.CreationTime}}</span>
                                 </div>
                         
                                 <div class="item-name">消费金额(元)：<span class="item-value">{{item.Money}}</span>

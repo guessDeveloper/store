@@ -59,10 +59,10 @@
         <div class="dialog-content-wrap">
           <div class="input-line">
               <label for="">产品分类名称：</label>
-             
-                <input type="text" placeholder="请输入分类名称" v-model="NewClassName" maxlength="20">
-                <span class="limit">{{NewClassName.length}}/20</span>
-             
+                <div class="input-box">
+                  <input type="text" placeholder="请输入分类名称" v-model="NewClassName" maxlength="20" class="productName">
+                  <span class="limit">{{NewClassName.length}}/20</span>
+                </div>
           </div>
           <div class="input-line">
               <label for="">奖励比例：</label>
@@ -87,7 +87,10 @@
       <el-dialog title="编辑分类" :visible.sync="toEdit" custom-class="custom-dialog">
         <div class="dialog-content-wrap">
           <div class="input-line">
-              <label for="">产品分类名称：</label><input type="text" placeholder="请输入分类名称" v-model="editName" maxlength="20"><span class="limit">{{editName.length}}/20</span>
+              <label for="">产品分类名称：</label>
+               <div class="input-box">
+                 <input type="text" placeholder="请输入分类名称" v-model="editName" maxlength="20" class="productName"><span class="limit">{{editName.length}}/20</span>
+               </div>
           </div>
           <div class="input-line">
               <label for="">奖励比例：</label>
@@ -240,11 +243,12 @@ export default {
   .input-line{
     position: relative;
   margin-top:30px;
+  overflow: hidden;
   .limit{
       position: absolute;
       line-height: 32px;
       top:1px;
-      right:3px;
+      right:4px;
       padding-right:10px;
       padding-left:15px;
       background:#fff;
@@ -264,7 +268,7 @@ export default {
     height:34px;
     padding:0 12px;
     font-size:12px;
-    border:1px solid @class_border;
+    border:0;
     &.percent{
       width:357px;
     }
@@ -278,6 +282,7 @@ export default {
       float: right;
       line-height: 34px;
     }
+    border:1px solid @class_border;
     
   }
 }
@@ -348,10 +353,13 @@ export default {
       .input-box {
         width: calc(100% - 95px);
         input {
-          width: 96%;
+          width: 90%;
         }
         .per {
-          width: 4%;
+          width: 10%;
+        }
+        .productName{
+          width:calc(100% - 60px);
         }
       }
       &>input {

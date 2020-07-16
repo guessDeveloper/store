@@ -104,7 +104,7 @@
             </div>
             <!-- 移动端列表 -->
             <div class="table-small-box">
-                <div class="item" v-for="(item,index) in listData" :key="index">
+                <div class="item" v-for="(item,index) in listData" :key="item.ID">
                     <div class="des">
                         <div class="item-img-wrap">
                             <img :src="item.picurl" alt="" class="item-img">
@@ -130,7 +130,7 @@
                         <div class="btn-detail" v-show="item.state == '审核通过上架'" @click="UpOrDownProduct(item.ID,0)">下架</div>
                         <div class="btn-detail" v-show="item.state == '审核通过下架'" @click="UpOrDownProduct(item.ID,1)">上架</div>
                         <div class="btn-detail" @click="toProductDetail(item.ID)">修改</div>
-                        <div class="btn-detail" v-show="item.Isshow == '0'" @click="deleate(scope.row.ID)" > 删除</div>
+                        <div class="btn-detail" v-show="item.Isshow == '0'" @click="deleate(item.ID)" > 删除</div>
                          <!-- <div class="btn-detail" @click="deleate(scope.row.ID)" > 删除</div> -->
                     </div>
                 </div>
@@ -184,7 +184,7 @@ export default {
            label:'上架',
            status:1,
        },{
-           label:'待审核',
+           label:'等待审核',
            status:2
        }],
        status:'', // 状态
