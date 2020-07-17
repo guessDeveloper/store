@@ -7,7 +7,7 @@
      </div>
      <div class="big-box">
        <div class="input-line-box">
-          <label for="">充值金额：</label>
+          <label for="">大富翁广告套餐：</label>
            <el-select v-model="value" placeholder="请选择">
           <el-option
             v-for="item in options"
