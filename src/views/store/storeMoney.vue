@@ -250,7 +250,7 @@ export default {
       position: absolute;
       right:100%;
       top:0;
-      width:90px;
+      width:120px;
       height:50px;
       line-height: 50px;
       color:#464855;
