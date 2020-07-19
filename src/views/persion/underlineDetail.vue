@@ -90,7 +90,7 @@
                 <span>返比：<span class="list-item-value">{{ item.GoodsFanbi }}%</span></span>
               </p>
                <p class="list-item-value-wrap">
-                <span>返积分：<span class="list-item-value list-item-subtotal">￥{{ item.GoodsIntegralCount }}</span></span>
+                <span>返积分：<span class="list-item-value list-item-subtotal">{{ item.GoodsIntegralCount }}</span></span>
                 
               </p>
             </div>

@@ -58,7 +58,7 @@
 
               <div v-if="PersionImg" :src="PersionImg" class="avatar" :style="'background-image:url('+PersionImg+');'"></div>
               <i v-else class="el-icon-plus avatar-uploader-icon"></i>
-              <div slot="tip" class="tip">只能上传jpg/png文件，且不超过1M</div>
+              <div slot="tip" class="tip">只能上传jpg/png文件，且不超过5M</div>
             </el-upload>
          </div>
           </div>

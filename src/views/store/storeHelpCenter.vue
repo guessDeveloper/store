@@ -1,7 +1,9 @@
 <template>
   <div>
+    <navBar></navBar>
+    <navBottom></navBottom>
     <div class="brand-top-nav">
-        <router-link tag="a" to="/">首页</router-link>
+        <router-link tag="a" to="/store">商家中心</router-link>
         <span class="iconfont iconjiantou"></span>
         <span class="now-nav">帮助中心</span>
       </div>
@@ -29,10 +31,13 @@
 
         </ul>
       </div>
-    
+      <footerBar></footerBar>
   </div>
 </template>
 <script>
+import  navBar from '@/components/store/storeNav'
+import  navBottom from'@/components/store/storeNavBar'
+import footerBar from '@/components/common/footer'
 export default {
   data(){
     return{
@@ -42,6 +47,11 @@ export default {
   },
   mounted(){
     this.getClass();
+  },
+  components:{
+       navBar:navBar,
+    navBottom:navBottom,
+    footerBar:footerBar,
   },
   methods:{
     getClass(){

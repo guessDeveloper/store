@@ -12,7 +12,7 @@
              <router-link to="/store" class="userName login-btn">{{storeInfo.Name}}</router-link>
 
            </span>
-          <a href="" class="help">帮助中心</a>
+          <router-link href="" tag="a"  to="/storeHelpCenter" class="help">帮助中心</router-link>
        </div>
       <!-- <a href="" class="regester">注册</a>
       <a class="login">登录</a> -->

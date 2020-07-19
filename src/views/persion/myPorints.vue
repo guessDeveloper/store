@@ -165,11 +165,14 @@ export default {
       this.$http.limitPost(this.$api.IntegralExchange,{
         IntegralNum:this.UserIntegral
       }).then(res=>{
-        this.duihuanSuccess = true
+       
         if(res.data.Code == 1){
+          this.duihuanSuccess = true
           this.getCode();
           this.gridData = res.data.Data.list
           this.gridDatatotal = res.data.Data.count
+        }else{
+          this.$message.error(res.data.Msg)
         }
       })
     },

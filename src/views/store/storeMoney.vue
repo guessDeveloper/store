@@ -43,7 +43,7 @@
                 <img :src="fileList" alt=""  class="upload-img" v-show="fileList !== ''">
                <i class="el-icon-plus" v-if="fileList == ''"></i>
               <!-- <button size="small" type="primary" class="upload-btn" v-show="fileList.length == 0">选择上传文件</button> -->
-              <span slot="tip" class="tip" >只能上传jpg/png文件，且不超过1M</span>
+              <span slot="tip" class="tip" >只能上传jpg/png文件，且不超过5M</span>
             </el-upload>
           </div>
        </div>
