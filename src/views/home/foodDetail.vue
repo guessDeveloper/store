@@ -15,7 +15,12 @@
             <div class="banner-video" v-if="isMp4(item)" >
               <video :src="item"  controls class="video"></video>
             </div>
-            <img :src="item" alt="" class="banner-img" v-else>
+            <el-image :src="item" class="banner-img" fit="contain" @click="goDetail" v-else>
+                  <!-- <div slot="placeholder" class="image-slot">
+                    加载中<span class="dot">...</span>
+                  </div> -->
+            </el-image>
+            <!-- <img :src="item" alt="" class="banner-img" v-else> -->
           </el-carousel-item>
         </el-carousel>
        </div>
@@ -178,7 +183,7 @@ export default {
     float: left;
     width:568px;
     height:100%;
-    background:#ccc;
+    background:#000;
     img{
       width:100%;
       height:100%;
@@ -187,6 +192,10 @@ export default {
     }
     .img-port{
       display: none;
+    }
+    .banner-img{
+      width:100%;
+      height:100%;
     }
     .banner-video{
       width: 100%;
@@ -283,11 +292,13 @@ export default {
     .detail-left{
       float:none;
       width:100%;
+      background:#000;
       position: relative;
       height:auto;
       .img-port{
         display: block;
         width: 100%;
+        opacity: 0;
       }
 
       .img-box{

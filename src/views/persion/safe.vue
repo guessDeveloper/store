@@ -7,7 +7,7 @@
          <span class="iconfont iconxgmm"></span>
          <div class="des">
            <div class="name">登录密码</div>
-           <div class="con">建议您定期更换密码，设置安全性高的密码可以使帐号更安全</div>
+           <div class="con">建议您定期更换密码，设置安全性高的密码可以使账户更安全</div>
          </div>
          <button class="btn" @click="changePas = true">修改</button>
        </div>
@@ -15,7 +15,7 @@
          <span class="iconfont iconbdsj"></span>
          <div class="des">
            <div class="name">手机号: {{phoneLimit(userInfo.UserTel)}}</div>
-           <div class="con">安全手机可以用于登录帐号，重置密码或其他安全验证</div>
+           <div class="con">安全手机可以用于登录账户，重置密码或其他安全验证</div>
          </div>
          <button class="btn" @click="isChangingPhone = true">修改</button>
        </div>
@@ -104,7 +104,7 @@
          <h4>安全服务提示</h4>
          <ul>
            <li>· 确认您登录的是优乐兑网址，注意防范进入钓鱼网站，不要轻信各种即时通讯工具发送的商品或支付链接，谨防网购诈骗</li>
-           <li>· 建议您安装杀毒软件，并定期更新操作系统等软件补丁，确保帐号及交易安全</li>
+           <li>· 建议您安装杀毒软件，并定期更新操作系统等软件补丁，确保账户及交易安全</li>
          </ul>
        </div>
   </div>

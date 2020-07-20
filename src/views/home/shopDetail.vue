@@ -13,7 +13,12 @@
          <el-carousel trigger="click" height="100%" class="img-box" >
           <el-carousel-item v-for="item in bannerList" :key="item">
             <video :src="item" v-if="isMp4(item)" class="banner-video" ></video>
-            <img :src="item" alt="" class="banner-img" v-else>
+            <!-- <img :src="item" alt="" class="banner-img" v-else> -->
+            <el-image :src="item" class="banner-img" fit="contain" @click="goDetail" v-else>
+                  <!-- <div slot="placeholder" class="image-slot">
+                    加载中<span class="dot">...</span>
+                  </div> -->
+            </el-image>
           </el-carousel-item>
         </el-carousel>
        </div>
@@ -142,12 +147,13 @@ export default {
     float: left;
     width:568px;
     height:320px;
-    background:#ccc;
+    background:#000;
     .img-port{
       display: none;
     }
     .banner-img{
       width:100%;
+      height:100%;
     }
     .banner-video{
       width:100%;
@@ -319,6 +325,7 @@ export default {
       .img-port{
         display: block;
         width:100%;
+        opacity: 0;
       }
       .img-box{
         position:absolute;

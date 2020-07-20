@@ -11,7 +11,7 @@ module.exports = {
     devServer: {
         proxy: {
             '/Sev': {
-                target: 'http://api.youledui.com',
+                target: 'http://api1.youledui.com',
                 ws: true,
                 changeOrigin: true,
                 pathRewrite: {

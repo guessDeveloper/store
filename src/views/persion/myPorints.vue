@@ -35,12 +35,18 @@
    <div class="small-box-list">
     <div class="small-box" v-for="(item,index) in gridData" :key="index">
       <div>
-        <div><span class="name">订单号：</span>{{item.OrderNumber}}</div>
-        <div><span class="name">消费板块：</span>{{item.PlatformType}}</div>
-      </div>
-      <div class="right">
-        <div>{{item.ConsumptionTime}}</div>
-        <div><span class="name">积分数量：</span>{{item.ConsumptionNumber}}</div>
+         <div><span class="name">订单号：</span><span>{{item.OrderNumber}}</span></div>
+         <div><span class="name">时间：</span>{{item.ConsumptionTime}}</div>
+         
+        <div>
+          
+          <div><span class="name">消费板块：</span>{{item.PlatformType}}</div>
+          <div><span class="name">积分数量：</span>{{item.ConsumptionNumber}}</div>
+        </div>
+        <div class="right">
+          
+          
+        </div>
       </div>
     </div>
     </div>
@@ -121,7 +127,7 @@ export default {
         dialogFormVisible:false,
         duihuan:false,
         duihuanSuccess:false,
-        gridData: [ ],
+        gridData: [],
         changeData:[],
         UserIntegral:'',
         UserIntegralTotal:'',
@@ -364,6 +370,7 @@ export default {
     }
     .right{
       text-align: right;
+      white-space: nowrap;
     }
     .middle-time{
       line-height: 32px;
