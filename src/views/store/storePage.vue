@@ -21,7 +21,7 @@
               :on-preview="handlePreview"
               :on-remove="logoRemove"
               :on-success="logoSuccess"
-              accept=".jpg,.png"
+              accept=".jpg,.png,.jpeg"
               :file-list="fileList"
               :beforeUpload="beforeLogoUpload"
               name="FileContent"
@@ -29,7 +29,7 @@
               list-type="picture">
 
               <button size="small" type="primary" class="upload-btn">选择上传文件</button>
-              <span slot="tip" class="tip">只能上传jpg/png文件，且不超过5M</span>
+              <span slot="tip" class="tip">只能上传jpg,png,jpeg文件，且不超过5M</span>
             </el-upload>
           </div>
        </div>
@@ -44,7 +44,7 @@
               :data="sendData"
               :on-preview="handlePictureCardPreview"
               name="FileContent"
-              accept=".jpg,.png,.mp4"
+              accept=".jpg,.png,.mp4,.jpeg,.gif"
               :beforeUpload="beforeBannerUpload"
               multiple
               :file-list="desMp4"
@@ -399,25 +399,26 @@ export default {
         this.infos.Category = value
       },
       beforeLogoUpload(file){
-         var testmsg=file.name.substring(file.name.lastIndexOf('.')+1)
+        var testmsg=file.name.substring(file.name.lastIndexOf('.')+1)
         const extension = testmsg === 'jpg'
         const extension2 = testmsg === 'png'
+        const extension3 = testmsg === 'jpeg'
         const isLt2M = file.size / 1024 / 1024 <= 5
-        if(!extension && !extension2) {
+        if(!extension && !extension2&&!extension3) {
             this.$message({
-                message: '上传文件只能是 jpg、png格式!',
+                message: '上传文件只能是 jpg,png,jpeg格式!',
                 type: 'error'
-            })
+            });
             return false
         }
         if(!isLt2M) {
             this.$message({
                 message: '上传文件大小不能超过 5MB!',
                 type: 'error'
-            })
+            });
             return false
         }
-        return extension || extension2 && isLt2M
+        return extension || extension2 || extension3 && isLt2M
       },
       //logo 上传成功
       logoSuccess(file,fileList){
@@ -447,7 +448,8 @@ export default {
         const extension2 = testmsg === 'png'
         const extension3 = testmsg === 'mp4'
         const extension4 = testmsg === 'gif'
-        if(extension || extension2 || extension4){
+        const extension5 = testmsg === 'jpeg'
+        if(extension || extension2 || extension4||extension5){
           this.changeUrl= process.env.NODE_ENV === 'production' ? 'https://files.youledui.com/create?dir=image' : '/up/create?dir=image'
         }
         if(extension3){
@@ -464,6 +466,7 @@ export default {
         const extension2 = testmsg === 'png'
         const extension3 = testmsg === 'mp4'
         const extension4 = testmsg === 'gif'
+        const extension5 = testmsg === 'jpeg'
         const isLt2M = file.size / 1024 / 1024 <= 10
         // if(extension || extension2){
         //   this.uploadMp4Url= '/up/create?dir=image'
@@ -471,9 +474,9 @@ export default {
         // if(extension3){
         //   this.uploadMp4Url= '/up/create?dir=media'
         // }
-        if(!extension && !extension2 && !extension3 &&!extension4) {
+        if(!extension && !extension2 && !extension3 &&!extension4&&!extension5) {
             this.$message({
-                message: '上传文件只能是 jpg、png、gif、mp4格式!',
+                message: '上传文件只能是 jpg、png、gif、mp4、jpeg格式!',
                 type: 'error'
             });
             return false
@@ -485,7 +488,7 @@ export default {
             });
             return false
         }
-        return extension || extension2 || extension3 ||extension4&& isLt2M
+        return extension || extension2 || extension3 ||extension4||extension5&& isLt2M
       },
     addressClick(res){
       this.address = res.address.surroundingPois[0].address

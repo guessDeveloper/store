@@ -56,7 +56,7 @@
             <el-upload
               class="upload-demo"
               :action="uploadImgUrl()"
-              accept=".jpg,.png"
+              accept=".jpg,.png,.jpeg"
               :file-list="detialFileList"
               :beforeUpload="beforeLogoUpload"
               :on-success="detailSuccess"
@@ -64,7 +64,7 @@
               name="FileContent"
               list-type="picture">
               <button size="small" type="primary" class="upload-btn">选择上传文件</button>
-              <span slot="tip" class="tip">只能上传jpg/png文件，且不超过5M</span>
+              <span slot="tip" class="tip">只能上传jpg,png,jpeg文件，且不超过5M</span>
             </el-upload>
         </div>
     </div>
@@ -193,24 +193,25 @@ export default {
       },
     beforeLogoUpload(file){
         var testmsg=file.name.substring(file.name.lastIndexOf('.')+1)
-      const extension = testmsg === 'jpg'
-      const extension2 = testmsg === 'png'
-      const isLt2M = file.size / 1024 / 1024 <= 5
-      if(!extension && !extension2) {
-          this.$message({
-              message: '上传文件只能是 jpg、png格式!',
-              type: 'error'
-          });
-          return false
-      }
-      if(!isLt2M) {
-          this.$message({
-              message: '上传文件大小不能超过 5MB!',
-              type: 'error'
-          });
-           return false
-      }
-      return extension || extension2 && isLt2M
+        const extension = testmsg === 'jpg'
+        const extension2 = testmsg === 'png'
+        const extension3 = testmsg === 'jpeg'
+        const isLt2M = file.size / 1024 / 1024 <= 5
+        if(!extension && !extension2&&!extension3) {
+            this.$message({
+                message: '上传文件只能是 jpg,png,jpeg格式!',
+                type: 'error'
+            });
+            return false
+        }
+        if(!isLt2M) {
+            this.$message({
+                message: '上传文件大小不能超过 5MB!',
+                type: 'error'
+            });
+            return false
+        }
+        return extension || extension2 || extension3 && isLt2M
     },
     //主图上传成功
     mainSuccess(file,fileList){

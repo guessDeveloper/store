@@ -50,7 +50,7 @@
               :on-preview="handlePreview"
               :on-remove="logoRemove"
               :on-success="logoSuccess"
-              accept=".jpg,.png"
+              accept=".jpg,.png,.jpeg"
               :show-file-list="false"
               :beforeUpload="beforeLogoUpload"
               name="FileContent"
@@ -58,7 +58,7 @@
 
               <div v-if="PersionImg" :src="PersionImg" class="avatar" :style="'background-image:url('+PersionImg+');'"></div>
               <i v-else class="el-icon-plus avatar-uploader-icon"></i>
-              <div slot="tip" class="tip">只能上传jpg/png文件，且不超过5M</div>
+              <div slot="tip" class="tip">只能上传jpg,png,jpeg文件，且不超过5M</div>
             </el-upload>
          </div>
           </div>
@@ -177,10 +177,11 @@ export default {
          var testmsg=file.name.substring(file.name.lastIndexOf('.')+1)
         const extension = testmsg === 'jpg'
         const extension2 = testmsg === 'png'
+        const extension3 = testmsg === 'jpeg'
         const isLt2M = file.size / 1024 / 1024 <= 5
-        if(!extension && !extension2) {
+        if(!extension && !extension2&&!extension3) {
             this.$message({
-                message: '上传文件只能是 jpg/png格式!',
+                message: '上传文件只能是 jpg,png,jpeg格式!',
                 type: 'error'
             });
             return false
@@ -192,7 +193,7 @@ export default {
             });
             return false
         }
-        return extension || extension2 && isLt2M
+        return extension || extension2 || extension3 && isLt2M
       },
        //logo 上传成功
       logoSuccess(file){
