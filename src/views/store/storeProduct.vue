@@ -115,7 +115,7 @@
                                 产品分类：<span class="item-value">{{item.Cat}}</span>
                             </div>
                             <div class="item-name">
-                                产品上架时间：<span class="item-value"></span>
+                                产品上架时间：<span class="item-value">{{item.CreaterTime}}</span>
                             </div>
                             <div class="item-name">
                                 价格(元)：<span class="item-value">{{item.price}}</span>

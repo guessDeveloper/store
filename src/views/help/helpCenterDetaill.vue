@@ -14,10 +14,9 @@
     <div class="box">
       <div class="select">
            <h3 class="">{{list[activeIndex].ClassName}}  <span class="arrow iconfont iconxiasanjiao"></span></h3>
-           <el-select v-model="activeIndex" placeholder="请选择"  class="help-select">
-                <el-option
-                    v-for="item in list"
-                    :key="item.index"
+           <el-select v-model="activeIndex" placeholder="请选择"  class="help-select" @change="changeInde">
+                <el-option v-for="item in list" 
+                    :key="item.ID"
                     :label="item.Title"
                     :value="item.index">
                     </el-option>
@@ -68,14 +67,21 @@ export default {
     getQuestion(){
       this.$http.post(this.$api.Q_A_ByClass,{ID:this.classId}).then(res=>{
         if(res.data.Code == 1){
-           this.list = res.data.Data
+           this.list = [];
+            res.data.Data.forEach((Element,index)=>{
+              Element.index = index
+              this.list.push(Element)
+           })
+           console.log(this.list)
         }
       })
     },
     getList(index){
+      console.log(index)
        this.activeIndex = index
     },
     changeInde(index){
+      console.log(index)
       this.activeIndex = index
     }
   }

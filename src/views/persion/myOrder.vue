@@ -522,6 +522,7 @@ export default {
                     this.toRate = false
                     this.value1 = ''
                     this.comment = ''
+                    this.getUnderLineList()
                 }else{
                     this.$message.error(res.data.Msg)
                 }

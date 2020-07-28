@@ -3,7 +3,7 @@
      <navBar type="register"></navBar>
      <div class="register">
         <div class="tab-box">
-                 <span  :class="{active:isStore==0}" @click="tabchange(0)">用户</span><span :class="{active:isStore==1}" @click="tabchange(1)">商家</span>
+                 <span  :class="{active:isStore==0}" @click="tabchange(0)">消费者</span><span :class="{active:isStore==1}" @click="tabchange(1)">商家</span>
       </div>
        <div class="input-box">
          <input type="text" placeholder="请输入手机号码" v-model.trim="phone">

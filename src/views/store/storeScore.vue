@@ -3,7 +3,7 @@
      <div class="tab-box">
             <div class="tab-item" @click="toTab(1)" :class="{active:tab ==1}">积分充值</div>
              <div class="tab-item" @click="toTab(2)" :class="{active:tab ==2}">积分奖励</div>
-         <a class="tip-box" tag="div" :href="storeInfo.QAintegral" target="_blank"><span class="iconfont iconcjwt"></span>积分使用常见问题</a>
+         <a class="tip-box" tag="div" :href="storeInfo.QAintegral" ><span class="iconfont iconcjwt"></span>积分使用常见问题</a>
       </div>
      <div class="tab-content" v-show="tab==1">
         <div class="btn-box">

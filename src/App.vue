@@ -264,8 +264,12 @@ export default {
 .el-input-number .el-input{
   height:100%;
 }
+.el-rate{
+  outline: none;
+}
 .el-rate__icon.hover{
    @media screen and(max-width:@change_width){
+     outline: none;
      transform: scale(1)!important;
    }
 }

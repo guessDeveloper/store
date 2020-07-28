@@ -23,7 +23,8 @@
             </ul>
              <div class="page-box">
                 <el-pagination
-                    @current-change="getList"
+                    v-if="pageShow"
+                    @current-change="pageChange"
                     :current-page.sync="pageIndex"
                     :page-size="pageSize"
                     layout="prev, pager, next, jumper"
@@ -33,7 +34,8 @@
           <div class="page-box small">
                 <el-pagination
                     small
-                    @current-change="getList"
+                    v-if="pageShow"
+                    @current-change="pageChange"
                     :current-page.sync="pageIndex"
                     :page-size="pageSize"
                     layout="prev, pager, next"
@@ -91,6 +93,7 @@ export default {
            pageSize:20,
            total:0,
            list:[],
+           pageShow:true
     }
   },
   components:{
@@ -117,7 +120,17 @@ export default {
     if(this.$route.query.content){
       this.searchContent = this.$route.query.content
     }
-    this.init();
+    if(this.$route.query.page){
+      this.pageIndex = Number(this.$route.query.page)
+      this.pageShow = false;
+     this.$nextTick(() => {
+　　  this.pageshow = true
+　　})
+      this.getList();
+    }else{
+      this.init();
+    }
+    
   },
   watch:{
      $route: {
@@ -134,7 +147,12 @@ export default {
               if(this.$route.query.content){
                 this.searchContent = this.$route.query.content
               }
+             if(this.$route.query.page){
+              this.pageIndex = Number(this.$route.query.page)
+              this.getList();
+            }else{
               this.init();
+            }
         },
         deep: true,
     }
@@ -144,14 +162,23 @@ export default {
       this.pageIndex = 1;
       this.getList();
     },
+    pageChange(){
+         this.$router.push(`/search?type=${this.searchType}&content=${this.searchContent}&page=${this.pageIndex}`)
+         this.getList();
+    },
     getList(){
+      console.log(this.pageIndex)
+     
       this.$http.post(this.searchUrl,{pageIndex:this.pageIndex,pageSize:this.pageSize,KeyValue:this.searchContent}).then(res=>{
         if(res.data.Code == 1){
           res.data.Data.List?this.list = res.data.Data.List:''
           res.data.Data.list?this.list = res.data.Data.list:''
+          
           this.total = res.data.Data.count
           document.body.scrollTop = 0;
           document.documentElement.scrollTop = 0;
+          this.pageShow = false;
+          this.pageShow = true;
         }
       })
     },

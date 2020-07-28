@@ -220,15 +220,17 @@ export default {
                     this.showCar = true
                 }
             })
-            if(this.$route.path == '/productDetail'&&this.$route.query.GoodType == 2){
+            if(this.$route.path == '/productDetail'&&this.$route.query.GoodType == '2'){
                 this.nowPath = '/taobao',
                 this.searchType = 'taobao'
                 this.nowName = '淘宝'
+                this.nowSelect = '淘宝'
             }
              if(this.$route.path == '/productDetail'&&this.$route.query.GoodType == 1){
                 this.nowPath = '/Pdd',
                 this.searchType = 'pdd'
                 this.nowName = '拼多多'
+                this.nowSelect = "拼多多"
             }
             document.querySelector('body').style.height = 'auto';
             document.querySelector('body').style.overflow = 'auto';
@@ -301,16 +303,18 @@ export default {
                 this.showCar = true
             }
         })
-        if(this.$route.path == '/productDetail'&&this.$route.query.GoodType == 2){
+        if(this.$route.path == '/productDetail'&&this.$route.query.GoodType == '2'){
                 this.nowPath = '/taobao',
                 this.searchType = 'taobao'
                 this.nowName = '淘宝'
-        }
-        if(this.$route.path == '/productDetail'&&this.$route.query.GoodType == 1){
-            this.nowPath = '/Pdd',
-            this.searchType = 'pdd'
-            this.nowName = '拼多多'
-        }
+                this.nowSelect = '淘宝'
+            }
+             if(this.$route.path == '/productDetail'&&this.$route.query.GoodType == 1){
+                this.nowPath = '/Pdd',
+                this.searchType = 'pdd'
+                this.nowName = '拼多多'
+                this.nowSelect = "拼多多"
+            }
         document.querySelector('body').style.height = 'auto';
         document.querySelector('body').style.overflow = 'auto';
     },

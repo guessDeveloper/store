@@ -134,6 +134,9 @@ const routes = [{
             {
                 path: '/search', //搜索
                 name: 'search',
+                meta:{
+                    keepLive:true
+                },
                 component: () =>
                     import ( /* webpackChunkName: "search" */ '../views/home/search.vue')
             }, {

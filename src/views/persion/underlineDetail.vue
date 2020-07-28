@@ -202,7 +202,7 @@ export default {
             "MerchantID":this.detail.MerchantID,
             "Content": this.comment,
             "StarNum": this.value1,
-            "OrderID": this.commentData.ID
+            "OrderID": this.detail.orderID
         }).then(res=>{
             if(res.data.Code == 1){
                 this.$message.success('评价成功')
@@ -596,6 +596,7 @@ export default {
     }
 // 评价
 .rate-box{
+  outline: none;
   .input-line{
     margin-top:20px;
     label{
@@ -640,6 +641,7 @@ export default {
          height:32px;
          padding-left: 12px;
          font-size:12px;
+         outline: none;
          border:1px solid @class_border;
        }
        .textarea-box{

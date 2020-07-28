@@ -2,7 +2,10 @@
   <div class="home">
     <navBar></navBar>
     <navBottom></navBottom>
-    <router-view></router-view>
+    <keep-alive>
+      <router-view v-if="$route.meta.keepLive"></router-view>
+    </keep-alive>
+    <router-view v-if="!$route.meta.keepLive"></router-view>
     <footerBar></footerBar>
   </div>
 </template>
