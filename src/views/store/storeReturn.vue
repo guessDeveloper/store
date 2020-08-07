@@ -5,7 +5,7 @@
       </div>
       <div class="content">
          <div class="input-line">
-           <label for="">用户手机号：</label><div class="input-box"><input type="text" placeholder="请输入用户手机号/或者扫描用户二维码" v-model.trim="userPhone"></div>
+           <label for="">消费者身份码：</label><div class="input-box"><input type="text" placeholder="请输入消费者手机号/或者扫描用户二维码" v-model.trim="userPhone"></div>
          </div>
          <div class="input-line">
            <label for="">消费金额: </label><div class="input-box"><input type="text" placeholder="请输入消费金额" v-model.trim="money"></div>
@@ -30,7 +30,7 @@ export default {
     return{
       userPhone:'',
       money:'',
-      rate:'',
+      // rate:'',
       lock:false,
     }
   },
@@ -45,6 +45,9 @@ export default {
        }else{
          return '自动计算用户返积分数量'
        }
+    },
+    rate(){
+      return this.storeInfo.ReturnPercent
     }
   },
   mounted(){

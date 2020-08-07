@@ -21,8 +21,8 @@
         </div>
         <div class="small-item" v-for="(item,index) in list" :key="index">
           <div class="user-box">
-             <span class="header">
-               <img :src="item.UserImg" alt="">
+             <span class="header" :style="'background:url('+item.UserImg+') no-repeat center center;'">
+               <!-- <img :src="item.UserImg" alt=""> -->
              </span>
              <span class="name-box">
                <div class="name">{{item.NickNamep}}</div>
@@ -264,7 +264,9 @@ export default {
             height:30px;
             border-radius: 30px;
             background:#ccc;
+            overflow: hidden;
             vertical-align: middle;
+            background-size: cover!important;
             img{
               height:100%;
             }

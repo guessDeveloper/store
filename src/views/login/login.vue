@@ -5,7 +5,7 @@
         <div class="middle">
            <div class="login-box" >
               <div class="tab-box">
-                 <span  :class="{active:type==1}" @click="tabchange(1)">用户登录</span><span :class="{active:type==2}" @click="tabchange(2)">商家登录</span>
+                 <span  :class="{active:type==1}" @click="tabchange(1)">消费者登录</span><span :class="{active:type==2}" @click="tabchange(2)">商家登录</span>
               </div>
               <div class="input-box">
                  <span class="iconfont iconzh"></span><input type="text" placeholder="手机号码" v-model.trim="userName" @blur="isLoginCode">
@@ -19,7 +19,7 @@
               <button class="btn login-btn" @click="login">登录</button>
               <div class="other">
                 <a  class="forget-btn" @click="reset">忘记密码？</a>
-                <a class="regeter-btn" @click="register" v-show="type == 1">新用户注册</a>
+                <a class="regeter-btn" @click="register" v-show="type == 1">新消费者注册</a>
                 <a class="regeter-btn" @click="register" v-show="type == 2">新商家注册</a>
               </div>
            </div>
@@ -185,6 +185,10 @@ export default {
         if(res.data.Code == 1){
           localStorage.setItem('storeToken',res.data.Data)
           this.$router.push('/store')
+        }else if(res.data.Code == 4){
+          localStorage.setItem('storeToken',res.data.Data)
+          this.$router.push('/store')
+          this.$message.error(res.data.Msg)
         }else{
            this.isLoginCode();
           this.$message.error(res.data.Msg)

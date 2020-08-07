@@ -14,6 +14,9 @@
         <div class="input-box">
          <input type="password" placeholder="请输入6至20位登录密码" v-model.trim="password" maxlength="20">
        </div>
+       <div class="input-tip">
+         	请输入最小为8位至少包含1个大写字母，1个小写字母和1个数字的密码,可使用标点符号并且不能连续输入相同大小写字母数字3次或3次以上
+       </div>
         <div class="input-box">
          <input type="password" placeholder="请再次输入登录密码" v-model.trim="repetPass" maxlength="20">
        </div>
@@ -23,7 +26,7 @@
         <div class="input-box">
          <input type="text" placeholder="请输入邀请人" v-model.trim="promote" :readonly="promoteReady" :class="{readonly:promoteReady}">
        </div>
-       <div class="agreement"><el-checkbox v-model="checked" class="check-box"></el-checkbox>已阅读并同意<a  @click="agreement" v-show="isStore == 0">《用户服务协议》</a><a  @click="agreement" v-show="isStore == 1">《商家注册协议》</a></div>
+       <div class="agreement"><el-checkbox v-model="checked" class="check-box"></el-checkbox>已阅读并同意<a  @click="agreement" v-show="isStore == 0">《消费者服务协议》</a><a  @click="agreement" v-show="isStore == 1">《商家注册协议》</a></div>
        <button class="btn" @click="register">立即注册</button>
      </div>
      <footerBar :isLogin="true"></footerBar>
@@ -232,6 +235,15 @@ export default {
         left:50%;
       }
     }
+}
+.input-tip{
+  width:380px;
+  margin:-10px auto 20px;
+  color:@placeholder_color;
+   @media screen and(max-width:@change_width){
+    width:auto;
+    margin:-5px 15px 20px;
+  }
 }
 .input-box{
   width:380px;

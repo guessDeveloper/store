@@ -204,6 +204,10 @@ export default {
       li {
         float: none;
         margin: 20px auto 0;
+        &:nth-of-type(3n){
+        margin-right:auto;
+        margin-left:auto;
+      }
       }
     }
   }

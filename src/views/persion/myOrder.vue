@@ -66,8 +66,8 @@
                </div>
                <div class="search-box">
                    <div class="input-box">
-                    <input type="text" placeholder="输入订单号">
-                    <span class="iconfont iconsousuo"></span>
+                    <input type="text" placeholder="输入订单号" v-model.trim="onlineSearch">
+                    <span class="iconfont iconsousuo" @click="getOnlineList"></span>
                   </div>
                </div>
             </div>
@@ -229,7 +229,7 @@
                </div>
                <div class="search-box">
                    <div class="input-box">
-                    <input type="text" placeholder="输入订单号">
+                    <input type="text" placeholder="输入订单号"  v-model.trim="unlineSearch">
                     <span class="iconfont iconsousuo"  @click="foodSearch"></span>
                   </div>
                </div>

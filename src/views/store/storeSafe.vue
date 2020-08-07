@@ -78,7 +78,7 @@
         </div>
         <div class="stepTwo" v-show="step == 2">
            <div class="big-box">
-              <div class="input-line-box">
+              <div class="input-line-box mobile-box">
                  <div class="input-box">
                     <label for="">新手机号码：</label><input type="text" placeholder="输入新的手机号码" maxlength="11" v-model.trim="newPhone">
                 </div>

@@ -18,7 +18,7 @@
           </div>
        </div>
        <button class="btn ok" @click="CollectionConfirmation" v-show="detail.state=='待付款'">取消订单</button>
-       <button class="btn comment"  v-show="detail.state == '已奖励' || detail.state == '待奖励'" @click="goToComment">发表评价</button>
+       <button class="btn comment"  v-show="detail.state == '已奖励' || detail.state == '待奖励'" @click="goToComment" :disabled="detail.isCommet==true">{{detail.isCommet==true?'已评价':'发表评价'}}</button>
     </div>
     <div class="content">
       <div class="set">

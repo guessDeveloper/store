@@ -64,7 +64,7 @@
           </div>
           <div class="input-line">
           <label for="">昵称：</label><div class="input-box">
-            <input type="text"  v-model="name" maxlength="10"><span class="limit" :class="{over:name.length>10}">{{name.length}}/10</span>
+            <input type="text"  v-model="name" maxlength="10" @input="userInput"><span class="limit" :class="{over:name.length>10}">{{name.length}}/10</span>
           </div>
           </div>
            <div class="btn-box">
@@ -213,6 +213,10 @@ export default {
         this.name = this.userName;
         this.PersionImg = this.UserImg
         this.toNew = true;
+      },
+      //过滤emoji标签
+      userInput(){
+        this.name = this.name.replace(/[^\a-\z\A-\Z0-9\u4E00-\u9FA5\_]/g, "")
       },
       //修改信息
       changeMsg(){
