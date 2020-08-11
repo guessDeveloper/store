@@ -63,6 +63,7 @@
 </template>
 <script>
 import '@/plugins/clipboard.js'
+import QRCode from 'qrcodejs2'
 export default {
   data(){
     return{
