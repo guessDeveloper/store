@@ -45,7 +45,7 @@
     </div> -->
     <div class="input-line-box">
           <label for="">产品价格：</label>
-          <input type="text" maxlength="1000" v-model.trim="price">
+          <input type="text" maxlength="1000" v-model.trim="price" @input="inputNum">
     </div>
      <!-- <div class="input-line-box textarea">
           <label for="">产品详情：</label>
@@ -164,6 +164,10 @@ export default {
                 
             }
         })
+    },
+    //输入小数
+    inputNum(){
+     this.price = this.price.replace(/[^\d^\.]+/g,'')
     },
     //获取产品详情
     getDetail(){

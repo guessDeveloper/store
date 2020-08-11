@@ -106,8 +106,9 @@
            <el-time-picker
             is-range
             v-model="time"
-             :editable="false"
-              :clearable="false"
+            :editable="false"
+            :clearable="false"
+            value-format="yyyy-MM-dd HH:mm:ss"
             range-separator="-"
             start-placeholder="开始时间"
             end-placeholder="结束时间"
@@ -332,7 +333,7 @@ export default {
 
       },
       handlePictureCardPreview(file) {
-        if(/.mp4/.test(file.url)){
+        if(/.mp4/.test(file.url)||/.MOV/.test(file.url)){
           this.dialogVideo = true
           this.VideoRul = file.url
         }else{
@@ -449,10 +450,11 @@ export default {
         const extension3 = testmsg === 'mp4'
         const extension4 = testmsg === 'gif'
         const extension5 = testmsg === 'jpeg'
+         const extension6 = testmsg === 'MOV'
         if(extension || extension2 || extension4||extension5){
           this.changeUrl= process.env.NODE_ENV === 'production' ? 'https://files.youledui.com/create?dir=image' : '/up/create?dir=image'
         }
-        if(extension3){
+        if(extension3||extension6){
           this.changeUrl= process.env.NODE_ENV === 'production' ? 'https://files.youledui.com/create?dir=media' : '/up/create?dir=media'
         }
         setTimeout(()=>{
@@ -467,6 +469,8 @@ export default {
         const extension3 = testmsg === 'mp4'
         const extension4 = testmsg === 'gif'
         const extension5 = testmsg === 'jpeg'
+        const extension6 = testmsg === 'MOV'
+        console.log(testmsg,'uploadfile')
         const isLt2M = file.size / 1024 / 1024 <= 10
         // if(extension || extension2){
         //   this.uploadMp4Url= '/up/create?dir=image'
@@ -474,9 +478,9 @@ export default {
         // if(extension3){
         //   this.uploadMp4Url= '/up/create?dir=media'
         // }
-        if(!extension && !extension2 && !extension3 &&!extension4&&!extension5) {
+        if(!extension && !extension2 && !extension3 &&!extension4&&!extension5&&!extension6) {
             this.$message({
-                message: '上传文件只能是 jpg、png、gif、mp4、jpeg格式!',
+                message: '上传文件只能是 jpg、png、gif、mp4、jpeg、mov格式!',
                 type: 'error'
             });
             return false
@@ -488,7 +492,7 @@ export default {
             });
             return false
         }
-        return extension || extension2 || extension3 ||extension4||extension5&& isLt2M
+        return extension || extension2 || extension3 ||extension4||extension5||extension6&& isLt2M
       },
     addressClick(res){
       this.address = res.address.surroundingPois[0].address

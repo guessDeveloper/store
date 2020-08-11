@@ -42,7 +42,10 @@
                 <label for="">短信验证码：</label><div class="input-box"><input type="text" placeholder="输入短信验证码" v-model.trim="msgCode"><span class="getCode" @click="getCode">{{codeBtn}}</span></div> 
             </div>
             <div class="input-line-box">
-                <label for="">新的密码：</label><input type="password" placeholder="设置6至20位登录密码" v-model.trim="newPwd" minlength="6" maxlength="20"> 
+                <label for="">新的密码：</label><input type="password" placeholder="请输入新密码" v-model.trim="newPwd" minlength="6" maxlength="20"> 
+            </div>
+            <div class="input-tip-box">
+                	请输入最小为8位至少包含1个大写字母，1个小写字母和1个数字的密码,可使用标点符号并且不能连续输入相同大小写字母数字3次或3次以上
             </div>
             <div class="input-line-box">
                 <label for="">重复密码：</label><input type="password" placeholder="请再次输入登录密码" v-model.trim="rePwd" maxlength="20">
@@ -246,7 +249,7 @@ export default {
 <style lang="less" scoped>
 .reset-box{
     width:@max-width;
-    height:630px;
+    height:680px;
     text-align: center;
     background:#fff;
     margin:20px auto;
@@ -359,6 +362,11 @@ export default {
     }
     .first-margin{
         height:80px;
+    }
+    .input-tip-box{
+        color:@placeholder_color;
+        text-align: left;
+        margin-bottom:20px;
     }
     .input-line-box{
         position: relative;

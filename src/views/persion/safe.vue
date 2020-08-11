@@ -32,8 +32,9 @@
             <label for="">输入原密码：</label><div class="input-box"><input type="password" placeholder="请输入原密码" max-length="20" v-model.trim="oldPas"></div>
         </div>
         <div class="input-line">
-            <label for="">输入新密码：</label><div class="input-box"><input type="password" placeholder="设置6至20位登录密码" max-length="20" v-model.trim="newPas"></div>
+            <label for="">输入新密码：</label><div class="input-box"><input type="password" placeholder="请输入新密码" max-length="20" v-model.trim="newPas"></div>
         </div>
+        <div class="input-tip">	请输入最小为8位至少包含1个大写字母，1个小写字母和1个数字的密码,可使用标点符号并且不能连续输入相同大小写字母数字3次或3次以上</div>
         <div class="input-line">
             <label for="">再次输入：</label><div class="input-box"><input type="password" placeholder="请再次输入登录密码" max-length="20" v-model.trim="reNewpas"></div>
         </div>
@@ -457,6 +458,10 @@ export default {
     line-height: 14px;
     margin-top:15px;
     margin-bottom:20px;
+  }
+  .input-tip{
+    font-size:12px;
+    color:@placeholder_color;
   }
   .input-line{
     position: relative;
