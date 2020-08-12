@@ -135,7 +135,7 @@ export default {
     },
     //输入小数
     inputNum(){
-     this.price = this.price.replace(/[^\d^\.]+/g,'')
+     this.price = this.price.replace(/[^\d\.]+/g,'')
     },
     //分类选择
     selelction(data){

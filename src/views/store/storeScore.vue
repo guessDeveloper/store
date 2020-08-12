@@ -1,13 +1,13 @@
 <template>
   <div class="menager-box">
      <div class="tab-box">
-            <div class="tab-item" @click="toTab(1)" :class="{active:tab ==1}">积分充值</div>
+            <div class="tab-item" @click="toTab(1)" :class="{active:tab ==1}">获得积分</div>
              <div class="tab-item" @click="toTab(2)" :class="{active:tab ==2}">积分奖励</div>
          <a class="tip-box" tag="div" :href="storeInfo.QAintegral" ><span class="iconfont iconcjwt"></span>积分使用常见问题</a>
       </div>
      <div class="tab-content" v-show="tab==1">
         <div class="btn-box">
-          <span class="score">我的剩余积分：<span class="">{{Integral.SurplusIntegral}}</span>累计积分：<span>{{Integral.RechargeIntegral}}</span> 已赠送积分：<span>{{Integral.SendIntegral}}</span></span> <router-link class="chong-btn" tag="button" to="/storeMoney">立即充值</router-link>
+          <span class="score">我的剩余积分：<span class="">{{Integral.SurplusIntegral}}</span>累计积分：<span>{{Integral.RechargeIntegral}}</span> 已赠送积分：<span>{{Integral.SendIntegral}}</span></span> <router-link class="chong-btn" tag="button" to="/storeMoney">立即获得</router-link>
         </div>
         <div class="score-box">
            <div class="score-item">

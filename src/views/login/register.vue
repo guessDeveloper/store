@@ -308,6 +308,9 @@ export default {
   background: @main;
   color:#fff;
   font-size:16px;
+  &:active{
+    background:@btnActiveColor;
+  }
   @media screen and(max-width:@change_width){
     width:calc(100% - 30px);
     margin:30px 15px 0;

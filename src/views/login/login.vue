@@ -16,7 +16,7 @@
               <div class="input-box" v-if="needCode == 'true'">
                  <span class="iconfont icondxyzm" ></span><input type="text" placeholder="输入短信验证码" v-model.trim="msgCode" maxlength="6"><button class="msg-btn" @click="getMsgCode">{{codeBtn}}</button>
               </div>
-              <button class="btn login-btn" @click="login">登录</button>
+              <button class="btn login-btn" @click="login" :disabled="loginBtnLock">登录</button>
               <div class="other">
                 <a  class="forget-btn" @click="reset">忘记密码？</a>
                 <a class="regeter-btn" @click="register" v-show="type == 1">新消费者注册</a>
@@ -43,7 +43,8 @@ export default {
       lock:false,
       count:60,
       timer:'',
-      codeBtn:'获取验证码'
+      codeBtn:'获取验证码',
+      loginBtnLock:false
     }
   },
   components:{
@@ -159,6 +160,7 @@ export default {
     },
     //用户登录
     userLogin(){
+      this.loginBtnLock = true
       this.$http.post(this.$api.Login,{
         UserName:this.userName,
         UserPassword:this.password,
@@ -172,10 +174,14 @@ export default {
           this.isLoginCode();
           this.$message.error(res.data.Msg)
         }
+        this.loginBtnLock = false
+      }).catch(res=>{
+        this.loginBtnLock = false
       })
     },
     //商家注册
     storeLogin(){
+      this.loginBtnLock = true;
       this.$http.post(this.$api.storeLogin,{
         Account:this.userName,
         passwd:this.password,
@@ -193,6 +199,9 @@ export default {
            this.isLoginCode();
           this.$message.error(res.data.Msg)
         }
+        this.loginBtnLock = false;
+      }).catch(res=>{
+        this.loginBtnLock = false;
       })
     },
     register(){
@@ -327,7 +336,12 @@ export default {
   background: @main;
   color:#fff;
   font-size:16px;
-
+  &:disabled{
+    background:#ccc;
+  }
+  &:active{
+    background:@btnActiveColor;
+  }
 }
 .other{
   .clear();

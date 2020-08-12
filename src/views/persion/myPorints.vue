@@ -29,7 +29,7 @@
     <el-table :data="gridData" style="width:480px;" header-row-style="'font-size:12px;color:#999;'" row-class-name="table-line" class="small-table">
     <el-table-column property="OrderNumber" label="订单号" width="134" align="center" fontSize="12px" cell-style="font-size:12px;"></el-table-column>
     <el-table-column property="ConsumptionTime" label="时间" width="154" align="center"></el-table-column>
-    <el-table-column property="PlatformType" label="消费板块" width="124" align="center"></el-table-column>
+    <el-table-column property="PlatformType" label="商家名称" width="124" align="center"></el-table-column>
     <el-table-column property="ConsumptionNumber" label="积分数量" width="68" align="center"></el-table-column>
   </el-table>
    <div class="small-box-list">
@@ -40,7 +40,7 @@
          
         <div>
           
-          <div><span class="name">消费板块：</span>{{item.PlatformType}}</div>
+          <div><span class="name">商家名称:</span>{{item.PlatformType}}</div>
           <div><span class="name">积分数量：</span>{{item.ConsumptionNumber}}</div>
         </div>
         <div class="right">

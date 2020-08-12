@@ -1,6 +1,6 @@
 <template>
   <div class="menager-box">
-   <div class="persion-title">充值中心</div>
+   <div class="persion-title">积分中心</div>
    <div class="money-box">
      <div class="banner">
        <img :src="bannerUrl" alt="" v-if="bannerUrl">
@@ -75,7 +75,7 @@
           </el-time-picker>
        </div>
        <div class="input-line-box">
-         <button class="btn submit" @click="Recharge">立即充值</button>
+         <button class="btn submit" @click="Recharge">购买</button>
        </div>
      </div>
    </div>
