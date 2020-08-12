@@ -11,7 +11,7 @@
            <label for="">消费金额: </label><div class="input-box"><input type="text" placeholder="请输入消费金额" v-model.trim="money"></div>
          </div>
          <div class="input-line">
-           <label for="">请选择返还比例：</label><div class="input-box percent"><input type="text" placeholder="默认调取商家的奖励比例" v-model="rate"><div class="danwei">%</div></div>
+           <label for="">请选择返还比例：</label><div class="input-box percent"><input type="text" placeholder="默认调取商家的奖励比例" v-model="rateE" ><div class="danwei">%</div></div>
          </div>
          <div class="input-line input-line-integral">
            <label for="">返积分数量：</label><div class="input-box"><span class="tip">{{backNum}}</span> </div>
@@ -30,7 +30,7 @@ export default {
     return{
       userPhone:'',
       money:'',
-      // rate:'',
+      rateE:'',
       lock:false,
     }
   },
@@ -40,8 +40,8 @@ export default {
       'storeInfo'
     ]),
     backNum(){
-       if(this.money !== ''&this.rate !== ''){
-         return this.money*this.rate/100*this.ScoreRate
+       if(this.money !== ''&this.rateE !== ''){
+         return this.money*this.rateE/100*this.ScoreRate
        }else{
          return '自动计算用户返积分数量'
        }
@@ -50,12 +50,20 @@ export default {
       return this.storeInfo.ReturnPercent
     }
   },
+  watch:{
+    storeInfo:{
+       deep: true,
+            handler: function (newVal,oldVal){
+                this.rateE = newVal.ReturnPercent
+            }
+    }
+  },
   mounted(){
     console.log(this.ScoreRate)
     if(this.$route.query.phone){
       this.userPhone = this.$route.query.phone
     }
-    this.rate = this.storeInfo.ReturnPercent
+    this.rateE = this.storeInfo.ReturnPercent
   },
   methods:{
     btnCheck(){
@@ -67,7 +75,7 @@ export default {
         this.$message.error('请输入正确的金额')
       }else if(this.money>10000000){
         this.$message.error('消费金额不能超过1000万')
-      }else if(this.rate<0||this.rate>60){
+      }else if(this.rateE<0||this.rateE>60){
         this.$message.error('请输入正确1%-60%的比例')
       }else{
         if(this.lock){
@@ -77,7 +85,7 @@ export default {
         this.$http.storePost(this.$api.ReturnUserIntegrals,{
           Mobile:this.userPhone,
           SpendMoney:this.money,
-          Rate:this.rate
+          Rate:this.rateE
         }).then(res=>{
           if(res.data.Code == 1){
             this.clear();
@@ -93,7 +101,7 @@ export default {
     clear(){
       this.userPhone = '';
       this.money = '';
-      this.rate = '';
+      // this.rate = '';
     },
     //返利给用户
     backUser(){
