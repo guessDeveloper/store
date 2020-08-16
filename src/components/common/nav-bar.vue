@@ -112,7 +112,7 @@ export default {
            searchContent:'',
            option:[
                {
-                  path:['/','/taobo','/taobaoList'],
+                  path:['/','/taobao','/taobaoList'],
                   name:'淘宝',
                   query:this.$api.GetGoodsByKey,
                   type:'taobao'

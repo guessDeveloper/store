@@ -463,7 +463,7 @@ export default {
   }
   .input-tip{
     font-size:12px;
-    color:@placeholder_color;
+    color:@password_tip_color;
   }
   .input-line{
     position: relative;

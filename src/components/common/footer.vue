@@ -46,6 +46,7 @@ export default {
 </script>
 <style lang="less" scoped>
 .footer{
+  
   width:100%;
   text-align: center;
   &.login{

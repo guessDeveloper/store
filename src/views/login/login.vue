@@ -11,7 +11,8 @@
                  <span class="iconfont iconzh"></span><input type="text" placeholder="手机号码" v-model.trim="userName" @blur="isLoginCode">
               </div>
               <div class="input-box">
-                <span class="iconfont iconmima"></span><input type="password" placeholder="密码" v-model.trim="password">
+                <span class="iconfont iconmima"></span><input :type="passwordType" placeholder="密码" v-model.trim="password">
+                <div class="show-icon" @click="showPass">显示密码</div>
               </div>
               <div class="input-box" v-if="needCode == 'true'">
                  <span class="iconfont icondxyzm" ></span><input type="text" placeholder="输入短信验证码" v-model.trim="msgCode" maxlength="6"><button class="msg-btn" @click="getMsgCode">{{codeBtn}}</button>
@@ -44,7 +45,8 @@ export default {
       count:60,
       timer:'',
       codeBtn:'获取验证码',
-      loginBtnLock:false
+      loginBtnLock:false,
+      passwordType:'password',
     }
   },
   components:{
@@ -206,6 +208,15 @@ export default {
     },
     register(){
       this.type == 1?this.$router.push('/register'):this.$router.push('/register?isStore=1')
+    },
+    //显示密码
+    showPass(){
+      if(this.passwordType == 'password'){
+        this.passwordType = 'text';
+      }else{
+        this.passwordType = 'password'
+      }
+      
     }
   }
 }
@@ -316,6 +327,14 @@ export default {
     text-align:right;
     
   }
+  .show-icon{
+    position: absolute;
+    top:0;
+    right:0;
+    height:100%;
+    line-height: 50px;
+    cursor: pointer;
+  }
   input{
     display: block;
     box-sizing: border-box;
@@ -337,7 +356,7 @@ export default {
   color:#fff;
   font-size:16px;
   &:disabled{
-    background:#ccc;
+    background:@btn-active;
   }
   &:active{
     background:@btnActiveColor;

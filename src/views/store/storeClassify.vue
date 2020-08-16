@@ -1,101 +1,120 @@
 <template>
   <div class="menager-box">
-     <div class="persion-title">分类管理</div>
-     <div class="classify-box">
-        <div class="btn-top-box">
-            <button @click="toNew =true">添加新分类</button>
-        </div>
-        <div class="table-box">
-          <el-table :data="listData"  header-row-style="font-size:12px;color:#999;" row-class-name="table-line" width="930">
-            <el-table-column property="RateName" label="分类名称" width="268" align="left"></el-table-column>
-            <el-table-column property="Rate" label="奖励比例(%)" width="160" align="center"></el-table-column>
-            <el-table-column property="CreateTime" label="添加时间" width="400" align="center"></el-table-column>
-            <el-table-column  label="操作" width="102" align="center">
-                <template slot-scope="scope">
-                  <button :data="scope" class="action-btn" @click="editClass(scope.row)">修改</button><button class="action-btn delate-btn" @click="deleteClass(scope.row.Id)">删除</button>
-                </template>
-            </el-table-column>
-        </el-table>
-        </div>
-
-        <!-- 移动端分类列表 -->
-        <div class="table-box-small">
-          <div v-for="(item, index) in listData" :key="index" class="list-item">
-            <div class="list-item-left">
-              <p>分类名称：<span>{{ item.RateName }}</span></p>
-              <p>奖励比例(%)：<span>{{ item.Rate }}</span></p>
-              <p>添加时间：<span>{{ item.CreateTime }}</span></p>
-            </div>
-            <div class="list-item-right">
-              <p @click="editClass(item)">修改</p>
-              <p @click="deleteClass(item.Id)">删除</p>
-            </div>
-          </div>
-        </div>
-
+    <div class="persion-title">分类管理</div>
+    <div class="classify-box">
+      <div class="btn-top-box">
+        <button @click="toNew =true">添加新分类</button>
       </div>
-      <div class="page-box">
-            <el-pagination
-                        @current-change="getList"
-                        :current-page.sync="pageIndex"
-                        :page-size="pageSize"
-                        :hide-on-single-page="total == 0"
-                        layout="prev, pager, next, jumper"
-                        :total="total">
-              </el-pagination>
+      <div class="table-box">
+        <el-table
+          :data="listData"
+          header-row-style="font-size:12px;color:#999;"
+          row-class-name="table-line"
+          width="930"
+        >
+          <el-table-column
+            property="RateName"
+            label="分类名称"
+            width="268"
+            align="left"
+          ></el-table-column>
+          <el-table-column
+            property="Rate"
+            label="奖励比例(%)"
+            width="160"
+            align="center"
+          ></el-table-column>
+          <el-table-column
+            property="CreateTime"
+            label="添加时间"
+            width="400"
+            align="center"
+          ></el-table-column>
+          <el-table-column
+            label="操作"
+            width="102"
+            align="center"
+          >
+            <template slot-scope="scope">
+              <button
+                :data="scope"
+                class="action-btn"
+                @click="editClass(scope.row)"
+              >修改</button><button
+                class="action-btn delate-btn"
+                @click="deleteClass(scope.row.Id)"
+              >删除</button>
+            </template>
+          </el-table-column>
+        </el-table>
+      </div>
+
+      <!-- 移动端分类列表 -->
+      <div class="table-box-small">
+        <div
+          v-for="(item, index) in listData"
+          :key="index"
+          class="list-item"
+        >
+          <div class="list-item-left">
+            <p>分类名称：<span>{{ item.RateName }}</span></p>
+            <p>奖励比例(%)：<span>{{ item.Rate }}</span></p>
+            <p>添加时间：<span>{{ item.CreateTime }}</span></p>
           </div>
-          <div class="page-box small">
-            <el-pagination
-                    small 
-                        @current-change="getList"
-                        :current-page.sync="pageIndex"
-                        :page-size="pageSize"
-                        :hide-on-single-page="total == 0"
-                        layout="prev, pager, next"
-                        :total="total">
-              </el-pagination>
-          </div>
-      <el-dialog title="添加新产品分类" :visible.sync="toNew" custom-class="custom-dialog">
-        <div class="dialog-content-wrap">
-          <div class="input-line">
-              <label for="">产品分类名称：</label>
-                <div class="input-box">
-                  <input type="text" placeholder="请输入分类名称" v-model="NewClassName" maxlength="20" class="productName">
-                  <span class="limit">{{NewClassName.length}}/20</span>
-                </div>
-          </div>
-          <div class="input-line">
-              <label for="">奖励比例：</label>
-              <div class="input-box">
-                <!-- <el-select v-model="value" placeholder="请选择比例">
-                  <el-option
-                    v-for="item in options"
-                    :key="item.value"
-                    :label="item.label"
-                    :value="item.value">
-                  </el-option>
-                </el-select> -->
-                <input type="text" placeholder="请输入1至60的整数" class="percent" v-model.trim="NewClassRate"><span class="per">%</span>
-              </div>
-               <div class="btn-box">
-                    <button class="ok" @click="addClass">提交</button>
-                    <button class="no" @click="toNew = false">取消</button>
-             </div>
+          <div class="list-item-right">
+            <p @click="editClass(item)">修改</p>
+            <p @click="deleteClass(item.Id)">删除</p>
           </div>
         </div>
-      </el-dialog>
-      <el-dialog title="编辑分类" :visible.sync="toEdit" custom-class="custom-dialog">
-        <div class="dialog-content-wrap">
-          <div class="input-line">
-              <label for="">产品分类名称：</label>
-               <div class="input-box">
-                 <input type="text" placeholder="请输入分类名称" v-model="editName" maxlength="20" class="productName"><span class="limit">{{editName.length}}/20</span>
-               </div>
+      </div>
+
+    </div>
+    <div class="page-box">
+      <el-pagination
+        @current-change="getList"
+        :current-page.sync="pageIndex"
+        :page-size="pageSize"
+        :hide-on-single-page="total == 0"
+        layout="prev, pager, next, jumper"
+        :total="total"
+      >
+      </el-pagination>
+    </div>
+    <div class="page-box small">
+      <el-pagination
+        small
+        @current-change="getList"
+        :current-page.sync="pageIndex"
+        :page-size="pageSize"
+        :hide-on-single-page="total == 0"
+        layout="prev, pager, next"
+        :total="total"
+      >
+      </el-pagination>
+    </div>
+    <el-dialog
+      title="添加新产品分类"
+      :visible.sync="toNew"
+      custom-class="custom-dialog"
+    >
+      <div class="dialog-content-wrap">
+        <div class="input-line">
+          <label for="">产品分类名称：</label>
+          <div class="input-box">
+            <input
+              type="text"
+              placeholder="请输入分类名称"
+              v-model="NewClassName"
+              maxlength="20"
+              class="productName"
+            >
+            <span class="limit">{{NewClassName.length}}/20</span>
           </div>
-          <div class="input-line">
-              <label for="">奖励比例：</label>
-              <div class="input-box">
-                <!-- <el-select v-model="value" placeholder="请选择比例">
+        </div>
+        <div class="input-line">
+          <label for="">奖励比例：</label>
+          <div class="input-box">
+            <!-- <el-select v-model="value" placeholder="请选择比例">
                   <el-option
                     v-for="item in options"
                     :key="item.value"
@@ -103,208 +122,283 @@
                     :value="item.value">
                   </el-option>
                 </el-select> -->
-                <input type="text" placeholder="请输入1至60的整数" class="percent" v-model.trim="editRate"><span class="per">%</span>
-              </div>
+            <input
+              type="text"
+              placeholder="请输入1至60的整数"
+              class="percent"
+              v-model.trim="NewClassRate"
+            ><span class="per">%</span>
           </div>
           <div class="btn-box">
-                    <button class="ok" @click="sendEdit">提交</button>
-                    <button class="no" @click="toEdit = false">取消</button>
+            <button
+              class="ok"
+              @click="addClass"
+            >提交</button>
+            <button
+              class="no"
+              @click="toNew = false"
+            >取消</button>
           </div>
         </div>
-      </el-dialog>
+      </div>
+    </el-dialog>
+    <el-dialog
+      title="编辑分类"
+      :visible.sync="toEdit"
+      custom-class="custom-dialog"
+    >
+      <div class="dialog-content-wrap">
+        <div class="input-line">
+          <label for="">产品分类名称：</label>
+          <div class="input-box">
+            <input
+              type="text"
+              placeholder="请输入分类名称"
+              v-model="editName"
+              maxlength="20"
+              class="productName"
+            ><span class="limit">{{editName.length}}/20</span>
+          </div>
+        </div>
+        <div class="input-line">
+          <label for="">奖励比例：</label>
+          <div class="input-box">
+            <!-- <el-select v-model="value" placeholder="请选择比例">
+                  <el-option
+                    v-for="item in options"
+                    :key="item.value"
+                    :label="item.label"
+                    :value="item.value">
+                  </el-option>
+                </el-select> -->
+            <input
+              type="text"
+              placeholder="请输入1至60的整数"
+              class="percent"
+              v-model.trim="editRate"
+            ><span class="per">%</span>
+          </div>
+        </div>
+        <div class="btn-box">
+          <button
+            class="ok"
+            @click="sendEdit"
+          >提交</button>
+          <button
+            class="no"
+            @click="toEdit = false"
+          >取消</button>
+        </div>
+      </div>
+    </el-dialog>
   </div>
 </template>
 <script>
 import '../../plugins/element-table.js'
+import { mapState, mapMutations } from 'vuex' //注册 action 和 state
 export default {
-  data(){
-    return{
-      listData:[],
-      toNew:false,
-      toEdit:false,
+  data() {
+    return {
+      listData: [],
+      toNew: false,
+      toEdit: false,
       value: '',
-      pageSize:20,
-      pageIndex:1,
-      total:0,
-      NewClassName:'',
-      NewClassRate:'',
-      editName:'',
-      editRate:'',
-      editId:''
+      pageSize: 20,
+      pageIndex: 1,
+      total: 0,
+      NewClassName: '',
+      NewClassRate: '',
+      editName: '',
+      editRate: '',
+      editId: ''
     }
   },
-  mounted(){
+  mounted() {
     this.getList();
+    this.NewClassRate = this.storeInfo.ReturnPercent
   },
-  methods:{
-   getList(){
-     this.$http.storePost(this.$api.GetProcoteClassList,{pageIndex:this.pageIndex,pageSize:this.pageSize}).then(res=>{
-       if(res.data.Code == 1){
+  computed: {
+    ...mapState([
+      'ScoreRate',
+      'storeInfo'
+    ]),
+  },
+  watch: {
+    storeInfo: {
+      deep: true,
+      handler: function (newVal, oldVal) {
+        this.NewClassRate = newVal.ReturnPercent
+      }
+    }
+  },
+  methods: {
+    getList() {
+      this.$http.storePost(this.$api.GetProcoteClassList, { pageIndex: this.pageIndex, pageSize: this.pageSize }).then(res => {
+        if (res.data.Code == 1) {
           this.listData = res.data.Data.list
           this.total = res.data.Data.count
-       }else{
-         this.$message.error(res.data.Msg)
-       }
-     })
-   },
-   //添加分类
-   addClass(){
-     if(this.NewClassName == ''){
-       this.$message.error('请输入分类名称')
-     }else if(!this.$util.testNum.test(this.NewClassRate)){
-       this.$message.error('请输入正确的比例')
-     }else if(this.NewClassRate>60||this.NewClassRate<1){
-       this.$message.error('请输入1-60的正整数')
-     }else{
-       this.$http.storePost(this.$api.AddProcoteClass,{Rate:this.NewClassRate,RateName:this.NewClassName}).then(res=>{
-         if(res.data.Code == 1){
-           this.$message.success('添加成功')
-           this.toNew = false;
-           this.NewClassName = '';
-           this.NewClassRate = '';
-           this.pageIndex = 1;
-           this.getList()
-         }else{
-           this.$message.error(res.data.Msg)
-         }
-       })
-     }
-   },
-   editClass(item){
-     this.toEdit = true;
-     this.editName = item.RateName
-     this.editRate = item.Rate
-     this.editId = item.Id
-   },
-   sendEdit(){
-      if(this.editName == ''){
-       this.$message.error('请输入分类名称')
-     }else if(!this.$util.testNum.test(this.editRate)){
-       this.$message.error('请输入正确的比例')
-     }else if(this.editRate>60||this.editRate<1){
-       this.$message.error('请输入1-60的正整数')
-     }else{
-        this.$http.storePost(this.$api.UpProcoteClass,{
-          ClassID:this.editId,
-          Rate:this.editRate,
-          ClassName:this.editName
-        }).then(res=>{
-          if(res.data.Code == 1){
-            this.toEdit = false;
-            this.$message.success('编辑成功')
+        } else {
+          this.$message.error(res.data.Msg)
+        }
+      })
+    },
+    //添加分类
+    addClass() {
+      if (this.NewClassName == '') {
+        this.$message.error('请输入分类名称')
+      } else if (!this.$util.testNum.test(this.NewClassRate)) {
+        this.$message.error('请输入正确的比例')
+      } else if (this.NewClassRate > 60 || this.NewClassRate < 1) {
+        this.$message.error('请输入1-60的正整数')
+      } else {
+        this.$http.storePost(this.$api.AddProcoteClass, { Rate: this.NewClassRate, RateName: this.NewClassName }).then(res => {
+          if (res.data.Code == 1) {
+            this.$message.success('添加成功')
+            this.toNew = false;
+            this.NewClassName = '';
+            this.NewClassRate = '';
+            this.pageIndex = 1;
             this.getList()
-          }else{
+          } else {
             this.$message.error(res.data.Msg)
           }
         })
-     }
-   },
-   //删除分类
-   deleteClass(id){
-     console.log(id)
-     this.$http.storePost(this.$api.DeleteProcoteClass,{RateId:id}).then(res=>{
-       if(res.data.Code == 1){
-         this.$message.success('删除成功')
-         this.getList();
-       }else{
-         this.$message.error(res.data.Msg)
-       }
-     })
-   }
+      }
+    },
+    editClass(item) {
+      this.toEdit = true;
+      this.editName = item.RateName
+      this.editRate = item.Rate
+      this.editId = item.Id
+    },
+    sendEdit() {
+      if (this.editName == '') {
+        this.$message.error('请输入分类名称')
+      } else if (!this.$util.testNum.test(this.editRate)) {
+        this.$message.error('请输入正确的比例')
+      } else if (this.editRate > 60 || this.editRate < 1) {
+        this.$message.error('请输入1-60的正整数')
+      } else {
+        this.$http.storePost(this.$api.UpProcoteClass, {
+          ClassID: this.editId,
+          Rate: this.editRate,
+          ClassName: this.editName
+        }).then(res => {
+          if (res.data.Code == 1) {
+            this.toEdit = false;
+            this.$message.success('编辑成功')
+            this.getList()
+          } else {
+            this.$message.error(res.data.Msg)
+          }
+        })
+      }
+    },
+    //删除分类
+    deleteClass(id) {
+      console.log(id)
+      this.$http.storePost(this.$api.DeleteProcoteClass, { RateId: id }).then(res => {
+        if (res.data.Code == 1) {
+          this.$message.success('删除成功')
+          this.getList();
+        } else {
+          this.$message.error(res.data.Msg)
+        }
+      })
+    }
   }
 }
 </script>
 <style lang="less" scoped>
-.classify-box{
-  padding:0 30px;
+.classify-box {
+  padding: 0 30px;
 }
- .btn-top-box{
-    .clear();
-    margin:0;
-    padding:30px 0 40px 0;
-    button{
-      float: right;
-      width:150px;
-      height:40px;
-      font-size:14px;
-      color:@main;
-      border-radius:0;
-      border:1px solid @main;
-    }
+.btn-top-box {
+  .clear();
+  margin: 0;
+  padding: 30px 0 40px 0;
+  button {
+    float: right;
+    width: 150px;
+    height: 40px;
+    font-size: 14px;
+    color: @main;
+    border-radius: 0;
+    border: 1px solid @main;
   }
-  .action-btn{
-    border:0;
-    font-size:12px;
-    color:@persion_left;
-  }
-  .delate-btn{
-    margin-left:8px;
-  }
-  .input-line{
-    position: relative;
-  margin-top:30px;
+}
+.action-btn {
+  border: 0;
+  font-size: 12px;
+  color: @persion_left;
+}
+.delate-btn {
+  margin-left: 8px;
+}
+.input-line {
+  position: relative;
+  margin-top: 30px;
   overflow: hidden;
-  .limit{
-      position: absolute;
-      line-height: 32px;
-      top:1px;
-      right:4px;
-      padding-right:10px;
-      padding-left:15px;
-      background:#fff;
-    }
-  label{
+  .limit {
+    position: absolute;
+    line-height: 32px;
+    top: 1px;
+    right: 4px;
+    padding-right: 10px;
+    padding-left: 15px;
+    background: #fff;
+  }
+  label {
     display: inline-block;
-    width:84px;
-    font-size:12px;
+    width: 84px;
+    font-size: 12px;
     line-height: 34px;
-    margin-right:9px;
+    margin-right: 9px;
     text-align: right;
   }
-  input{
+  input {
     display: inline-block;
     box-sizing: border-box;
-    width:387px;
-    height:34px;
-    padding:0 12px;
-    font-size:12px;
-    border:0;
-    &.percent{
-      width:357px;
+    width: 385px;
+    height: 34px;
+    padding: 0 12px;
+    font-size: 12px;
+    border: 0;
+    &.percent {
+      width: 357px;
     }
   }
-  .input-box{
+  .input-box {
     display: inline-block;
     position: relative;
-    width:387px;
-    height:34px;
-    .per{
+    width: 385px;
+    height: 34px;
+    .per {
       float: right;
       line-height: 34px;
     }
-    border:1px solid @class_border;
-    
+    border: 1px solid @class_border;
   }
 }
-  .btn-box{
-      .clear();
-      margin-top:40px;
-      button{
-        float: right;
-        width:65px;
-        height:30px;
-        font-size:14px;
-        margin-left:15px;
-        background:#fff;
-        border:1px solid @class_border;
-        border-radius: 4px;
-      }
-      .ok{
-        color:#fff;
-        background:@main;
-        border-color:@main;
-      }
-    }
+.btn-box {
+  .clear();
+  margin-top: 40px;
+  button {
+    float: right;
+    width: 65px;
+    height: 30px;
+    font-size: 14px;
+    margin-left: 15px;
+    background: #fff;
+    border: 1px solid @class_border;
+    border-radius: 4px;
+  }
+  .ok {
+    color: #fff;
+    background: @main;
+    border-color: @main;
+  }
+}
 .table-box-small {
   display: none;
   .list-item {
@@ -330,13 +424,13 @@ export default {
     }
   }
 }
-@media screen and(max-width:@change_width){
+@media screen and(max-width:@change_width) {
   .classify-box {
     padding: 0 15px;
     .btn-top-box {
       padding: 15px;
       margin: 0 -15px;
-      border-bottom: 10px solid #F8F8F8;
+      border-bottom: 10px solid #f8f8f8;
       button {
         width: 100%;
       }
@@ -358,17 +452,17 @@ export default {
         .per {
           width: 10%;
         }
-        .productName{
-          width:calc(100% - 60px);
+        .productName {
+          width: calc(100% - 60px);
         }
       }
-      &>input {
+      & > input {
         width: calc(100% - 95px);
       }
     }
   }
 }
-.page-box{
-  padding:30px 0;
+.page-box {
+  padding: 30px 0;
 }
 </style>

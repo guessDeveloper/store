@@ -19,7 +19,7 @@
           <span class="sub-title">积分直返消费者</span>
           <router-link class="more" tag="a" to="/shop" target="_blank"> 查看全部 <span class="iconfont iconjiantou"></span></router-link>
           <div class="position-box" >
-          <el-dropdown trigger="click" @command="chengeCity">
+          <el-dropdown trigger="click" @command="chengeCity" class="select">
             <span class="el-dropdown-link box">
               <span class="iconfont iconweizhixuanze"></span>  {{nowCity}}<span class="icon-arrow-down"></span>
             </span>
@@ -299,6 +299,9 @@ export default {
         line-height: 26px;
         border-radius: 26px;
         background:@body_color;
+        .select{
+          height:100%;
+        }
         .iconweizhixuanze{
           position:absolute;
           left:5px;
@@ -343,6 +346,9 @@ export default {
         top:18/@p;
         height:18/@p;
       }
+       .position-box{
+         margin-top:16/@p!important;
+       }
      .title-box{
        height:58/@p;
        line-height: 58/@p;
@@ -356,9 +362,9 @@ export default {
       //  .position-box{
       //    display: none;
       //  }
-       .more{
-         display: none;
-       }
+      //  .more{
+      //    display: none;
+      //  }
      }
     }
     //商家推荐
@@ -432,6 +438,7 @@ export default {
                line-height: 10px;
               margin-bottom:10px;
               margin-top:30px;
+              .overTextOne();
              }
              .store-percent{
                font-size:12px;

@@ -111,16 +111,26 @@ export default {
   mounted(){
     beforeUrl = this.$util.beforeUrl;
     this.getClass();
+    this.rate = this.storeInfo.ReturnPercent;
   },
   computed:{
     ...mapState([
-      'ScoreRate'
+      'ScoreRate',
+      'storeInfo'
     ]),
     backScore(){
       if(this.price!==''&&this.rate!==''){
        return this.price*this.rate/100*this.ScoreRate
       }else{
         return '自动计算用户返积分数量'
+      }
+    }
+  },
+  watch: {
+    storeInfo: {
+      deep: true,
+      handler: function (newVal, oldVal) {
+        this.rate = newVal.ReturnPercent
       }
     }
   },

@@ -266,12 +266,12 @@
             </div>
             <div class="table-box">
                   <el-table :data="unlineData"  header-row-style="font-size:12px;color:#999;" row-class-name="table-line" width="930" class="table-big">
-                    <el-table-column property="img" label="产品图片" width="50" align="left">
+                    <!-- <el-table-column property="img" label="产品图片" width="50" align="left">
                          <template slot-scope="scope">
                             <img :src="scope.row.Phtoto" alt="" class="product-img">
                         </template>
-                    </el-table-column>
-                    <el-table-column property="OrderNumber" label="订单号" width="160" align="center">
+                    </el-table-column> -->
+                    <el-table-column property="OrderNumber" label="订单号" width="210" align="left">
                          <template slot-scope="scope">
                            <div class="order-name">{{scope.row.OrderNumber}}</div>
                         </template>
@@ -294,9 +294,9 @@
                 <div class="table-small-box">
                     <div class="item" v-for="(item,index) in unlineData" :key="index">
                         <div class="des">
-                            <div class="item-img-wrap">
+                            <!-- <div class="item-img-wrap">
                                 <img :src="item.Phtoto" alt="" class="item-img">
-                            </div>
+                            </div> -->
                             <div>
                                 <div class="name">{{item.MerchantName}}</div>
                                 <div class="item-name">

@@ -2,11 +2,14 @@
   <div class="home">
     <navBar></navBar>
     <navBottom></navBottom>
+    
     <keep-alive>
       <router-view v-if="$route.meta.keepLive"></router-view>
     </keep-alive>
     <router-view v-if="!$route.meta.keepLive"></router-view>
-    <footerBar></footerBar>
+    <div class="footer-box">
+     <footerBar></footerBar>
+    </div>
   </div>
 </template>
 
@@ -33,6 +36,15 @@ export default {
 </script>
 <style lang="less" scoped>
 .home{
+  position: relative;
+  height:100%;
   min-height: 100vh;
+  .footer-box{
+    position: absolute;
+    width:100%;
+    left: 0;
+    bottom:0;
+  }
 }
+
 </style>

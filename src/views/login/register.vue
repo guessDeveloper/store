@@ -239,7 +239,7 @@ export default {
 .input-tip{
   width:380px;
   margin:-10px auto 20px;
-  color:@placeholder_color;
+  color:@password_tip_color;
    @media screen and(max-width:@change_width){
     width:auto;
     margin:-5px 15px 20px;
