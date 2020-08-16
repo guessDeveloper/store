@@ -82,6 +82,8 @@ export default {
   h4{
     font-size:14px;
     line-height: 14px;
+   .overTextOne();
+    cursor: pointer;
   }
   p{
     font-size:12px;
