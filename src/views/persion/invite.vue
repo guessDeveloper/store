@@ -1,7 +1,7 @@
 <template>
   <div class="invite-box" >
     <div class="persion-title">
-      邀请有礼
+      邀请分享
     </div>
     <div class="invite" v-loading="loading">
       <div class="user-link">
@@ -9,6 +9,18 @@
          <!-- <span class="link" id="foo">{{url}}</span> -->
          <input type="text" readonly class="link" v-model="url">
          <button class="copy" :data-clipboard-text="url">复制</button>
+         <div class="erweima-box">
+         <span>我的邀请二维码：</span>
+         <div class="erweima">
+            <div id="qrcode">
+               
+            </div>
+            <div class="hover-box" id="qrcode2">
+              
+            </div>
+         </div>
+         <button class="download">下载分享海报</button>
+         </div>
       </div>
       <div class="invite-list-title">
         邀请记录
@@ -81,7 +93,6 @@ export default {
     const _this = this;
     this.Clipboard = new this.clipboard('.copy');
     this.Clipboard.on('success', function(e) {
-
       _this.$message.success('复制成功')
     e.clearSelection();
     });
@@ -99,6 +110,22 @@ export default {
       this.$http.limitGet(this.$api.UserInviterUrl).then(res=>{
          if(res.data.Code == 1){
            this.url = res.data.Data.Url
+           let qrcode = new QRCode('qrcode', {
+            width: 60,
+            height: 60, // 高度
+            text: res.data.Data.Url, // 二维码内容
+            colorDark : '#000',      //前景色
+            colorLight : '#fff',      //背景色
+            correctLevel : QRCode.CorrectLevel.L     //容错等级 
+           })
+           let qrcode2 = new QRCode('qrcode2', {
+            width: 180,
+            height: 180, // 高度
+            text: res.data.Data.Url, // 二维码内容
+            colorDark : '#000',      //前景色
+            colorLight : '#fff',      //背景色
+            correctLevel : QRCode.CorrectLevel.L     //容错等级 
+           })
          }
       })
     },
@@ -136,7 +163,6 @@ export default {
     height:106px;
     line-height: 106px;
     text-align: left;
-    padding-left:29px;
     border-bottom:1px solid @class_border;
     .iconfont{
       float: left;
@@ -151,7 +177,7 @@ export default {
     }
     .link{
       display: inline-block;
-      width:430px;
+      width:346px;
       height:34px;
       padding:0 10px;
       overflow: hidden;
@@ -166,12 +192,52 @@ export default {
     .copy{
       width:70px;
       height:34px;
-      margin-left:30px;
+      margin-left:20px;
+      margin-right: ;
       color:@main;
       font-size:12px;
       border:1px solid @main;
       border-radius: 34px;
     }
+    //二维码
+    .erweima-box{
+      float: right;
+      height:106px;
+      line-height: 106px;
+
+      .erweima{
+        position: relative;
+        display: inline-block;
+        vertical-align: middle;
+        margin:0 20px 0 15px;
+        &:hover{
+          .hover-box{
+            display: block;
+          }
+        }
+        .hover-box{
+          display: none;
+          position: absolute;
+          top:81px;
+          left:-70px;
+          width:180px;
+          height:180px;
+          padding:10px;
+          background:#fff;
+         box-shadow:0px 2px 10px 0px rgba(0,0,0,0.2);
+        }
+      }
+      .download{
+        display: inline-block;
+        width:100px;
+        height:34px;
+        color:@main;
+        font-size:12px;
+        border:1px solid @main;
+        border-radius: 34px;
+      }
+    }
+
   }
   .invite-list-title{
     padding:40px 0 30px 0;

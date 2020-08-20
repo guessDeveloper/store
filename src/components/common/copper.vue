@@ -60,7 +60,7 @@ export default {
         autoCrop: true, // 是否默认生成截图框
         autoCropWidth: 120, // 默认生成截图框宽度
         autoCropHeight: 120, // 默认生成截图框高度
-        fixedBox: true, // 固定截图框大小 不允许改变
+        fixedBox: false, // 固定截图框大小 不允许改变
         fixed: true, // 是否开启截图框宽高固定比例
         fixedNumber: [1, 1], // 截图框的宽高比例
         canMove: true, // 上传图片是否可以移动
@@ -88,7 +88,7 @@ export default {
     //剪裁
     finish() {
       this.$refs.cropper.getCropData((data) => {
-        console.log(this.dataURLtoFile(data,'jpg'))
+         this.$emit('finish',this.dataURLtoFile(data,'jpg'))
       })
     },
     dataURLtoFile(dataurl, filename) {

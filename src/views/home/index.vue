@@ -348,6 +348,7 @@ export default {
       }
        .position-box{
          margin-top:16/@p!important;
+         margin-right:10/@p!important;
        }
      .title-box{
        height:58/@p;

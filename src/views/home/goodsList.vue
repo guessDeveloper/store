@@ -22,6 +22,16 @@
                     :total="total">
                 </el-pagination>
             </div>
+              <div class="page-box small">
+                <el-pagination
+                    small
+                    @current-change="getList"
+                    :current-page.sync="pageIndex"
+                    :page-size="pageSize"
+                    layout="prev, pager, next"
+                    :total="total">
+                </el-pagination>
+          </div>
         </div>
       </div>
   </div>

@@ -75,6 +75,7 @@
           >
             <el-upload
               class="avatar-uploader"
+              ref="uploader"
               :on-change="changeUpload"
               :auto-upload="false"
               :action="uploadImgUrl()"
@@ -134,6 +135,7 @@
     <copper
       ref="copperComment"
       :imgUrl="copperImgUrl"
+      @finish="sendImg"
     ></copper>
   </div>
 </template>
@@ -201,6 +203,7 @@ export default {
         },],
       //图片剪裁
       copperImgUrl: '',
+
     }
   },
   mounted() {
@@ -314,6 +317,17 @@ export default {
     //过滤emoji标签
     userInput() {
       this.name = this.name.replace(/[^\a-\z\A-\Z0-9\u4E00-\u9FA5\_]/g, "")
+    },
+    //上传图片
+    sendImg(file){
+      let fileObj = file// 相当于input里取得的files
+      let fd = new FormData()// FormData 对象
+      fd.append('FileContent', fileObj)// 文件对象
+      this.$http.post(this.uploadImgUrl(),{FileContent:file}).then(res=>{
+        if(res.data.Code == 1){
+           
+        }
+      })
     },
     //修改信息
     changeMsg() {
