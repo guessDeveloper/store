@@ -77,13 +77,12 @@
               class="avatar-uploader"
               ref="uploader"
               :on-change="changeUpload"
-              :auto-upload="false"
+              :auto-upload="true"
               :action="uploadImgUrl()"
               :on-preview="handlePreview"
               :on-remove="logoRemove"
               :on-success="logoSuccess"
               accept=".jpg,.png,.jpeg"
-              :show-file-list="false"
               :beforeUpload="beforeLogoUpload"
               name="FileContent"
             >
@@ -132,11 +131,11 @@
       </div>
     </el-dialog>
     <!-- 图片裁剪 -->
-    <copper
+    <!-- <copper
       ref="copperComment"
       :imgUrl="copperImgUrl"
       @finish="sendImg"
-    ></copper>
+    ></copper> -->
   </div>
 </template>
 <script>
@@ -267,11 +266,11 @@ export default {
       // this.fileinfo = file
 
       // 上传成功后将图片地址赋值给裁剪框显示图片
-      this.$nextTick(() => {
-        console.log(URL.createObjectURL(file.raw))
-        this.copperImgUrl = URL.createObjectURL(file.raw)
-        this.$refs.copperComment.showCopper();
-      })
+      // this.$nextTick(() => {
+      //   console.log(URL.createObjectURL(file.raw))
+      //   this.copperImgUrl = URL.createObjectURL(file.raw)
+      //   this.$refs.copperComment.showCopper();
+      // })
     },
     beforeLogoUpload(file) {
       var testmsg = file.name.substring(file.name.lastIndexOf('.') + 1)

@@ -9,7 +9,7 @@
          <!-- <span class="link" id="foo">{{url}}</span> -->
          <input type="text" readonly class="link" v-model="url">
          <button class="copy" :data-clipboard-text="url">复制</button>
-         <div class="erweima-box">
+         <!-- <div class="erweima-box">
          <span>我的邀请二维码：</span>
          <div class="erweima">
             <div id="qrcode">
@@ -20,7 +20,7 @@
             </div>
          </div>
          <button class="download">下载分享海报</button>
-         </div>
+         </div> -->
       </div>
       <div class="invite-list-title">
         邀请记录
