@@ -21,7 +21,7 @@
           <div class="position-box" >
           <el-dropdown trigger="click" @command="chengeCity" class="select">
             <span class="el-dropdown-link box">
-              <span class="iconfont iconweizhixuanze"></span>  {{nowCity}}<span class="icon-arrow-down"></span>
+              <span class="iconfont iconweizhixuanze"></span><span class="middle-name">{{nowCity}}</span><span class="icon-arrow-down"></span>
             </span>
             <el-dropdown-menu slot="dropdown" >
               <el-dropdown-item  v-for="(item, index) in cityList" :key="index" :command="item">{{item.CityName}}</el-dropdown-item>
@@ -291,7 +291,7 @@ export default {
       }
       .position-box{
         float:right;
-        width:80px;
+        width:110px;
         height:26px;
         font-size:12px;
         margin-top:20px;
@@ -302,6 +302,12 @@ export default {
         .select{
           height:100%;
         }
+        .middle-name{
+          display: inline-block;
+          width: 50px;
+          padding:0 20px;
+          .overTextOne()
+        }
         .iconweizhixuanze{
           position:absolute;
           left:5px;
@@ -311,7 +317,7 @@ export default {
         .box{
           display: block;
           position: relative;
-          width:80px;
+          width:110px;
           text-align: center;
           outline: none;
           font-size:12px;

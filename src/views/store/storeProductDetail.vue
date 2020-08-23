@@ -88,7 +88,9 @@
        </div>
        <div class="input-line-box input-line-box-shelf">
          <label>奖励比例：</label>
-         <div class="input-box">{{rate}}%</div>
+         <!-- <div class="input-box">{{rate}}%</div> -->
+          <input type="text" maxlength="2" v-model.trim="rate" placeholder="请输入1至60的整数" @input="inputNumRate">
+          <span class="percent">%</span>
        </div>
         <div class="input-line-box input-line-box-shelf">
            <label for="">返积分数量：</label><div class="input-box">{{backScore}}<span class="tip"></span> </div>
@@ -168,6 +170,10 @@ export default {
     //输入小数
     inputNum(){
      this.price = this.price.replace(/[^\d^\.]+/g,'')
+    },
+     //输入整数
+    inputNumRate(){
+      this.rate = this.rate.replace(/[^\d]+/g,'');
     },
     //获取产品详情
     getDetail(){

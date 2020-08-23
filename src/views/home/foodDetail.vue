@@ -311,6 +311,9 @@ export default {
     .detail-right{
       width:100%;
       padding:0 15px 30px;
+      .des{
+        width:calc(100% - 83px);
+      }
       .goods-box{
         margin-top:20px;
         margin-bottom:20px;

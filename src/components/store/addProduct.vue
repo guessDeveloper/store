@@ -66,7 +66,7 @@
     </div>
      <div class="input-line-box">
           <label for="">奖励比例：</label>
-          <input type="text" maxlength="2" v-model.trim="rate" placeholder="请输入1至60的整数">
+          <input type="text" maxlength="2" v-model.trim="rate" placeholder="请输入1至60的整数" @input="inputNumRate">
           <span class="percent">%</span>
     </div>
      <div class="input-line-box input-line-box-integral">
@@ -146,6 +146,10 @@ export default {
     //输入小数
     inputNum(){
      this.price = this.price.replace(/[^\d\.]+/g,'')
+    },
+    //输入整数
+    inputNumRate(){
+      this.rate = this.rate.replace(/[^\d]+/g,'');
     },
     //分类选择
     selelction(data){

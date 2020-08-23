@@ -328,6 +328,15 @@ export default {
      right:16px!important;
    }
 }
+//多选框
+.el-checkbox__input.is-checked+.el-checkbox__label{
+  color:#666!important;
+}
+//下拉菜单
+.el-dropdown-menu{
+  max-height: 500px;
+  overflow: scroll;
+}
 //page-box
  .page-box{
     text-align: center;

@@ -12,10 +12,18 @@
               </div>
               <div class="input-box">
                 <span class="iconfont iconmima"></span><input :type="passwordType" placeholder="密码" v-model.trim="password">
-                <div class="show-icon" @click="showPass">显示密码</div>
+                <div class="show-icon" @click="showPass">
+                  <div class="icon iconfont iconyanjingk" v-show="isShowPass"></div>
+                  <div class="icon iconfont" v-show="!isShowPass">
+                    <img src="../../assets/img/icon-passClose.png" alt="">
+                  </div>
+                </div>
               </div>
               <div class="input-box" v-if="needCode == 'true'">
                  <span class="iconfont icondxyzm" ></span><input type="text" placeholder="输入短信验证码" v-model.trim="msgCode" maxlength="6"><button class="msg-btn" @click="getMsgCode">{{codeBtn}}</button>
+              </div>
+              <div class="input-check-box">
+                <el-checkbox v-model="checked" class="check-box" >保持登录状态</el-checkbox>
               </div>
               <button class="btn login-btn" @click="login" :disabled="loginBtnLock">登录</button>
               <div class="other">
@@ -32,6 +40,7 @@
 <script>
 import { mapState} from 'vuex' //注册 action 和 state
 import navBar from '@/components/login/login-nav'
+import '../../plugins/element-checkbox.js'
 import footerBar from '@/components/common/footer'
 export default {
   data(){
@@ -47,6 +56,16 @@ export default {
       codeBtn:'获取验证码',
       loginBtnLock:false,
       passwordType:'password',
+      isShowPass:false,
+      checked:false
+    }
+  },
+  mounted(){
+    if(this.$util.getCookie('userPassword')){
+      let userData = JSON.parse(this.$util.getCookie('userPassword'))
+      this.userName = userData.userName
+      this.password = userData.userPassword
+      this.checked = true
     }
   },
   components:{
@@ -64,6 +83,12 @@ export default {
         this.userName = ''
         this.password = ''
         this.needCode = false
+        if(this.$util.getCookie('userPassword')){
+          let userData = JSON.parse(this.$util.getCookie('userPassword'))
+          this.userName = userData.userName
+          this.password = userData.userPassword
+          this.checked = true
+        }
     },
     login(){
       if(this.checkLogin()){
@@ -171,6 +196,7 @@ export default {
       }).then(res=>{
         if(res.data.Code == 1){
           localStorage.setItem('token',res.data.Data)
+          this.savePass();
           this.$router.push('/persion')
         }else{
           this.isLoginCode();
@@ -192,11 +218,13 @@ export default {
       }).then(res=>{
         if(res.data.Code == 1){
           localStorage.setItem('storeToken',res.data.Data)
+          this.savePass();
           this.$router.push('/store')
+         
         }else if(res.data.Code == 4){
           localStorage.setItem('storeToken',res.data.Data)
+          this.savePass();
           this.$router.push('/store')
-          this.$message.error(res.data.Msg)
         }else{
            this.isLoginCode();
           this.$message.error(res.data.Msg)
@@ -213,10 +241,27 @@ export default {
     showPass(){
       if(this.passwordType == 'password'){
         this.passwordType = 'text';
+        this.isShowPass = true
       }else{
         this.passwordType = 'password'
+        this.isShowPass = false
       }
       
+    },
+    //保存登录账号
+    savePass(){
+      if(this.checked == true){
+        let userData = {
+          userName:this.userName,
+          userPassword:this.password
+        }
+        this.$util.setCookie('userPassword',JSON.stringify(userData),7);
+      }else{
+         this.$util.setCookie('userPassword','',-1);
+      }
+    },
+    changeSave(){
+
     }
   }
 }
@@ -277,6 +322,7 @@ export default {
     height: auto;
     .middle{
       width:100%;
+     overflow: hidden;
       .login-box{
         width:auto;
         float: none;
@@ -301,6 +347,9 @@ export default {
       }
     }
   }
+}
+.input-check-box{
+  text-align: left;
 }
 .input-box{
   position: relative;
@@ -330,10 +379,25 @@ export default {
   .show-icon{
     position: absolute;
     top:0;
-    right:0;
+    left:auto;
+    right:20px;
+    width:16px;
     height:100%;
     line-height: 50px;
+    font-size:10px;
+    color:@main;
     cursor: pointer;
+    .icon{
+      position: static;
+      display: block;
+      color:@main;
+      line-height: 50px;
+      vertical-align: middle;
+      font-size:10px;
+      &.iconyanjingg{
+
+      }
+    }
   }
   input{
     display: block;

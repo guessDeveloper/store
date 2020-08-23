@@ -3,6 +3,7 @@
      <div class="title">
         <h4>{{data.titleA}}</h4>
         <p>{{data.titleB}}</p>
+        <div class="more" @click="more">查看更多<span class="iconfont iconjiantou"></span></div>
      </div>
      <ul class="card-list">
        <li v-for="(item) in data.proList" :key="item.ID"><Card :data="item"></Card></li>
@@ -24,6 +25,16 @@ export default {
    },
    components:{
      Card:Card
+   },
+   methods:{
+     more(){
+       if(this.data.proList[0].type == '2'){
+         this.$router.push(`/taobaoList?classId=${this.data.catid}&className=${this.data.titleA}`)
+       }else{
+        this.$router.push(`/pddList?classId=${this.data.catid}&className=${this.data.titleA}`)
+       }
+       
+     }
    }
 }
 
@@ -35,6 +46,7 @@ export default {
   background:#fff;
   text-align: center;
   .title{
+    position: relative;
     h4{
       font-size:28px;
       line-height:28px;
@@ -44,6 +56,17 @@ export default {
       font-size: 12px;
       line-height: 12px;
       color:@subtitle_color;
+    }
+    .more{
+      position: absolute;
+      top:40px;
+      right:30px;
+      font-size:12px;
+      color:@font_color;
+      cursor: pointer;
+      .iconfont{
+        font-size: 10px;
+      }
     }
   }
 }
@@ -62,6 +85,8 @@ export default {
      width:100%;
      margin:0 auto 10/@p;
      .title{
+       text-align: left;
+       padding-left:15px;
        h4{
          font-size:20/@p;
          line-height: 20/@p;
@@ -69,6 +94,10 @@ export default {
        }
        p{
          font-size:;
+       }
+       .more{
+         top:24/@p;
+         right:15/@p;
        }
      }
    }
