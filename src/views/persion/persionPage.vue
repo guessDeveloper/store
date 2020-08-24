@@ -20,7 +20,7 @@
                 <div class="num">{{UserIntegral?UserIntegral:'0'}}</div>
               </div>
                 <div class="three item">
-                <div class="name">累计使用积分</div>
+                <div class="name">累计兑换积分</div>
                 <div class="num">{{UserIntegralUsed?UserIntegralUsed:'0'}}</div>
               </div>
            </div>

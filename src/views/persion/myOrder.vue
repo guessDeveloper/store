@@ -151,14 +151,17 @@
                                 <div class="item-name">
                                     订单类型：<span class="item-value">{{item.OrderType}}</span>
                                 </div>
+                                <div class="item-name">
+                                    状态：<span class="item-value">{{item.state}}</span>
+                                </div>
                                 <div class="item-name">消费金额(元)：<span class="item-value">{{item.money}}</span>
 
                                 </div>
                                 <div class="item-name">奖励积分：<span class="item-value">{{item.fanli}}</span></div>
                             </div>
-                            <div class="order-status-wrap">
+                            <!-- <div class="order-status-wrap">
                                 <div class="order-status-name">状态：<span>{{item.state}}</span></div>
-                            </div>
+                            </div> -->
                         </div>
                         <div class="btn-detail" @click="goDetail(item.OrderNumber)">查看详情</div>
                     </div>
@@ -302,14 +305,16 @@
                                 <div class="item-name">
                                     消费日期：<span class="item-value">{{item.CreationTime}}</span>
                                 </div>
-                        
+                                <div class="item-name">
+                                    状态：<span class="item-value">{{item.state}}</span>
+                                </div>
                                 <div class="item-name">消费金额(元)：<span class="item-value">{{item.Money}}</span>
 
                                 </div>
                             </div>
-                            <div class="order-status-wrap">
+                            <!-- <div class="order-status-wrap">
                                 <div class="order-status-name">状态：<span>{{item.state}}</span></div>
-                            </div>
+                            </div> -->
                         </div>
                         <div class="btn-detail-box">
                            <div class="btn-detail"  @click="unlineDetail(item.OrderNumber)">查看详情</div>
