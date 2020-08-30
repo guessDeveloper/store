@@ -6,11 +6,11 @@ Axios.defaults.withCredentials = true;
 const baseUrl = process.env.NODE_ENV === 'production' ? 'https://api.youledui.com/' : '/Sev'
 // const baseUrl = process.env.NODE_ENV === 'production' ? 'https://api1.youledui.com/' : '/Sev'
 const baseData = {
-        // timestamp: parseInt((+new Date()) / 1000),
-        // platform: '3',
-        // channel: 'jiankang_toutiao'
-    }
-    // 设置拦截
+    // timestamp: parseInt((+new Date()) / 1000),
+    // platform: '3',
+    // channel: 'jiankang_toutiao'
+}
+// 设置拦截
 const instance = Axios.create({
     headers: {
         'content-type': 'application/x-www-form-urlencoded',
@@ -40,7 +40,7 @@ instance.interceptors.response.use(
                     // 返回 401 清除token信息并跳转到登录页面
                     store.commit('isLogin', false)
 
-                    // location.reload()
+                // location.reload()
             }
         }
         return Promise.reject(error.response.data) // 返回接口返回的错误信息
@@ -56,49 +56,49 @@ newInstance.interceptors.response.use(
                     // 返回 401 清除token信息并跳转到登录页面
                     store.commit('isLogin', false)
                     router.replace({
-                            path: '/login'
-                        })
-                        // location.reload()
+                        path: '/login'
+                    })
+                // location.reload()
             }
         }
         return Promise.reject(error.response.data) // 返回接口返回的错误信息
     })
 storeInstance.interceptors.response.use(
-        response => {
-            return response
-        },
-        error => {
-            if (error.response) {
-                switch (error.response.status) {
-                    case 401:
-                        // 返回 401 清除token信息并跳转到登录页面
-                        store.commit('isLogin', false)
-                        router.replace({
-                                path: '/login'
-                            })
-                            // location.reload()
-                }
+    response => {
+        return response
+    },
+    error => {
+        if (error.response) {
+            switch (error.response.status) {
+                case 401:
+                    // 返回 401 清除token信息并跳转到登录页面
+                    store.commit('isLogin', false)
+                    router.replace({
+                        path: '/login'
+                    })
+                // location.reload()
             }
-            return Promise.reject(error.response.data) // 返回接口返回的错误信息
-        })
-    // 请求拦截
-    // instance.interceptors.request.use(
-    //     config => {
-    //       const token = sessionStorage.getItem('token')
-    //       if (token ) { // 判断是否存在token，如果存在的话，则每个http header都加上token
-    //         config.headers.authorization = token  //请求头加上token
-    //       }
-    //       return config
-    //     },
-    //     err => {
-    //       return Promise.reject(err)
-    //     })
-    // instance.interceptors.response.use(
-    //     response => {
-    //         // 拦截响应，做统一处理
-    //         if (response.data.code) {
-    //             // switch (response.data.code) {
-    //             //     case 1002:
+        }
+        return Promise.reject(error.response.data) // 返回接口返回的错误信息
+    })
+// 请求拦截
+// instance.interceptors.request.use(
+//     config => {
+//       const token = sessionStorage.getItem('token')
+//       if (token ) { // 判断是否存在token，如果存在的话，则每个http header都加上token
+//         config.headers.authorization = token  //请求头加上token
+//       }
+//       return config
+//     },
+//     err => {
+//       return Promise.reject(err)
+//     })
+// instance.interceptors.response.use(
+//     response => {
+//         // 拦截响应，做统一处理
+//         if (response.data.code) {
+//             // switch (response.data.code) {
+//             //     case 1002:
 
 //             // }
 //             if (response.data.code == 1) {

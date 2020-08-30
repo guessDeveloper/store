@@ -17,7 +17,7 @@
       <div class="title-box">
         <h2 class="title">商家联盟</h2>
         <span class="sub-title">积分直返消费者</span>
-        <router-link class="more" tag="a" to="/shop" target="_blank"> 查看全部 <span class="iconfont iconjiantou"></span></router-link>
+        <router-link class="more" tag="a" to="/storeList" target="_blank"> 查看全部 <span class="iconfont iconjiantou"></span></router-link>
         <div class="position-box">
           <el-dropdown trigger="click" @command="chengeCity" class="select">
             <span class="el-dropdown-link box">
@@ -526,6 +526,7 @@ export default {
       width: 100%;
       overflow: hidden;
       .goods {
+        display: block;
         width: 100%;
         overflow: hidden;
       }
@@ -535,8 +536,18 @@ export default {
           height: 250 / @p;
         }
         .goods {
-          width: 165 * 4 / @p;
+          display: -webkit-box;
+          flex: 1;
+          // width: 165 * 20 / @p;
           height: 234 / @p;
+          overflow: scroll;
+          &::-webkit-scrollbar {
+            display: none;
+          }
+          a {
+            display: block;
+            float: none;
+          }
         }
       }
     }

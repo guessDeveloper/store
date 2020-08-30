@@ -1,6 +1,6 @@
 export default {
     //全局配置
-    GetWebconfig:'/api/Webconfig/GetWebconfig',
+    GetWebconfig: '/api/Webconfig/GetWebconfig',
     //搜索
     GetGoodsByKey: '/api/Taobao/GetGoodsByKey', // 搜索淘宝
     GJKeyWordSearch: "/api/shopping/GJKeyWordSearch", //逛街购物搜索
@@ -81,6 +81,7 @@ export default {
     GetVerificationNum: '/api/User/GetVerificationNum', //获取用户二维码
     UserIntegralRecordInfo: '/api/User/UserIntegralRecordInfo', //获取用户的积分
     UserInviterUrl: '/api/User/UserInviterUrl', // 获取邀请链接
+    CreateUserQRCode: '/api/User/GetVerificationNum',//生成二维码
     UserMessageList: '/api/User/UserMessageList', //获取消息列表
     UserInviterList: '/api/User/UserInviterList', //邀请列表
     IntegralExchange: '/api/User/IntegralExchange', //积分兑换
@@ -101,7 +102,7 @@ export default {
     CollectionConfirmation: '/api/User/CollectionConfirmation', //取消订单
     AddComment: '/api/User/AddComment', //评价
     LoginOut: '/api/LoginRegister/LoginOut', //退出登录
-    submitOrder:'/api/User/submitOrder',//提交订单
+    submitOrder: '/api/User/submitOrder',//提交订单
     //商家中心
     MerchanterMerchanter: '/api/Merchant/MerchanterMerchanter', //获取商家信息
     MerchanterLoginOut: '/api/LoginRegister/MerchanterLoginOut', //退出登录
@@ -136,7 +137,7 @@ export default {
     UpOrDownProduct: '/api/Merchant/UpOrDownProduct', //上下架商品
     ShowProduct: '/api/Merchant/ShowProduct', //获取产品详情
     EditProduct: '/api/Merchant/EditProduct', //编辑产品详情
-    deleteProduct:'/api/Merchant/deleteProduct',//删除产品
+    deleteProduct: '/api/Merchant/deleteProduct',//删除产品
     MerchantIntegr: '/api/Merchant/MerchantIntegr', //获取商家剩余积分
     MerchantIntegral: '/api/Merchant/MerchantIntegral', //获取商家充值总数
     RmbExchangeRate: '/api/Merchant/RmbExchangeRate', //获取积分汇率
