@@ -26,8 +26,8 @@
         </div>
 
       </div>
-      <div class="set">
-        <!-- <span class="iconfont iconzhushi"></span> 请完善您的信息：您的手机号尚未绑定！<a href="">立即设置</a> -->
+      <div class="set" v-show="activityTipShow">
+        <span class="iconfont iconzhushi"></span> {{activityTip}}<a href="">了解详情</a>
       </div>
       <div class="small-nav-list">
         <div class="margin"></div>
@@ -47,7 +47,7 @@
         <div class="input-line" style="height:auto;">
           <label for="">头像：</label>
           <div class="input-box" style="border:0;height:auto;">
-            <el-upload class="avatar-uploader" :action="uploadImgUrl()" :on-preview="handlePreview" :on-remove="logoRemove" :on-success="logoSuccess" accept=".jpg,.png,.jpeg" :show-file-list="false" :beforeUpload="beforeLogoUpload" name="FileContent">
+            <el-upload class="avatar-uploader" :action="uploadImgUrl()" :on-preview="handlePreview" :on-remove="logoRemove" :on-success="logoSuccess" accept=".jpg,.png,.jpeg" :show-file-list="false" :on-change="beforeLogoUpload" name="FileContent" ref="upload" :auto-upload="false">
 
               <div v-if="PersionImg" :src="PersionImg" class="avatar" :style="'background-image:url('+PersionImg+');'"></div>
               <i v-else class="el-icon-plus avatar-uploader-icon"></i>
@@ -67,12 +67,14 @@
         </div>
       </div>
     </el-dialog>
+    <copper ref="myCopper" :imgUrl="copperUrl" @finish="copperFinish" :fileName="fileName"></copper>
   </div>
 </template>
 <script>
 // const beforeUrl = 'http://files.youledui.com';
 let beforeUrl = '';
 import '@/plugins/element-upload.js'
+import copper from '@/components/common/copper'
 import { mapState, mapMutations } from 'vuex' //注册 action 和 state
 export default {
   data() {
@@ -129,21 +131,32 @@ export default {
           to: '/helpCenter',
           icon: 'iconbangzhu',
           iconSize: '15px'
-        },]
+        },],
+      copperUrl: '',
+      fileName: '',
+      isUpload: false,
+      isSending: false,
+      activityTipShow: false,
+      activityTip: '',
     }
   },
   mounted() {
     beforeUrl = this.$util.beforeUrl
     this.getUserInfo();
+    this.getActivityMessage();
   },
   computed: {
     ...mapState([
       'userInfo'
     ])
   },
+  components: {
+    copper: copper
+  },
   methods: {
     ...mapMutations([
-      'setUserInfo'
+      'setUserInfo',
+      'setLogin',
     ]),
     //获取用户登录信息
     getUserInfo() {
@@ -167,32 +180,33 @@ export default {
     uploadImgUrl() {
       return process.env.NODE_ENV === 'production' ? 'https://files.youledui.com/create?dir=image' : '/up/create?dir=image'
     },
-    beforeLogoUpload(file) {
-      var testmsg = file.name.substring(file.name.lastIndexOf('.') + 1)
-      const extension = testmsg === 'jpg'
-      const extension2 = testmsg === 'png'
-      const extension3 = testmsg === 'jpeg'
-      const isLt2M = file.size / 1024 / 1024 <= 5
-      if (!extension && !extension2 && !extension3) {
-        this.$message({
-          message: '上传文件只能是 jpg,png,jpeg格式!',
-          type: 'error'
-        });
-        return false
-      }
-      if (!isLt2M) {
-        this.$message({
-          message: '上传文件大小不能超过 5MB!',
-          type: 'error'
-        });
-        return false
-      }
-      return extension || extension2 || extension3 && isLt2M
-    },
+    // beforeLogoUpload(file) {
+    //   var testmsg = file.name.substring(file.name.lastIndexOf('.') + 1)
+    //   const extension = testmsg === 'jpg'
+    //   const extension2 = testmsg === 'png'
+    //   const extension3 = testmsg === 'jpeg'
+    //   const isLt2M = file.size / 1024 / 1024 <= 5
+    //   if (!extension && !extension2 && !extension3) {
+    //     this.$message({
+    //       message: '上传文件只能是 jpg,png,jpeg格式!',
+    //       type: 'error'
+    //     });
+    //     return false
+    //   }
+    //   if (!isLt2M) {
+    //     this.$message({
+    //       message: '上传文件大小不能超过 5MB!',
+    //       type: 'error'
+    //     });
+    //     return false
+    //   }
+    //   return extension || extension2 || extension3 && isLt2M
+    // },
     //logo 上传成功
     logoSuccess(file) {
       if (file.Code == 1) {
         this.PersionImg = beforeUrl + file.Data
+        this.$refs.myCopper.hide();
       }
     },
     handlePreview(file) {
@@ -256,6 +270,68 @@ export default {
 
       });
 
+    },
+    //上传剪裁
+    beforeLogoUpload(file) {
+      var testmsg = file.name.substring(file.name.lastIndexOf('.') + 1)
+      const extension = testmsg === 'jpg'
+      const extension2 = testmsg === 'png'
+      const extension3 = testmsg === 'jpeg'
+      const isLt2M = file.size / 1024 / 1024 <= 5
+      if (!extension && !extension2 && !extension3) {
+        this.$message({
+          message: '上传文件只能是 jpg,png,jpeg格式!',
+          type: 'error'
+        });
+        return false
+      }
+      if (!isLt2M) {
+        this.$message({
+          message: '上传文件大小不能超过 5MB!',
+          type: 'error'
+        });
+        return false
+      }
+      // return extension || extension2 || extension3 && isLt2M
+      // 上传成功后将图片地址赋值给裁剪框显示图片
+      this.$nextTick(() => {
+        // if (!this.isUpload) {
+        let _URL = window.URL || window.webkitURL;
+        this.fileName = file.name;
+        console.log(file, 7777)
+        this.copperUrl = _URL.createObjectURL(file.raw)
+        console.log(file, _URL, this.copperUrl)
+        this.$refs.myCopper.showCopper()
+        this.isUpload = !this.isUpload
+        // }
+
+      })
+      // return extension || extension2 || extension3 && isLt2M
+      return false
+    },
+    //裁剪完成
+    copperFinish(file) {
+      if (this.isSending) { return false }
+      this.isSending = true;
+      this.$http.limitOutPost('https://files.youledui.com/CreateBASE64Img', { FileContent: file }).then(res => {
+        console.log(res)
+        if (res.data.Code == 1) {
+          this.PersionImg = beforeUrl + res.data.Data
+          this.$refs.myCopper.hide();
+        }
+        this.isSending = false
+      }).catch(res => {
+        this.isSending = false
+      })
+    },
+    // 获取活动开关
+    getActivityMessage() {
+      this.$http.limitGet(this.$api.ActivityMessage, { token: sessionStorage.getItem('token') }).then(res => {
+        if (res.data.Code == 1) {
+          this.activityTipShow = res.data.Data.ActivityState
+          this.activityTip = res.data.Data.ActivityMessage.LoginMessage
+        }
+      })
     }
   }
 }
@@ -274,8 +350,8 @@ export default {
 }
 .set {
   text-align: left;
-  opacity: 0;
-  height: 0px;
+  opacity: 1;
+  height: 32px;
   border: 1px solid #f38a1d;
   background: rgba(243, 138, 29, 0.1);
   font-size: 12px;
@@ -294,13 +370,14 @@ export default {
     color: @main;
   }
   @media screen and(max-width:@change_width) {
-    margin-top: 55px;
+    margin-top: 0;
+    margin-bottom: 10px;
   }
 }
 .persion-box {
   margin-top: 30px;
   border-bottom: 1px solid @class_border;
-  padding-bottom: 30px;
+  padding-bottom: 80px;
   height: 80px;
   .clear();
   .head-img {

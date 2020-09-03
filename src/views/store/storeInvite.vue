@@ -121,7 +121,7 @@ export default {
   },
   methods: {
     getUrl() {
-      this.$http.limitGet(this.$api.UserInviterUrl).then(res => {
+      this.$http.storeGet(this.$api.MerchantInviterUrl).then(res => {
         if (res.data.Code == 1) {
           this.url = res.data.Data.Url
           // let qrcode = new QRCode('qrcode', {
@@ -146,7 +146,7 @@ export default {
     //获取邀请链接
     getList() {
       this.loading = true
-      this.$http.limitPost(this.$api.UserInviterList, {
+      this.$http.storePost(this.$api.MerchantInviterList, {
         pageIndex: this.pageIndex,
         pageSize: this.pageSize
       }).then(res => {
@@ -162,15 +162,16 @@ export default {
     },
     //获取二维码
     getInviteErweima() {
-      this.$http.limitGet(this.$api.GetVerificationNum).then(res => {
+      this.$http.storeGet(this.$api.GetMerchantinviteVerificationNum).then(res => {
         if (res.data.Code == 1) {
+          console.log('111')
           this.qrcUrl = res.data.Data.QRcodeImagePath
         }
       })
     },
     //获取海报列表
     getPoserList() {
-      this.$http.limitGet(this.$api.GetPosterList).then(res => {
+      this.$http.storeGet(this.$api.GetMerchantPosterList).then(res => {
         if (res.data.Code == 1) {
           this.posterList = res.data.Data
         }

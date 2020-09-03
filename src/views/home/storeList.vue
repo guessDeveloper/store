@@ -5,7 +5,7 @@
       <span class="iconfont iconjiantou"></span>
       <span class="now-nav">商城</span>
     </div>
-    <div class="words-box">
+    <!-- <div class="words-box">
 
       <ul>
         <li :class="{active:sort == ''}" class="all"><span @click="selectWords('')">全部</span></li>
@@ -14,7 +14,7 @@
         </li>
       </ul>
 
-    </div>
+    </div> -->
     <div class="content-list">
       <!-- <div class="list-title">食品材料（54）</div> -->
       <ul>
@@ -68,7 +68,7 @@ export default {
     getList() {
       this.loading = true
       this.$http.post(this.$api.GetMerchaterClass, {
-        sort: this.sort,
+        // sort: this.sort,
         pageIndex: this.pageIndex,
         pageSize: this.pageSize
       }).then(res => {

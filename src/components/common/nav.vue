@@ -3,7 +3,14 @@
     <div class="nav-box clear">
       <div class="tip">
         <span class="iconfont iconguangbo"></span>
-        <span class="msg" v-for="(item,index) in tip" :key="index" :class="{active:tipActive == index}">{{item.Message}}</span>
+        <!-- <span class="msg" v-for="(item,index) in tip" :key="index" :class="{active:tipActive == index}">{{item.Message}}</span> -->
+        <div class="phone-msg-big-box" id="msgBigBox">
+          <div class="phone-msg-box" id="msgBox">
+            <span class="msg-item" v-for="(item,index) in tip" :key="index">
+              {{item.Message}}
+            </span>
+          </div>
+        </div>
       </div>
       <div class="nav-right help-nav-top">
         <!-- <a class="iconfont iconyd_saoyisao login-btn"></a> -->
@@ -36,7 +43,8 @@ export default {
       tipActive: 0,
       timer: '',
       userName: '',
-      isHelp: false
+      isHelp: false,
+      speed: 1,
     }
   },
   computed: {
@@ -63,21 +71,43 @@ export default {
       'setUserInfo'
     ]),
     loop() {
-      clearInterval(this.timer);
-      this.timer = setInterval(() => {
-        this.tipActive++;
+      // clearInterval(this.timer);
+      // this.timer = setInterval(() => {
+      //   this.tipActive++;
 
-        if (this.tipActive > this.tip.length - 1) {
-          this.tipActive = 0;
-        }
-      }, 4000)
+      //   if (this.tipActive > this.tip.length - 1) {
+      //     this.tipActive = 0;
+      //   }
+      // }, 4000)
+      let box = document.querySelector('#msgBox');
+      let big = document.querySelector('#msgBigBox').clientWidth;
+      let offsetLeft = box.offsetLeft;
+      // console.log(offsetLeft, '77777')
+      document.querySelector('#msgBox').style.marginLeft = (offsetLeft - this.speed) + 'px'
+      if (-offsetLeft > box.clientWidth) {
+        document.querySelector('#msgBox').style.marginLeft = big + 'px'
+      }
+      window.requestAnimationFrame(this.loop)
     },
     //获取公告
     getMessage() {
       this.$http.get(this.$api.GetWebMessage).then(res => {
         if (res.data.Code == 1) {
           this.tip = res.data.Data;
-          this.loop();
+          setTimeout(() => {
+            this.$nextTick(() => {
+              let arry = document.querySelectorAll('.msg-item');
+              console.log(arry)
+              let width = 0;
+              arry.forEach(Element => {
+                width = width + Element.clientWidth
+              })
+              document.querySelector('#msgBox').style.width = width + 'px'
+              document.querySelector('#msgBox').style.marginLeft = 0 + 'px'
+              window.requestAnimationFrame(this.loop)
+            })
+          }, 2000)
+
         }
       })
     },
@@ -218,6 +248,19 @@ export default {
           animation: msgMove 0.5s ease forwards;
         }
       }
+      .phone-msg-big-box {
+        display: block;
+        width: 500px;
+        position: relative;
+        overflow: hidden;
+        .phone-msg-box {
+          .msg-item {
+            display: inline-block;
+            min-width: 500px;
+            padding: 0 10px;
+          }
+        }
+      }
     }
     .login {
       display: none;
@@ -261,6 +304,16 @@ export default {
 .logined {
   display: none;
 }
+@keyframes rowup {
+  0% {
+    -webkit-transform: translate3d(0, 0, 0);
+    transform: translate3d(0, 0, 0);
+  }
+  100% {
+    -webkit-transform: translate3d(-100%, 0px, 0);
+    transform: translate3d(-100%, 0px, 0);
+  }
+}
 @media screen and(max-width:@change_width) {
   .nav {
     width: 100%;
@@ -277,8 +330,20 @@ export default {
         line-height: 40 / @p;
         color: @subtitle_color;
         .msg {
+          display: none;
           width: 170 / @p;
           height: 40 / @p;
+        }
+        .phone-msg-big-box {
+          display: block;
+          position: relative;
+          overflow: hidden;
+        }
+        .phone-msg-box {
+          .msg-item {
+            display: inline-block;
+            min-width: 100vh;
+          }
         }
       }
       .nav-right {

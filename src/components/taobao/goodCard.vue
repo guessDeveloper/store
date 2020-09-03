@@ -1,5 +1,5 @@
 <template>
-  <a class="card-box" :href="data.ClickURL">
+  <a class="card-box" :href="data.ClickURL" target="_blanck">
     <div class="img-box">
       <img src="../../assets/img/1-1.jpg" alt="" class="hidden-img">
       <!-- <img :src="data.picurl" alt=""  class="show-img"> -->

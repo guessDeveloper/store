@@ -1,48 +1,14 @@
 <template>
   <div>
-    <el-dialog
-      :visible.sync="isShow"
-      append-to-body
-      custom-class="custom-dialog"
-    >
+    <el-dialog :visible.sync="isShow" append-to-body custom-class="custom-dialog">
       <div class="cropper-content">
-        <div
-          class="cropper"
-          style="text-align:center"
-        >
-          <vueCropper
-            ref="cropper"
-            :img="imgUrl"
-            :outputSize="option.size"
-            :outputType="option.outputType"
-            :info="true"
-            :canScale="option.canScale"
-            :autoCrop="option.autoCrop"
-            :autoCropWidth="option.autoCropWidth"
-            :autoCropHeight="option.autoCropHeight"
-            :fixedBox="option.fixedBox"
-            :fixed="option.fixed"
-            :fixedNumber="option.fixedNumber"
-            :canMove="option.canMove"
-            :canMoveBox="option.canMoveBox"
-            :original="option.original"
-            :centerBox="option.centerBox"
-            :infoTrue="option.infoTrue"
-            :full="option.full"
-            :enlarge="option.enlarge"
-            :mode="option.mode"
-          ></vueCropper>
+        <div class="cropper" style="text-align:center">
+          <vueCropper ref="cropper" :img="imgUrl" :outputSize="option.size" :outputType="option.outputType" :info="true" :canScale="option.canScale" :autoCrop="option.autoCrop" :autoCropWidth="option.autoCropWidth" :autoCropHeight="option.autoCropHeight" :fixedBox="option.fixedBox" :fixed="option.fixed" :fixedNumber="option.fixedNumber" :canMove="option.canMove" :canMoveBox="option.canMoveBox" :original="option.original" :centerBox="option.centerBox" :infoTrue="option.infoTrue" :full="option.full" :enlarge="option.enlarge" :mode="option.mode"></vueCropper>
         </div>
       </div>
       <div class="btn-box">
-        <button
-          class="ok"
-          @click="finish"
-        >确认</button>
-        <button
-          class="no"
-          @click="isShow = false"
-        >取消</button>
+        <button class="ok" @click="finish">确认</button>
+        <button class="no" @click="isShow = false">取消</button>
       </div>
     </el-dialog>
   </div>
@@ -78,6 +44,9 @@ export default {
   props: {
     imgUrl: {
 
+    },
+    fileName: {
+
     }
   },
   methods: {
@@ -88,7 +57,8 @@ export default {
     //剪裁
     finish() {
       this.$refs.cropper.getCropData((data) => {
-         this.$emit('finish',this.dataURLtoFile(data,'jpg'))
+        // this.$emit('finish', this.dataURLtoFile(data, this.fileName))
+        this.$emit('finish', data)
       })
     },
     dataURLtoFile(dataurl, filename) {
@@ -101,6 +71,9 @@ export default {
         u8arr[len] = bstr.charCodeAt(len)
       }
       return new File([u8arr], filename, { type: mime })
+    },
+    hide() {
+      this.isShow = false
     }
   }
 }

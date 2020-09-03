@@ -3,8 +3,8 @@ import qs from 'qs'
 import router from '../../router'
 import store from '../../store/index'
 Axios.defaults.withCredentials = true;
-const baseUrl = process.env.NODE_ENV === 'production' ? 'https://api.youledui.com/' : '/Sev'
-// const baseUrl = process.env.NODE_ENV === 'production' ? 'https://api1.youledui.com/' : '/Sev'
+// const baseUrl = process.env.NODE_ENV === 'production' ? 'https://api.youledui.com/' : '/Sev'
+const baseUrl = process.env.NODE_ENV === 'production' ? 'https://api1.youledui.com/' : '/Sev'
 const baseData = {
     // timestamp: parseInt((+new Date()) / 1000),
     // platform: '3',
@@ -150,6 +150,20 @@ export default {
             }
         })
     },
+    limitOutPost(url, parame) {
+        console.log(parame)
+        return Axios({
+            url: url,
+            method: 'post',
+            data: qs.stringify(parame),
+            headers: {
+                'content-type': 'application/x-www-form-urlencoded',
+                // 'token': localStorage.getItem('token') ? localStorage.getItem('token') : ''
+            },
+            withCredentials: false,
+        })
+        // return Axios.post(url, parame)
+    },
     limitGet(url, parame) {
         // return newInstance({
         //     url: baseUrl + url,
@@ -169,6 +183,7 @@ export default {
             }
         })
     },
+
     storeGet(url, parame) {
         return storeInstance({
             url: baseUrl + url,

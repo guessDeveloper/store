@@ -49,6 +49,7 @@ export default {
     GetPinoinfo: '/api/Food/GetPinoinfo', //获取评论详情
     foodProducts: '/api/Food/Products', //获取产品列表
     submitFoodOrder: '/api/User/submitFoodOrder', //扫码下单
+    GetMerchantProductClass: '/api/Detail/GetMerchantProductClass', //获取商家分类
     //帮助中心
     Q_A_Class: '/api/QuestionAnswer/Q_A_Class', //帮助中心
     Q_A_ByClass: '/api/QuestionAnswer/Q_A_ByClass', //通过id 获取分类列表
@@ -78,7 +79,7 @@ export default {
     ScanQRcode: '/api/User/ScanQRcode', //扫码提交
     UserEditUserInfo: '/api/User/UserEditUserInfo', //修改用户信息
     GetUserInfo: '/api/User/GetUserInfo', //获取用户登录状态
-    GetVerificationNum: '/api/User/GetVerificationNum', //获取用户二维码
+    GetVerificationNum: '/api/User/GetUserinviteVerificationNum', //获取用户二维码
     UserIntegralRecordInfo: '/api/User/UserIntegralRecordInfo', //获取用户的积分
     UserInviterUrl: '/api/User/UserInviterUrl', // 获取邀请链接
     CreateUserQRCode: '/api/User/GetVerificationNum',//生成二维码
@@ -103,6 +104,7 @@ export default {
     AddComment: '/api/User/AddComment', //评价
     LoginOut: '/api/LoginRegister/LoginOut', //退出登录
     submitOrder: '/api/User/submitOrder',//提交订单
+    GetPosterList: '/api/User/GetPosterList', //获取海报
     //商家中心
     MerchanterMerchanter: '/api/Merchant/MerchanterMerchanter', //获取商家信息
     MerchanterLoginOut: '/api/LoginRegister/MerchanterLoginOut', //退出登录
@@ -142,4 +144,12 @@ export default {
     MerchantIntegral: '/api/Merchant/MerchantIntegral', //获取商家充值总数
     RmbExchangeRate: '/api/Merchant/RmbExchangeRate', //获取积分汇率
     MerchantOrderListRealtime: '/api/Merchant/MerchantOrderListRealtime', //获取实时订单
+    MerchantInviterList: '/api/Merchant/MerchantInviterList',//商家邀请列表
+    GetMerchantinviteVerificationNum: '/api/Merchant/GetMerchantinviteVerificationNum',//获取商家二维码
+    MerchantInviterUrl: '/api/Merchant/MerchantInviterUrl',//获取商家邀请链接
+    GetMerchantPosterList: '/api/Merchant/GetPosterList',//获取商家宣传海报
+
+    //活动接口
+    ActivityInProgressOrEnd: '/api/User/ActivityInProgressOrEnd',//活动开关
+    ActivityMessage: '/api/User/ActivityMessage',//活动登录信息
 }

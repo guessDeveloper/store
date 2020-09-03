@@ -17,7 +17,7 @@
       <div class="title-box">
         <h2 class="title">商家联盟</h2>
         <span class="sub-title">积分直返消费者</span>
-        <router-link class="more" tag="a" to="/storeList" target="_blank"> 查看全部 <span class="iconfont iconjiantou"></span></router-link>
+        <router-link class="more" tag="a" to="/shop" target="_blank"> 查看全部 <span class="iconfont iconjiantou"></span></router-link>
         <div class="position-box">
           <el-dropdown trigger="click" @command="chengeCity" class="select">
             <span class="el-dropdown-link box">
