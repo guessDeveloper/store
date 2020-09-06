@@ -250,7 +250,7 @@ export default {
       }
       .phone-msg-big-box {
         display: block;
-        width: 500px;
+        width: 800px;
         position: relative;
         overflow: hidden;
         .phone-msg-box {

@@ -112,7 +112,8 @@ export default {
         icon: 'iconjfjl',
         iconSize: '15px'
       },
-      ]
+      ],
+
     }
   },
   computed: {

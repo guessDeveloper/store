@@ -227,6 +227,9 @@ export default {
           localStorage.setItem('storeToken', res.data.Data)
           this.savePass();
           this.$router.push('/store')
+          this.$alert.alert(res.data.Msg, {
+            confirmButtonText: '知道了',
+          })
         } else {
           this.isLoginCode();
           this.$message.error(res.data.Msg)

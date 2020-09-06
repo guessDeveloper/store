@@ -56,7 +56,7 @@ export default {
   }
   p {
     font-size: 12px;
-    line-height: 12px;
+    line-height: 24px;
   }
 }
 @media screen and(max-width:@change_width) {
