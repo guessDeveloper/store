@@ -102,6 +102,7 @@ export default {
     if (this.$route.query.id) {
       this.MerchanterId = this.$route.query.id;
     }
+    this.getClass();
     this.getDetail();
   },
   components: {
@@ -141,6 +142,16 @@ export default {
     isMp4(url) {
       let reg = /.mp4/;
       return reg.test(url)
+    },
+    //获取产品分类
+    getClass() {
+      this.$http.post(this.$api.GetMerchantProductClass, {
+        MerchantId: this.MerchanterId
+      }).then(res => {
+        if (res.data.Code == 1) {
+          this.classList = res.data.Data.List
+        }
+      })
     },
     //根据分类查找
     getGoodsByClass(ID) {
@@ -363,6 +374,9 @@ export default {
       float: none;
       width: 100%;
       padding: 0 15px 20px;
+      .des {
+        width: calc(100% - 83px);
+      }
       .goods-box {
         margin-bottom: 120px;
       }

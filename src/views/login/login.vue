@@ -68,6 +68,7 @@ export default {
       this.password = userData.userPassword
       this.checked = true
     }
+    window.toast = this.$message;
   },
   components: {
     footerBar: footerBar,

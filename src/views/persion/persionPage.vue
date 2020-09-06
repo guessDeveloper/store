@@ -26,6 +26,9 @@
         </div>
 
       </div>
+      <div class="set" v-show="hasPhone == 1">
+        <span class="iconfont iconzhushi"></span>请完善您的信息：您的手机号尚未绑定！<router-link to="/safe" tag="a">立即设置</router-link>
+      </div>
       <div class="set" v-show="activityTipShow">
         <span class="iconfont iconzhushi"></span> {{activityTip}}<a href="">了解详情</a>
       </div>
@@ -115,7 +118,7 @@ export default {
           iconSize: '16px'
         },
         {
-          title: "邀请有礼",
+          title: "邀请分享",
           to: '/invite',
           icon: 'iconjfjl',
           iconSize: '15px'
@@ -138,6 +141,7 @@ export default {
       isSending: false,
       activityTipShow: false,
       activityTip: '',
+      hasPhone: '0',
     }
   },
   mounted() {
@@ -170,6 +174,7 @@ export default {
           this.UserIntegralTotal = data.UserJifen[0].UserIntegralTotal
           this.UserIntegral = data.UserJifen[0].UserIntegral
           this.UserIntegralUsed = data.UserJifen[0].UserIntegralUsed
+          this.hasPhone = data.IsPhoneExist
         }
       })
     },
@@ -356,7 +361,7 @@ export default {
   background: rgba(243, 138, 29, 0.1);
   font-size: 12px;
   color: #000;
-  margin-top: 30px;
+  margin-top: 10px;
   padding-left: 10px;
   border-radius: 4px;
   line-height: 30px;
@@ -377,7 +382,8 @@ export default {
 .persion-box {
   margin-top: 30px;
   border-bottom: 1px solid @class_border;
-  padding-bottom: 80px;
+  padding-bottom: 30px;
+  margin-bottom: 20px;
   height: 80px;
   .clear();
   .head-img {
@@ -454,6 +460,7 @@ export default {
   @media screen and(max-width:@change_width) {
     margin-top: 15px;
     border: 0;
+    padding-bottom: 80px;
     .head-img {
       width: 60px;
       height: 60px;

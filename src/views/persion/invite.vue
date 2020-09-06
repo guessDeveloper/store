@@ -162,7 +162,7 @@ export default {
     },
     //获取二维码
     getInviteErweima() {
-      this.$http.limitGet(this.$api.GetVerificationNum).then(res => {
+      this.$http.limitGet(this.$api.GetUserinviteVerificationNum).then(res => {
         if (res.data.Code == 1) {
           this.qrcUrl = res.data.Data.QRcodeImagePath
         }

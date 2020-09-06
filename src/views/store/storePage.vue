@@ -10,11 +10,11 @@
       </div>
       <div class="input-line">
         <label for="">商家名称：</label>
-        <div class="input-box"><input type="text" placeholder="请输入商家名称" v-model="infos.Name" maxlength="20"><span class="limit">{{infos.Name?infos.Name.length:0}}/20</span></div>
+        <div class="input-box"><input type="text" placeholder="请输入商家名称" v-model="infos.Name" maxlength="20" @input="eidt"><span class="limit">{{infos.Name?infos.Name.length:0}}/20</span></div>
       </div>
       <div class="input-line">
         <label for="">商家描述：</label>
-        <div class="input-box"><input type="text" placeholder="请输入商家描述" v-model.trim="infos.describe" maxlength="300"><span class="limit">{{infos.describe?infos.describe.length:0}}/300</span></div>
+        <div class="input-box limit-input"><input type="text" placeholder="请输入商家描述" v-model.trim="infos.describe" maxlength="300" @input="eidt" class="limit-input"><span class="limit">{{infos.describe?infos.describe.length:0}}/300</span></div>
       </div>
       <div class="input-line">
         <label for="">商家LOGO：</label>
@@ -72,28 +72,28 @@
       </div>
       <div class="input-line">
         <label for="">联系方式：</label>
-        <div class="input-box"><input type="text" placeholder="请输入联系方式" v-model.trim="infos.TelPhone"></div>
+        <div class="input-box"><input type="text" placeholder="请输入联系方式" v-model.trim="infos.TelPhone" @input="eidt"></div>
       </div>
       <div class="input-line">
         <!-- <label for="">营业时间：</label><div class="input-box"><input type="text" placeholder="请输入营业时间" ></div> -->
         <label for="">营业时间：</label>
         <div class="input-box">
-          <el-time-picker is-range v-model="time" :editable="false" :clearable="false" value-format="yyyy-MM-dd HH:mm:ss" range-separator="-" start-placeholder="开始时间" end-placeholder="结束时间" placeholder="选择时间范围">
+          <el-time-picker is-range v-model="time" :editable="false" :clearable="false" value-format="yyyy-MM-dd HH:mm:ss" range-separator="-" start-placeholder="开始时间" end-placeholder="结束时间" placeholder="选择时间范围" @change="eidt">
           </el-time-picker>
         </div>
       </div>
       <div class="input-line">
         <label for="">商家网址：</label>
-        <div class="input-box"><input type="text" placeholder="请输入商家网址" v-model="netWork" maxlength="50"><span class="limit">{{netWork?netWork.length:0}}/50</span></div>
+        <div class="input-box"><input type="text" placeholder="请输入商家网址" v-model="netWork" maxlength="50" @input="eidt"><span class="limit">{{netWork?netWork.length:0}}/50</span></div>
       </div>
       <div class="input-line">
         <label for="">商家奖励比例：</label>
-        <div class="input-box percent"><input type="text" placeholder="请输入1至60整数" v-model.trim="infos.ReturnPercent">
+        <div class="input-box percent"><input type="text" placeholder="请输入1至60整数" v-model.trim="infos.ReturnPercent" @input="eidt">
           <div class="danwei">%</div>
         </div>
       </div>
       <div class="input-line">
-        <button class="submit" @click="submit">提交</button>
+        <button class="submit" @click="submit" :disabled="!hasEdit">提交</button>
       </div>
       <el-dialog title="选择地址" :visible.sync="showMap" width="520px" class="small">
         <Map @getLocation="addressClick" :defaultPoint="defaultPoint" @close="showMap = false"></Map>
@@ -221,7 +221,7 @@ export default {
           icon: "iconsmfjl",
           iconSize: '15px'
         }, {
-          title: "邀请有礼",
+          title: "邀请分享",
           to: '/storeInvite',
           icon: 'iconjfjl',
           iconSize: '15px'
@@ -233,6 +233,7 @@ export default {
       dialogVisible: false,
       dialogVideo: false,
       VideoRul: '',
+      hasEdit: false, // 是否有编辑
 
     }
   },
@@ -286,6 +287,9 @@ export default {
     //     }
     //   })
     // },
+    eidt() {
+      this.hasEdit = true;
+    },
     handleRemove(file, fileList) {
       console.log(file, fileList, 'remove')
       let index = '';
@@ -368,10 +372,12 @@ export default {
       })
     },
     changeClass() {
+      this.hasEdit = true
       this.secondOptionValue = ''
       this.getStoreClass();
     },
     setCat(value) {
+      this.hasEdit = true
       this.infos.Category = value
     },
     beforeLogoUpload(file) {
@@ -402,6 +408,7 @@ export default {
         this.logoUrl = beforeUrl + file.Data;
         this.fileList = [];
         this.fileList.push(fileList)
+        this.hasEdit = true
       }
     },
     mp4Success(file, fileList) {
@@ -409,7 +416,7 @@ export default {
         //  this.desMp4.push(beforeUrl+file.Data)
         fileList.url = beforeUrl + file.Data
         this.desMp4.push(fileList)
-
+        this.hasEdit = true
       }
       console.log(fileList, this.desMp4, 'ttt')
     },
@@ -473,6 +480,7 @@ export default {
     },
     addressClick(res) {
       this.address = res.address.surroundingPois[0].address
+      this.hasEdit = true
       this.lat = res.address.point.lat
       this.lng = res.address.point.lng
       this.addressCity = res.address.addressComponents.city
@@ -579,7 +587,9 @@ export default {
         line-height: 50px;
       }
     }
-
+    &.limit-input {
+      border: 1px solid @class_border;
+    }
     input {
       display: block;
       box-sizing: border-box;
@@ -590,6 +600,10 @@ export default {
       font-size: 14px;
       &.readonly {
         background: @readOnly;
+      }
+      &.limit-input {
+        border: 0px solid @class_border;
+        width: calc(100% - 80px) !important;
       }
     }
     .upload-btn {
@@ -636,6 +650,9 @@ export default {
   background: @main;
   border: 0;
   margin: 30px auto 100px;
+  &:disabled {
+    background: @btn-active;
+  }
 }
 .small-nav-list {
   display: none;

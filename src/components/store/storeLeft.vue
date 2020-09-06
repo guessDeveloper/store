@@ -107,7 +107,7 @@ export default {
         iconSize: '15px'
       },
       {
-        title: "邀请有礼",
+        title: "邀请分享",
         to: '/storeInvite',
         icon: 'iconjfjl',
         iconSize: '15px'

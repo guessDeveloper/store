@@ -7,6 +7,7 @@ export default {
     pddGetGoodsByKey: '/api/PDD/GetGoodsByKey', //拼多多搜索
     MSKeyWordSearch: '/api/Food/MSKeyWordSearch', //美食广场搜索
     storeGJKeyWordSearch: '/api/YiQiFa/GJKeyWordSearch', //商城搜索
+    GetGoodsSort: '/api/PDD/GetGoodsSort', //搜索分类
     //首页
     GetBannerGoods: '/api/Webconfig/GetBannerGoods', //获取banner
     GetWebMessage: '/api/Webconfig/GetWebMessage', //获取公告
@@ -79,10 +80,11 @@ export default {
     ScanQRcode: '/api/User/ScanQRcode', //扫码提交
     UserEditUserInfo: '/api/User/UserEditUserInfo', //修改用户信息
     GetUserInfo: '/api/User/GetUserInfo', //获取用户登录状态
-    GetVerificationNum: '/api/User/GetUserinviteVerificationNum', //获取用户二维码
+    GetUserinviteVerificationNum: '/api/User/GetUserinviteVerificationNum', //获取用户二维码
+    GetUserPassportNo: '/api/User/GetUserPassportNo',//获取8位护照号
     UserIntegralRecordInfo: '/api/User/UserIntegralRecordInfo', //获取用户的积分
     UserInviterUrl: '/api/User/UserInviterUrl', // 获取邀请链接
-    CreateUserQRCode: '/api/User/GetVerificationNum',//生成二维码
+    GetVerificationNum: '/api/User/GetVerificationNum',//生成二维码
     UserMessageList: '/api/User/UserMessageList', //获取消息列表
     UserInviterList: '/api/User/UserInviterList', //邀请列表
     IntegralExchange: '/api/User/IntegralExchange', //积分兑换
@@ -152,4 +154,10 @@ export default {
     //活动接口
     ActivityInProgressOrEnd: '/api/User/ActivityInProgressOrEnd',//活动开关
     ActivityMessage: '/api/User/ActivityMessage',//活动登录信息
+
+    //第三方
+    SendUserThird: '/api/User/SendUserThird',//第三方绑定手机号发送验证码
+    ImproveUserinformation: '/api/User/ImproveUserinformation',//绑定手机号
+    SendMerchantThird: '/api/Merchant/SendMerchantThird',//第三方绑定商家手机号发送验证码
+    ImproveMerchantinformation: '/api/Merchant/ImproveMerchantinformation',//绑定第三方手机号
 }

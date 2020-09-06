@@ -18,12 +18,12 @@
         <h2 class="title">商家联盟</h2>
         <span class="sub-title">积分直返消费者</span>
         <router-link class="more" tag="a" to="/shop" target="_blank"> 查看全部 <span class="iconfont iconjiantou"></span></router-link>
-        <div class="position-box">
+        <div class="position-box" id="scrollDorpdown">
           <el-dropdown trigger="click" @command="chengeCity" class="select">
             <span class="el-dropdown-link box">
               <span class="iconfont iconweizhixuanze"></span><span class="middle-name">{{nowCity}}</span><span class="icon-arrow-down"></span>
             </span>
-            <el-dropdown-menu slot="dropdown">
+            <el-dropdown-menu slot="dropdown" class="more">
               <el-dropdown-item v-for="(item, index) in cityList" :key="index" :command="item">{{item.CityName}}</el-dropdown-item>
             </el-dropdown-menu>
           </el-dropdown>
