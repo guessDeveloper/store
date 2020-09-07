@@ -7,8 +7,28 @@
     </div>
     <div class="list-box" v-show="total>0">
       <div class="good-class-list" v-show="searchType == 'taobao'||searchType == 'pdd'">
-        <div class="item" v-for="(item,index) in classList" :key="item.sortId" :class="{active:item.sortId == sortId}" @click="clickClass(item)">{{item.sortDescribe}}</div>
+        <div class="item" v-for="(item,index) in classList" :key="item.sortId" :class="{active:item.sortId == sort}" @click="clickClass(item)">{{item.sortDescribe}}</div>
       </div>
+      <!-- <div class="food-select-item">
+        <ul>
+          <li class="name">排序：</li> -->
+      <!-- <li :class="{active:sort == 0}"><a @click="changeSort(0)">最新商品</a></li>
+                    <li :class="{active:sort == 1}"><a @click="changeSort(1)">最高人气</a></li>
+                    <li :class="{active:sort == 2||sort == 3,up:sort==2,down:sort==3}"><a @click="changeSort(sort==2?3:2)" class="sort" :class="{up:sort==2,down:sort==3}">价格</a></li> -->
+      <!-- <li :class="{active:sort == 0}"><a @click="changeSort(0)">综合排序</a></li>
+          <li :class="{active:sort == 1||sort == 2,up:sort==1,down:sort==2}"><a @click="changeSort(sort==1?2:1)" class="sort" :class="{up:sort==1,down:sort==2}">积分比例</a></li>
+          <li :class="{active:sort == 3||sort == 4,up:sort==3,down:sort==4}"><a @click="changeSort(sort==3?4:3)" class="sort" :class="{up:sort==3,down:sort==4}">价格</a></li>
+          <li :class="{active:sort == 5||sort == 6,up:sort==5,down:sort==6}"><a @click="changeSort(sort==5?6:5)" class="sort" :class="{up:sort==5,down:sort==6}">销量</a></li>
+        </ul>
+      </div>
+      <div class="filter-small-box">
+        <ul>
+          <li :class="{active:sort == 0}"><a @click="changeSort(0)">综合排序</a></li>
+          <li :class="{active:sort == 1||sort == 2,up:sort==1,down:sort==2}"><a @click="changeSort(sort==1?2:1)" class="sort" :class="{up:sort==1,down:sort==2}">积分比例</a></li>
+          <li :class="{active:sort == 3||sort == 4,up:sort==3,down:sort==4}"><a @click="changeSort(sort==3?4:3)" class="sort" :class="{up:sort==3,down:sort==4}">价格</a></li>
+          <li :class="{active:sort == 5||sort == 6,up:sort==5,down:sort==6}"><a @click="changeSort(sort==5?6:5)" class="sort" :class="{up:sort==5,down:sort==6}">销量</a></li>
+        </ul>
+      </div> -->
       <ul class="good-list" v-if="searchType == 'taobao'|| searchType == 'pdd'">
         <li v-for='(item,index) in list' :key="index">
           <goodCard :data="item"></goodCard>
@@ -91,7 +111,7 @@ export default {
       list: [],
       pageShow: true,
       classList: [], //淘宝拼多多分类
-      sortId: 0, // 默认排序
+      sort: 0, // 默认排序
       sortName: ''
     }
   },
@@ -169,7 +189,7 @@ export default {
     },
     getList() {
 
-      this.$http.post(this.searchUrl, { pageIndex: this.pageIndex, pageSize: this.pageSize, KeyValue: this.searchContent, sortId: this.sortId, sortName: this.sortName }).then(res => {
+      this.$http.post(this.searchUrl, { pageIndex: this.pageIndex, pageSize: this.pageSize, KeyValue: this.searchContent, sortId: this.sort, sortName: this.sortName }).then(res => {
         if (res.data.Code == 1) {
           res.data.Data.List ? this.list = res.data.Data.List : ''
           res.data.Data.list ? this.list = res.data.Data.list : ''
@@ -203,8 +223,14 @@ export default {
       })
     },
     //点击分类
+    changeSort(item) {
+      this.sort = item
+      this.pageIndex = 1;
+      // this.sortName = item.sortName
+      this.getList();
+    },
     clickClass(item) {
-      this.sortId = item.sortId
+      this.sort = item.sortId
       this.pageIndex = 1;
       this.sortName = item.sortName
       this.getList();
@@ -331,6 +357,55 @@ export default {
   @media screen and(max-width:@change_width) {
     width: 100%;
   }
+}
+.sort {
+  position: relative;
+  padding-right: 12px;
+  &.up {
+    &::after {
+      background: url(../../assets/img/icon-sort-up.png) no-repeat center center;
+      background-size: 100%;
+    }
+  }
+  &.down {
+    &::after {
+      background: url(../../assets/img/icon-sort-down.png) no-repeat center
+        center;
+      background-size: 100%;
+    }
+  }
+  &:after {
+    content: "";
+    position: absolute;
+    right: 0;
+    top: 50%;
+    margin-top: -6px;
+    width: 8px;
+    height: 12px;
+    background: url(../../assets/img/icon-sort.png) no-repeat center center;
+    background-size: 100%;
+  }
+}
+
+.filter-small-box {
+  display: none;
+  ul {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 45px;
+    color: #333333;
+    height: 47px;
+    .active {
+      a {
+        color: #f38a1d;
+      }
+    }
+  }
+  @media screen and(max-width:@change_width) {
+    display: block;
+  }
+  background-color: #ffffff;
 }
 .good-class-list {
   overflow: hidden;

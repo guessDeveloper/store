@@ -150,6 +150,7 @@ export default {
     GetMerchantinviteVerificationNum: '/api/Merchant/GetMerchantinviteVerificationNum',//获取商家二维码
     MerchantInviterUrl: '/api/Merchant/MerchantInviterUrl',//获取商家邀请链接
     GetMerchantPosterList: '/api/Merchant/GetPosterList',//获取商家宣传海报
+    MerchantMessageList: '/api/Merchant/MerchantMessageList',//商家信息
 
     //活动接口
     ActivityInProgressOrEnd: '/api/User/ActivityInProgressOrEnd',//活动开关

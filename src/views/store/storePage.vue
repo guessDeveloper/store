@@ -225,6 +225,11 @@ export default {
           to: '/storeInvite',
           icon: 'iconjfjl',
           iconSize: '15px'
+        }, {
+          title: "消息通知",
+          to: '/storeMessage',
+          icon: 'iconxxzx',
+          iconSize: '12px'
         },
       ],
       time: '',

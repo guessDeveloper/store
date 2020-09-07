@@ -232,6 +232,32 @@ export default {
           this.nowName = '拼多多'
           this.nowSelect = "拼多多"
         }
+
+        if (this.$route.path == '/search') {
+
+          if (this.searchType == 'taobao') {
+            this.nowPath = '/taobao'
+            this.nowName = '淘宝'
+          }
+          if (this.searchType == 'pdd') {
+            this.nowPath = '/Pdd'
+            this.nowName = '拼多多'
+          }
+          if (this.searchType == 'shop') {
+            this.nowPath = '/shop'
+            this.nowName = '逛街购物'
+          }
+          if (this.searchType == 'food') {
+            this.nowPath = '/food'
+            this.nowName = '美食广场'
+          }
+
+          if (this.searchType == 'store') {
+            this.nowPath = '/storeList'
+            this.nowName = '商城'
+
+          }
+        }
         document.querySelector('body').style.height = 'auto';
         document.querySelector('body').style.overflow = 'auto';
       },
@@ -314,6 +340,32 @@ export default {
         this.searchType = 'pdd'
       this.nowName = '拼多多'
       this.nowSelect = "拼多多"
+    }
+    //搜索导航
+    if (this.$route.path == '/search') {
+
+      if (this.searchType == 'taobao') {
+        this.nowPath = '/taobao'
+        this.nowName = '淘宝'
+      }
+      if (this.searchType == 'pdd') {
+        this.nowPath = '/Pdd'
+        this.nowName = '拼多多'
+      }
+      if (this.searchType == 'shop') {
+        this.nowPath = '/shop'
+        this.nowName = '逛街购物'
+      }
+      if (this.searchType == 'food') {
+        this.nowPath = '/food'
+        this.nowName = '美食广场'
+      }
+
+      if (this.searchType == 'store') {
+        this.nowPath = '/storeList'
+        this.nowName = '商城'
+
+      }
     }
     document.querySelector('body').style.height = 'auto';
     document.querySelector('body').style.overflow = 'auto';

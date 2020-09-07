@@ -39,6 +39,7 @@ export default {
       isLogin: true,
       userName: '',
       speed: 1,
+      animation: '',
     }
   },
   mounted() {
@@ -75,8 +76,11 @@ export default {
       document.querySelector('#msgBox').style.marginLeft = (offsetLeft - this.speed) + 'px'
       if (-offsetLeft > box.clientWidth) {
         document.querySelector('#msgBox').style.marginLeft = big + 'px'
+        this.getMessage();
+        return false
       }
-      window.requestAnimationFrame(this.loop)
+      window.cancelAnimationFrame(this.animate)
+      this.animate = window.requestAnimationFrame(this.loop)
     },
     getStoreInfo() {
       this.$http.storePost(this.$api.MerchanterMerchanter).then(res => {
@@ -110,9 +114,10 @@ export default {
               arry.forEach(Element => {
                 width = width + Element.clientWidth
               })
-              document.querySelector('#msgBox').style.width = width + 'px'
-              document.querySelector('#msgBox').style.marginLeft = 0 + 'px'
-              window.requestAnimationFrame(this.loop)
+              document.querySelector('#msgBox').style.width = (width + 20) + 'px'
+              // document.querySelector('#msgBox').style.marginLeft = 0 + 'px'
+              window.cancelAnimationFrame(this.animate)
+              this.animate = window.requestAnimationFrame(this.loop)
             })
           }, 2000)
 
@@ -139,6 +144,7 @@ export default {
     }
   },
   beforeDestroy() {
+    cancelAnimationFrame(this.animate)
     clearInterval(this.timer)
   }
 }

@@ -237,6 +237,7 @@ export default {
               }).then(res => {
                 if (res.data.Code == 1) {
                   this.setPhone = false;
+                  this.$message.success('绑定成功')
                   this.userInfo.IsPhoneExist = '0'
                   this.getUserInfo();
                 } else {

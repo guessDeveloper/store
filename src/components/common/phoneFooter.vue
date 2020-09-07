@@ -38,7 +38,7 @@
           商学院
         </div>
       </div>
-      <div class="item" :class="{active:nowPath == '/persion'}" @click="goRouter('/persion')">
+      <div class="item" :class="{active:nowPath == '/persion'}" @click="goMyPage('/persion')">
         <span class="iconfont icontab_wd nomall"></span>
         <span class="iconfont on icontab_wddj"></span>
         <div class="name">
@@ -49,6 +49,7 @@
   </div>
 </template>
 <script>
+import { mapState, mapMutations } from 'vuex' //注册 action 和 state
 export default {
   data() {
     return {
@@ -129,6 +130,12 @@ export default {
   mounted() {
     this.getNowPath();
   },
+  computed: {
+    ...mapState([
+      'isLogin',
+      'userInfo'
+    ])
+  },
   methods: {
     //判断当前路由
     getNowPath() {
@@ -160,6 +167,14 @@ export default {
     //跳转路由
     goRouter(router) {
       this.$router.push(router)
+    },
+    //我的
+    goMyPage(path) {
+      if (this.isLogin) {
+        this.$router.push(path)
+      } else {
+        this.$router.push('/login')
+      }
     }
   },
   watch: {

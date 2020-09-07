@@ -293,10 +293,15 @@ const routes = [{
         component: () =>
             import( /* webpackChunkName: "storeProductDetail" */ '../views/store/storeProductDetail.vue')
     }, {
-        path: '/storeInvite', //邀请
+        path: '/storeInvite', //邀请  
         name: 'storeInvite',
         component: () =>
             import( /* webpackChunkName: "storeInvite" */ '../views/store/storeInvite.vue')
+    }, {
+        path: '/storeMessage', //邀请  
+        name: 'storeMessage',
+        component: () =>
+            import( /* webpackChunkName: "storeMessage" */ '../views/store/storeMessage.vue')
     }]
 },
 {

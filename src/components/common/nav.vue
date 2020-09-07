@@ -27,8 +27,8 @@
       </div>
       <!-- <a class="loginout help-nav-top" v-show="isLogin" @click="loginOut">退出登录</a> -->
       <!-- <router-link tag="a" to="/persion" class="logined help-nav-top" v-show="isLogin"><span class="iconfont iconzh"></span>个人中心</router-link> -->
-      <router-link href="" class="regester help-nav-top" to="/register" tag="a" v-show="!isLogin"> 注册</router-link>
-      <router-link class="login help-nav-top" tag="a" to="/login" v-show="!isLogin">登录</router-link>
+      <!-- <router-link href="" class="regester help-nav-top" to="/register" tag="a" v-show="!isLogin"> 注册</router-link>
+      <router-link class="login help-nav-top" tag="a" to="/login" v-show="!isLogin">登录</router-link> -->
     </div>
   </div>
 </template>
@@ -45,6 +45,7 @@ export default {
       userName: '',
       isHelp: false,
       speed: 1,
+      animate: '',
     }
   },
   computed: {
@@ -86,8 +87,11 @@ export default {
       document.querySelector('#msgBox').style.marginLeft = (offsetLeft - this.speed) + 'px'
       if (-offsetLeft > box.clientWidth) {
         document.querySelector('#msgBox').style.marginLeft = big + 'px'
+        this.getMessage();
+        return false
       }
-      window.requestAnimationFrame(this.loop)
+      window.cancelAnimationFrame(this.animate)
+      this.animate = window.requestAnimationFrame(this.loop)
     },
     //获取公告
     getMessage() {
@@ -102,9 +106,10 @@ export default {
               arry.forEach(Element => {
                 width = width + Element.clientWidth
               })
-              document.querySelector('#msgBox').style.width = width + 'px'
-              document.querySelector('#msgBox').style.marginLeft = 0 + 'px'
-              window.requestAnimationFrame(this.loop)
+              document.querySelector('#msgBox').style.width = (width + 20) + 'px'
+              // document.querySelector('#msgBox').style.marginLeft = 0 + 'px'
+              window.cancelAnimationFrame(this.animate)
+              this.animate = window.requestAnimationFrame(this.loop)
             })
           }, 2000)
 
@@ -205,6 +210,7 @@ export default {
     }
   },
   beforeDestroy() {
+    cancelAnimationFrame(this.animate)
     clearInterval(this.timer)
   },
 
