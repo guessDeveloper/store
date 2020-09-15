@@ -8,7 +8,7 @@ Vue.use(Vuex)
 
 let store = new Vuex.Store({
     state: {
-        config:'',
+        config: '',
         positionX: '', // 经度
         positionY: '', //纬度
         storeInfo: '', //商家信息
@@ -16,6 +16,7 @@ let store = new Vuex.Store({
         isLogin: false,
         userInfo: '',
         ScoreRate: 1,
+        storeUnreadMessage: 0,
         charNum: JSON.parse(localStorage.getItem("carNum")) || 0, // 购物车数量
         myCar: JSON.parse(localStorage.getItem("carObject")) || {}, //购物车对象
     },
@@ -33,7 +34,10 @@ let store = new Vuex.Store({
         },
     },
     mutations: {
-        setConfig(state,num){
+        setStoreMessage(state, num) {
+            state.storeUnreadMessage = num
+        },
+        setConfig(state, num) {
             state.config = num
         },
         //设置汇率
@@ -62,7 +66,7 @@ let store = new Vuex.Store({
             state.storeInfo = object
         },
         //情况购物车
-        setClearCar(state){
+        setClearCar(state) {
             state.myCar = {};
             state.charNum = 0;
         },
@@ -177,7 +181,7 @@ let store = new Vuex.Store({
         cancleSingle(state, object) {
             let storeId = object[0];
             let goodsId = object[1];
-            delete(state.myCar[storeId].goodsList[goodsId])
+            delete (state.myCar[storeId].goodsList[goodsId])
             let arr = Object.keys(state.myCar[storeId].goodsList)
             state.myCar[storeId].goodsNum = arr.length
             let num = 0;
@@ -207,7 +211,7 @@ let store = new Vuex.Store({
                 state.myCar[item].totalScore = totalScore
             }
             if (arr.length == 0) {
-                delete(state.myCar[storeId])
+                delete (state.myCar[storeId])
             }
             let charNum = 0;
             for (let element in state.myCar) {
@@ -225,7 +229,7 @@ let store = new Vuex.Store({
             let goods = state.myCar[storeId].goodsList;
             for (let i in goods) {
                 if (goods[i].check == true) {
-                    delete(goods[i])
+                    delete (goods[i])
                 }
             }
             let num = 0;
@@ -256,7 +260,7 @@ let store = new Vuex.Store({
                 state.myCar[item].totalScore = totalScore
             }
             if (arr.length == 0) {
-                delete(state.myCar[storeId])
+                delete (state.myCar[storeId])
             }
             let charNum = 0;
             for (let element in state.myCar) {

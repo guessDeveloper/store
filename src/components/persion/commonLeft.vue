@@ -87,12 +87,12 @@ export default {
         icon: 'iconddgl',
         iconSize: '15px'
       },
-      {
-        title: "帮助中心",
-        to: '/helpCenter',
-        icon: 'iconbangzhu',
-        iconSize: '15px'
-      },
+        // {
+        //   title: "帮助中心",
+        //   to: '/helpCenter',
+        //   icon: 'iconbangzhu',
+        //   iconSize: '15px'
+        // },
       ]
     }
   },

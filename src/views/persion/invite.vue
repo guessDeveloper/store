@@ -23,7 +23,7 @@
         </div>
       </div>
       <div class="phone-link">
-        我的邀请二维码： <img :src="qrcUrl" alt="" class="img"> <button class="download" @click="downloadPop = true"> 下载分享海报</button>
+        我的邀请二维码： <img :src="qrcUrl" alt="" class="img" @click="showBig = true"> <button class="download" @click="downloadPop = true"> 下载分享海报</button>
       </div>
       <div class="invite-list-title">
         邀请记录
@@ -63,20 +63,32 @@
         <div class="name"> 暂无邀请记录</div>
       </div>
     </div>
-    <el-dialog title="下载海报" :visible.sync="downloadPop" width="520px" class="small">
+    <el-dialog title="下载邀请海报" :visible.sync="downloadPop" width="520px" class="small">
+      <div v-loading="downloading" element-loading-text="下载中">
+        <div class="postImg-header">
+          <div class="left">
+            海报
+          </div>
+          <div class="right">
+            操作
+          </div>
 
-      <div class="postImg-header">
-        <div class="left">
-          海报
         </div>
-        <div class="right">
-          操作
+        <div class="postImg-line" v-for="(item,index) in posterList" :key="index">
+          <div class="name">{{item.Name}}</div>
+          <!-- <div class="action"><a :href="downLoadFile(item.Url)" :download="item.Name+'.jpg'" target="_blanck">点击下载</a></div> -->
+          <!-- <div class="action">
+          <router-link :href="downLoadFile(item.Url)" :download="item.Name+'.jpg'" target="_blanck">点击下载</router-link>
+        </div> -->
+          <div class="action">
+            <a target="_blanck" @click="downLoadFile(item)">点击下载</a>
+          </div>
         </div>
-
       </div>
-      <div class="postImg-line" v-for="(item,index) in posterList" :key="index">
-        <div class="name">{{item.Name}}</div>
-        <div class="action"><a :href="item.Url" :download="item.Name+'.jpg'" target="_blanck">点击下载</a></div>
+    </el-dialog>
+    <el-dialog title="邀请二维码" :visible.sync="showBig" width="520px" class="small">
+      <div class="img-box">
+        <img :src="qrcUrl" alt="" style="width:100%;">
       </div>
     </el-dialog>
   </div>
@@ -97,6 +109,8 @@ export default {
       qrcUrl: '',
       downloadPop: false,
       posterList: [],
+      showBig: false,
+      downloading: false,
     }
   },
   mounted() {
@@ -175,7 +189,49 @@ export default {
           this.posterList = res.data.Data
         }
       })
+    },
+    //下载
+    downLoadFile(item) {
+      this.downImgFile(item.Name, item.Url)
+    },
+    dataURLtoFile(dataurl, filename) {
+      let arr = dataurl.split(',')
+      let mime = arr[0].match(/:(.*?);/)[1]
+      let bstr = atob(arr[1])
+      let len = bstr.length
+      let u8arr = new Uint8Array(len)
+      while (len--) {
+        u8arr[len] = bstr.charCodeAt(len)
+      }
+      return new File([u8arr], filename, { type: mime })
+    },
+    downImgFile(name, src) {
+      let _this = this;
+      // const csvData = new Blob([content]);
+      this.downloading = true;
+      var canvas = document.createElement('canvas');
+      var img = document.createElement('img');
+      img.onload = function (e) {
+        _this.downloading = false;
+        canvas.width = img.width;
+        canvas.height = img.height;
+        var context = canvas.getContext('2d');
+        context.drawImage(img, 0, 0, img.width, img.height);
+
+        canvas.getContext('2d').drawImage(img, 0, 0, img.width, img.height);
+        canvas.toBlob((blob) => {
+          let event = new MouseEvent('click');
+          let link = document.createElement('a');
+          link.href = window.URL.createObjectURL(blob);
+          link.download = name;
+          link.dispatchEvent(event)
+        }, "image/jpeg");
+      }
+      img.setAttribute("crossOrigin", 'Anonymous');
+      img.src = src;
     }
+    //------------
+
   }
 }
 </script>
@@ -266,6 +322,7 @@ export default {
           box-shadow: 0px 2px 10px 0px rgba(0, 0, 0, 0.2);
           img {
             display: block;
+            width: 100%;
           }
         }
       }

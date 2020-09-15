@@ -151,6 +151,7 @@ export default {
     MerchantInviterUrl: '/api/Merchant/MerchantInviterUrl',//获取商家邀请链接
     GetMerchantPosterList: '/api/Merchant/GetPosterList',//获取商家宣传海报
     MerchantMessageList: '/api/Merchant/MerchantMessageList',//商家信息
+    MerchantMessageCount: '/api/Merchant/MerchantMessageCount',//未读信息数量
 
     //活动接口
     ActivityInProgressOrEnd: '/api/User/ActivityInProgressOrEnd',//活动开关

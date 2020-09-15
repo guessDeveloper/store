@@ -53,7 +53,7 @@ import { mapState, mapMutations } from 'vuex' //注册 action 和 state
 export default {
   data() {
     return {
-      nowPath: '/',
+      nowPath: '',
       navList: [{
         name: '首页',
         path: '/'
@@ -204,7 +204,7 @@ export default {
     color: #999;
     .item {
       position: relative;
-      width: 40 / @p;
+      width: 60 / @p;
       text-align: center;
       .nomall {
         display: inline-block;

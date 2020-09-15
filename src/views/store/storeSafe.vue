@@ -28,6 +28,32 @@
         <button class="btn" @click="setPhone = true">设置</button>
       </div>
     </div>
+    <!-- 设置手机号 -->
+    <el-dialog title="绑定安全手机" :visible.sync="setPhone" width="520px" class="small">
+      <div class="change-box">
+        <div class="input-line">
+          <label for="">输入手机号：</label>
+          <div class="input-box"><input type="text" placeholder="请输手机号" max-length="11" v-model.trim="setPhoneNum"></div>
+        </div>
+        <div class="input-line">
+          <label for="">短信验证码：</label>
+          <div class="input-box"><input type="text" placeholder="输入短信验证码" v-model.trim="setPhoneCode" maxlength="8"><button class="btn" @click="getSetCode">{{codeBtn}}</button></div>
+        </div>
+        <div class="input-line">
+          <label for="">输入新密码：</label>
+          <div class="input-box"><input type="password" placeholder="请输入新密码" max-length="20" v-model.trim="setPhonePass"></div>
+        </div>
+        <div class="input-tip"> 请输入最小为8位至少包含1个大写字母，1个小写字母和1个数字的密码,可使用标点符号并且不能连续输入相同大小写字母数字3次或3次以上</div>
+        <div class="input-line">
+          <label for="">再次输入：</label>
+          <div class="input-box"><input type="password" placeholder="请再次输入登录密码" max-length="20" v-model.trim="repeatPhonePass"></div>
+        </div>
+        <div class="btn-box">
+          <button class="ok" @click="setSafePhone">立即绑定</button>
+          <button class="no" @click="setPhone=fale">取消</button>
+        </div>
+      </div>
+    </el-dialog>
     <el-dialog title="修改密码" :visible.sync="changePas" width="520px" class="small">
       <div class="change-box">
         <div class="phone">已绑定的手机：{{phoneLimit(storeInfo.phone)}}</div>
@@ -201,6 +227,8 @@ export default {
               }).then(res => {
                 if (res.data.Code == 1) {
                   this.setPhone = false;
+                  this.$message.success('绑定成功')
+                  this.storeInfo.phone = this.setPhoneNum;
                   this.storeInfo.IsPhoneExist = '0'
                   this.getStoreInfo();
                 } else {

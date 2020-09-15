@@ -26,6 +26,20 @@
         </div>
 
       </div>
+      <!-- <div class="phone-score-box">
+        <div class="first item">
+          <div class="name">累计获得积分</div>
+          <div class="num">{{UserIntegralTotal?UserIntegralTotal:'0'}}</div>
+        </div>
+        <div class="second item">
+          <div class="name">我的积分</div>
+          <div class="num">{{UserIntegral?UserIntegral:'0'}}</div>
+        </div>
+        <div class="three item">
+          <div class="name">累计兑换积分</div>
+          <div class="num">{{UserIntegralUsed?UserIntegralUsed:'0'}}</div>
+        </div>
+      </div> -->
       <div class="set" v-show="hasPhone == 1">
         <span class="iconfont iconzhushi"></span>请完善您的信息：您的手机号尚未绑定！<router-link to="/safe" tag="a">立即设置</router-link>
       </div>
@@ -127,12 +141,6 @@ export default {
           title: "我的订单",
           to: '/myOrder',
           icon: 'iconddgl',
-          iconSize: '15px'
-        },
-        {
-          title: "帮助中心",
-          to: '/helpCenter',
-          icon: 'iconbangzhu',
           iconSize: '15px'
         },],
       copperUrl: '',
@@ -460,7 +468,9 @@ export default {
   @media screen and(max-width:@change_width) {
     margin-top: 15px;
     border: 0;
-    padding-bottom: 80px;
+    height: auto;
+    padding-bottom: 0;
+    // padding-bottom: 80px;
     .head-img {
       width: 60px;
       height: 60px;
@@ -485,6 +495,28 @@ export default {
     }
   }
 }
+// //手机端分数盒子
+// .phone-score-box {
+//   float: none;
+//   margin-top: 15px;
+//   display: flex;
+//   border-top: 1px solid @class_border;
+//   width: 100%;
+//   overflow: hidden;
+//   padding-bottom: 15px;
+//   .clear();
+//   .name {
+//     margin-top: 22px;
+//     font-size: 12px;
+//     color: @subtitle_color;
+//   }
+//   .num {
+//     font-size: 16px;
+//     margin-top: 13px;
+//     line-height: 12px;
+//     font-weight: bold;
+//   }
+// }
 .small-nav-list {
   display: none;
 }

@@ -5,7 +5,7 @@
     </div>
     <div class="erweima-content">
       <img :src="imgUrl" alt="">
-      <p>护照号：{{passNum}}</p>
+      <p>识别号：{{passNum}}</p>
       <p>尊敬的用户，当您光顾商家实体店消费完成后，请出示您的二维码，获得宝贵的积分奖励。</p>
     </div>
   </div>

@@ -2,7 +2,8 @@
   <div class="content">
     <ul :class="{isfood:storeInfo.BigCatgroup == '1'}">
       <li v-for="(item,index) in navList" :key="index" :class="{active:item.to == nowPath,erwima:item.contor == true}">
-        <router-link tag="a" :to="item.to" @click.native="routerChange(item.to,item.title)"><span class="iconfont" :class="item.icon" :style="'font-size:'+item.iconSize+';'"></span>{{item.title}}</router-link>
+
+        <router-link tag="a" :to="item.to" @click.native="routerChange(item.to,item.title)"><span class="iconfont" :class="item.icon" :style="'font-size:'+item.iconSize+';'"></span>{{item.title}}<span class="message-count" v-if="item.to == '/storeMessage'&&storeUnreadMessage!=0">{{storeUnreadMessage}}</span></router-link>
       </li>
     </ul>
   </div>
@@ -25,6 +26,18 @@
       line-height: 44px;
       font-size: 14px;
       text-align: left;
+      .message-count {
+        display: inline-block;
+        width: 18px;
+        height: 18px;
+        line-height: 18px;
+        text-align: center;
+        color: #fff;
+        font-size: 12px;
+        border-radius: 50%;
+        background: @password_tip_color;
+        margin-left: 20px;
+      }
       &.erwima {
         display: none;
       }
@@ -125,7 +138,8 @@ export default {
   computed: {
     ...mapState([
       'storeInfo',
-      'isLogin'
+      'isLogin',
+      'storeUnreadMessage'
     ])
   },
   mounted() {

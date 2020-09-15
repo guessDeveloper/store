@@ -40,11 +40,13 @@ export default {
       userName: '',
       speed: 1,
       animation: '',
+      messageTimer: '',
     }
   },
   mounted() {
     this.getMessage();
     this.RmbExchangeRate();
+    this.getUnread();
     setTimeout(() => {
       this.getStoreInfo();
     }, 500)
@@ -52,13 +54,15 @@ export default {
   },
   computed: {
     ...mapState([
-      'storeInfo'
+      'storeInfo',
+      'storeUnreadMessage'
     ])
   },
   methods: {
     ...mapMutations([
       'setStoreInfo',
-      'setRate'
+      'setRate',
+      'setStoreMessage'
     ]),
     loop() {
       // clearInterval(this.timer);
@@ -72,7 +76,6 @@ export default {
       let box = document.querySelector('#msgBox');
       let big = document.querySelector('#msgBigBox').clientWidth;
       let offsetLeft = box.offsetLeft;
-      console.log(offsetLeft, '77777')
       document.querySelector('#msgBox').style.marginLeft = (offsetLeft - this.speed) + 'px'
       if (-offsetLeft > box.clientWidth) {
         document.querySelector('#msgBox').style.marginLeft = big + 'px'
@@ -109,7 +112,6 @@ export default {
           setTimeout(() => {
             this.$nextTick(() => {
               let arry = document.querySelectorAll('.msg-item');
-              console.log(arry)
               let width = 0;
               arry.forEach(Element => {
                 width = width + Element.clientWidth
@@ -123,6 +125,18 @@ export default {
 
         }
       })
+    },
+    //获取未读信息
+    getUnread() {
+      clearInterval(this.messageTimer)
+      this.messageTimer = setInterval(() => {
+        this.$http.storeGet(this.$api.MerchantMessageCount).then(res => {
+          if (res.data.Code == 1) {
+            this.setStoreMessage(res.data.Data.count)
+          }
+        })
+      }, 5000);
+
     },
     loginOut() {
       this.$alert.confirm('是否退出当前登录', '提示', {
@@ -144,6 +158,7 @@ export default {
     }
   },
   beforeDestroy() {
+    clearInterval(this.messageTimer)
     cancelAnimationFrame(this.animate)
     clearInterval(this.timer)
   }
@@ -254,7 +269,7 @@ export default {
       padding: 0 15px;
       background: @body_color;
       .tip {
-        width: 150 / @p;
+        width: 140 / @p;
         font-size: 12px;
         line-height: 40 / @p;
         color: @subtitle_color;
@@ -268,7 +283,7 @@ export default {
       }
       .phone-msg-big-box {
         display: block;
-        width: 150px !important;
+        width: 140px !important;
         position: relative;
         overflow: hidden;
       }

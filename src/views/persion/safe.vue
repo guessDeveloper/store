@@ -236,6 +236,7 @@ export default {
                 User_PWD: this.setPhonePass
               }).then(res => {
                 if (res.data.Code == 1) {
+                  this.userInfo.UserTel = this.setPhoneNum
                   this.setPhone = false;
                   this.$message.success('绑定成功')
                   this.userInfo.IsPhoneExist = '0'

@@ -11,7 +11,9 @@
             <span class="iconfont iconzh"></span><input type="text" placeholder="手机号码" v-model.trim="userName" @blur="isLoginCode">
           </div>
           <div class="input-box">
-            <span class="iconfont iconmima"></span><input :type="passwordType" placeholder="密码" v-model.trim="password" v-show="!isShowPass"> <input type="text" v-model.trim="password" placeholder="密码" v-show="isShowPass">
+            <span class="iconfont iconmima"></span>
+            <input :type="passwordType" placeholder="密码" v-model.trim="password" :class="{show:!isShowPass}" class="password">
+            <input type="text" v-model.trim="password" placeholder="密码" :class="{show:isShowPass}" class="password">
 
             <div class="show-icon" @click="showPass">
               <div class="icon iconfont iconyanjingk" v-show="isShowPass"></div>
@@ -36,12 +38,16 @@
       </div>
     </div>
     <footerBar :isLogin="true"></footerBar>
+    <div class="phone-footer-box">
+      <phoneFooter></phoneFooter>
+    </div>
   </div>
 </template>
 <script>
 import { mapState } from 'vuex' //注册 action 和 state
 import navBar from '@/components/login/login-nav'
 import '../../plugins/element-checkbox.js'
+import phoneFooter from '@/components/common/phoneFooter'
 import footerBar from '@/components/common/footer'
 export default {
   data() {
@@ -72,7 +78,8 @@ export default {
   },
   components: {
     footerBar: footerBar,
-    navBar: navBar
+    navBar: navBar,
+    phoneFooter: phoneFooter
   },
   computed: {
     ...mapState([
@@ -358,6 +365,13 @@ export default {
   position: relative;
   height: 50px;
   margin-bottom: 20px;
+  .password {
+    display: none;
+    &.show {
+      display: block;
+    }
+  }
+
   .iconfont {
     position: absolute;
     left: 22px;
@@ -440,6 +454,17 @@ export default {
     float: right;
     font-size: 14px;
     color: @main;
+  }
+}
+//底部footer
+.phone-footer-box {
+  display: none;
+  @media screen and(max-width:@change_width) {
+    & {
+      display: block;
+      width: 100%;
+      height: 56 / @p;
+    }
   }
 }
 </style>
