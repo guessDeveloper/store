@@ -24,9 +24,9 @@
         <ul>
           <li class="name">排序：</li>
           <li :class="{active:sort == 0}"><a @click="changeSort(0)">默认</a></li>
-          <li :class="{active:sort == 1||sort==2}"><a class="sort" :class="{up:sort==2,down:sort==1}" @click="changeSort(sort==2?1:2)">任务奖励</a></li>
-          <li :class="{acitve:sort == 3|| sort == 4}"><a class="sort" :class="{acitve:sort == 3|| sort == 4,up:sort==3,down:sort==4}" @click="changeSort(sort==3?4:3)">商家诚信</a></li>
-          <li :class="{active:sort == 5||sort == 6}"><a class="sort" :class="{active:sort == 5||sort == 6,up:sort==5,down:sort==6}" @click="changeSort(sort==5?6:5)">商家积分</a></li>
+          <li :class="{active:sort == 1||sort==2}"><a class="sort" :class="{up:sort==2,down:sort==1}" @click="changeSort(sort==1?2:1)">任务奖励</a></li>
+          <li :class="{acitve:sort == 3|| sort == 4}"><a class="sort" :class="{acitve:sort == 3|| sort == 4,up:sort==3,down:sort==4}" @click="changeSort(sort==4?3:4)">商家诚信</a></li>
+          <li :class="{active:sort == 5||sort == 6}"><a class="sort" :class="{active:sort == 5||sort == 6,up:sort==5,down:sort==6}" @click="changeSort(sort==6?5:6)">商家积分</a></li>
         </ul>
       </div>
     </div>

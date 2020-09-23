@@ -24,9 +24,9 @@
         <ul>
           <li class="name">排序：</li>
           <li :class="{active:sort == 0}"><a @click="changeSort(0)">默认</a></li>
-          <li :class="{active:sort == 1||sort==2}"><a class="sort" :class="{up:sort==2,down:sort==1}" @click="changeSort(sort==2?1:2)">任务奖励</a></li>
-          <li :class="{acitve:sort == 3|| sort == 4}"><a class="sort" :class="{acitve:sort == 3|| sort == 4,up:sort==3,down:sort==4}" @click="changeSort(sort==3?4:3)">商家诚信</a></li>
-          <li :class="{active:sort == 5||sort == 6}"><a class="sort" :class="{active:sort == 5||sort == 6,up:sort==5,down:sort==6}" @click="changeSort(sort==5?6:5)">商家积分</a></li>
+          <li :class="{active:sort == 1||sort==2}"><a class="sort" :class="{up:sort==2,down:sort==1}" @click="changeSort(sort==1?2:1)">任务奖励</a></li>
+          <li :class="{acitve:sort == 3|| sort == 4}"><a class="sort" :class="{acitve:sort == 3|| sort == 4,up:sort==3,down:sort==4}" @click="changeSort(sort==4?3:4)">商家诚信</a></li>
+          <li :class="{active:sort == 5||sort == 6}"><a class="sort" :class="{active:sort == 5||sort == 6,up:sort==5,down:sort==6}" @click="changeSort(sort==6?5:6)">商家积分</a></li>
         </ul>
       </div>
     </div>
@@ -59,8 +59,8 @@
           </span>
           <el-dropdown-menu slot="dropdown">
             <el-dropdown-item :command="{id:0,name:'默认'}">默认</el-dropdown-item>
-            <el-dropdown-item :command="{id:1,name:'任务奖励(正序)'}">任务奖励(正序)</el-dropdown-item>
-            <el-dropdown-item :command="{id:2,name:'任务奖励(倒序)'}">任务奖励(倒序)</el-dropdown-item>
+            <el-dropdown-item :command="{id:2 ,name:'任务奖励(正序)'}">任务奖励(正序)</el-dropdown-item>
+            <el-dropdown-item :command="{id:1,name:'任务奖励(倒序)'}">任务奖励(倒序)</el-dropdown-item>
             <el-dropdown-item :command="{id:3,name:'商家诚信(正序)'}">商家诚信(正序)</el-dropdown-item>
             <el-dropdown-item :command="{id:4,name:'商家诚信(倒序)'}">商家诚信(倒序)</el-dropdown-item>
             <el-dropdown-item :command="{id:5,name:'商家积分(正序)'}">商家积分(正序)</el-dropdown-item>

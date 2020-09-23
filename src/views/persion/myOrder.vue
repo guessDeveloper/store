@@ -283,7 +283,7 @@ export default {
   data() {
     return {
       //线上订单
-      onlieTime: ['', ''],
+      onlieTime: [this.$util.getTwoWeek(), this.$util.getNowDate()],
       pageIndex: 1,
       pageSize: 20,
       onlineTotal: 0,
@@ -314,7 +314,7 @@ export default {
       underlineLoading: false,
       tab: 1,
       //地面订单
-      unlineTime: ['', ''],
+      unlineTime: [this.$util.getTwoWeek(), this.$util.getNowDate()],
       unlineType: [
         { value: '', label: '全部' },
         { value: '0', label: '待付款' },
@@ -338,6 +338,7 @@ export default {
   },
   mounted() {
     this.tab = this.$route.query.tab ? this.$route.query.tab : '1';
+    console.log(this.onlieTime, '4444')
     //    this.onlieTime = this.unlineTime = [this.$util.getNowDate(),this.$util.getNowDate()]
     if (this.tab == '1') {
       this.getOnlineList();

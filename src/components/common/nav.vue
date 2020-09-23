@@ -23,7 +23,7 @@
           <router-link to='/myOrder' tag='a'>我的订单</router-link>
           <a @click="loginOut">退出登录</a>
         </span>
-        <router-link to="/helpCenter" class="help" tag="a">帮助中心</router-link>
+        <router-link to="/helpCenter" class="help" tag="a">商学院</router-link>
       </div>
       <!-- <a class="loginout help-nav-top" v-show="isLogin" @click="loginOut">退出登录</a> -->
       <!-- <router-link tag="a" to="/persion" class="logined help-nav-top" v-show="isLogin"><span class="iconfont iconzh"></span>个人中心</router-link> -->

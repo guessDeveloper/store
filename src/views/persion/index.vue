@@ -16,7 +16,9 @@
       </div>
     </div>
 
-    <footerBar></footerBar>
+    <div class="footer-box">
+      <footerBar></footerBar>
+    </div>
     <div class="phone-footer-box">
       <phoneFooter></phoneFooter>
     </div>
@@ -95,6 +97,17 @@ export default {
       width: 100%;
       height: 56 / @p;
     }
+  }
+}
+.home {
+  position: relative;
+  height: 100%;
+  min-height: 100vh;
+  .footer-box {
+    position: absolute;
+    width: 100%;
+    left: 0;
+    bottom: 0;
   }
 }
 </style>
