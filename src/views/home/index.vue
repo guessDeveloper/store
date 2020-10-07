@@ -15,7 +15,7 @@
     <!-- 商家联盟 -->
     <div class="section-box">
       <div class="title-box">
-        <h2 class="title">商家联盟</h2>
+        <h2 class="title">实体商家</h2>
         <span class="sub-title">积分直返消费者</span>
         <router-link class="more" tag="a" to="/shop" target="_blank"> 查看全部 <span class="iconfont iconjiantou"></span></router-link>
         <div class="position-box" id="scrollDorpdown">

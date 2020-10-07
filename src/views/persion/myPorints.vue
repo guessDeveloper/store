@@ -24,6 +24,9 @@
           <a class="check-btn" @click="chakan">查看记录</a>
         </div>
       </div>
+      <a class="bottom-imgbox">
+        <img src="../../assets/img/score-bottom.png" alt="">
+      </a>
     </div>
     <el-dialog title="获取记录" :visible.sync="dialogFormVisible" width="520px" class="small">
       <el-table :data="gridData" style="width:480px;" header-row-style="'font-size:12px;color:#999;'" row-class-name="table-line" class="small-table">
@@ -366,6 +369,15 @@ export default {
   }
   .small-table {
     display: none;
+  }
+}
+.bottom-imgbox {
+  display: block;
+  width: 100%;
+  text-align: center;
+  img {
+    max-width: 600px;
+    width: 100%;
   }
 }
 </style>

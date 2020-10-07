@@ -24,7 +24,7 @@
         <span class="iconfont icontab_st nomall" @click="openShoreMenu"></span>
         <span class="iconfont on icontab_stdj" @click="openShoreMenu"></span>
         <div class="name" @click="openShoreMenu">
-          实体消费
+          实体商家
         </div>
         <div class="menu">
           <div class="menu-item" :class="{active:nowPath == '/food'}" @click="goRouter('/food')">美食广场</div>
