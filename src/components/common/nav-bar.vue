@@ -397,12 +397,23 @@ export default {
       item.placeHolder ? this.searchPlaceHolder = item.placeHolder : this.searchPlaceHolder = '输入商品关键词'
     },
     search() {
-      if (this.searchContent == '') {
-        this.$message.error('请输入关键字')
+      if (this.searchType == 'pdd') {
+        if (this.isLogin == false) {
+          this.$router.push('/login')
+        } else {
+          if (this.searchContent == '') {
+            this.$message.error('请输入关键字')
+          } else {
+            this.$router.push(`/search?type=${this.searchType}&content=${this.searchContent}`)
+          }
+        }
       } else {
-        this.$router.push(`/search?type=${this.searchType}&content=${this.searchContent}`)
+        if (this.searchContent == '') {
+          this.$message.error('请输入关键字')
+        } else {
+          this.$router.push(`/search?type=${this.searchType}&content=${this.searchContent}`)
+        }
       }
-
     },
     //点击扫一扫
     sao() {
