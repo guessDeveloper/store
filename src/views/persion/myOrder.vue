@@ -87,7 +87,7 @@
           <el-table-column property="OrderType" label="订单类型" width="69" align="center"></el-table-column>
           <el-table-column property="money" label="消费金额(元)" width="88" align="center"></el-table-column>
           <el-table-column property="PreReturnIntegral" label="预返积分" width="70" align="center"></el-table-column>
-          <el-table-column property="fanli" label="奖励积分" width="70" align="center"></el-table-column>
+          <el-table-column property="fanli" label="预估积分" width="70" align="center"></el-table-column>
           <el-table-column property="state" label="状态" width="88" align="center"></el-table-column>
           <el-table-column label="操作" width="102" align="center">
             <template slot-scope="scope">
@@ -121,7 +121,7 @@
                 </div>
                 <div class="item-name">预返积分:<span class="item-value">{{item.PreReturnIntegral}}</span>
                 </div>
-                <div class="item-name">奖励积分：<span class="item-value">{{item.fanli}}</span></div>
+                <div class="item-name">预估积分：<span class="item-value">{{item.fanli}}</span></div>
               </div>
               <!-- <div class="order-status-wrap">
                                 <div class="order-status-name">状态：<span>{{item.state}}</span></div>

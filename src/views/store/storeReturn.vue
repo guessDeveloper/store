@@ -1,7 +1,7 @@
 <template>
   <div class="menager-box">
     <div class="persion-title">
-      扫码返积分
+      扫码奖励积分
     </div>
     <div class="content">
       <div class="input-line">
@@ -13,13 +13,13 @@
         <div class="input-box"><input type="text" placeholder="请输入消费金额" v-model.trim="money"></div>
       </div>
       <div class="input-line">
-        <label for="">请选择返还比例：</label>
+        <label for="">请输入奖励比例：</label>
         <div class="input-box percent"><input type="text" placeholder="默认调取商家的奖励比例" v-model="rateE">
           <div class="danwei">%</div>
         </div>
       </div>
       <div class="input-line input-line-integral">
-        <label for="">返积分数量：</label>
+        <label for="">奖励积分数量：</label>
         <div class="input-box"><span class="tip">{{backNum}}</span> </div>
       </div>
       <div class="input-line">
@@ -49,7 +49,7 @@ export default {
       if (this.money !== '' & this.rateE !== '') {
         return Math.floor(this.money * this.rateE / 100 * this.ScoreRate * 100) / 100
       } else {
-        return '自动计算用户返积分数量'
+        return '自动计算用户奖励积分数量'
       }
     },
     rate() {

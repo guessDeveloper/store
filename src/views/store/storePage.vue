@@ -216,7 +216,7 @@ export default {
           iconSize: '15px'
         },
         {
-          title: "扫码返奖励积分",
+          title: "扫码奖励积分",
           to: '/storeReturn',
           icon: "iconsmfjl",
           iconSize: '15px'
