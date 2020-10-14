@@ -1,96 +1,96 @@
 <template>
   <div>
     <div class="brand-top-nav">
-        <router-link tag="a" to="/">首页</router-link>
-        <span class="iconfont iconjiantou"></span>
-        <span class="now-nav">{{navName}}</span>
+      <router-link tag="a" to="/">首页</router-link>
+      <span class="iconfont iconjiantou"></span>
+      <span class="now-nav">{{navName}}</span>
     </div>
     <div class="top">
-       <div class="left">
-          <div class="big-img-box magnifier-box">
-            <!-- <img :src="piclist&&piclist[nowActiveIndex]" alt=""> -->
-            <PicZoom :url="piclist?piclist[nowActiveIndex]:''" :scale="3" v-if="piclist&&piclist[nowActiveIndex]"></PicZoom>
-          </div>
-          <div class="imgs-box">
-            <div class="img-box">
-              <div class="item" v-for="(item,index) in piclist" :key="index">
-                <img :src="item" alt="" @mouseenter="selecting(index)">
-              </div>
+      <div class="left">
+        <div class="big-img-box magnifier-box">
+          <!-- <img :src="piclist&&piclist[nowActiveIndex]" alt=""> -->
+          <PicZoom :url="piclist?piclist[nowActiveIndex]:''" :scale="3" v-if="piclist&&piclist[nowActiveIndex]"></PicZoom>
+        </div>
+        <div class="imgs-box">
+          <div class="img-box">
+            <div class="item" v-for="(item,index) in piclist" :key="index">
+              <img :src="item" alt="" @mouseenter="selecting(index)">
             </div>
           </div>
-          <div class="small-banner">
-             <img src="../../assets/img/1-1.jpg" alt="" class="zhanwei">
-             <el-carousel trigger="click" height="100%" class="banner-box">
-              <el-carousel-item v-for="(item,index) in piclist" :key="item">
-                <img :src="item" alt="" class="banner-img" >
-              </el-carousel-item>
-            </el-carousel>
+        </div>
+        <div class="small-banner">
+          <img src="../../assets/img/1-1.jpg" alt="" class="zhanwei">
+          <el-carousel trigger="click" height="100%" class="banner-box">
+            <el-carousel-item v-for="(item,index) in piclist" :key="item">
+              <img :src="item" alt="" class="banner-img">
+            </el-carousel-item>
+          </el-carousel>
+        </div>
+      </div>
+      <div class="right">
+        <div class="title">
+          {{proudectData.titleA}}
+        </div>
+        <div class="price">
+          ¥{{proudectData.Picper}} <span class="score">{{proudectData.Fanli}}</span>
+        </div>
+        <div class="tip">
+          <div class="item">
+            <span class="middle">
+              <span class="iconfont icongmsp"></span><span class="tip-item-name">购买商品</span>
+            </span>
           </div>
-       </div>
-       <div class="right">
-         <div class="title">
-           {{proudectData.titleA}}
-         </div>
-         <div class="price">
-           ¥{{proudectData.Picper}} <span class="score">{{proudectData.Fanli}}</span>
-         </div>
-         <div class="tip">
-            <div class="item">
-              <span class="middle">
-               <span class="iconfont icongmsp"></span><span class="tip-item-name">购买商品</span>
-               </span>
-            </div>
-            <div class="item">
-              <span class="middle">
-               <span class="iconfont iconqrsh"></span><span class="tip-item-name">确认收货</span>
-              </span>
-            </div>
-            <div class="item">
-              <span class="middle">
-               <span class="iconfont iconddjs"></span><span class="tip-item-name">等待结算</span>
-              </span>
-            </div>
-            <div class="item">
-              <span>
-               <span class="iconfont iconhdfl"></span><span class="tip-item-name">获得返利</span>
-              </span>
-            </div>
-         </div>
-         <div class="notice" ><span v-show="GoodType=='2'">提醒：使用天猫红包和购物券将无法返现</span></div>
-         <button  class="btn" @click="buy">立即购买</button>
-       </div>
+          <div class="item">
+            <span class="middle">
+              <span class="iconfont iconqrsh"></span><span class="tip-item-name">确认收货</span>
+            </span>
+          </div>
+          <div class="item">
+            <span class="middle">
+              <span class="iconfont iconddjs"></span><span class="tip-item-name">等待结算</span>
+            </span>
+          </div>
+          <div class="item">
+            <span>
+              <span class="iconfont iconhdfl"></span><span class="tip-item-name">获得返利</span>
+            </span>
+          </div>
+        </div>
+        <div class="notice"><span v-show="GoodType=='2'">提醒：使用天猫红包和购物券将无法返现</span></div>
+        <button class="btn" @click="buy">立即购买</button>
+      </div>
     </div>
     <div class="promote">
-        <div class="title">
-          同类商品推荐
-        </div>
-        <el-carousel trigger="click" :height="carouselHeight">
-          <el-carousel-item v-for="(item,index) in promoteList" :key="index">
-           <div class="goods-box">
-             <div class="goods-item" v-for="(item2,index2) in item" :key="index2">
-                <goodCard :item="item2" ></goodCard>
-             </div>
-           </div>
-          </el-carousel-item>
-        </el-carousel>
+      <div class="title">
+        同类商品推荐
+      </div>
+      <el-carousel trigger="click" :height="carouselHeight">
+        <el-carousel-item v-for="(item,index) in promoteList" :key="index">
+          <div class="goods-box">
+            <div class="goods-item" v-for="(item2,index2) in item" :key="index2">
+              <goodCard :item="item2"></goodCard>
+            </div>
+          </div>
+        </el-carousel-item>
+      </el-carousel>
     </div>
     <div class="goods-detial">
-       <div class="left">
-         <div class="title">商品详情</div>
-         <div class="box">
-           <iframe :src="proudectData.imglist" frameborder="0"></iframe>
-         </div>
-       </div>
-       <div class="right">
-         <div class="title">
-             24小时热销榜
-         </div>
-         <div class="list">
-           <div class="" v-for="(item,index) in proudectData.PopProducts" :key="index">
-             <goodCard :item="item"></goodCard>
-           </div>
-         </div>
-       </div>
+      <div class="left">
+        <div class="title">商品详情</div>
+        <div class="box">
+          <iframe :src="proudectData.imglist" frameborder="0"></iframe>
+        </div>
+      </div>
+      <div class="right">
+        <div class="title">
+          24小时热销榜
+        </div>
+        <div class="list">
+          <div class="" v-for="(item,index) in proudectData.PopProducts" :key="index">
+            <goodCard :item="item"></goodCard>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </template>
@@ -98,20 +98,20 @@
 import PicZoom from 'vue-piczoom'
 import goodCard from '@/components/recommend/recommendCard'
 export default {
-  data(){
-    return{
-      nowActiveIndex:0,
-      GoodType:'',
-      GoodID:'',
-      proudectData:{},
-      promoteList:[],
-      piclist:[],
-      navName:''
+  data() {
+    return {
+      nowActiveIndex: 0,
+      GoodType: '',
+      GoodID: '',
+      proudectData: {},
+      promoteList: [],
+      piclist: [],
+      navName: ''
     }
   },
-  components:{
-    goodCard:goodCard,
-    PicZoom:PicZoom
+  components: {
+    goodCard: goodCard,
+    PicZoom: PicZoom
   },
   computed: {
     carouselHeight() {
@@ -126,72 +126,72 @@ export default {
   },
   watch: {
     '$route'(to, from) {
-        if(this.$route.query.GoodType){
-          this.GoodType = this.$route.query.GoodType
-          this.GoodType == 1?this.navName = '拼多多':this.navName = '淘宝'
-        }
-        if(this.$route.query.GoodID){
-          this.GoodID = this.$route.query.GoodID
-        }
-        this.getDetail();
+      if (this.$route.query.GoodType) {
+        this.GoodType = this.$route.query.GoodType
+        this.GoodType == 1 ? this.navName = '拼多多' : this.navName = '淘宝'
+      }
+      if (this.$route.query.GoodID) {
+        this.GoodID = this.$route.query.GoodID
+      }
+      this.getDetail();
     }
   },
-  mounted(){
-    if(this.$route.query.GoodType){
+  mounted() {
+    if (this.$route.query.GoodType) {
       this.GoodType = this.$route.query.GoodType
-      this.GoodType == 1?this.navName = '拼多多':this.navName = '淘宝'
+      this.GoodType == 1 ? this.navName = '拼多多' : this.navName = '淘宝'
     }
-    if(this.$route.query.GoodID){
-     this.GoodID = this.$route.query.GoodID
+    if (this.$route.query.GoodID) {
+      this.GoodID = this.$route.query.GoodID
     }
     this.getDetail();
   },
-  methods:{
+  methods: {
     //获取产品详情
-    getDetail(){
-      this.$http.get(this.$api.GetMaterialGoodsById,{
-        GoodType:this.GoodType,
-        GoodID:this.GoodID
-      }).then(res=>{
-          if(res.data.Code == 1){
-         
-            this.proudectData = res.data.Data
-            this.piclist = res.data.Data.piclist
-            this.promoteList = this.changeArray(res.data.Data.SameClassproducts)
-            console.log(this.promoteList)
-          }
+    getDetail() {
+      this.$http.get(this.$api.GetMaterialGoodsById, {
+        GoodType: this.GoodType,
+        GoodID: this.GoodID
+      }).then(res => {
+        if (res.data.Code == 1) {
+
+          this.proudectData = res.data.Data
+          this.piclist = res.data.Data.piclist
+          this.promoteList = this.changeArray(res.data.Data.SameClassproducts)
+          console.log(this.promoteList)
+        }
       })
     },
-     //数组转换
-    changeArray(arry){
+    //数组转换
+    changeArray(arry) {
       let att = [];
       let length = arry.length;
-      let count = Math.ceil(length/4)
+      let count = Math.ceil(length / 4)
       let num = 0
-      for(let i = 0;i<count;i++){
+      for (let i = 0; i < count; i++) {
         let attr = [];
-        arry[num+0]?attr.push(arry[num+0]):''
-        arry[num+1]?attr.push(arry[num+1]):''
-        arry[num+2]?attr.push(arry[num+2]):''
-        arry[num+3]?attr.push(arry[num+3]):''
+        arry[num + 0] ? attr.push(arry[num + 0]) : ''
+        arry[num + 1] ? attr.push(arry[num + 1]) : ''
+        arry[num + 2] ? attr.push(arry[num + 2]) : ''
+        arry[num + 3] ? attr.push(arry[num + 3]) : ''
         att.push(attr)
         num++
       }
       return att
     },
     //购买
-    buy(){
-      this.$http.limitGet(this.$api.clickTobuy,{
-        type:this.GoodType,
-        id:this.GoodID
-      }).then(res=>{
-         if(res.data.Code == 1){
-           window.location.href = res.data.Data
-         }
+    buy() {
+      this.$http.limitGet(this.$api.clickTobuy, {
+        type: this.GoodType,
+        id: this.GoodID
+      }).then(res => {
+        if (res.data.Code == 1) {
+          window.location.href = res.data.Data
+        }
       })
     },
     //轮播图
-    selecting(index){
+    selecting(index) {
       this.nowActiveIndex = index;
     }
   },
@@ -200,161 +200,159 @@ export default {
 }
 </script>
 <style lang="less" scoped>
-.top{
-  width:@max-width;
-  margin:0 auto;
-  height:408px;
-  background:#fff;
-  .left{
+.top {
+  width: @max-width;
+  margin: 0 auto;
+  height: 408px;
+  background: #fff;
+  .left {
     float: left;
-    width:490px;
-    height:100%;
+    width: 490px;
+    height: 100%;
     box-sizing: border-box;
-    padding:30px 40px 0 30px;
-    .big-img-box{
+    padding: 30px 40px 0 30px;
+    .big-img-box {
       float: left;
-      width:348px;
-      height:348px;
-      img{
+      width: 348px;
+      height: 348px;
+      img {
         display: block;
-        width:100%;
-        height:100%;
+        width: 100%;
+        height: 100%;
       }
     }
-    .small-banner{
+    .small-banner {
       display: none;
     }
-    .imgs-box{
-      float:right;
-      width:60px;
-      height:348px;
+    .imgs-box {
+      float: right;
+      width: 60px;
+      height: 348px;
       overflow: hidden;
-      .imgs-box{
+      .imgs-box {
         overflow: hidden;
       }
-      .item{
+      .item {
         display: block;
-        width:60px;
-        padding-bottom:12px;
-        img{
+        width: 60px;
+        padding-bottom: 12px;
+        img {
           display: block;
-          width:60px;
-          height:60px;
+          width: 60px;
+          height: 60px;
           cursor: pointer;
         }
       }
     }
-
   }
-  .right{
+  .right {
     box-sizing: border-box;
-    padding:30px 30px 0 0;
+    padding: 30px 30px 0 0;
     float: right;
-    width:710px;
-    height:100%;
-    .title{
-      font-size:26px;
+    width: 710px;
+    height: 100%;
+    .title {
+      font-size: 26px;
       line-height: 40px;
-
     }
-    .price{
-      font-size:32px;
-      color:#D51B32;
-      .score{
-        margin-left:15px;
-        font-size:14px;
-        color:@subtitle_color;
+    .price {
+      font-size: 32px;
+      color: #d51b32;
+      .score {
+        margin-left: 15px;
+        font-size: 14px;
+        color: @subtitle_color;
       }
     }
-    .tip{
+    .tip {
       overflow: hidden;
-      .item{
+      .item {
         float: left;
-        width:112px;
-        height:46px;
+        width: 112px;
+        height: 46px;
         text-align: center;
-        margin-right:20px;
-        line-height:46px;
-        border:1px solid @main;
-        font-size:14px;
-        color:@main;
-        .middle{
-           line-height: 22px;
+        margin-right: 20px;
+        line-height: 46px;
+        border: 1px solid @main;
+        font-size: 14px;
+        color: @main;
+        .middle {
+          line-height: 22px;
         }
-        .iconfont{
+        .iconfont {
           display: inline-block;
-          font-size:22px;
-          margin-top:-4px;
-          margin-right:14px;
+          font-size: 22px;
+          margin-top: -4px;
+          margin-right: 14px;
           vertical-align: middle;
         }
       }
     }
   }
-  .notice{
-    font-size:12px;
-    margin-top:20px;
-    color:@subtitle_color;
+  .notice {
+    font-size: 12px;
+    margin-top: 20px;
+    color: @subtitle_color;
   }
-  .btn{
-    width:200px;
-    height:50px;
-    margin-top:36px;
-    border:1px solid @main;
-    font-size:18px;
-    color:@main;
+  .btn {
+    width: 200px;
+    height: 50px;
+    margin-top: 36px;
+    border: 1px solid @main;
+    font-size: 18px;
+    color: @main;
   }
 }
-.promote{
-   width:@max-width;
-   margin:20px auto;
-   background:#fff;
-   .title{
-     font-size:20px;
-     line-height: 68px;
-     padding-left:30px;
-     border-bottom:1px solid @class_border;
-   }
-   .goods-box{
-     width:1040px;
-     margin:0 auto;
-     overflow: hidden;
-     padding-top:40px;
-     .goods-item{
-       float:left;
-       width:220px;
-       margin:0 20px;
-     }
-   }
+.promote {
+  width: @max-width;
+  margin: 20px auto;
+  background: #fff;
+  .title {
+    font-size: 20px;
+    line-height: 68px;
+    padding-left: 30px;
+    border-bottom: 1px solid @class_border;
+  }
+  .goods-box {
+    width: 1040px;
+    margin: 0 auto;
+    overflow: hidden;
+    padding-top: 40px;
+    .goods-item {
+      float: left;
+      width: 220px;
+      margin: 0 20px;
+    }
+  }
 }
-.goods-detial{
+.goods-detial {
   overflow: hidden;
-  width:@max-width;
-   margin:20px auto;
-  .title{
-     font-size:20px;
-     line-height: 68px;
-     padding-left:30px;
-     border-bottom:1px solid @class_border;
-   }
-  .left{
-    float:left;
-    width:900px;
-    background:#fff;
-    .box{
-      width:100%;
-      iframe{
-        width:100%;
-        height:1500px;
+  width: @max-width;
+  margin: 20px auto;
+  .title {
+    font-size: 20px;
+    line-height: 68px;
+    padding-left: 30px;
+    border-bottom: 1px solid @class_border;
+  }
+  .left {
+    float: left;
+    width: 900px;
+    background: #fff;
+    .box {
+      width: 100%;
+      iframe {
+        width: 100%;
+        height: 1500px;
       }
     }
   }
-  .right{
-    float:right;
-    width:280px;
-    background:#fff;
-    .list{
-      padding:30px;
+  .right {
+    float: right;
+    width: 280px;
+    background: #fff;
+    .list {
+      padding: 30px;
     }
   }
 }
@@ -367,27 +365,27 @@ export default {
       width: 100%;
       padding: 0;
       .big-img-box {
-        display:none;
+        display: none;
         float: none;
         width: 100%;
         box-sizing: border-box;
       }
-      .small-banner{
+      .small-banner {
         display: block;
         position: relative;
-        .zhanwei{
-          width:100%;
+        .zhanwei {
+          width: 100%;
           opacity: 0;
         }
-        .banner-box{
+        .banner-box {
           position: absolute;
-          top:0;
-          width:100%;
-          height:100%;
+          top: 0;
+          width: 100%;
+          height: 100%;
         }
-        .banner-img{
-          width:100%;
-          height:100%;
+        .banner-img {
+          width: 100%;
+          height: 100%;
         }
       }
       .imgs-box {
@@ -419,7 +417,7 @@ export default {
           border-radius: 50%;
           border: 1px solid #eeeeee;
           text-align: center;
-          &>span {
+          & > span {
             position: relative;
             display: block;
             line-height: 50px;
@@ -438,7 +436,7 @@ export default {
           .middle {
             line-height: 50px;
             &::after {
-              content: '→';
+              content: "→";
               width: 25px;
               height: 10px;
               line-height: 10px;
@@ -449,7 +447,7 @@ export default {
               color: #eeeeee;
             }
           }
-          &:last-child{
+          &:last-child {
             margin-right: 0;
           }
         }
@@ -468,11 +466,11 @@ export default {
       // padding-left: 15px;
       position: relative;
       &::before {
-        content: '';
+        content: "";
         position: absolute;
         width: 4px;
         height: 40%;
-        background-color: #F38A1D;
+        background-color: #f38a1d;
         left: 15px;
         top: 50%;
         transform: translateY(-50%);
@@ -481,7 +479,7 @@ export default {
     .goods-box {
       width: 100%;
       padding-top: 0;
-      .goods-item{
+      .goods-item {
         width: calc(50% - 20px);
         margin: 0 10px;
         box-sizing: border-box;
@@ -499,17 +497,17 @@ export default {
     width: 100%;
     .left {
       float: none;
-      width:100%;
+      width: 100%;
       .title {
         line-height: 58px;
         // padding-left: 15px;
         position: relative;
         &::before {
-          content: '';
+          content: "";
           position: absolute;
           width: 4px;
           height: 40%;
-          background-color: #F38A1D;
+          background-color: #f38a1d;
           left: 15px;
           top: 50%;
           transform: translateY(-50%);
@@ -524,14 +522,14 @@ export default {
         padding: 15px;
         display: flex;
         flex-wrap: wrap;
-        &>div {
+        & > div {
           width: 50%;
           box-sizing: border-box;
         }
-        &>div:nth-child(odd) {
+        & > div:nth-child(odd) {
           padding-right: 7px;
         }
-        &>div:nth-child(even) {
+        & > div:nth-child(even) {
           padding-left: 7px;
         }
       }

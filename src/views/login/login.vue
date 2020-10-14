@@ -206,7 +206,9 @@ export default {
         if (res.data.Code == 1) {
           localStorage.setItem('token', res.data.Data)
           this.savePass();
-          this.$router.push('/persion')
+          //获取pdd 授权
+          this.getPddPass();
+          // this.$router.push('/persion')
         } else {
           this.isLoginCode();
           this.$message.error(res.data.Msg)
@@ -271,6 +273,31 @@ export default {
       } else {
         this.$util.setCookie('userPassword', '', -1);
       }
+    },
+    //查看拼多多是否授权
+    getPddPass() {
+      this.$http.limitGet(this.$api.GetUserIsKeepOnRecord).then(res => {
+        if (res.data.Code == 1) {
+          console.log(res)
+          if (res.data.Data.IsKeepOnRecord == false) {
+            this.getPddPassLink();
+          } else {
+            this.$router.push('/persion')
+          }
+        } else {
+          this.$router.push('/persion')
+        }
+      })
+    },
+    //获取授权链接
+    getPddPassLink() {
+      this.$http.limitGet(this.$api.UserKeepOnRecord).then(res => {
+        if (res.data.Code == 1) {
+          window.location.href = res.data.Data.url
+        } else {
+          this.$router.push('/persion')
+        }
+      })
     },
     changeSave() {
 
