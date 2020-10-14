@@ -292,10 +292,21 @@ export default {
     //获取授权链接
     getPddPassLink() {
       this.$http.limitGet(this.$api.UserKeepOnRecord).then(res => {
+        this.$router.push('/persion')
         if (res.data.Code == 1) {
-          window.location.href = res.data.Data.url
+          // this.$alert.confirm('确认授权？')
+          //   .then(_ => {
+          //     console.log(res)
+          //     window.location.open(res.data.Data.url, '_blank')
+          //   })
+          //   .catch(_ => { });
+          this.$alert.alert(`<iframe src=${res.data.Data.url} width="100%" height="400px" style="border:0;height:70vh;"></iframe>`, '拼多多授权', {
+            dangerouslyUseHTMLString: true,
+            showConfirmButton: false
+          });
+
         } else {
-          this.$router.push('/persion')
+
         }
       })
     },

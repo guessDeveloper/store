@@ -401,11 +401,13 @@ export default {
         if (this.isLogin == false) {
           this.$router.push('/login')
         } else {
-          if (this.searchContent == '') {
-            this.$message.error('请输入关键字')
-          } else {
-            this.$router.push(`/search?type=${this.searchType}&content=${this.searchContent}`)
-          }
+          this.getPddPass(() => {
+            if (this.searchContent == '') {
+              this.$message.error('请输入关键字')
+            } else {
+              this.$router.push(`/search?type=${this.searchType}&content=${this.searchContent}`)
+            }
+          })
         }
       } else {
         if (this.searchContent == '') {
@@ -414,6 +416,41 @@ export default {
           this.$router.push(`/search?type=${this.searchType}&content=${this.searchContent}`)
         }
       }
+    },
+    //查看拼多多是否授权
+    getPddPass(callback) {
+      this.$http.limitGet(this.$api.GetUserIsKeepOnRecord).then(res => {
+        if (res.data.Code == 1) {
+          console.log(res)
+          if (res.data.Data.IsKeepOnRecord == false) {
+            this.getPddPassLink();
+          } else {
+            callback && callback()
+          }
+        } else {
+          callback && callback()
+        }
+      })
+    },
+    //获取授权链接
+    getPddPassLink() {
+      this.$http.limitGet(this.$api.UserKeepOnRecord).then(res => {
+        if (res.data.Code == 1) {
+          // this.$alert.confirm('确认授权？')
+          //   .then(_ => {
+          //     console.log(res)
+          //     window.location.open(res.data.Data.url, '_blank')
+          //   })
+          //   .catch(_ => { });
+          this.$alert.alert(`<iframe src=${res.data.Data.url} width="100%" height="400px" style="border:0;height:70vh;"></iframe>`, '拼多多授权', {
+            dangerouslyUseHTMLString: true,
+            showConfirmButton: false
+          });
+
+        } else {
+          this.$message.error(res.data.Msg)
+        }
+      })
     },
     //点击扫一扫
     sao() {

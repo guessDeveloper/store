@@ -138,7 +138,7 @@
       </div>
     </div>
     <!-- 修改手机号 -->
-    <div class="safe-tip">
+    <div class="safe-tip" v-show="!isChangingPhone">
       <h4>安全服务提示</h4>
       <ul>
         <li>· 确认您登录的是优乐兑网址，注意防范进入钓鱼网站，不要轻信各种即时通讯工具发送的商品或支付链接，谨防网购诈骗</li>

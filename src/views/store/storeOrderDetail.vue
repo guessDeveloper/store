@@ -32,7 +32,7 @@
         </el-table-column>
         <el-table-column property="goodsPrice" label="单价(元)" width="144" align="center"></el-table-column>
         <el-table-column property="goodsNumber" label="数量" width="84" align="center"></el-table-column>
-        <el-table-column property="Subtotal" label="实付(元)" width="84" align="center"></el-table-column>
+        <el-table-column property="Subtotal" label="应付(元)" width="84" align="center"></el-table-column>
         <el-table-column property="GoodsFanbi" label="返比(%)" width="60" align="center"></el-table-column>
         <el-table-column property="GoodsIntegralCount" label="返积分" width="84" align="center"></el-table-column>
       </el-table>
@@ -49,7 +49,7 @@
                 <span>数量：<span class="list-item-value">{{ item.goodsNumber }}</span></span>
               </p>
               <p class="list-item-value-wrap">
-                <span>实付(元):<span class="list-item-value list-item-subtotal">￥{{ item.Subtotal }}</span></span>
+                <span>应付(元):<span class="list-item-value list-item-subtotal">￥{{ item.Subtotal }}</span></span>
                 <span>返比:<span class="list-item-value">{{ item.GoodsFanbi }}%</span></span>
               </p>
               <p class="list-item-value-wrap">
@@ -67,7 +67,7 @@
       </div>
       <div class="price">
         <div class="item">
-          返积分数：<span>{{detail.Integral}}</span>
+          预估积分：<span>{{detail.Integral}}</span>
         </div>
         <div class="item">
           商品件数：<span>{{detail.GoodsCount}}件</span>

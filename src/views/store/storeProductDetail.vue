@@ -82,7 +82,7 @@
       <span class="percent">%</span>
     </div>
     <div class="input-line-box input-line-box-shelf">
-      <label for="">返积分数量：</label>
+      <label for="">预估积分：</label>
       <div class="input-box">{{backScore}}<span class="tip"></span> </div>
     </div>
     <div class="input-line-box input-line-box-shelf">
@@ -143,7 +143,7 @@ export default {
       if (this.price !== '' && this.rate !== '') {
         return Math.floor(this.price * this.rate / 100 * this.ScoreRate * 100) / 100
       } else {
-        return '自动计算用户返积分数量'
+        return '自动计算用户预估积分'
       }
     }
   },
