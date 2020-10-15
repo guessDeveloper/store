@@ -12,7 +12,7 @@
         <div class="order-content">{{detail.createrTime}}</div>
       </div>
       <div class="order-num three">
-        <div class="name">积分约：</div>
+        <div class="name">预估积分：</div>
         <div class="order-content">
           {{detail.BonusPoints}}
         </div>
@@ -69,9 +69,9 @@
         <el-table-column property="goodsNumber" label="数量" width="84" align="center">
 
         </el-table-column>
-        <el-table-column property="Subtotal" label="实付(元)" width="144" align="center"></el-table-column>
-        <el-table-column property="GoodsFanbi" label="返比(%)" width="84" align="center"></el-table-column>
-        <el-table-column property="GoodsIntegralCount" label="返积分" width="84" align="center"></el-table-column>
+        <el-table-column property="Subtotal" :label="(detail.state=='待付款'?'应':'实')+'付(元)'" width="144" align="center"></el-table-column>
+        <el-table-column property="GoodsFanbi" label="奖励比例(%)" width="84" align="center"></el-table-column>
+        <el-table-column property="GoodsIntegralCount" label="奖励积分" width="84" align="center"></el-table-column>
       </el-table>
       <!-- 移动端-商品信息列表 -->
       <div class="goods-list-small">
@@ -86,11 +86,11 @@
                 <span>数量：<span class="list-item-value">{{ item.goodsNumber }}</span></span>
               </p>
               <p class="list-item-value-wrap">
-                <span>实付：<span class="list-item-value list-item-subtotal">￥{{ item.Subtotal }}</span></span>
-                <span>返比：<span class="list-item-value">{{ item.GoodsFanbi }}%</span></span>
+                <span>{{detail.state=='待付款'?'应':'实'}}付：<span class="list-item-value list-item-subtotal">￥{{ item.Subtotal }}</span></span>
+                <span>奖励比例：<span class="list-item-value">{{ item.GoodsFanbi }}%</span></span>
               </p>
               <p class="list-item-value-wrap">
-                <span>返积分：<span class="list-item-value list-item-subtotal">{{ item.GoodsIntegralCount }}</span></span>
+                <span>奖励积分：<span class="list-item-value list-item-subtotal">{{ item.GoodsIntegralCount }}</span></span>
 
               </p>
             </div>
@@ -104,7 +104,7 @@
       </div>
       <div class="price">
         <div class="item">
-          返积分数：<span> {{detail.BonusPoints}}</span>
+          预估积分：<span> {{detail.BonusPoints}}</span>
         </div>
         <div class="item">
           商品件数：<span>{{detail.GoodsCount}}件</span>

@@ -34,7 +34,7 @@
           <span class="name">联系方式：</span>{{detial.MertchntTel}}
         </div>
         <div class="icon-box adress">
-          <span class="name">商家地址：</span><a @click="toMap = true" class="pc">{{detial.Mertchntsite}}</a> <a :href="mapUrl" class="phone">{{detial.Mertchntsite}}</a>
+          <span class="name">商家地址：</span><a @click="toMap = true" class="pc">{{detial.Mertchntsite}}</a> <a :href="mapUrl">{{detial.Mertchntsite}}</a>
         </div>
         <div class="icon-box">
           <span class="name">商家简介：</span>{{detial.MertchnStory}}

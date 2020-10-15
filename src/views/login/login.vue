@@ -300,11 +300,14 @@ export default {
           //     window.location.open(res.data.Data.url, '_blank')
           //   })
           //   .catch(_ => { });
-          this.$alert.alert(`<iframe src=${res.data.Data.url} width="100%" height="400px" style="border:0;height:70vh;"></iframe>`, '拼多多授权', {
+          // this.$alert.alert(`<iframe src=${res.data.Data.url} width="100%" height="400px" style="border:0;height:70vh;" sandbox="allow-same-origin allow-scripts allow-top-navigation"></iframe>`, '拼多多授权', {
+          //   dangerouslyUseHTMLString: true,
+          //   showConfirmButton: false
+          // });
+          this.$alert.alert(`<div class="pdd-porint-box"><div>本站拼多多产品需提前授权</div><a href=${res.data.Data.url} class="go" target="_blank">立即前往</a></div>`, '拼多多授权', {
             dangerouslyUseHTMLString: true,
             showConfirmButton: false
           });
-
         } else {
 
         }

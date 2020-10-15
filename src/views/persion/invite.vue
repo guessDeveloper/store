@@ -19,11 +19,11 @@
               <img :src="qrcUrl">
             </div>
           </div>
-          <button class="download" @click="downloadPop = true">下载分享海报</button>
+          <button class="download" @click="downloadPop = true">下载邀请海报</button>
         </div>
       </div>
       <div class="phone-link">
-        我的邀请二维码： <img :src="qrcUrl" alt="" class="img" @click="showBig = true"> <button class="download" @click="downloadPop = true"> 下载分享海报</button>
+        我的邀请二维码： <img :src="qrcUrl" alt="" class="img" @click="showBig = true"> <button class="download" @click="downloadPop = true"> 下载邀请海报</button>
       </div>
       <div class="invite-list-title">
         邀请记录
@@ -32,7 +32,7 @@
         <div class="item" v-for="(item,index) in list" :key="index">
           <div class="user"><span class="header" :style="'background:url('+item.UserImg+') no-repeat center center;'">
               <!-- <img :src="item.UserImg" alt=""> -->
-            </span>{{item.NickNamep}}</div>
+            </span>{{item.UserName}}</div>
           <div class="phone">{{item.Tel}}</div>
           <div class="time">{{item.CreateTime}}</div>
         </div>
@@ -42,7 +42,7 @@
               <!-- <img :src="item.UserImg" alt=""> -->
             </span>
             <span class="name-box">
-              <div class="name">{{item.NickNamep}}</div>
+              <div class="name">{{item.UserName}}</div>
               <div class="phone">{{item.Tel}}</div>
             </span>
           </div>

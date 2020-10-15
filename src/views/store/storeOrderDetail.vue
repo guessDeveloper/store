@@ -17,7 +17,7 @@
       </div>
       <button class="btn cancle" v-show="detail.orderState == '待付款'" @click="cancleOrder">取消订单</button>
       <button class="btn ok" v-show="detail.orderState == '待付款'" @click="getMoney">确认收款</button>
-      <button class="btn jifenbtn" v-show="detail.orderState == '待奖励'" @click="toNew=true">确认返积分</button>
+      <button class="btn jifenbtn" v-show="detail.orderState == '待奖励'" @click="toNew=true">确认奖励积分</button>
     </div>
     <div class="content">
       <div class="set">
@@ -25,16 +25,16 @@
       </div>
       <div class="table-name">商品信息</div>
       <el-table :data="detail.orderGoodsList" header-row-style="font-size:12px;color:#999;" row-class-name="table-line" width="930" header-row-class-name="table-header-color" class="goods-table">
-        <el-table-column property="img" label="商品信息" width="474" align="left" cell-class-name="order">
+        <el-table-column property="img" label="商品信息" width="454" align="left" cell-class-name="order">
           <template slot-scope="scope">
             <img :src="scope.row.Photo" alt="" class="product-img"><span class="goods-name">{{scope.row.goodsName}}</span>
           </template>
         </el-table-column>
         <el-table-column property="goodsPrice" label="单价(元)" width="144" align="center"></el-table-column>
         <el-table-column property="goodsNumber" label="数量" width="84" align="center"></el-table-column>
-        <el-table-column property="Subtotal" label="应付(元)" width="84" align="center"></el-table-column>
-        <el-table-column property="GoodsFanbi" label="返比(%)" width="60" align="center"></el-table-column>
-        <el-table-column property="GoodsIntegralCount" label="返积分" width="84" align="center"></el-table-column>
+        <el-table-column property="Subtotal" :label="(detail.orderState=='待付款'?'应':'实')+'付(元)'" width="84" align="center"></el-table-column>
+        <el-table-column property="GoodsFanbi" label="奖励比例(%)" width="80" align="center"></el-table-column>
+        <el-table-column property="GoodsIntegralCount" label="预估积分" width="84" align="center"></el-table-column>
       </el-table>
       <!-- 移动端-商品信息列表 -->
       <div class="goods-list-small">
@@ -49,11 +49,11 @@
                 <span>数量：<span class="list-item-value">{{ item.goodsNumber }}</span></span>
               </p>
               <p class="list-item-value-wrap">
-                <span>应付(元):<span class="list-item-value list-item-subtotal">￥{{ item.Subtotal }}</span></span>
-                <span>返比:<span class="list-item-value">{{ item.GoodsFanbi }}%</span></span>
+                <span>{{detail.orderState=="待付款"?"应":'实' }}付(元):<span class="list-item-value list-item-subtotal">￥{{ item.Subtotal }}</span></span>
+                <span>奖励比例:<span class="list-item-value">{{ item.GoodsFanbi }}%</span></span>
               </p>
               <p class="list-item-value-wrap">
-                <span>返积分:<span class="list-item-value list-item-subtotal">{{ item.GoodsIntegralCount }}</span></span>
+                <span>预估积分:<span class="list-item-value list-item-subtotal">{{ item.GoodsIntegralCount }}</span></span>
 
               </p>
             </div>
@@ -76,18 +76,18 @@
           商品总价：<span>¥{{detail.orderTotalPrices}}</span>
         </div>
         <div class="item">
-          实付总额：<span class="pot">¥{{detail.orderGoodRealMoney}}</span>
+          {{detail.orderState=="待付款"?"应":'实' }}付总额：<span class="pot">¥{{detail.orderGoodRealMoney}}</span>
         </div>
       </div>
     </div>
-    <el-dialog title="确认返积分" :visible.sync="toNew" custom-class="custom-dialog">
+    <el-dialog title="确认奖励积分" :visible.sync="toNew" custom-class="custom-dialog">
       <div class="dialog-content-wrap">
         <div class="jifen-line">
-          <label for="">用户手机号：</label><span class="content">{{detail.Userphone}}</span>
+          <label for="">消费者身份号：</label><span class="content">{{detail.Userphone}}</span>
           <!-- <label for="">返还比例：</label><span >10%</span> -->
         </div>
         <div class="jifen-line flex">
-          <label for="">消费金额(元)：</label><span class="content">{{detail.orderGoodRealMoney}}</span> <label for="">返积分数量：</label><span>{{detail.Integral}}</span>
+          <label for="">消费金额(元)：</label><span class="content">{{detail.orderGoodRealMoney}}</span> <label for="">预估积分：</label><span>{{detail.Integral}}</span>
         </div>
         <div class="btn-box">
           <button class="ok" @click="backScore">确认</button>

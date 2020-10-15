@@ -52,7 +52,7 @@
           </div>
           <div class="item">
             <span>
-              <span class="iconfont iconhdfl"></span><span class="tip-item-name">获得返利</span>
+              <span class="iconfont iconhdfl"></span><span class="tip-item-name">获得奖励</span>
             </span>
           </div>
         </div>
@@ -181,12 +181,57 @@ export default {
     },
     //购买
     buy() {
-      this.$http.limitGet(this.$api.clickTobuy, {
-        type: this.GoodType,
-        id: this.GoodID
-      }).then(res => {
+      if (this.GoodType == 1) {
+        this.getPddPass(() => {
+          this.$http.limitGet(this.$api.clickTobuy, {
+            type: this.GoodType,
+            id: this.GoodID
+          }).then(res => {
+            if (res.data.Code == 1) {
+              window.location.href = res.data.Data
+            }
+          })
+        })
+      } else {
+        this.$http.limitGet(this.$api.clickTobuy, {
+          type: this.GoodType,
+          id: this.GoodID
+        }).then(res => {
+          if (res.data.Code == 1) {
+            window.location.href = res.data.Data
+          }
+        })
+      }
+
+    },
+    //查看拼多多是否授权
+    getPddPass(callback) {
+      this.$http.limitGet(this.$api.GetUserIsKeepOnRecord).then(res => {
         if (res.data.Code == 1) {
-          window.location.href = res.data.Data
+          if (res.data.Data.IsKeepOnRecord == false) {
+            this.getPddPassLink();
+          } else {
+            callback && callback()
+          }
+        } else {
+          callback && callback()
+        }
+      })
+    },
+    //获取授权链接
+    getPddPassLink() {
+      this.$http.limitGet(this.$api.UserKeepOnRecord).then(res => {
+        if (res.data.Code == 1) {
+          // this.$alert.alert(`<iframe src=${res.data.Data.url} width="100%" height="400px" style="border:0;height:70vh;"></iframe>`, '拼多多授权', {
+          //   dangerouslyUseHTMLString: true,
+          //   showConfirmButton: false
+          // });
+          this.$alert.alert(`<div class="pdd-porint-box"><div>本站拼多多产品需提前授权</div><a href=${res.data.Data.url} class="go" target="_blank">立即前往</a></div>`, '拼多多授权', {
+            dangerouslyUseHTMLString: true,
+            showConfirmButton: false
+          });
+        } else {
+          this.$message.error(res.data.Msg)
         }
       })
     },

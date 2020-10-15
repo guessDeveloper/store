@@ -405,4 +405,19 @@ export default {
     width: 80% !important;
   }
 }
+//授权弹框
+.pdd-porint-box {
+  .go {
+    display: block;
+    margin: 0 auto;
+    width: 50%;
+    height: 40px;
+    text-align: center;
+    background: @main;
+    color: #fff;
+    line-height: 40px;
+    border-radius: 6px;
+    margin-top: 20px;
+  }
+}
 </style>
