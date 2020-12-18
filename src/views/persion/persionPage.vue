@@ -44,7 +44,7 @@
         <span class="iconfont iconzhushi"></span>请完善您的信息：您的手机号尚未绑定！<router-link to="/safe" tag="a">立即设置</router-link>
       </div>
       <div class="set" v-show="activityTipShow">
-        <span class="iconfont iconzhushi"></span> {{activityTip}}<a href="">了解详情</a>
+        <span class="iconfont iconzhushi"></span> {{activityTip}}<a href="https://youledui.com/#/helpCenterDetail?id=c08be2ea-c0c8-4753-8951-b0b93bfd5ca9" target="_blanck">了解详情</a>
       </div>
       <div class="small-nav-list">
         <div class="margin"></div>

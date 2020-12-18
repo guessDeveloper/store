@@ -106,6 +106,7 @@ export default {
       color: @subtitle_color;
       line-height: 12px;
       margin-top: 15px;
+      white-space: pre-line;
     }
     border-bottom: 1px solid @class_border;
   }

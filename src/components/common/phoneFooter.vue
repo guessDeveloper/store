@@ -193,6 +193,7 @@ export default {
   bottom: 0;
   width: 100%;
   // height: 56 / @p;
+  z-index: 10;
   background: #fff;
   box-shadow: 0px -3px 14px 0px rgba(0, 0, 0, 0.06);
   .inner-box {

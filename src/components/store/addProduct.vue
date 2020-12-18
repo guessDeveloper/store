@@ -9,8 +9,8 @@
     </div>
     <div class="input-line-box">
       <label for="">产品名称：</label>
-      <input type="text" maxlength="20" v-model="productName" style="padding-right:50px;">
-      <span class="limit">{{productName.length}}/20</span>
+      <input type="text" maxlength="50" v-model="productName" style="padding-right:50px;">
+      <span class="limit">{{productName.length}}/50</span>
     </div>
     <div class="input-line-box">
       <label for="">产品描述：</label>

@@ -40,8 +40,8 @@ const util = {
         var time = "";
         return time = year + "-" + month + "-" + date;
     },
-    beforeUrl: '//files.youledui.com',
-    testBeforeUrl: /^\/\/files.youledui.com/,
+    beforeUrl: 'https://files.youledui.com',
+    testBeforeUrl: /^(http\:|https\:|)\/\/files.youledui.com/,
     phoneLimit(phone) {
         var reg = /^(\d{3})\d{4}(\d{4})$/
         return phone.replace(reg, "$1****$2")

@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div v-loading.fullscreen.lock="loading">
     <div class="brand-top-nav">
       <router-link tag="a" to="/">首页</router-link>
       <span class="iconfont iconjiantou"></span>
@@ -106,7 +106,8 @@ export default {
       proudectData: {},
       promoteList: [],
       piclist: [],
-      navName: ''
+      navName: '',
+      loading: false,
     }
   },
   components: {
@@ -133,6 +134,9 @@ export default {
       if (this.$route.query.GoodID) {
         this.GoodID = this.$route.query.GoodID
       }
+      this.proudectData = {};
+      this.promoteList = [];
+      this.piclist = [];
       this.getDetail();
     }
   },
@@ -149,6 +153,7 @@ export default {
   methods: {
     //获取产品详情
     getDetail() {
+      this.loading = true
       this.$http.get(this.$api.GetMaterialGoodsById, {
         GoodType: this.GoodType,
         GoodID: this.GoodID
@@ -160,6 +165,9 @@ export default {
           this.promoteList = this.changeArray(res.data.Data.SameClassproducts)
           console.log(this.promoteList)
         }
+        this.loading = false
+      }).catch(res => {
+        this.loading = false
       })
     },
     //数组转换

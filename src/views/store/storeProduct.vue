@@ -81,6 +81,9 @@
             <div>
               <div class="name">{{item.Name}}</div>
               <div class="item-name">
+                状态：<span class="item-value">{{item.state}}</span>
+              </div>
+              <div class="item-name">
                 产品分类：<span class="item-value">{{item.Cat}}</span>
               </div>
               <div class="item-name">
@@ -91,9 +94,9 @@
               </div>
 
             </div>
-            <div class="order-status-wrap">
+            <!-- <div class="order-status-wrap">
               <div class="order-status-name">状态：<span>{{item.state}}</span></div>
-            </div>
+            </div> -->
           </div>
           <div class="btn-box">
             <div class="btn-detail" v-show="item.state == '审核通过上架'" @click="UpOrDownProduct(item.ID,0)">下架</div>
@@ -405,6 +408,7 @@ export default {
       position: relative;
       display: flex;
       .name {
+        // width: 190px;
         font-size: 12px;
         font-family: PingFangSC-Semibold, PingFang SC;
         font-weight: 600;
