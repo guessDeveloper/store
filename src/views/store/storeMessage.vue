@@ -9,9 +9,11 @@
           {{item.Title}}
           <span class="time">{{item.SendTime}}</span>
         </div>
-        <div class="message-content">
-          {{item.value}}
-        </div>
+
+        <p class="message-content" v-html="changeLine(item.value)">
+
+        </p>
+
       </div>
       <div class="no-message" v-show="total == 0">
         <span class="iconfont iconxxzwt"></span>
@@ -74,7 +76,12 @@ export default {
       this.getMessage();
       document.body.scrollTop = 0;
       document.documentElement.scrollTop = 0;
+    },
+    //
+    changeLine(content) {
+      return content.replace(/\\n/, '</br>')
     }
+
   }
 }
 </script>

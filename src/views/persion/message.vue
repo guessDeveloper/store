@@ -10,7 +10,7 @@
           <span class="time">{{item.SendTime}}</span>
         </div>
         <div class="message-content">
-          {{item.value}}
+          {{changeLine(item.value)}}
         </div>
       </div>
       <div class="no-message" v-show="total == 0">
@@ -67,6 +67,9 @@ export default {
       this.getMessage();
       document.body.scrollTop = 0;
       document.documentElement.scrollTop = 0;
+    },
+    changeLine(content) {
+      return content.replace(/\\n/, '</br>')
     }
   }
 }
