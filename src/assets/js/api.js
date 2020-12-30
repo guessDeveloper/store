@@ -20,6 +20,9 @@ export default {
     GetClassMaterial: '/api/Taobao/GetClassMaterial', //获取精选分类
     ListGetClassNoPic: '/api/Taobao/GetClassNoPic', //淘宝列表获取分类
     optimusByPager: '/api/Taobao/optimusByPager', //根据分类获得淘宝列表
+    GetUserIsKeepOnRecordTB: '/api/Taobao/GetUserIsKeepOnRecordTB',//获取是否淘宝授权
+    GetTBAuthorizationLink: '/api/Taobao/GetTBAuthorizationLink', //获取淘宝授权链接
+
     //拼多多
     classPdd: '/api/PDD/GetTopCats', //获取顶部分类
     GetrecommendCatGoods: '/api/PDD/GetrecommendCatGoods', //获取列表

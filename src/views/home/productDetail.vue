@@ -201,16 +201,17 @@ export default {
           })
         })
       } else {
-        this.$http.limitGet(this.$api.clickTobuy, {
-          type: this.GoodType,
-          id: this.GoodID
-        }).then(res => {
-          if (res.data.Code == 1) {
-            window.location.href = res.data.Data
-          }
+        this.getTbPass(() => {
+          this.$http.limitGet(this.$api.clickTobuy, {
+            type: this.GoodType,
+            id: this.GoodID
+          }).then(res => {
+            if (res.data.Code == 1) {
+              window.location.href = res.data.Data
+            }
+          })
         })
       }
-
     },
     //查看拼多多是否授权
     getPddPass(callback) {
@@ -235,6 +236,37 @@ export default {
           //   showConfirmButton: false
           // });
           this.$alert.alert(`<div class="pdd-porint-box"><div>本站拼多多产品需提前授权</div><a href=${res.data.Data.url} class="go" target="_blank">立即前往</a></div>`, '拼多多授权', {
+            dangerouslyUseHTMLString: true,
+            showConfirmButton: false
+          });
+        } else {
+          this.$message.error(res.data.Msg)
+        }
+      })
+    },
+    //查看淘宝授权
+    getTbPass(callback) {
+      this.$http.limitGet(this.$api.GetUserIsKeepOnRecordTB).then(res => {
+        if (res.data.Code == 1) {
+          if (res.data.Data.IsKeepOnRecord == false) {
+            this.getTbPassLink();
+          } else {
+            callback && callback()
+          }
+        } else {
+          callback && callback()
+        }
+      })
+    },
+    //获取淘宝授权链接
+    getTbPassLink() {
+      this.$http.limitGet(this.$api.GetTBAuthorizationLink).then(res => {
+        if (res.data.Code == 1) {
+          // this.$alert.alert(`<iframe src=${res.data.Data.url} width="100%" height="400px" style="border:0;height:70vh;"></iframe>`, '拼多多授权', {
+          //   dangerouslyUseHTMLString: true,
+          //   showConfirmButton: false
+          // });
+          this.$alert.alert(`<div class="pdd-porint-box"><div>本站淘宝产品需提前授权</div><a href=${res.data.Data.url} class="go" target="_blank">立即前往</a></div>`, '淘宝授权', {
             dangerouslyUseHTMLString: true,
             showConfirmButton: false
           });
