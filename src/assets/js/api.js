@@ -82,7 +82,7 @@ export default {
     MerchanteForgetPWD: '/api/LoginRegister/MerchanteForgetPWD', // 商家找回密码
     MerchanteForgetPWDSendVerifyCode: '/api/LoginRegister/MerchanteForgetPWDSendVerifyCode', //商家找回密码获验证码
     //个人中心
-    ScanQRcode: '/api/User/ScanQRcode', //扫码提交
+    ScanQRcode: '/api/Merchant/TableQRcode', //扫码提交
     UserEditUserInfo: '/api/User/UserEditUserInfo', //修改用户信息
     GetUserInfo: '/api/User/GetUserInfo', //获取用户登录状态
     GetUserinviteVerificationNum: '/api/User/GetUserinviteVerificationNum', //获取用户二维码

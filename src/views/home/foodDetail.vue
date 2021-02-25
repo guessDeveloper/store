@@ -198,10 +198,6 @@ export default {
       }).then(res => {
         if (res.data.Code == 1) {
           let _this = this;
-          // this.IsQRcode = res.data.Data.IsQRcode
-          // this.tablenumber = res.data.Data.tablenumber
-          // this.detial = res.data.Data.model
-          // this.commentList = res.data.Data.model.PinList
           let arry = res.data.Data.model.GoodsList;
           // this.mapPorint = res.data.Data.model
           arry.forEach(element => {

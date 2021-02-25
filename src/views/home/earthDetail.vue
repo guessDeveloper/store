@@ -61,19 +61,19 @@ export default {
       IsQRcode: '',
       allData: '',
       carModel: {
-        ClikUrl: "https://testnet.youledui.com/kapai/#/earthDetail?ProductId=f53150df-d9b0-410e-b88b-c1c3af6975d1",
-        GoodsId: "f53150df-d9b0-410e-b88b-c1c3af6975d1",
-        GoodsImg: "https://files.youledui.comhttps://files.youledui.com/Uploadfiles/image/20200626/b4ed36da-62ea-42be-b95c-00c7992359fb.jpg",
-        GoodsMoneny: "18.00",
-        GoodsName: "干煸豆角",
-        Goodsfanbi: "0.036",
-        Goodsfanli: "64.800000",
-        IsQRcode: 1,
-        MertchntID: "713d2936-e759-4ae7-a488-16b9647afbe4",
-        Mertchntname: "分米鸡1",
-        checked: false,
-        num: 1,
-        tablenumber: "1",
+        // ClikUrl: "https://testnet.youledui.com/kapai/#/earthDetail?ProductId=f53150df-d9b0-410e-b88b-c1c3af6975d1",
+        // GoodsId: "f53150df-d9b0-410e-b88b-c1c3af6975d1",
+        // GoodsImg: "https://files.youledui.comhttps://files.youledui.com/Uploadfiles/image/20200626/b4ed36da-62ea-42be-b95c-00c7992359fb.jpg",
+        // GoodsMoneny: "18.00",
+        // GoodsName: "干煸豆角",
+        // Goodsfanbi: "0.036",
+        // Goodsfanli: "64.800000",
+        // IsQRcode: 1,
+        // MertchntID: "713d2936-e759-4ae7-a488-16b9647afbe4",
+        // Mertchntname: "分米鸡1",
+        // checked: false,
+        // num: 1,
+        // tablenumber: "1",
       },
     }
   },
@@ -109,7 +109,7 @@ export default {
           this.carModel.GoodsImg = this.detail.GoodImage;
           this.carModel.GoodsMoneny = this.detail.price;
           this.carModel.GoodsName = this.detail.Name;
-          this.carModel.Goodsfanbi = this.detail.Integral;
+          this.carModel.Goodsfanli = this.detail.Integral;
           this.carModel.MertchntID = res.data.Data.MerchantId;
           this.carModel.tablenumber = res.data.Data.tablenumber
           this.carModel.ClikUrl = this.detail.ClickUrl

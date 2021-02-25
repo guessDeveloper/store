@@ -102,7 +102,7 @@ export default {
     },
     //扫码提交
     ScanQRcode() {
-      this.$http.limitPost(this.$api.ScanQRcode, {
+      this.$http.limitGet(this.$api.ScanQRcode, {
         MerchanterId: this.id,
         tablenumber: this.zhuohao
       }).then(res => {
